@@ -1,6 +1,6 @@
 # v0.2 benchmark 的 18 個唯一情境
 # reviewer_tier / reviewer_hard_stop：Claude v0.2 盲性審查標籤，不是 oracle。
-# truth_tier：待 Clinical Owner 裁定（Q-11），裁定前為 null。
+# truth_tier / truth_hard_stop：Clinical Owner 於 2026-10-10 裁定（A1–A18 全部同意 reviewer 標籤）。
 # benchmark_ids：原始 80 列中對應的案例編號（逐字重複）。
 # boundary_variants：M2 模擬器要展開的 hidden case sheet 變體（slot 覆寫 → 預期結果）。
 
@@ -16,7 +16,8 @@ scenarios:
     reviewer_tier: 0
     reviewer_confidence: 3
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 0
+    truth_hard_stop: false
     decisive_questions: [Q-ONGOING-01, Q-DURATION-01, Q-REST-01, Q-SYNCOPE-01, Q-DIAPH-01]
     boundary_variants:
       - override: {ongoing_now: true}
@@ -34,7 +35,8 @@ scenarios:
     reviewer_tier: 0
     reviewer_confidence: 3
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 0
+    truth_hard_stop: false
     decisive_questions: [Q-REST-01, Q-DURATION-01, Q-ONGOING-01, Q-NTG-01]
     boundary_variants:
       - override: {rest_symptom: true, ongoing_now: true}
@@ -50,7 +52,8 @@ scenarios:
     reviewer_tier: 0
     reviewer_confidence: 3
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 0
+    truth_hard_stop: false
     decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-ORTHO-01, Q-DIAPH-01]
     boundary_variants:
       - override: {dyspnea_grade: rest}
@@ -70,7 +73,8 @@ scenarios:
     reviewer_tier: 0
     reviewer_confidence: 3
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 0
+    truth_hard_stop: false
     decisive_questions: [Q-ONGOING-01, Q-DURATION-01, Q-EXERTION-01, Q-DIAPH-01]
     boundary_variants:
       - override: {ongoing_now: true}
@@ -84,7 +88,8 @@ scenarios:
     reviewer_tier: 0
     reviewer_confidence: 3
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 0
+    truth_hard_stop: false
     decisive_questions: [Q-ONGOING-01, Q-DURATION-01, Q-REST-02, Q-SYNCOPE-01]
     boundary_variants:
       - override: {ongoing_now: true}
@@ -102,7 +107,8 @@ scenarios:
     reviewer_confidence: 3
     reviewer_hard_stop: true
     reviewer_rf: RF-01
-    truth_tier: null
+    truth_tier: 0
+    truth_hard_stop: true
     decisive_questions: []
     note: "開場白即命中 RF-01；Hard-stop latency 必須為 0 句"
     boundary_variants:
@@ -118,7 +124,8 @@ scenarios:
     reviewer_tier: 3
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 3
+    truth_hard_stop: false
     decisive_questions: [Q-REST-01, Q-DYSPNEA-ACUTE-01, Q-SYNCOPE-01, Q-NTG-01]
     boundary_variants:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
@@ -136,7 +143,8 @@ scenarios:
     reviewer_tier: 3
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 3
+    truth_hard_stop: false
     decisive_questions: [Q-REST-01, Q-ANTIPLT-01, Q-DYSPNEA-ACUTE-01]
     boundary_variants:
       - override: {antiplatelet_interrupted: true}
@@ -153,7 +161,8 @@ scenarios:
     reviewer_tier: 3
     reviewer_confidence: 3
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 3
+    truth_hard_stop: false
     decisive_questions: []
     boundary_variants:
       - override: {onset_new: true, symptom_character: pressure}
@@ -168,7 +177,8 @@ scenarios:
     reviewer_tier: 3
     reviewer_confidence: 3
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 3
+    truth_hard_stop: false
     decisive_questions: [Q-REST-01, Q-DYSPNEA-ACUTE-01]
     boundary_variants:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
@@ -185,7 +195,8 @@ scenarios:
     reviewer_tier: 9
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 9
+    truth_hard_stop: false
     decisive_questions: [Q-ONSET-01, Q-EXERTION-01, Q-THRESHOLD-01, Q-REST-01, Q-CHARACTER-01]
     boundary_variants:
       - override: {onset_new: true, symptom_character: pressure}
@@ -201,7 +212,8 @@ scenarios:
     reviewer_tier: 9
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 9
+    truth_hard_stop: false
     decisive_questions: [Q-CHARACTER-01, Q-EXERTION-01, Q-ONSET-01, Q-ANTIPLT-01]
     boundary_variants:
       - override: {symptom_character: pressure, onset_new: true}
@@ -217,7 +229,8 @@ scenarios:
     reviewer_tier: 9
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 9
+    truth_hard_stop: false
     decisive_questions: [Q-ONSET-01, Q-EXERTION-01, Q-REST-01, Q-DURATION-01, Q-CAD-01]
     boundary_variants:
       - override: {onset_new: true}
@@ -233,7 +246,8 @@ scenarios:
     reviewer_tier: 9
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 9
+    truth_hard_stop: false
     decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-ACUTE-01, Q-ORTHO-01]
     boundary_variants:
       - override: {dyspnea_grade: rest}
@@ -252,7 +266,8 @@ scenarios:
     reviewer_tier: 9
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 9
+    truth_hard_stop: false
     decisive_questions: [Q-ONSET-01, Q-THRESHOLD-01, Q-EXERTION-01, Q-REST-01]
     boundary_variants:
       - override: {onset_new: true}
@@ -268,7 +283,8 @@ scenarios:
     reviewer_tier: 9
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 9
+    truth_hard_stop: false
     decisive_questions: [Q-DRUGTIME-01, Q-EXERTION-01, Q-CHARACTER-01, Q-ONSET-01]
     boundary_variants:
       - override: {exertion_relation: exertion_only, onset_new: true}
@@ -286,7 +302,8 @@ scenarios:
     reviewer_tier: 9
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 9
+    truth_hard_stop: false
     decisive_questions: [Q-REACHABLE-01, Q-ONGOING-01, Q-SYNCOPE-01, Q-DIAPH-01]
     boundary_variants:
       - override: {patient_reachable: true, ongoing_now: true}
@@ -303,7 +320,8 @@ scenarios:
     reviewer_tier: 9
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: null
+    truth_tier: 9
+    truth_hard_stop: false
     decisive_questions: [Q-THRESHOLD-01, Q-REST-01, Q-DYSPNEA-ACUTE-01, Q-PATTERN-01]
     boundary_variants:
       - override: {threshold_decreased: true}

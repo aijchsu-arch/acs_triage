@@ -31,7 +31,7 @@
 ## 測試要求
 - 每條紅旗（RF-xx）至少 3 個正例、3 個含否定詞的反例（「沒有昏倒」不得命中 RF-01）。
 - `tests/test_no_downgrade.py` 覆蓋 ND-01～ND-05。
-- `tests/test_benchmark_v0_2.py`：18 個情境只給開場白 → tier 必須等於 `data/scenarios_v0.2.yaml` 的 `reviewer_tier`（Q-11 裁定後改為 `truth_tier`）。
+- `tests/test_benchmark_v0_2.py`：18 個情境只給開場白 → tier 與 hard_stop 必須等於 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`（Clinical Owner 已裁定，D-12）。
 - `pytest` 不綠不交付。
 
 ## 版本紀律

@@ -308,7 +308,7 @@ Jev 的保留事項（寫進 `DECISIONS.md` Q-02）：
 
 ### 6.4 Benchmark 的統計注意事項
 - `data/benchmark/v0.2/` 的 80 列只有 18 個唯一情境；分析以 18 個 cluster 為單位。
-- 裡面的 tier 是 **Claude v0.2 reviewer 的盲性標籤**，不是 oracle。Ground truth 需 Clinical Owner 裁定後另存 `truth_tier`。
+- 裡面的 tier 原為 Claude v0.2 reviewer 的盲性標籤；Clinical Owner 已於 2026-10-10 全部裁定為 ground truth（D-12），存於 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`。
 
 ---
 

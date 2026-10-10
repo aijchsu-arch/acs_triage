@@ -160,4 +160,4 @@ Safety net 腳本：
 | 不足 | 家屬描述不完整 | 9 | N | 病人仍有持續不適或曾瀕厥／冒汗 → T0 + EMS |
 | 不足 | 長期胸悶但近期狀態未知 | 9 | N | 閾值下降或休息時 → T0；近期完全相同 → T3 |
 
-完整欄位見 `data/benchmark/v0.2/ACS_Claude_LowerTier_Review_Result_v0.2.csv`。這些是 **Claude v0.2 reviewer 的盲性標籤**，ground truth 待 Clinical Owner 裁定。
+完整欄位見 `data/benchmark/v0.2/ACS_Claude_LowerTier_Review_Result_v0.2.csv`。這些原為 Claude v0.2 reviewer 的盲性標籤；**Clinical Owner 已於 2026-10-10 全部裁定為 ground truth（D-12）**，以 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop` 為準。

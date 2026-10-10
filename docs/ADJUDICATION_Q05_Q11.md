@@ -2,11 +2,13 @@
 
 **回答者**：Clinical Owner（Joseph）
 **用途**：答案回填 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`，並產生 `data/scenarios_midband_v0.1.yaml`；Part C 的答案回填 `docs/CLINICAL_RULES.md` 並 bump `rules_version`。
-**狀態**：未回答。可分次回答，格式見各 Part。
+**狀態**：Part A 已回答（2026-10-10，A1–A18 全部同意，已回填 `truth_tier`／`truth_hard_stop`）。Part B、Part C 未回答。
 
 ---
 
 ## Part A — Q-11：18 個情境的 ground truth
+
+**已裁定 2026-10-10：A1–A18 全部同意 reviewer 標籤。** 以下保留作紀錄。
 
 回答格式：`A1 同意`，或 `A1 0N`（等級 + Hard stop Y/N）。
 等級：0 / 1 / 2 / 3 / 4 / 9。

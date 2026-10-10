@@ -19,6 +19,7 @@
 | D-09 | 2026-10-10 | 決策模型走 `DecisionModel` 抽象層；`RulesEngine` 永遠作為紅旗保底；Jev（TypeSafe AI）為候選 adapter 之一，不硬綁。 | 設計 |
 | D-10 | 2026-10-10 | 真實病人資料在資料出境／本地部署方案確認前，不送任何外部 API。Phase 0 只用合成資料。 | 設計（安全預設） |
 | D-11 | 2026-10-10 | 技術預設：Python 3.12 / Pydantic v2 / PyYAML / pytest；FastAPI 到 M4 才引入；不引入前端框架。 | 設計 |
+| D-12 | 2026-10-10 | **Q-11 結案**：v0.2 benchmark 18 個情境的 ground truth = Claude v0.2 reviewer 標籤（A1–A18 全部同意）。已回填 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`；`tests/test_benchmark_v0_2.py` 以 `truth_tier` 為準。 | Clinical Owner（問卷 Part A） |
 
 ---
 
@@ -30,11 +31,10 @@
 | Q-02 | Jev（TypeSafe AI）：取得存取？資料出境？有無本地／VPC 部署？費用？ | M3 `decision/jev_adapter.py` | Clinical Owner + IT + 法務 |
 | Q-03 | 居家 12 導程 ECG 裝置型號與 API；AI-ECG 模型來源（院內 AI-ECG 專案？）；訊號品質判定由誰提供？ | `ecg/` | Clinical Owner |
 | Q-04 | Tier 9 轉護理師但護理師不可得時，預設升級到哪一級？（提案：有 CAD 病史者視為 T1，當日回撥） | `pathway/` | Clinical Owner |
-| Q-05 | 中間帶情境（T1／T2／T4）目前為零。需 Clinical Owner 撰寫至少各 4 個唯一情境＋boundary，否則規則引擎無法定義 §5.5。 | `data/scenarios_*.yaml`、`CLINICAL_RULES.md §5.5` | Clinical Owner |
+| Q-05 | 中間帶情境（T1／T2／T4）目前為零。候選 18 個已列於 `docs/ADJUDICATION_Q05_Q11.md` Part B，待 Clinical Owner 逐題給等級；Part C 規則題（C1–C8）同時待答。 | `data/scenarios_*.yaml`、`CLINICAL_RULES.md §5.5` | Clinical Owner |
 | Q-06 | 錄音與逐字稿：同意聲明文字、加密方式、去識別化流程、保存期限、個資法合規審查。 | Phase 1 前置 | 法務 + IT + Clinical Owner |
 | Q-07 | 候選紅旗是否啟用：胸部不適合併明顯冒汗；單次發作 ≥20 min 未緩解是否獨立成條。 | `CLINICAL_RULES.md §3` | Clinical Owner |
 | Q-08 | 電話系統整合：客服用哪套 PBX／雲端客服？能否取得雙聲道即時音訊串流？ | M4 以後 | IT |
 | Q-09 | Hard stop 通報管道：主管／護理師用什麼接收？（院內通訊軟體、簡訊、客服系統 escalation？） | `pathway/` | 客服主管 + 護理 |
 | Q-10 | 客服腳本逐字稿（S-HS、S-T0…S-T9、S-SN-A/B）誰定稿？ | `data/scripts_zh.yaml` | Clinical Owner + 客服主管 |
-| Q-11 | Benchmark ground truth：v0.2 的 reviewer 標籤需 Clinical Owner 逐情境裁定成 `truth_tier`，才能作為 M1 驗收基準。 | `data/scenarios_v0.2.yaml` | Clinical Owner |
 | Q-12 | Phase 3 之前的法規諮詢：是否需 TFDA 智慧醫材申請？由誰啟動？ | Phase 3 | Clinical Owner + 院方 |
