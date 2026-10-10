@@ -1,0 +1,208 @@
+# 問題庫種子 v0.1
+# 來源：v0.2 盲性審查表「仍缺少的關鍵資訊／必問問題」欄位，去重後結構化。
+# script_zh 是客服逐字唸的句子（草稿，待 Q-10 定稿）；why_zh 只給客服看。
+# priority: redflag（先問，可觸發 Hard stop）> decisive（決定 acute vs chronic）> refine
+# 不得在程式碼中寫死任何問題文字。
+
+bank_version: "0.1"
+
+slots:
+  - id: ongoing_now
+    type: yes_no
+  - id: episode_duration_min
+    type: duration
+  - id: presyncope
+    type: yes_no
+  - id: syncope
+    type: yes_no
+  - id: dyspnea_grade
+    type: choice
+    choices: [none, exertional_heavy, exertional_daily, rest]
+  - id: cant_finish_sentence
+    type: yes_no
+  - id: onset_new
+    type: yes_no
+  - id: threshold_decreased
+    type: yes_no
+  - id: rest_symptom
+    type: yes_no
+  - id: rest_symptom_first_time
+    type: yes_no
+  - id: dyspnea_acute
+    type: yes_no
+  - id: pattern_unchanged_duration_months
+    type: duration
+  - id: symptom_character
+    type: choice
+    choices: [pressure, pain, tightness, jaw_shoulder_heaviness, epigastric, vague, other]
+  - id: exertion_relation
+    type: choice
+    choices: [exertion_only, rest_only, both, unclear]
+  - id: diaphoresis
+    type: yes_no
+  - id: nausea
+    type: yes_no
+  - id: orthopnea_pnd_edema
+    type: yes_no
+  - id: cad_history
+    type: yes_no
+  - id: pci_history
+    type: yes_no
+  - id: antiplatelet_interrupted
+    type: yes_no
+  - id: ntg_use_increased
+    type: yes_no
+  - id: third_party_call
+    type: yes_no
+  - id: patient_reachable
+    type: yes_no
+  - id: drug_time_correlation
+    type: yes_no
+
+questions:
+  # ---------- redflag：先問 ----------
+  - id: Q-ONGOING-01
+    slot_id: ongoing_now
+    priority: redflag
+    answer_type: yes_no
+    script_zh: "請問您現在這個當下，胸口的不舒服還在嗎？"
+    why_zh: "仍持續 → RF-03 Hard stop"
+  - id: Q-SYNCOPE-01
+    slot_id: presyncope
+    priority: redflag
+    answer_type: yes_no
+    script_zh: "不舒服的時候，有沒有覺得快要昏倒、眼前發黑？"
+    why_zh: "合併瀕厥 → RF-01 Hard stop"
+  - id: Q-SYNCOPE-02
+    slot_id: syncope
+    priority: redflag
+    answer_type: yes_no
+    script_zh: "有沒有真的昏過去、失去意識？"
+    why_zh: "意識喪失 → RF-05 Hard stop"
+  - id: Q-DYSPNEA-GRADE-01
+    slot_id: dyspnea_grade
+    priority: redflag
+    answer_type: choice
+    choices: [exertional_heavy, exertional_daily, rest]
+    script_zh: "請問您的喘，是只有做很激烈的運動才會喘、還是平常走路做家事就會喘、還是現在坐著休息也會喘？"
+    why_zh: "三段分級；坐著休息也喘 → RF-02 Hard stop（即使疑似焦慮）"
+  - id: Q-DYSPNEA-SENTENCE-01
+    slot_id: cant_finish_sentence
+    priority: redflag
+    answer_type: yes_no
+    script_zh: "您現在講話會不會喘到一句話講不完？"
+    why_zh: "無法完整說一句話 → RF-04 Hard stop"
+  - id: Q-DURATION-01
+    slot_id: episode_duration_min
+    priority: redflag
+    answer_type: duration
+    script_zh: "這一次不舒服持續了大概多久？幾分鐘、還是超過半小時？"
+    why_zh: "持續時間；≥20 分鐘未緩解為候選紅旗（Q-07）"
+
+  # ---------- decisive：決定 acute vs chronic ----------
+  - id: Q-ONSET-01
+    slot_id: onset_new
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "這種不舒服是最近才第一次出現的，還是以前就有過一樣的感覺？"
+    why_zh: "新發 → T0 方向；長期 → 看是否無變化"
+  - id: Q-THRESHOLD-01
+    slot_id: threshold_decreased
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "跟以前比，是不是比較輕的活動就會不舒服？例如以前要爬樓梯才會，現在走平路也會？"
+    why_zh: "活動閾值下降 → T0"
+  - id: Q-REST-01
+    slot_id: rest_symptom
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "坐著或躺著休息的時候，有沒有發作過？"
+    why_zh: "休息時症狀 → T0 方向"
+  - id: Q-REST-02
+    slot_id: rest_symptom_first_time
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "休息時發作是最近才開始的嗎？"
+    why_zh: "新發休息時症狀 → T0"
+  - id: Q-DYSPNEA-ACUTE-01
+    slot_id: dyspnea_acute
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "這個喘是今天忽然變明顯的，還是這幾個禮拜、幾個月慢慢變的？"
+    why_zh: "突發且與基線明顯不同 → T0；漸進 → 可能降級"
+  - id: Q-PATTERN-01
+    slot_id: pattern_unchanged_duration_months
+    priority: decisive
+    answer_type: duration
+    script_zh: "這個情況維持一樣、完全沒有變嚴重，大概多久了？"
+    why_zh: "≥6 個月無變化是 T3 的必要條件"
+  - id: Q-CHARACTER-01
+    slot_id: symptom_character
+    priority: decisive
+    answer_type: choice
+    choices: [pressure, pain, tightness, jaw_shoulder_heaviness, epigastric, vague]
+    script_zh: "您說的不舒服，比較像被壓住、悶悶的、刺痛，還是說不上來？位置在哪裡？"
+    why_zh: "未定性（怪怪的／說不上來）→ Tier 9 條件之一"
+  - id: Q-EXERTION-01
+    slot_id: exertion_relation
+    priority: decisive
+    answer_type: choice
+    choices: [exertion_only, rest_only, both, unclear]
+    script_zh: "不舒服通常是在走路、用力的時候出現，停下來就好？還是休息的時候也會？"
+    why_zh: "活動關係與停止即緩解"
+  - id: Q-REACHABLE-01
+    slot_id: patient_reachable
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "現在能不能請病人本人來接電話，或有人在他身邊可以確認他現在的狀況？"
+    why_zh: "第三方來電；本人不可及 → Tier 9 + safety net"
+  - id: Q-DRUGTIME-01
+    slot_id: drug_time_correlation
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "不舒服是每次都在吃藥後固定的時間出現嗎？跟走路、用力有沒有關係？"
+    why_zh: "藥物歸因不得降級（ND-03）；只用來判斷是否需要補問活動關係"
+
+  # ---------- refine ----------
+  - id: Q-DIAPH-01
+    slot_id: diaphoresis
+    priority: refine
+    answer_type: yes_no
+    script_zh: "不舒服的時候有沒有冒冷汗？"
+    why_zh: "候選紅旗（Q-07），目前作為升級參考"
+  - id: Q-NAUSEA-01
+    slot_id: nausea
+    priority: refine
+    answer_type: yes_no
+    script_zh: "有沒有想吐、噁心？"
+    why_zh: "伴隨症狀"
+  - id: Q-ORTHO-01
+    slot_id: orthopnea_pnd_edema
+    priority: refine
+    answer_type: yes_no
+    script_zh: "躺平會不會更喘、半夜會不會喘醒、腳有沒有腫？"
+    why_zh: "心衰竭線索"
+  - id: Q-CAD-01
+    slot_id: cad_history
+    priority: refine
+    answer_type: yes_no
+    script_zh: "請問有沒有被醫師診斷過冠心症或心臟血管的問題？"
+    why_zh: "病史本身不升級（ND-05）"
+  - id: Q-PCI-01
+    slot_id: pci_history
+    priority: refine
+    answer_type: yes_no
+    script_zh: "有沒有放過心臟支架？"
+    why_zh: "病史本身不升級（ND-05）"
+  - id: Q-ANTIPLT-01
+    slot_id: antiplatelet_interrupted
+    priority: refine
+    answer_type: yes_no
+    script_zh: "抗血小板的藥（例如阿斯匹靈、保栓通）最近有沒有停過或漏吃？"
+    why_zh: "近期中斷是升級因子（ND-05）"
+  - id: Q-NTG-01
+    slot_id: ntg_use_increased
+    priority: refine
+    answer_type: yes_no
+    script_zh: "舌下含片最近用得比以前多嗎？"
+    why_zh: "NTG 有效不得降級（ND-04）；用量增加是惡化線索"
