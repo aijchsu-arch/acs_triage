@@ -6,3 +6,7 @@ reports/*.md
 !reports/.gitkeep
 *.sqlite
 *.db
+.pytest_cache/
+*.egg-info/
+build/
+dist/

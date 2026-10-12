@@ -2,7 +2,7 @@
 
 **回答者**：Clinical Owner（Joseph）
 **用途**：答案回填 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`，並產生 `data/scenarios_midband_v0.1.yaml`；Part C 的答案回填 `docs/CLINICAL_RULES.md` 並 bump `rules_version`。
-**狀態**：Part A／B／C 與 Q-05b（B19、B20）、DV-1～5 全部回答並回填（2026-10-12；D-12～D-19，rules_version 0.3.1）。剩餘：DV-6、DV-7（Q-13）。
+**狀態**：Part A／B／C 與 Q-05b（B19、B20）、DV-1～5 全部回答並回填（2026-10-12；D-12～D-19，rules_version 0.3.1）。DV-6、DV-7 已於 2026-10-13 確認（D-20）。問卷全部結案。
 
 ---
 

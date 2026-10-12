@@ -1,0 +1,117 @@
+# 機器可讀之臨床規則 —— 與 docs/CLINICAL_RULES.md 同步，rules_version 必須一致。
+# 只有 Clinical Owner 可改內容。tests/test_m0_loaders.py 會比對版本號與 RF 數量。
+# 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
+# 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
+
+rules_version: "0.3.2"
+source_doc: docs/CLINICAL_RULES.md
+
+tiers:
+  0: {name: T0 Emergency, definition: 立即 EMS／急診緊急評估}
+  1: {name: T1 Same-day, definition: 當日必須接受醫療評估}
+  2: {name: T2 24–72 h, definition: 24–72 小時內快速評估}
+  3: {name: T3 Routine, definition: 一般門診追蹤（可附 expedite）}
+  4: {name: T4 Self-care, definition: 可先衛教／觀察，必須附 safety net}
+  9: {name: Unable to determine, definition: 現有資訊不足，不能安全指定 0–4}
+
+thresholds:
+  max_questions: 8
+  stt_min_confidence: 0.75
+  rf_model_threshold: 0.5
+  stable_pattern_min_months: 6        # §5.6 穩定型
+  new_stable_pattern_min_weeks: 2     # DV-2
+  callback_max_minutes: 30            # Tier 9 回撥
+
+# 「缺血等價症狀」= symptom_character ∈ ischemic_characters
+ischemic_characters: [pressure, tightness, pain, jaw_shoulder_heaviness, epigastric]
+# 「胸部症狀存在」= symptom_character ∈ chest_symptom_characters（含未定性之 vague）
+chest_symptom_characters: [pressure, tightness, pain, jaw_shoulder_heaviness, epigastric, vague]
+
+# ---------------- §3 紅旗（slot 層條件；文字層關鍵詞在 data/extraction_patterns.yaml） ----------------
+red_flags:
+  - id: RF-01
+    name: 胸部症狀合併瀕厥或暈厥
+    when: {chest_symptom_present: true, any_true: [presyncope, syncope]}
+  - id: RF-02
+    name: 靜止休息時仍有呼吸困難
+    when: {dyspnea_grade: rest}
+    note: 即使疑似焦慮／恐慌仍 Y（D-07）。端坐呼吸／PND 不算（C1 B）。
+  - id: RF-03
+    name: 來電當下胸部症狀仍持續中
+    when: {chest_symptom_present: true, ongoing_now: true}
+  - id: RF-04
+    name: 無法完整說完一句話或口唇發紺
+    when: {cant_finish_sentence: true}
+  - id: RF-05
+    name: 真正意識喪失
+    when: {syncope: true}
+  - id: RF-06
+    name: 胸部症狀合併明顯冒汗
+    when: {chest_symptom_present: true, diaphoresis: true}
+
+# ---------------- §4 不得降級 ----------------
+no_downgrade:
+  - {id: ND-01, rule: 模型輸出不得比規則引擎更不急；違者取規則結果並標記 model_downgrade_blocked}
+  - {id: ND-02, rule: "ECG 只能升級：final = min(symptom_tier, ecg_tier)；ECG 正常不產生降級或安撫"}
+  - {id: ND-03, rule: 病人主觀歸因（藥物、緊張）不得作為降級依據}
+  - {id: ND-04, rule: 先前 ECG 正常、NTG 有效、症狀輕微、無 literal chest pain 皆不得降級}
+  - {id: ND-05, rule: CAD／PCI 本身不升級；抗血小板中斷有症狀 → 升級因子；無症狀 → T3 + expedite}
+
+# ---------------- §5 等級規則索引（條件在程式碼，id 供稽核與 audit） ----------------
+tier_rules:
+  T0:
+    - {id: T0-NEW-TODAY, ref: "§5.3 (DV-1)", text: 新發胸部症狀且最後一次在今天或時序未知；排除 DV-2／DV-4／DV-5／可重現機械性／咳嗽相關型態}
+    - {id: T0-THRESHOLD-DAYS, ref: "§5.3 C3 B", text: 活動閾值下降且時間尺度為數天或不明}
+    - {id: T0-REST-NEW, ref: "§5.3", text: 新發休息時症狀（首次不明時以首次視之）}
+    - {id: T0-DYSPNEA-ACUTE, ref: "§5.3", text: 今日突發且與基線明顯不同之呼吸困難}
+    - {id: T0-NTG-INCREASED, ref: "§5.3 C4 A (DV-6)", text: 既有型態下 NTG 用量明顯增加}
+    - {id: T0-ORTHOPNEA, ref: "§5.3 C1 B", text: 端坐呼吸／PND（非 Hard stop）}
+  T1:
+    - {id: T1-NEW-YESTERDAY, ref: "§5.4 (DV-1)", text: 新發胸部症狀、最後一次在昨天（<24h）、今日無發作}
+    - {id: T1-THRESHOLD-WEEKS, ref: "§5.4 C3 B", text: 活動閾值於數週～一個月緩慢下降}
+    - {id: T1-PENDING-TEST, ref: "§5.4", text: 檢查異常待追蹤未掛號且無症狀}
+    - {id: T1-ANTIPLT-SYMPTOMATIC, ref: "§5.4 (DV-3)", text: 新發胸部症狀合併抗血小板中斷}
+  T2:
+    - {id: T2-NEW-OVER24H, ref: "§5.5 C2 C", text: 新發胸部症狀、已緩解 ≥24h、無再發、無休息症狀}
+    - {id: T2-NEW-STABLE-WEEKS, ref: "§5.5 (DV-2)", text: 新發勞累性、≥2 週、型態穩定、無休息、無閾值下降}
+    - {id: T2-DYSPNEA-DAILY, ref: "§5.5", text: 日常勞動性呼吸困難、非今日突發、無端坐呼吸、無胸部症狀（含合併水腫）}
+    - {id: T2-POSTURAL-NEWMED, ref: "§5.5", text: 新藥後姿勢性頭暈、無胸部症狀、無瀕厥}
+  T3:
+    - {id: T3-STABLE, ref: "§5.6", text: 已知穩定型態 ≥6 個月且無任何升級因子}
+    - {id: T3-ADMIN, ref: "§5.6 (DV-7)", text: 門診排程事務且否認症狀}
+    - {id: T3-ANTIPLT-ASYMPTOMATIC, ref: "§5.6 C7 C", text: 抗血小板中斷且無症狀 → T3 + expedite}
+    - {id: T3-PALPITATIONS, ref: "§5.6 C8 B", text: 心悸、無胸部症狀、無瀕厥／暈厥；不建議居家 ECG}
+    - {id: T3-POST-PCI-MILDER, ref: "§5.6 (DV-4)", text: PCI 後輕症較術前輕、純勞累、無休息、無閾值下降}
+    - {id: T3-POSTPRANDIAL, ref: "§5.6 (DV-5)", text: 餐後脹氣、打嗝後完全緩解、非活動相關、無冒汗}
+    - {id: T3-MECHANICAL, ref: "§5.6", text: 按壓／深呼吸可重現且活動不加重}
+    - {id: T3-COUGH, ref: "§5.6", text: 咳嗽相關且非勞累性}
+  T4:
+    - {id: T4-CONSULT, ref: "§5.7 (DV-7)", text: 衛教問題／藥物處理／輕微非心臟問題且否認任何胸悶、喘、暈}
+  T9:
+    - {id: T9-THIRD-PARTY-UNREACHABLE, ref: "§5.8", text: 第三方來電且病人不可及}
+    - {id: T9-NO-RULE, ref: "§5.8", text: 無任何 0–4 規則成立（含症狀未定性、無法判定新發 vs 穩定、呼吸困難未分級）}
+    - {id: T9-GATE, ref: "§5.9", text: provisional 已定但 sufficiency gate 未過}
+
+# ---------------- §5.8 Tier 9 且護理師不可得之預設（C6 D） ----------------
+tier9_nurse_unavailable_fallback:
+  chest_or_equivalent: 1
+  dyspnea_rest_excluded: 1
+  palpitations_or_dizziness_no_chest: 2
+  third_party_unreachable: {tier: 1, extra_action: family_relay_safety_net}
+  consult_no_symptoms: 3
+
+# ---------------- §6 流程對照 ----------------
+pathways:
+  hard_stop: {script: S-HS, actions: [read_script_verbatim, stay_on_line_until_119_confirmed, notify_supervisor_nurse], safety_net: null}
+  0: {script: S-T0, actions: [instruct_ed_or_119, notify_nurse], safety_net: S-SN-A}
+  1: {script: S-T1, actions: [transfer_nurse_same_day_callback], safety_net: S-SN-A}
+  2: {script: S-T2, actions: [schedule_rapid_clinic_24_72h], safety_net: S-SN-A}
+  3: {script: S-T3, actions: [routine_schedule], optional_actions: [expedite], safety_net: S-SN-B}
+  4: {script: S-T4, actions: [education_script], safety_net: S-SN-A}
+  9: {script: S-T9, actions: [transfer_nurse_sync, callback_within_30min_if_async], safety_net: S-SN-A, nurse_unavailable: use_fallback_table}
+
+# ---------------- §3.8 ECG adjunct 建議窗口 ----------------
+ecg_suggestion:
+  allowed_when_provisional_in: [9, 1, 2]
+  allowed_complaints: [vague_rest_discomfort, isolated_dizziness]   # 心悸已移除（C8 B）
+  never_when: [hard_stop, tier_0, ongoing_chest_symptom]

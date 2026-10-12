@@ -58,8 +58,8 @@ scenarios:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}
       - override: {onset_weeks_ago: 1}
-        expect: {tier: 9, hard_stop: false}
-        note: "DV-2（已確認）：<2 週不適用 T2 條"
+        expect: {tier: 0, hard_stop: false}
+        note: "DV-2（已確認）：<2 週不適用 T2 條，落回 T0-NEW-TODAY（新發、時序未知 → 以今日視之）"
 
   - id: S-MID-03
     source: B3
@@ -326,6 +326,8 @@ scenarios:
     rule_ref: "§5.6 B14"
     hidden_slots:
       cad_history: true
+      onset_new: true             # 昨天搬重物後才出現
+      last_episode_timing: today
       reproducible_mechanical: true
       exertion_relation: unclear
       symptom_character: pain
@@ -369,6 +371,7 @@ scenarios:
     rule_ref: "§5.6 B16"
     hidden_slots:
       cad_history: true
+      onset_new: true             # 感冒後才出現
       cough_related: true
       exertion_relation: unclear
       symptom_character: pain

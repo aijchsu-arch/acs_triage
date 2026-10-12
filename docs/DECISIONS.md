@@ -27,6 +27,7 @@
 | D-17 | 2026-10-12 | **Q-05b 結案**：B19（新發兩天、昨日 NTG 有效、今日未發作）= T1；B20（回診前空腹衛教問題）= T4。中間帶共 20 個情境，T0 2／T1 4／T2 4／T3 6／T4 4。 | Clinical Owner |
 | D-18 | 2026-10-12 | DV-1～DV-5 全部確認（「照你的推論建立規則」），`[derived]` 標記移除。`rules_version` 0.3.0 → 0.3.1。 | Clinical Owner |
 | D-19 | 2026-10-12 | `TierDecision` 分 `provisional_tier`（不經 sufficiency gate）與 `tier`（final）。開場白 benchmark 比對 provisional；端到端模擬比對 final。否則「只給開場白 → truth」測試與 §5.9 gate 必然矛盾。 | 設計 |
+| D-20 | 2026-10-13 | **Q-13 結案**：DV-6、DV-7 確認。`rules_version` 0.3.1 → 0.3.2（僅移除待確認標記，規則內容不變）。Clinical Owner 指示：開始執行 M0→M2。 | Clinical Owner |
 
 ---
 
@@ -37,7 +38,6 @@
 | Q-01 | STT 供應商：國語＋台語混合、高齡口音的辨識率誰最好？是否需本地部署？ | M4 `stt/` adapter | Clinical Owner + IT |
 | Q-02 | Jev（TypeSafe AI）：取得存取？資料出境？有無本地／VPC 部署？費用？ | M3 `decision/jev_adapter.py` | Clinical Owner + IT + 法務 |
 | Q-03 | 居家 12 導程 ECG 裝置型號與 API；AI-ECG 模型來源（院內 AI-ECG 專案？）；訊號品質判定由誰提供？ | `ecg/` | Clinical Owner |
-| Q-13 | `CLINICAL_RULES.md §9.2`：DV-6（新發首次用 NTG 不算用量增加）、DV-7（無症狀諮詢：排程 → T3、衛教／藥物／輕微非心臟 → T4）待確認。 | `CLINICAL_RULES.md §5.3、§5.6、§5.7` | Clinical Owner |
 | Q-06 | 錄音與逐字稿：同意聲明文字、加密方式、去識別化流程、保存期限、個資法合規審查。 | Phase 1 前置 | 法務 + IT + Clinical Owner |
 | Q-07 | 候選紅旗：單次發作 ≥20 min 未緩解是否獨立成條（冒汗已於 D-14 定為 RF-06）。 | `CLINICAL_RULES.md §3` | Clinical Owner |
 | Q-08 | 電話系統整合：客服用哪套 PBX／雲端客服？能否取得雙聲道即時音訊串流？ | M4 以後 | IT |

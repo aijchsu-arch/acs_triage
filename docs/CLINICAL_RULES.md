@@ -1,12 +1,12 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.3.1 · 2026-10-12
+**rules_version**: 0.3.2 · 2026-10-13
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 
 來源：Claude Reviewer Prompt v0.2；v0.2 盲性審查過程中 Clinical Owner 的裁定（2026-10-10）；問卷 `ADJUDICATION_Q05_Q11.md` Part A／B／C 的裁定（2026-10-10 至 2026-10-12）。
 
-**標記說明**：`(DV-n)` = 由 Clinical Owner 給的個案標籤反推出的門檻，已於 §9 確認；`[derived DV-n]` = 尚未確認。
+**標記說明**：`(DV-n)` = 由 Clinical Owner 給的個案標籤反推出的門檻，已於 §9 確認。目前無待確認項。
 
 ---
 
@@ -96,7 +96,7 @@ T0 永遠先於其他等級評估；§5.6 的 T3 carve-out 只在 **T0 條件全
 - `threshold_decreased == true` 且 `threshold_decrease_timescale ∈ {days, unknown}`（C3 B；A2）
 - `rest_symptom == true` 且 `rest_symptom_first_time == true`（新發休息時症狀；A5）
 - `dyspnea_acute == true`（今日突發且與基線明顯不同；A3）
-- `ntg_use_increased == true`（NTG 用量明顯增加，即使仍為勞累性；C4 A；B3）。指**既有型態下**用量增加；新發病人首次使用不算（B19）`[derived DV-6]`
+- `ntg_use_increased == true`（NTG 用量明顯增加，即使仍為勞累性；C4 A；B3）。指**既有型態下**用量增加；新發病人首次使用不算（B19）(DV-6)
 - `orthopnea_pnd == true`（端坐呼吸／PND；C1 B；B11）
 
 ### 5.4 T1（Same-day）
@@ -117,7 +117,7 @@ T0／T1 不成立，且以下任一：
 ### 5.6 T3（Routine）
 T0／T1／T2 不成立，且以下任一：
 - **穩定型**（A7、A8、A10）：全部成立 — `cad_history == true` 或已知穩定型態；`pattern_unchanged_duration_months >= 6`；`rest_symptom == false`；無 `dyspnea_acute`、`presyncope`、`syncope`；`threshold_decreased == false`
-- **行政性來電**（A9）：`consult_topic == appointment_admin`（門診時間、排程等事務）且病人明確否認新發胸悶、喘、暈 `[derived DV-7]`
+- **行政性來電**（A9）：`consult_topic == appointment_admin`（門診時間、排程等事務）且病人明確否認新發胸悶、喘、暈 (DV-7)
 - `antiplatelet_interrupted == true` 且無症狀 → T3 + `expedite`（C7 C；B4）
 - `palpitations == true`、無缺血等價症狀、無 presyncope／syncope（B5）。**系統不建議居家 ECG**（C8 B）
 - `symptom_vs_pre_pci == milder`、`exertion_relation == exertion_only`、`rest_symptom == false`、`threshold_decreased == false`（PCI 後輕症較術前輕；B8）(DV-4)
@@ -127,7 +127,7 @@ T0／T1／T2 不成立，且以下任一：
 
 ### 5.7 T4（Self-care）
 T0–T3 不成立，且：
-- `consult_topic ∈ {medication_handling, minor_noncardiac, education_question}` 且病人明確否認任何胸悶、喘、暈（B15、B17、B18；B20 回診前空腹等衛教問題）`[derived DV-7]`
+- `consult_topic ∈ {medication_handling, minor_noncardiac, education_question}` 且病人明確否認任何胸悶、喘、暈（B15、B17、B18；B20 回診前空腹等衛教問題）(DV-7)
 - 必附 S-SN-A
 
 ### 5.8 Tier 9（資訊不足）
@@ -234,7 +234,7 @@ Safety net 腳本：
 
 ## 9. 推導門檻（DV）
 
-### 9.1 已確認（Clinical Owner 2026-10-12：「DV1-5 照你的推論建立規則」）
+### 9.1 已確認（DV-1～5：2026-10-12；DV-6～7：2026-10-13）
 
 | # | 推導內容 | 來源 |
 |---|---|---|
@@ -244,11 +244,9 @@ Safety net 腳本：
 | DV-4 | PCI 後新輕症、較術前輕、純勞累、無休息、無閾值下降 → T3；任一不成立 → 不適用 | B8=3 |
 | DV-5 | B13 carve-out 的四個條件（吃飽後、打嗝完全緩解、非活動相關、無冒汗）缺一即不適用，回到一般規則 | B13=3 |
 
-### 9.2 待確認
-
-| # | 推導內容 | 來源 |
-|---|---|---|
 | DV-6 | `ntg_use_increased` 指既有型態下用量增加；新發病人首次使用 NTG（即使有效）不觸發 C4 A 的 T0，仍依 DV-1 時序判定 | B19=1 與 C4 A 並存 |
 | DV-7 | 無症狀諮詢的分流：門診時間／排程事務 → T3（走例行門診流程）；衛教性問題（回診前空腹、飲食、運動）、藥物處理、輕微非心臟問題 → T4 | A9=3 vs B20=4 |
 
-回答格式：`DV-6 同意` 或 `DV-7 改 …`。
+### 9.2 待確認
+
+（無）
