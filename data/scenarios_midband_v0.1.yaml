@@ -1,0 +1,429 @@
+# 中間帶（T1／T2／T4）情境 v0.1
+# 來源：docs/ADJUDICATION_Q05_Q11.md Part B；Clinical Owner 於 2026-10-12 裁定（含 X1–X3 衝突解決：B3→0、B7→1、B11→0）。
+# truth_tier / truth_hard_stop 為 ground truth（D-13）。
+# hidden_slots：模擬病人可回答的事實；未列出的 slot 視為 false / unknown（模擬病人回答「沒有」或「不知道」）。
+# 尚缺：1×T1、1×T4（Q-05b）。
+
+scenarios_version: "0.1"
+rules_version_required: "0.3.0"
+
+scenarios:
+  - id: S-MID-01
+    source: B1
+    name: 新發胸悶已緩解未滿 24h
+    opening_zh: "昨天晚上胸口悶了大概十分鐘，自己好了，今天到現在都沒有再發作。"
+    truth_tier: 1
+    truth_hard_stop: false
+    rule_ref: "§5.4 (DV-1)"
+    hidden_slots:
+      onset_new: true
+      symptom_character: tightness
+      last_episode_timing: yesterday_within_24h
+      episode_duration_min: 10
+      recurrence: false
+      ongoing_now: false
+      rest_symptom: null        # 開場未說明活動關係；模擬病人若被問 → exertion_relation: unclear
+      exertion_relation: unclear
+      diaphoresis: false
+      presyncope: false
+    decisive_questions: [Q-ONGOING-01, Q-TIMING-01, Q-RECUR-01, Q-EXERTION-01, Q-DIAPH-01, Q-SYNCOPE-01]
+    boundary_variants:
+      - override: {last_episode_timing: today}
+        expect: {tier: 0, hard_stop: false}
+      - override: {last_episode_timing: over_24h, rest_symptom: false}
+        expect: {tier: 2, hard_stop: false}
+      - override: {recurrence: true}
+        expect: {tier: 0, hard_stop: false}
+        note: "再發 → 視為今日發作"
+      - override: {diaphoresis: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-06}
+
+  - id: S-MID-02
+    source: B2
+    name: 新發勞累性胸悶三週穩定
+    opening_zh: "三個禮拜前開始，快走上坡會悶，每次都一樣，停下來就好，沒有變嚴重，休息時從來沒有。"
+    truth_tier: 2
+    truth_hard_stop: false
+    rule_ref: "§5.5 (DV-2)"
+    hidden_slots:
+      onset_new: true
+      onset_weeks_ago: 3
+      symptom_character: tightness
+      exertion_relation: exertion_only
+      rest_symptom: false
+      threshold_decreased: false
+      ongoing_now: false
+      diaphoresis: false
+    decisive_questions: [Q-ONSET-WEEKS-01, Q-REST-01, Q-THRESHOLD-01, Q-ONGOING-01, Q-DIAPH-01]
+    boundary_variants:
+      - override: {threshold_decreased: true, threshold_decrease_timescale: days}
+        expect: {tier: 0, hard_stop: false}
+      - override: {rest_symptom: true, rest_symptom_first_time: true}
+        expect: {tier: 0, hard_stop: false}
+      - override: {onset_weeks_ago: 1}
+        expect: {tier: 9, hard_stop: false}
+        note: "DV-2：<2 週不適用 T2 條；待 Clinical Owner 確認"
+
+  - id: S-MID-03
+    source: B3
+    name: NTG 用量明顯增加仍勞累性
+    opening_zh: "我的心絞痛以前一個月含一次舌下片，這兩個禮拜變成一個禮拜兩三次，都是走路時發作，停下來含一顆就好，休息時沒有。"
+    truth_tier: 0
+    truth_hard_stop: false
+    rule_ref: "§5.3 C4 A"
+    hidden_slots:
+      cad_history: true
+      ntg_use_increased: true
+      exertion_relation: exertion_only
+      rest_symptom: false
+      ongoing_now: false
+      symptom_character: pressure
+    decisive_questions: [Q-NTG-01, Q-ONGOING-01, Q-REST-01]
+    boundary_variants:
+      - override: {ongoing_now: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-03}
+      - override: {ntg_use_increased: false, pattern_unchanged_duration_months: 12}
+        expect: {tier: 3, hard_stop: false}
+
+  - id: S-MID-04
+    source: B4
+    name: 抗血小板中斷無症狀
+    opening_zh: "放支架半年，上禮拜因為拔牙停了保栓通三天，還沒有不舒服，想問要不要趕快回去吃。"
+    truth_tier: 3
+    truth_hard_stop: false
+    pathway_actions: [expedite]
+    rule_ref: "§5.6 C7 C"
+    hidden_slots:
+      pci_history: true
+      recent_pci_months: 6
+      antiplatelet_interrupted: true
+      consult_topic: medication_handling
+      symptom_character: null
+      ongoing_now: false
+      rest_symptom: false
+      dyspnea_grade: none
+      presyncope: false
+    decisive_questions: [Q-ANTIPLT-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    boundary_variants:
+      - override: {symptom_character: pressure, onset_new: true, last_episode_timing: yesterday_within_24h, recurrence: false}
+        expect: {tier: 1, hard_stop: false}
+        note: "DV-3：有症狀 + 中斷 → 至少 T1"
+
+  - id: S-MID-05
+    source: B5
+    name: 新發心悸無胸悶無暈
+    opening_zh: "我有冠心症，這兩天心跳有時候會突然很快，幾分鐘就好，沒有胸悶也沒有暈。"
+    truth_tier: 3
+    truth_hard_stop: false
+    ecg_suggestion_allowed: false   # C8 B
+    rule_ref: "§5.6 B5"
+    hidden_slots:
+      cad_history: true
+      palpitations: true
+      symptom_character: null
+      presyncope: false
+      syncope: false
+      dyspnea_grade: none
+      ongoing_now: false
+    decisive_questions: [Q-PALP-01, Q-SYNCOPE-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01]
+    boundary_variants:
+      - override: {presyncope: true, symptom_character: pressure}
+        expect: {tier: 0, hard_stop: true, rf: RF-01}
+      - override: {symptom_character: pressure, onset_new: true, last_episode_timing: today}
+        expect: {tier: 0, hard_stop: false}
+
+  - id: S-MID-06
+    source: B6
+    name: 新發日常勞動性呼吸困難
+    opening_zh: "這一個禮拜走路做家事比較會喘，坐著不會，以前不會這樣。"
+    truth_tier: 2
+    truth_hard_stop: false
+    rule_ref: "§5.5 B6"
+    hidden_slots:
+      onset_new: true
+      onset_weeks_ago: 1
+      dyspnea_grade: exertional_daily
+      dyspnea_acute: false
+      orthopnea_pnd: false
+      edema: false
+      symptom_character: null
+      cant_finish_sentence: false
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-ACUTE-01, Q-ORTHO-01, Q-EDEMA-01, Q-CHARACTER-01]
+    boundary_variants:
+      - override: {dyspnea_grade: rest}
+        expect: {tier: 0, hard_stop: true, rf: RF-02}
+      - override: {orthopnea_pnd: true}
+        expect: {tier: 0, hard_stop: false}
+      - override: {dyspnea_acute: true}
+        expect: {tier: 0, hard_stop: false}
+
+  - id: S-MID-07
+    source: B7
+    name: 活動閾值一個月緩慢下降
+    opening_zh: "我有冠心症，這一個月快走的距離比以前短一點才會悶，但沒有休息時發作，也沒有變頻繁。"
+    truth_tier: 1
+    truth_hard_stop: false
+    rule_ref: "§5.4 C3 B"
+    hidden_slots:
+      cad_history: true
+      threshold_decreased: true
+      threshold_decrease_timescale: weeks_to_month
+      rest_symptom: false
+      ntg_use_increased: false
+      ongoing_now: false
+      symptom_character: tightness
+    decisive_questions: [Q-THRESHOLD-01, Q-THRESH-TIME-01, Q-REST-01, Q-NTG-01, Q-ONGOING-01]
+    boundary_variants:
+      - override: {threshold_decrease_timescale: days}
+        expect: {tier: 0, hard_stop: false}
+      - override: {threshold_decrease_timescale: unknown}
+        expect: {tier: 0, hard_stop: false}
+        note: "時間尺度不明 → 以敏感度優先視為 days"
+      - override: {rest_symptom: true, rest_symptom_first_time: true}
+        expect: {tier: 0, hard_stop: false}
+
+  - id: S-MID-08
+    source: B8
+    name: PCI 後新輕症較術前輕
+    opening_zh: "上個月放支架，傷口沒問題，最近走路會有一點悶，比放支架前輕很多，但以前是完全沒有。"
+    truth_tier: 3
+    truth_hard_stop: false
+    rule_ref: "§5.6 (DV-4)"
+    hidden_slots:
+      pci_history: true
+      recent_pci_months: 1
+      symptom_vs_pre_pci: milder
+      exertion_relation: exertion_only
+      rest_symptom: false
+      threshold_decreased: false
+      symptom_character: tightness
+      ongoing_now: false
+      antiplatelet_interrupted: false
+    decisive_questions: [Q-MILDER-01, Q-EXERTION-01, Q-REST-01, Q-THRESHOLD-01, Q-ANTIPLT-01]
+    boundary_variants:
+      - override: {symptom_vs_pre_pci: same}
+        expect: {tier: 0, hard_stop: false}
+        note: "與術前相同或更重 → 視為新發／惡化"
+      - override: {rest_symptom: true, rest_symptom_first_time: true}
+        expect: {tier: 0, hard_stop: false}
+      - override: {antiplatelet_interrupted: true}
+        expect: {tier: 1, hard_stop: false}
+
+  - id: S-MID-09
+    source: B9
+    name: 檢查異常待追蹤無症狀
+    opening_zh: "一個月前做過運動心電圖說有點異常，醫師叫我回診，我還沒掛到號，目前沒有症狀。"
+    truth_tier: 1
+    truth_hard_stop: false
+    rule_ref: "§5.4 B9"
+    hidden_slots:
+      pending_abnormal_test: true
+      symptom_character: null
+      ongoing_now: false
+      rest_symptom: false
+      dyspnea_grade: none
+      presyncope: false
+    decisive_questions: [Q-PENDINGTEST-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    boundary_variants:
+      - override: {symptom_character: pressure, onset_new: true, last_episode_timing: today}
+        expect: {tier: 0, hard_stop: false}
+
+  - id: S-MID-10
+    source: B10
+    name: 新降壓藥後姿勢性頭暈
+    opening_zh: "我有冠心症，最近換了新的降血壓藥，站起來會頭暈幾秒，沒有胸悶。"
+    truth_tier: 2
+    truth_hard_stop: false
+    rule_ref: "§5.5 B10"
+    hidden_slots:
+      cad_history: true
+      postural_dizziness: true
+      new_medication_recent: true
+      symptom_character: null
+      presyncope: false
+      syncope: false
+      dyspnea_grade: none
+    decisive_questions: [Q-POSTURAL-01, Q-NEWMED-01, Q-CHARACTER-01, Q-SYNCOPE-02]
+    boundary_variants:
+      - override: {symptom_character: pressure, presyncope: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-01}
+      - override: {syncope: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-05}
+
+  - id: S-MID-11
+    source: B11
+    name: 端坐呼吸兩週
+    opening_zh: "我有冠心症，這兩個禮拜晚上躺下會覺得比較喘要墊高枕頭，白天走路還可以，胸口不會痛。"
+    truth_tier: 0
+    truth_hard_stop: false
+    rule_ref: "§5.3 C1 B"
+    hidden_slots:
+      cad_history: true
+      orthopnea_pnd: true
+      dyspnea_grade: exertional_heavy
+      dyspnea_acute: false
+      symptom_character: null
+      cant_finish_sentence: false
+      edema: null
+    decisive_questions: [Q-ORTHO-01, Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-EDEMA-01]
+    boundary_variants:
+      - override: {dyspnea_grade: rest}
+        expect: {tier: 0, hard_stop: true, rf: RF-02}
+        note: "白天坐著也喘 → RF-02；端坐呼吸本身不是 RF-02"
+      - override: {cant_finish_sentence: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-04}
+
+  - id: S-MID-12
+    source: B12
+    name: 新發水腫合併勞動性喘
+    opening_zh: "我有冠心症，這幾天腳有點腫，走路比平常喘一點，坐著不喘，胸口不會悶。"
+    truth_tier: 2
+    truth_hard_stop: false
+    rule_ref: "§5.5 B12"
+    hidden_slots:
+      cad_history: true
+      edema: true
+      dyspnea_grade: exertional_daily
+      dyspnea_acute: false
+      orthopnea_pnd: false
+      symptom_character: null
+    decisive_questions: [Q-EDEMA-01, Q-DYSPNEA-GRADE-01, Q-ORTHO-01, Q-DYSPNEA-ACUTE-01, Q-CHARACTER-01]
+    boundary_variants:
+      - override: {orthopnea_pnd: true}
+        expect: {tier: 0, hard_stop: false}
+      - override: {dyspnea_grade: rest}
+        expect: {tier: 0, hard_stop: true, rf: RF-02}
+
+  - id: S-MID-13
+    source: B13
+    name: 餐後脹氣打嗝後完全緩解
+    opening_zh: "我有冠心症，剛剛吃太飽胸口脹脹的，打嗝之後就好了，現在完全沒事，想確認要不要去急診。"
+    truth_tier: 3
+    truth_hard_stop: false
+    rule_ref: "§5.6 carve-out (DV-5)"
+    hidden_slots:
+      cad_history: true
+      postprandial_relieved: true
+      ongoing_now: false
+      exertion_relation: rest_only
+      diaphoresis: false
+      symptom_character: epigastric
+      presyncope: false
+      dyspnea_grade: none
+    decisive_questions: [Q-POSTPRANDIAL-01, Q-ONGOING-01, Q-EXERTION-01, Q-DIAPH-01, Q-SYNCOPE-01]
+    boundary_variants:
+      - override: {diaphoresis: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-06}
+      - override: {ongoing_now: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-03}
+      - override: {exertion_relation: exertion_only, onset_new: true, last_episode_timing: today}
+        expect: {tier: 0, hard_stop: false}
+        note: "carve-out 條件不成立 → 回一般規則"
+
+  - id: S-MID-14
+    source: B14
+    name: 搬重物後可重現之胸壁痛
+    opening_zh: "我有冠心症，昨天搬重物後今天胸口肌肉按下去會痛，深呼吸也痛，走路不會更痛。"
+    truth_tier: 3
+    truth_hard_stop: false
+    rule_ref: "§5.6 B14"
+    hidden_slots:
+      cad_history: true
+      reproducible_mechanical: true
+      exertion_relation: unclear
+      symptom_character: pain
+      ongoing_now: false
+      diaphoresis: false
+      dyspnea_grade: none
+    decisive_questions: [Q-REPRO-01, Q-EXERTION-01, Q-DIAPH-01, Q-DYSPNEA-GRADE-01]
+    boundary_variants:
+      - override: {exertion_relation: exertion_only}
+        expect: {tier: 0, hard_stop: false}
+        note: "走路會更痛 → 不符合可重現機械性條件"
+      - override: {diaphoresis: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-06}
+
+  - id: S-MID-15
+    source: B15
+    name: 藥物諮詢（舌下片過期）無症狀
+    opening_zh: "我有穩定的冠心症，想問舌下含片過期了可以用嗎，最近沒有任何發作。"
+    truth_tier: 4
+    truth_hard_stop: false
+    rule_ref: "§5.7"
+    hidden_slots:
+      cad_history: true
+      consult_topic: medication_handling
+      symptom_character: null
+      ongoing_now: false
+      rest_symptom: false
+      dyspnea_grade: none
+      presyncope: false
+    decisive_questions: [Q-CONSULT-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    boundary_variants:
+      - override: {symptom_character: pressure, onset_new: true, last_episode_timing: yesterday_within_24h, recurrence: false}
+        expect: {tier: 1, hard_stop: false}
+
+  - id: S-MID-16
+    source: B16
+    name: 咳嗽相關胸痛
+    opening_zh: "我有冠心症，最近感冒咳嗽，咳的時候胸口會痛，不咳就不會，走路沒有悶。"
+    truth_tier: 3
+    truth_hard_stop: false
+    rule_ref: "§5.6 B16"
+    hidden_slots:
+      cad_history: true
+      cough_related: true
+      exertion_relation: unclear
+      symptom_character: pain
+      ongoing_now: false
+      dyspnea_grade: none
+      diaphoresis: false
+    decisive_questions: [Q-COUGH-01, Q-EXERTION-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01]
+    boundary_variants:
+      - override: {exertion_relation: exertion_only}
+        expect: {tier: 0, hard_stop: false}
+      - override: {dyspnea_grade: rest}
+        expect: {tier: 0, hard_stop: true, rf: RF-02}
+
+  - id: S-MID-17
+    source: B17
+    name: 家屬藥物諮詢（漏藥）無症狀
+    opening_zh: "我爸有冠心症，今天忘記吃早上的藥，現在補吃可以嗎？他沒有不舒服。"
+    truth_tier: 4
+    truth_hard_stop: false
+    rule_ref: "§5.7"
+    hidden_slots:
+      third_party_call: true
+      patient_reachable: true
+      cad_history: true
+      consult_topic: medication_handling
+      symptom_character: null
+      ongoing_now: false
+      dyspnea_grade: none
+      presyncope: false
+    decisive_questions: [Q-CONSULT-01, Q-REACHABLE-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01]
+    boundary_variants:
+      - override: {patient_reachable: false, symptom_character: vague}
+        expect: {tier: 9, hard_stop: false}
+      - override: {symptom_character: pressure, ongoing_now: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-03}
+
+  - id: S-MID-18
+    source: B18
+    name: 無關主訴（疫苗手臂痠）
+    opening_zh: "我有冠心症，昨天打完流感疫苗手臂痠，其他都沒有不舒服。"
+    truth_tier: 4
+    truth_hard_stop: false
+    rule_ref: "§5.7"
+    hidden_slots:
+      cad_history: true
+      consult_topic: minor_noncardiac
+      symptom_character: null
+      ongoing_now: false
+      dyspnea_grade: none
+      presyncope: false
+    decisive_questions: [Q-CONSULT-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    boundary_variants:
+      - override: {symptom_character: jaw_shoulder_heaviness, onset_new: true, last_episode_timing: today}
+        expect: {tier: 0, hard_stop: false}
+        note: "手臂痠 vs 左肩沉重的分辨由 Q-CHARACTER-01 完成"

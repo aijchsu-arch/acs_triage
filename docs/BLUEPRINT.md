@@ -1,6 +1,6 @@
 # ACS Triage Copilot — 設計藍圖（交接版）
 
-**版本**：v0.1 · 2026-10-10
+**版本**：v0.2 · 2026-10-12（規則 0.3.0、中間帶情境加入）
 **臨床負責人（Clinical Owner）**：Joseph（心臟內科）
 **本文件讀者**：Claude Code（實作）、後續加入的工程師與護理／客服流程負責人
 **狀態**：Phase 0（模擬）尚未開工；本文件是唯一的設計真相來源，程式碼與本文件衝突時以本文件為準，並回頭修文件。
@@ -123,7 +123,7 @@
 ### 3.5 Prompter（問題提示器）
 - 問題庫是**固定腳本**（`data/question_bank_seed.yaml`），客服逐字唸。理由：一般客服不是護理師，不做臨床判斷；逐字腳本可稽核、可訓練、可改版。
 - 選題邏輯（Phase 0 用規則，之後可換模型）：
-  1. 先問能觸發 Hard stop 的題（`priority: redflag`）。
+  1. 先問能觸發 Hard stop 的題（`priority: redflag`，含冒汗題 Q-DIAPH-01 → RF-06）。
   2. 再問「決定 acute vs chronic」的題（`priority: decisive`）。
   3. 最後才是修飾題（`priority: refine`）。
   4. 已有高信心 slot 值的題跳過。
@@ -132,7 +132,7 @@
 
 ### 3.6 Sufficiency Gate
 - 判斷「現有 slot 是否足以安全指定 0–4」。
-- Phase 0 規則：`CLINICAL_RULES.md §5` 定義每個 tier 的**必要 slot 集合**；任一 tier 的必要集合被滿足且無矛盾 → sufficient。
+- Phase 0 規則：`CLINICAL_RULES.md §5.9` 定義每個 tier 的**必要 slot 集合**；任一 tier 的必要集合被滿足且無矛盾 → sufficient。
 - 模型路徑：獨立 typed question「資訊是否足以決定 timing？」→ 機率。**不要**只用 tier 分類的低信心來推導 Tier 9；Tier 9 是獨立判斷。
 - 不足 → 回 Prompter；達上限 → Tier 9。
 
@@ -150,7 +150,7 @@
 - **何時可以建議病人量**（全部條件同時成立才可以）：
   - `hard_stop == False`
   - 目前估計 ∈ {9, 1, 2}
-  - 症狀屬於：模糊的休息時不適、心悸、單純頭暈
+  - 症狀屬於：模糊的休息時不適、單純頭暈（**心悸不在內**：C8 B，由護理師決定）
 - **絕對不可建議量**：hard stop 案例、T0 案例、正在發作的胸痛。量測會延誤 EMS。
 - 「量起來正常」永遠不產生任何降級、也不產生安撫語句。
 - 裝置 API 未定（`DECISIONS.md` Q-03）；Phase 0 用 mock。
@@ -158,7 +158,7 @@
 ### 3.9 Pathway Router
 - tier → 流程對照表（固定六條，見 `CLINICAL_RULES.md §6`）。
 - 每條流程 = 客服腳本 id + 後續動作清單 + safety net 腳本。
-- Tier 9 **必須**對應動作（轉護理師），不能停在客服端。
+- Tier 9 **必須**對應動作（轉護理師），不能停在客服端；護理師不可得時依 `CLINICAL_RULES.md §5.8` 主訴對照表取預設等級（D-15）。
 
 ### 3.10 Agent UI（客服畫面）
 - M4 才做。Phase 0–M3 用 CLI／log 即可。
@@ -287,7 +287,7 @@ Jev 的保留事項（寫進 `DECISIONS.md` Q-02）：
   decisive_questions: [Q-ONGOING-01, Q-REST-01, ...]
   ```
 - 每條 boundary 句展開成 1–2 個變體（例：同一開場 + `ongoing_now: true` → `truth_hard_stop: true`）。18 → 預估 50–60 個 case。
-- **中間帶（T1／T2／T4）情境目前為零，需 Clinical Owner 補寫**（`DECISIONS.md` Q-05）。
+- 中間帶情境：`data/scenarios_midband_v0.1.yaml`（18 個，D-13）；T1／T4 各缺 1 個（Q-05b）。
 
 ### 6.2 模擬病人
 - LLM 扮演病人，只能看 hidden case sheet，**只回答被問到的事**，不主動補充（除非 sheet 標 `volunteers: [...]`）。
@@ -357,6 +357,7 @@ acs_triage/
 │   ├── clinical_rules.yaml   ← M0 從 CLINICAL_RULES.md 轉出，程式讀這個
 │   ├── question_bank_seed.yaml
 │   ├── scenarios_v0.2.yaml
+│   ├── scenarios_midband_v0.1.yaml
 │   └── benchmark/v0.2/*.csv
 ├── src/acs_triage/
 │   ├── schemas.py            ← §4
@@ -380,10 +381,10 @@ acs_triage/
 | M | 範圍 | 驗收條件 |
 |---|---|---|
 | M0 | repo 骨架、`schemas.py`、`clinical_rules.yaml` + loader、`question_bank_seed.yaml` loader、pytest 跑通 | `pytest` 綠；YAML 與 `CLINICAL_RULES.md` 內容一致（有測試比對版本號與 RF 數量） |
-| M1 | `RulesEngine`：紅旗、slot 規則、sufficiency、tier；Prompter 規則選題；Pathway 對照 | 對 18 個情境只給開場白 → 輸出 tier 與 reviewer 標籤一致；紅旗測試 100% 覆蓋 |
+| M1 | `RulesEngine`：紅旗（RF-01～06）、slot 規則、sufficiency、tier 0–4／9；Prompter 規則選題；Pathway 對照（含 Tier 9 護理師不可得預設） | v0.2 的 18 個情境 + 中間帶 18 個情境只給開場白 → tier／hard_stop 與 `truth_*` 一致；所有 boundary_variants 以 override 直接餵 slot → 與 `expect` 一致；紅旗測試 100% 覆蓋 |
 | M2 | 模擬器：hidden case sheets 展開、PatientSimulator、對話 runner、指標報告 | 50+ cases 跑完產 `reports/eval_*.md`；Hard-stop miss = 0；Under-triage 報表 |
 | M3 | `LLMStructuredAdapter`、`JevAdapter`（取得存取後）；模型 vs 規則比較報告；downgrade 阻擋測試 | 比較報告；`model_downgrade_blocked` 有測試 |
 | M4 | STT adapter + Confidence Gate；shadow-mode logger；最小客服 UI | 以錄製的合成音檔端到端跑通；UI 顯示紅旗全螢幕 |
-| 後續 | ECG adapter、電話系統整合、Phase 1 準備 | 依 `DECISIONS.md` 解決 Q-01/02/03/04/06 後排程 |
+| 後續 | ECG adapter、電話系統整合、Phase 1 準備 | 依 `DECISIONS.md` 解決 Q-01/02/03/06 後排程 |
 
 每個 M 完成時更新本文件的狀態列與 `DECISIONS.md`。

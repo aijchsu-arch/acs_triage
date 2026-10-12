@@ -11,7 +11,7 @@
 ## 絕對禁止
 - **不得**修改 `docs/CLINICAL_RULES.md` 與 `data/clinical_rules.yaml` 的任何紅旗、閾值、等級定義、流程對照。需要改 → 停下來，在回覆中引用條目並請 Clinical Owner 裁定。
 - **不得**實作任何會讓分流等級變得更不急的自動邏輯（違反 ND-01～ND-05）。
-- **不得**把 Tier 9 當成「低信心的替代品」；它是獨立判斷，有自己的規則（§5.6）。
+- **不得**把 Tier 9 當成「低信心的替代品」；它是獨立判斷，有自己的規則（`CLINICAL_RULES.md §5.8`）。
 - **不得**在任何路徑把真實病人資料送到外部 API（D-10）。
 - **不得**在客服 UI 或 log 以外的輸出中顯示「ACS 機率」「心肌梗塞」等診斷字眼。
 - **不得**用 `rm -rf`、`git push --force`、改寫 `data/benchmark/` 下的原始 CSV。
@@ -29,9 +29,12 @@
 - 病人／客服腳本字串：繁體中文，放 `data/*.yaml`，不寫死在程式碼。
 
 ## 測試要求
-- 每條紅旗（RF-xx）至少 3 個正例、3 個含否定詞的反例（「沒有昏倒」不得命中 RF-01）。
+- 每條紅旗（RF-01～RF-06）至少 3 個正例、3 個含否定詞的反例（「沒有昏倒」不得命中 RF-01；「沒有冒汗」不得命中 RF-06）。
 - `tests/test_no_downgrade.py` 覆蓋 ND-01～ND-05。
-- `tests/test_benchmark_v0_2.py`：18 個情境只給開場白 → tier 與 hard_stop 必須等於 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`（Clinical Owner 已裁定，D-12）。
+- `tests/test_benchmark_v0_2.py`：18 個情境只給開場白 → tier 與 hard_stop 必須等於 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`（D-12）。
+- `tests/test_benchmark_midband.py`：`data/scenarios_midband_v0.1.yaml` 18 個情境同上（D-13）。
+- `tests/test_boundary_variants.py`：兩份情境檔的每個 `boundary_variants`，以 `hidden_slots` + `override` 直接餵規則引擎 → 結果等於 `expect`。`expect.tier: null` 的變體跳過並列印。
+- 規則中標 `[derived]` 的門檻（`CLINICAL_RULES.md §9`）照寫，但在程式碼註解標 `# DV-n pending`，Clinical Owner 確認後移除。
 - `pytest` 不綠不交付。
 
 ## 版本紀律

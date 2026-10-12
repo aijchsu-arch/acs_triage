@@ -1,10 +1,12 @@
-# 問題庫種子 v0.1
-# 來源：v0.2 盲性審查表「仍缺少的關鍵資訊／必問問題」欄位，去重後結構化。
+# 問題庫種子 v0.2
+# 來源：v0.2 盲性審查表「仍缺少的關鍵資訊／必問問題」欄位，去重後結構化；
+#       v0.2 新增中間帶（問卷 Part B）所需 slot 與題目，並依 Part C 調整優先級（rules_version 0.3.0）。
 # script_zh 是客服逐字唸的句子（草稿，待 Q-10 定稿）；why_zh 只給客服看。
 # priority: redflag（先問，可觸發 Hard stop）> decisive（決定 acute vs chronic）> refine
 # 不得在程式碼中寫死任何問題文字。
 
-bank_version: "0.1"
+bank_version: "0.2"
+rules_version_required: "0.3.0"
 
 slots:
   - id: ongoing_now
@@ -42,7 +44,9 @@ slots:
     type: yes_no
   - id: nausea
     type: yes_no
-  - id: orthopnea_pnd_edema
+  - id: orthopnea_pnd
+    type: yes_no
+  - id: edema
     type: yes_no
   - id: cad_history
     type: yes_no
@@ -54,10 +58,44 @@ slots:
     type: yes_no
   - id: third_party_call
     type: yes_no
+    note: 由 extractor 從開場白判定（「我爸爸」「我媽」），無對應題目
   - id: patient_reachable
     type: yes_no
   - id: drug_time_correlation
     type: yes_no
+  # ---- v0.2 新增（中間帶） ----
+  - id: last_episode_timing
+    type: choice
+    choices: [ongoing, today, yesterday_within_24h, over_24h, unknown]
+  - id: recurrence
+    type: yes_no
+  - id: onset_weeks_ago
+    type: duration
+  - id: threshold_decrease_timescale
+    type: choice
+    choices: [days, weeks_to_month, unknown]
+  - id: palpitations
+    type: yes_no
+  - id: postural_dizziness
+    type: yes_no
+  - id: new_medication_recent
+    type: yes_no
+  - id: reproducible_mechanical
+    type: yes_no
+  - id: cough_related
+    type: yes_no
+  - id: postprandial_relieved
+    type: yes_no
+  - id: pending_abnormal_test
+    type: yes_no
+  - id: consult_topic
+    type: choice
+    choices: [appointment_admin, medication_handling, minor_noncardiac, symptom, unknown]
+  - id: recent_pci_months
+    type: duration
+  - id: symptom_vs_pre_pci
+    type: choice
+    choices: [milder, same, worse]
 
 questions:
   # ---------- redflag：先問 ----------
@@ -92,6 +130,12 @@ questions:
     answer_type: yes_no
     script_zh: "您現在講話會不會喘到一句話講不完？"
     why_zh: "無法完整說一句話 → RF-04 Hard stop"
+  - id: Q-DIAPH-01
+    slot_id: diaphoresis
+    priority: redflag
+    answer_type: yes_no
+    script_zh: "不舒服的時候有沒有冒冷汗？"
+    why_zh: "胸部不適合併明顯冒汗 → RF-06 Hard stop（C5 A）"
   - id: Q-DURATION-01
     slot_id: episode_duration_min
     priority: redflag
@@ -163,25 +207,96 @@ questions:
     script_zh: "不舒服是每次都在吃藥後固定的時間出現嗎？跟走路、用力有沒有關係？"
     why_zh: "藥物歸因不得降級（ND-03）；只用來判斷是否需要補問活動關係"
 
-  # ---------- refine ----------
-  - id: Q-DIAPH-01
-    slot_id: diaphoresis
-    priority: refine
+  - id: Q-ORTHO-01
+    slot_id: orthopnea_pnd
+    priority: decisive
     answer_type: yes_no
-    script_zh: "不舒服的時候有沒有冒冷汗？"
-    why_zh: "候選紅旗（Q-07），目前作為升級參考"
+    script_zh: "躺平會不會更喘、要墊高枕頭？半夜會不會喘醒？"
+    why_zh: "端坐呼吸／夜間喘醒 → 一律 T0（不是 Hard stop；C1 B）"
+  - id: Q-TIMING-01
+    slot_id: last_episode_timing
+    priority: decisive
+    answer_type: choice
+    choices: [today, yesterday_within_24h, over_24h]
+    script_zh: "最後一次不舒服是什麼時候好的？是今天、昨天、還是更早以前？"
+    why_zh: "今天 → T0；昨天（<24h）無再發 → T1；≥24h 無再發 → T2（DV-1）"
+  - id: Q-RECUR-01
+    slot_id: recurrence
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "那次之後到現在，有沒有再發作過？"
+    why_zh: "再發 → 視為今日發作 → T0"
+  - id: Q-ONSET-WEEKS-01
+    slot_id: onset_weeks_ago
+    priority: decisive
+    answer_type: duration
+    script_zh: "這種情況大概是多久以前開始的？幾天、幾個禮拜、還是幾個月？"
+    why_zh: "新發穩定勞累性 ≥2 週 → T2（DV-2）"
+  - id: Q-THRESH-TIME-01
+    slot_id: threshold_decrease_timescale
+    priority: decisive
+    answer_type: choice
+    choices: [days, weeks_to_month]
+    script_zh: "變成比較輕的活動就會不舒服，是這幾天的事，還是這幾個禮拜慢慢變的？"
+    why_zh: "數天 → T0；數週～一個月 → T1（C3 B）；不明 → 視為數天"
+  - id: Q-PALP-01
+    slot_id: palpitations
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "是心跳突然很快或不規則嗎？發作的時候有沒有胸悶或快昏倒？"
+    why_zh: "單純心悸無胸悶無暈 → T3；系統不建議居家 ECG（C8 B）"
+  - id: Q-POSTURAL-01
+    slot_id: postural_dizziness
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "頭暈是站起來的時候才有、幾秒就好嗎？坐著躺著會不會？"
+    why_zh: "姿勢性 + 新藥 → T2（B10）；合併胸部症狀 → RF-01"
+  - id: Q-REPRO-01
+    slot_id: reproducible_mechanical
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "用手按胸口、深呼吸或轉身的時候會不會痛？走路或用力會不會更痛？"
+    why_zh: "可重現且活動不加重 → T3（B14）；活動會加重 → 回一般規則"
+  - id: Q-COUGH-01
+    slot_id: cough_related
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "是咳嗽的時候才痛嗎？不咳就不會痛？"
+    why_zh: "咳嗽相關且非勞累性 → T3（B16）"
+  - id: Q-POSTPRANDIAL-01
+    slot_id: postprandial_relieved
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "是吃飽後出現，打嗝或排氣之後就完全好了嗎？"
+    why_zh: "carve-out 四條件之一（DV-5）；仍需確認無冒汗、非活動相關、現在已完全沒事"
+  - id: Q-MILDER-01
+    slot_id: symptom_vs_pre_pci
+    priority: decisive
+    answer_type: choice
+    choices: [milder, same, worse]
+    script_zh: "跟放支架之前比，現在的不舒服是比較輕、差不多、還是比較重？"
+    why_zh: "較輕且純勞累、無休息、無閾值下降 → T3（DV-4）；相同或更重 → T0"
+  - id: Q-CONSULT-01
+    slot_id: consult_topic
+    priority: decisive
+    answer_type: choice
+    choices: [appointment_admin, medication_handling, minor_noncardiac, symptom]
+    script_zh: "請問今天主要是想問什麼？是門診時間、藥怎麼吃、還是身體有不舒服？"
+    why_zh: "門診行政 → T3；藥物處理／輕微非心臟問題 → T4；任何症狀 → 走症狀流程"
+
+  # ---------- refine ----------
   - id: Q-NAUSEA-01
     slot_id: nausea
     priority: refine
     answer_type: yes_no
     script_zh: "有沒有想吐、噁心？"
     why_zh: "伴隨症狀"
-  - id: Q-ORTHO-01
-    slot_id: orthopnea_pnd_edema
+  - id: Q-EDEMA-01
+    slot_id: edema
     priority: refine
     answer_type: yes_no
-    script_zh: "躺平會不會更喘、半夜會不會喘醒、腳有沒有腫？"
-    why_zh: "心衰竭線索"
+    script_zh: "腳有沒有腫？"
+    why_zh: "合併日常勞動性喘 → T2（B12）；單獨水腫不升級"
   - id: Q-CAD-01
     slot_id: cad_history
     priority: refine
@@ -206,3 +321,21 @@ questions:
     answer_type: yes_no
     script_zh: "舌下含片最近用得比以前多嗎？"
     why_zh: "NTG 有效不得降級（ND-04）；用量增加是惡化線索"
+  - id: Q-NEWMED-01
+    slot_id: new_medication_recent
+    priority: refine
+    answer_type: yes_no
+    script_zh: "最近有沒有換藥或加新的藥？"
+    why_zh: "姿勢性頭暈的藥物歸因僅用於 T2 判定（B10），不得降級（ND-03）"
+  - id: Q-PENDINGTEST-01
+    slot_id: pending_abnormal_test
+    priority: refine
+    answer_type: yes_no
+    script_zh: "最近有沒有做過心臟檢查被說異常、醫師叫您回診但還沒回去的？"
+    why_zh: "檢查異常待追蹤且無症狀 → T1（B9）"
+  - id: Q-PCI-RECENT-01
+    slot_id: recent_pci_months
+    priority: refine
+    answer_type: duration
+    script_zh: "支架是多久以前放的？"
+    why_zh: "一年內 + 抗血小板中斷 → ND-05"
