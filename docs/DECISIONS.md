@@ -24,6 +24,9 @@
 | D-14 | 2026-10-12 | **規則裁定（問卷 Part C）**：C1 B 端坐呼吸／PND 不是 RF-02 但一律 T0；C2 C 新發已緩解 ≥24h 無再發無休息症狀 → T2；C3 B 閾值下降數天 → T0、數週～一月 → T1；C4 A NTG 用量明顯增加 → T0；C5 A 胸部不適＋明顯冒汗 → **RF-06 Hard stop**；C7 C 抗血小板中斷無症狀 → T3 + expedite；C8 B 心悸不由系統建議居家 ECG。`rules_version` 0.2.1 → 0.3.0。 | Clinical Owner |
 | D-15 | 2026-10-12 | **Q-04 結案（C6 D）**：Tier 9 且護理師不可得時依主訴預設 — 胸部不適／缺血等價 → T1；呼吸困難（已排除靜止喘）→ T1；心悸／頭暈無胸悶 → T2；第三方且病人不可及 → T1 + 家屬轉達 S-SN-A；藥物／行政諮詢且否認症狀 → T3。 | Clinical Owner |
 | D-16 | 2026-10-12 | 資料模型連動：slot `orthopnea_pnd_edema` 拆為 `orthopnea_pnd`（→ T0）與 `edema`；`Q-DIAPH-01` priority 升為 redflag；新增 14 個中間帶 slot。問題庫 `bank_version` 0.1 → 0.2。 | 設計（依 D-14 推導） |
+| D-17 | 2026-10-12 | **Q-05b 結案**：B19（新發兩天、昨日 NTG 有效、今日未發作）= T1；B20（回診前空腹衛教問題）= T4。中間帶共 20 個情境，T0 2／T1 4／T2 4／T3 6／T4 4。 | Clinical Owner |
+| D-18 | 2026-10-12 | DV-1～DV-5 全部確認（「照你的推論建立規則」），`[derived]` 標記移除。`rules_version` 0.3.0 → 0.3.1。 | Clinical Owner |
+| D-19 | 2026-10-12 | `TierDecision` 分 `provisional_tier`（不經 sufficiency gate）與 `tier`（final）。開場白 benchmark 比對 provisional；端到端模擬比對 final。否則「只給開場白 → truth」測試與 §5.9 gate 必然矛盾。 | 設計 |
 
 ---
 
@@ -34,7 +37,7 @@
 | Q-01 | STT 供應商：國語＋台語混合、高齡口音的辨識率誰最好？是否需本地部署？ | M4 `stt/` adapter | Clinical Owner + IT |
 | Q-02 | Jev（TypeSafe AI）：取得存取？資料出境？有無本地／VPC 部署？費用？ | M3 `decision/jev_adapter.py` | Clinical Owner + IT + 法務 |
 | Q-03 | 居家 12 導程 ECG 裝置型號與 API；AI-ECG 模型來源（院內 AI-ECG 專案？）；訊號品質判定由誰提供？ | `ecg/` | Clinical Owner |
-| Q-05b | 中間帶尚缺 1×T1、1×T4 情境；另 `CLINICAL_RULES.md §9` 的 DV-1～DV-5 推導門檻待逐條確認。 | `data/scenarios_midband_v0.1.yaml`、`CLINICAL_RULES.md §5` | Clinical Owner |
+| Q-13 | `CLINICAL_RULES.md §9.2`：DV-6（新發首次用 NTG 不算用量增加）、DV-7（無症狀諮詢：排程 → T3、衛教／藥物／輕微非心臟 → T4）待確認。 | `CLINICAL_RULES.md §5.3、§5.6、§5.7` | Clinical Owner |
 | Q-06 | 錄音與逐字稿：同意聲明文字、加密方式、去識別化流程、保存期限、個資法合規審查。 | Phase 1 前置 | 法務 + IT + Clinical Owner |
 | Q-07 | 候選紅旗：單次發作 ≥20 min 未緩解是否獨立成條（冒汗已於 D-14 定為 RF-06）。 | `CLINICAL_RULES.md §3` | Clinical Owner |
 | Q-08 | 電話系統整合：客服用哪套 PBX／雲端客服？能否取得雙聲道即時音訊串流？ | M4 以後 | IT |

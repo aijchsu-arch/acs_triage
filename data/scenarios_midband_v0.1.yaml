@@ -1,11 +1,11 @@
-# 中間帶（T1／T2／T4）情境 v0.1
-# 來源：docs/ADJUDICATION_Q05_Q11.md Part B；Clinical Owner 於 2026-10-12 裁定（含 X1–X3 衝突解決：B3→0、B7→1、B11→0）。
+# 中間帶（T1／T2／T4）情境 v0.2（檔名沿用 v0.1 以免更動引用）
+# 來源：docs/ADJUDICATION_Q05_Q11.md Part B；Clinical Owner 於 2026-10-12 裁定（含 X1–X3 衝突解決：B3→0、B7→1、B11→0；補 B19=1、B20=4）。
 # truth_tier / truth_hard_stop 為 ground truth（D-13）。
 # hidden_slots：模擬病人可回答的事實；未列出的 slot 視為 false / unknown（模擬病人回答「沒有」或「不知道」）。
-# 尚缺：1×T1、1×T4（Q-05b）。
+# 分布：T0 2／T1 4／T2 4／T3 6／T4 4。
 
-scenarios_version: "0.1"
-rules_version_required: "0.3.0"
+scenarios_version: "0.2"
+rules_version_required: "0.3.1"
 
 scenarios:
   - id: S-MID-01
@@ -32,9 +32,6 @@ scenarios:
         expect: {tier: 0, hard_stop: false}
       - override: {last_episode_timing: over_24h, rest_symptom: false}
         expect: {tier: 2, hard_stop: false}
-      - override: {recurrence: true}
-        expect: {tier: 0, hard_stop: false}
-        note: "再發 → 視為今日發作"
       - override: {diaphoresis: true}
         expect: {tier: 0, hard_stop: true, rf: RF-06}
 
@@ -62,7 +59,7 @@ scenarios:
         expect: {tier: 0, hard_stop: false}
       - override: {onset_weeks_ago: 1}
         expect: {tier: 9, hard_stop: false}
-        note: "DV-2：<2 週不適用 T2 條；待 Clinical Owner 確認"
+        note: "DV-2（已確認）：<2 週不適用 T2 條"
 
   - id: S-MID-03
     source: B3
@@ -427,3 +424,58 @@ scenarios:
       - override: {symptom_character: jaw_shoulder_heaviness, onset_new: true, last_episode_timing: today}
         expect: {tier: 0, hard_stop: false}
         note: "手臂痠 vs 左肩沉重的分辨由 Q-CHARACTER-01 完成"
+
+  - id: S-MID-19
+    source: B19
+    name: 新發勞累性胸悶兩天、昨日含 NTG、今日未發作
+    opening_zh: "我有冠心症，前天開始走路會胸悶，昨天含了一次舌下片有效，今天還沒發作，休息時沒有。"
+    truth_tier: 1
+    truth_hard_stop: false
+    rule_ref: "§5.4 (DV-1, DV-6)"
+    hidden_slots:
+      cad_history: true
+      onset_new: true
+      symptom_character: tightness
+      exertion_relation: exertion_only
+      last_episode_timing: yesterday_within_24h
+      recurrence: true            # 前天、昨天各一次
+      ongoing_now: false
+      rest_symptom: false
+      ntg_use_increased: false    # DV-6：新發首次使用不算用量增加
+      threshold_decreased: false
+      diaphoresis: false
+      presyncope: false
+    decisive_questions: [Q-ONGOING-01, Q-TIMING-01, Q-REST-01, Q-DIAPH-01, Q-NTG-01, Q-SYNCOPE-01]
+    boundary_variants:
+      - override: {last_episode_timing: today}
+        expect: {tier: 0, hard_stop: false}
+      - override: {rest_symptom: true, rest_symptom_first_time: true}
+        expect: {tier: 0, hard_stop: false}
+      - override: {ongoing_now: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-03}
+      - override: {diaphoresis: true}
+        expect: {tier: 0, hard_stop: true, rf: RF-06}
+        note: "NTG 有效不得降級（ND-04）；冒汗仍為 RF-06"
+
+  - id: S-MID-20
+    source: B20
+    name: 衛教問題（回診前空腹）無症狀
+    opening_zh: "我有冠心症，想問下次回診要不要空腹抽血，最近沒有任何不舒服。"
+    truth_tier: 4
+    truth_hard_stop: false
+    rule_ref: "§5.7 (DV-7)"
+    hidden_slots:
+      cad_history: true
+      consult_topic: education_question
+      symptom_character: null
+      ongoing_now: false
+      rest_symptom: false
+      dyspnea_grade: none
+      presyncope: false
+    decisive_questions: [Q-CONSULT-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    boundary_variants:
+      - override: {consult_topic: appointment_admin}
+        expect: {tier: 3, hard_stop: false}
+        note: "DV-7：改問門診時間 → A9 類 T3"
+      - override: {symptom_character: pressure, onset_new: true, last_episode_timing: today}
+        expect: {tier: 0, hard_stop: false}

@@ -1,12 +1,12 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.3.0 · 2026-10-12
+**rules_version**: 0.3.1 · 2026-10-12
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 
 來源：Claude Reviewer Prompt v0.2；v0.2 盲性審查過程中 Clinical Owner 的裁定（2026-10-10）；問卷 `ADJUDICATION_Q05_Q11.md` Part A／B／C 的裁定（2026-10-10 至 2026-10-12）。
 
-**標記說明**：`[derived]` = 由 Clinical Owner 給的個案標籤反推出的門檻或區分條件，Clinical Owner 尚未逐條確認；彙整於 §9，確認後移除標記。
+**標記說明**：`(DV-n)` = 由 Clinical Owner 給的個案標籤反推出的門檻，已於 §9 確認；`[derived DV-n]` = 尚未確認。
 
 ---
 
@@ -92,24 +92,24 @@ T0 永遠先於其他等級評估；§5.6 的 T3 carve-out 只在 **T0 條件全
 
 ### 5.3 T0（非 hard stop）
 以下任一成立：
-- 新發缺血等價症狀且 `last_episode_timing == today`（含「今天第一次」已緩解者；A1、A4）`[derived]`
+- 新發缺血等價症狀且 `last_episode_timing == today`（含「今天第一次」已緩解者；A1、A4）(DV-1)
 - `threshold_decreased == true` 且 `threshold_decrease_timescale ∈ {days, unknown}`（C3 B；A2）
 - `rest_symptom == true` 且 `rest_symptom_first_time == true`（新發休息時症狀；A5）
 - `dyspnea_acute == true`（今日突發且與基線明顯不同；A3）
-- `ntg_use_increased == true`（NTG 用量明顯增加，即使仍為勞累性；C4 A；B3）
+- `ntg_use_increased == true`（NTG 用量明顯增加，即使仍為勞累性；C4 A；B3）。指**既有型態下**用量增加；新發病人首次使用不算（B19）`[derived DV-6]`
 - `orthopnea_pnd == true`（端坐呼吸／PND；C1 B；B11）
 
 ### 5.4 T1（Same-day）
 T0 不成立，且以下任一：
-- 新發缺血等價症狀、已緩解、`last_episode_timing == yesterday_within_24h`、`recurrence == false`（B1）`[derived: today→T0 / 昨天→T1 的分界]`
+- 新發缺血等價症狀、已緩解、`last_episode_timing == yesterday_within_24h`、今日無發作（B1 單次；B19 兩天內多次亦同）(DV-1)。若確認為休息時首次發作，§5.3 T0 優先
 - `threshold_decreased == true` 且 `threshold_decrease_timescale == weeks_to_month`（C3 B；B7）
 - `pending_abnormal_test == true` 且目前無症狀（檢查異常待追蹤未掛號；B9）
-- 新發缺血等價症狀 + `antiplatelet_interrupted == true`（ND-05 有症狀分支）`[derived]`
+- 新發缺血等價症狀 + `antiplatelet_interrupted == true`（ND-05 有症狀分支）(DV-3)
 
 ### 5.5 T2（24–72 h）
 T0／T1 不成立，且以下任一：
 - 新發缺血等價症狀、已緩解、`last_episode_timing == over_24h`、`recurrence == false`、`rest_symptom == false`（C2 C）
-- 新發勞累性缺血等價症狀、`onset_weeks_ago >= 2`、型態穩定、`rest_symptom == false`、`threshold_decreased == false`（B2）`[derived: 2 週門檻]`
+- 新發勞累性缺血等價症狀、`onset_weeks_ago >= 2`、型態穩定、`rest_symptom == false`、`threshold_decreased == false`（B2）(DV-2)
 - 新發 `dyspnea_grade == exertional_daily`、`dyspnea_acute == false`、無缺血等價症狀（B6）
 - `postural_dizziness == true` 且 `new_medication_recent == true`、無缺血等價症狀、無 presyncope 合併胸部症狀（B10）
 - `edema == true` 且 `dyspnea_grade == exertional_daily`、無缺血等價症狀（B12）
@@ -117,17 +117,17 @@ T0／T1 不成立，且以下任一：
 ### 5.6 T3（Routine）
 T0／T1／T2 不成立，且以下任一：
 - **穩定型**（A7、A8、A10）：全部成立 — `cad_history == true` 或已知穩定型態；`pattern_unchanged_duration_months >= 6`；`rest_symptom == false`；無 `dyspnea_acute`、`presyncope`、`syncope`；`threshold_decreased == false`
-- **行政性來電**（A9）：`consult_topic == appointment_admin` 且病人明確否認新發胸悶、喘、暈
+- **行政性來電**（A9）：`consult_topic == appointment_admin`（門診時間、排程等事務）且病人明確否認新發胸悶、喘、暈 `[derived DV-7]`
 - `antiplatelet_interrupted == true` 且無症狀 → T3 + `expedite`（C7 C；B4）
 - `palpitations == true`、無缺血等價症狀、無 presyncope／syncope（B5）。**系統不建議居家 ECG**（C8 B）
-- `symptom_vs_pre_pci == milder`、`exertion_relation == exertion_only`、`rest_symptom == false`、`threshold_decreased == false`（PCI 後輕症較術前輕；B8）`[derived]`
-- **Carve-out**：`postprandial_relieved == true`、`ongoing_now == false`、`exertion_relation ∈ {rest_only, unclear}`、`diaphoresis == false`（吃飽脹氣、打嗝後完全緩解；B13）`[derived]`
+- `symptom_vs_pre_pci == milder`、`exertion_relation == exertion_only`、`rest_symptom == false`、`threshold_decreased == false`（PCI 後輕症較術前輕；B8）(DV-4)
+- **Carve-out**：`postprandial_relieved == true`、`ongoing_now == false`、`exertion_relation ∈ {rest_only, unclear}`、`diaphoresis == false`（吃飽脹氣、打嗝後完全緩解；B13）(DV-5)
 - `reproducible_mechanical == true` 且活動不加重（按壓／深呼吸可重現；B14）
 - `cough_related == true` 且 `exertion_relation != exertion_only`（咳嗽時才痛；B16）
 
 ### 5.7 T4（Self-care）
 T0–T3 不成立，且：
-- `consult_topic ∈ {medication_handling, minor_noncardiac}` 且病人明確否認任何胸悶、喘、暈（B15、B17、B18）
+- `consult_topic ∈ {medication_handling, minor_noncardiac, education_question}` 且病人明確否認任何胸悶、喘、暈（B15、B17、B18；B20 回診前空腹等衛教問題）`[derived DV-7]`
 - 必附 S-SN-A
 
 ### 5.8 Tier 9（資訊不足）
@@ -225,19 +225,30 @@ Safety net 腳本：
 | B16 | 咳嗽時胸口痛，不咳不痛 | 3 | §5.6 |
 | B17 | 爸忘記吃藥補吃可以嗎，無不適 | 4 | §5.7 |
 | B18 | 打流感疫苗手臂痠 | 4 | §5.7 |
+| B19 | 前天開始走路胸悶，昨天含一次舌下片有效，今天未發作，休息時沒有 | 1 | §5.4 (DV-1, DV-6) |
+| B20 | 問下次回診要不要空腹抽血，無不適 | 4 | §5.7 (DV-7) |
 
-完整結構見 `data/scenarios_midband_v0.1.yaml`。T1 與 T4 各 3 個，尚缺各 1 個（Q-05b）。
+完整結構見 `data/scenarios_midband_v0.1.yaml`（20 個；D-13、D-17）。分布：T0 2／T1 4／T2 4／T3 6／T4 4。
 
 ---
 
-## 9. `[derived]` 待 Clinical Owner 確認清單
+## 9. 推導門檻（DV）
+
+### 9.1 已確認（Clinical Owner 2026-10-12：「DV1-5 照你的推論建立規則」）
 
 | # | 推導內容 | 來源 |
 |---|---|---|
-| DV-1 | 新發缺血等價症狀已緩解：**今天**發生 → T0；**昨天（<24h）**且無再發 → T1；**≥24h** 且無再發、無休息症狀 → T2 | A1=0、B1=1、C2=T2 |
+| DV-1 | 新發缺血等價症狀已緩解：**今天**發生 → T0；最後一次在**昨天（<24h）**且今日無發作 → T1（單次或多次皆同）；**≥24h** 且無再發、無休息症狀 → T2 | A1=0、B1=1、B19=1、C2=T2 |
 | DV-2 | 新發勞累性症狀、型態穩定、無休息症狀：**≥2 週** → T2；<2 週 → 不適用此條（落回其他規則或 Tier 9） | B2「三個禮拜」=2 |
 | DV-3 | 有症狀 + 抗血小板中斷 → 至少 T1 | ND-05 文字 + C7 C 反推 |
 | DV-4 | PCI 後新輕症、較術前輕、純勞累、無休息、無閾值下降 → T3；任一不成立 → 不適用 | B8=3 |
 | DV-5 | B13 carve-out 的四個條件（吃飽後、打嗝完全緩解、非活動相關、無冒汗）缺一即不適用，回到一般規則 | B13=3 |
 
-回答格式：`DV-1 同意` 或 `DV-2 改 3 週`。
+### 9.2 待確認
+
+| # | 推導內容 | 來源 |
+|---|---|---|
+| DV-6 | `ntg_use_increased` 指既有型態下用量增加；新發病人首次使用 NTG（即使有效）不觸發 C4 A 的 T0，仍依 DV-1 時序判定 | B19=1 與 C4 A 並存 |
+| DV-7 | 無症狀諮詢的分流：門診時間／排程事務 → T3（走例行門診流程）；衛教性問題（回診前空腹、飲食、運動）、藥物處理、輕微非心臟問題 → T4 | A9=3 vs B20=4 |
+
+回答格式：`DV-6 同意` 或 `DV-7 改 …`。

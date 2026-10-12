@@ -2,7 +2,7 @@
 
 **回答者**：Clinical Owner（Joseph）
 **用途**：答案回填 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`，並產生 `data/scenarios_midband_v0.1.yaml`；Part C 的答案回填 `docs/CLINICAL_RULES.md` 並 bump `rules_version`。
-**狀態**：Part A／B／C 全部回答並回填完成（2026-10-12；D-12～D-16，rules_version 0.3.0）。剩餘：Q-05b（補 1×T1、1×T4）與 `CLINICAL_RULES.md §9` DV-1～DV-5 確認。
+**狀態**：Part A／B／C 與 Q-05b（B19、B20）、DV-1～5 全部回答並回填（2026-10-12；D-12～D-19，rules_version 0.3.1）。剩餘：DV-6、DV-7（Q-13）。
 
 ---
 
@@ -126,4 +126,8 @@ B1=1, B2=2, **B3=0**, B4=3(+expedite), B5=3, B6=2, **B7=1**, B8=3, B9=1, B10=2, 
 
 **衝突解決**（2026-10-12）：X1 B3 改 0；X2 B7 改 1；X3 B11 改 0。
 
-**Tier 分布**：T0 2、T1 3、T2 4、T3 6、T4 3 → T1、T4 各缺 1（Q-05b）。
+**Q-05b**（2026-10-12）：B19 = 1、B20 = 4；DV-1～5 同意 → D-17、D-18。
+
+**Tier 分布（最終）**：T0 2、T1 4、T2 4、T3 6、T4 4。
+
+**剩餘待確認（Q-13）**：DV-6、DV-7，見 `CLINICAL_RULES.md §9.2`。

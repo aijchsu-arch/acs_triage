@@ -31,10 +31,10 @@
 ## 測試要求
 - 每條紅旗（RF-01～RF-06）至少 3 個正例、3 個含否定詞的反例（「沒有昏倒」不得命中 RF-01；「沒有冒汗」不得命中 RF-06）。
 - `tests/test_no_downgrade.py` 覆蓋 ND-01～ND-05。
-- `tests/test_benchmark_v0_2.py`：18 個情境只給開場白 → tier 與 hard_stop 必須等於 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`（D-12）。
-- `tests/test_benchmark_midband.py`：`data/scenarios_midband_v0.1.yaml` 18 個情境同上（D-13）。
-- `tests/test_boundary_variants.py`：兩份情境檔的每個 `boundary_variants`，以 `hidden_slots` + `override` 直接餵規則引擎 → 結果等於 `expect`。`expect.tier: null` 的變體跳過並列印。
-- 規則中標 `[derived]` 的門檻（`CLINICAL_RULES.md §9`）照寫，但在程式碼註解標 `# DV-n pending`，Clinical Owner 確認後移除。
+- `tests/test_benchmark_v0_2.py`：18 個情境只給開場白 → `provisional_tier` 與 `hard_stop` 必須等於 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`（D-12）。比對的是 **provisional**，不是經 sufficiency gate 的 final（見 `BLUEPRINT.md §3.7`）。
+- `tests/test_benchmark_midband.py`：`data/scenarios_midband_v0.1.yaml` 20 個情境同上（D-13、D-17）。
+- `tests/test_boundary_variants.py`：兩份情境檔的每個 `boundary_variants`，以 `hidden_slots` + `override` 直接餵規則引擎 → `provisional_tier`／`hard_stop`／`rf` 等於 `expect`。`expect.tier: null` 的變體跳過並列印。
+- 規則中標 `[derived DV-n]` 的門檻（`CLINICAL_RULES.md §9.2`）照寫，但在程式碼註解標 `# DV-n pending`，Clinical Owner 確認後移除；`(DV-n)` 已確認，照一般規則處理。
 - `pytest` 不綠不交付。
 
 ## 版本紀律

@@ -1,6 +1,6 @@
 # ACS Triage Copilot — 設計藍圖（交接版）
 
-**版本**：v0.2 · 2026-10-12（規則 0.3.0、中間帶情境加入）
+**版本**：v0.3 · 2026-10-12（規則 0.3.1、中間帶 20 情境、provisional／final tier）
 **臨床負責人（Clinical Owner）**：Joseph（心臟內科）
 **本文件讀者**：Claude Code（實作）、後續加入的工程師與護理／客服流程負責人
 **狀態**：Phase 0（模擬）尚未開工；本文件是唯一的設計真相來源，程式碼與本文件衝突時以本文件為準，並回頭修文件。
@@ -138,7 +138,11 @@
 
 ### 3.7 Tier Classifier
 - 輸入：slot state（結構化）＋ 原始對話（文字）。
-- 輸出：`TierDecision {tier ∈ {0,1,2,3,4,9}, confidence, evidence: [slot refs], missing: [slot ids]}`。
+- 輸出：`TierDecision`，含**兩個等級**：
+  - `provisional_tier`：以目前已知 slot 套 `CLINICAL_RULES.md §5.2–§5.8` 的最佳估計，**不經** Sufficiency Gate。紅旗、T0 條件、§5.8 的 Tier 9 實質規則（症狀未定性、第三方不可及等）都在這裡生效。
+  - `tier`（final）：`provisional_tier` 通過 §5.9 Sufficiency Gate 才等於它；未通過 → 9，並由 Prompter 繼續問。
+  - 兩者的差就是「還缺什麼才能定案」，記進 `missing`。
+- 用途分工：**開場白 benchmark 測試**比對 `provisional_tier`（Clinical Owner 的標籤本來就是只看開場白給的）；**端到端模擬**（M2）比對對話結束後的 `tier`。
 - Phase 0：規則引擎（`CLINICAL_RULES.md §5`）。
 - M3：模型路徑（LLM structured output 或 Jev）。模型輸出與規則引擎並列記錄，差異進比較報告。
 - **約束**：`CLINICAL_RULES.md §4` 的「不得降級」規則在程式碼層強制：模型若輸出比規則引擎更不急的等級，取規則引擎結果並標記 `model_downgrade_blocked`。
@@ -208,7 +212,11 @@ class Question(BaseModel):
     choices: list[str] | None
 
 class TierDecision(BaseModel):
-    tier: Literal[0, 1, 2, 3, 4, 9]
+    provisional_tier: Literal[0, 1, 2, 3, 4, 9]   # 不經 sufficiency gate
+    tier: Literal[0, 1, 2, 3, 4, 9]               # final；gate 未過 → 9
+    gate_passed: bool
+    hard_stop: bool
+    rf_hits: list[str]                            # ["RF-03"]
     confidence: float
     evidence: list[str]        # slot_ids
     missing: list[str]         # slot_ids
@@ -287,7 +295,7 @@ Jev 的保留事項（寫進 `DECISIONS.md` Q-02）：
   decisive_questions: [Q-ONGOING-01, Q-REST-01, ...]
   ```
 - 每條 boundary 句展開成 1–2 個變體（例：同一開場 + `ongoing_now: true` → `truth_hard_stop: true`）。18 → 預估 50–60 個 case。
-- 中間帶情境：`data/scenarios_midband_v0.1.yaml`（18 個，D-13）；T1／T4 各缺 1 個（Q-05b）。
+- 中間帶情境：`data/scenarios_midband_v0.1.yaml`（20 個，D-13／D-17；分布 T0 2／T1 4／T2 4／T3 6／T4 4）。
 
 ### 6.2 模擬病人
 - LLM 扮演病人，只能看 hidden case sheet，**只回答被問到的事**，不主動補充（除非 sheet 標 `volunteers: [...]`）。
@@ -381,8 +389,8 @@ acs_triage/
 | M | 範圍 | 驗收條件 |
 |---|---|---|
 | M0 | repo 骨架、`schemas.py`、`clinical_rules.yaml` + loader、`question_bank_seed.yaml` loader、pytest 跑通 | `pytest` 綠；YAML 與 `CLINICAL_RULES.md` 內容一致（有測試比對版本號與 RF 數量） |
-| M1 | `RulesEngine`：紅旗（RF-01～06）、slot 規則、sufficiency、tier 0–4／9；Prompter 規則選題；Pathway 對照（含 Tier 9 護理師不可得預設） | v0.2 的 18 個情境 + 中間帶 18 個情境只給開場白 → tier／hard_stop 與 `truth_*` 一致；所有 boundary_variants 以 override 直接餵 slot → 與 `expect` 一致；紅旗測試 100% 覆蓋 |
-| M2 | 模擬器：hidden case sheets 展開、PatientSimulator、對話 runner、指標報告 | 50+ cases 跑完產 `reports/eval_*.md`；Hard-stop miss = 0；Under-triage 報表 |
+| M1 | `RulesEngine`：紅旗（RF-01～06）、slot 規則、sufficiency、tier 0–4／9；Prompter 規則選題；Pathway 對照（含 Tier 9 護理師不可得預設） | v0.2 的 18 個 + 中間帶 20 個情境只給開場白 → `provisional_tier`／`hard_stop` 與 `truth_*` 一致；所有 boundary_variants 以 `hidden_slots`+`override` 直接餵 slot → `provisional_tier`／`hard_stop`／`rf` 與 `expect` 一致；紅旗測試 100% 覆蓋 |
+| M2 | 模擬器：hidden case sheets 展開、PatientSimulator、對話 runner、指標報告 | 38 個情境 + 全部 boundary_variants 展開為 hidden case sheets（預估 100+ cases）跑完產 `reports/eval_*.md`；對話結束後的 final `tier` 與 truth 比對；Hard-stop miss = 0；Under-triage 報表 |
 | M3 | `LLMStructuredAdapter`、`JevAdapter`（取得存取後）；模型 vs 規則比較報告；downgrade 阻擋測試 | 比較報告；`model_downgrade_blocked` 有測試 |
 | M4 | STT adapter + Confidence Gate；shadow-mode logger；最小客服 UI | 以錄製的合成音檔端到端跑通；UI 顯示紅旗全螢幕 |
 | 後續 | ECG adapter、電話系統整合、Phase 1 準備 | 依 `DECISIONS.md` 解決 Q-01/02/03/06 後排程 |

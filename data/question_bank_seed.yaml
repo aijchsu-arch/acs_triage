@@ -5,8 +5,8 @@
 # priority: redflag（先問，可觸發 Hard stop）> decisive（決定 acute vs chronic）> refine
 # 不得在程式碼中寫死任何問題文字。
 
-bank_version: "0.2"
-rules_version_required: "0.3.0"
+bank_version: "0.3"
+rules_version_required: "0.3.1"
 
 slots:
   - id: ongoing_now
@@ -69,6 +69,7 @@ slots:
     choices: [ongoing, today, yesterday_within_24h, over_24h, unknown]
   - id: recurrence
     type: yes_no
+    note: 自首次發作以來是否有多次發作；T2 條件需 false（C2），<24h 者多次仍 T1（B19）
   - id: onset_weeks_ago
     type: duration
   - id: threshold_decrease_timescale
@@ -90,7 +91,7 @@ slots:
     type: yes_no
   - id: consult_topic
     type: choice
-    choices: [appointment_admin, medication_handling, minor_noncardiac, symptom, unknown]
+    choices: [appointment_admin, education_question, medication_handling, minor_noncardiac, symptom, unknown]
   - id: recent_pci_months
     type: duration
   - id: symptom_vs_pre_pci
@@ -225,7 +226,7 @@ questions:
     priority: decisive
     answer_type: yes_no
     script_zh: "那次之後到現在，有沒有再發作過？"
-    why_zh: "再發 → 視為今日發作 → T0"
+    why_zh: "≥24h 無再發 → T2（C2）；<24h 多次發作仍 T1（B19）；今日有發作 → T0"
   - id: Q-ONSET-WEEKS-01
     slot_id: onset_weeks_ago
     priority: decisive
@@ -280,9 +281,9 @@ questions:
     slot_id: consult_topic
     priority: decisive
     answer_type: choice
-    choices: [appointment_admin, medication_handling, minor_noncardiac, symptom]
-    script_zh: "請問今天主要是想問什麼？是門診時間、藥怎麼吃、還是身體有不舒服？"
-    why_zh: "門診行政 → T3；藥物處理／輕微非心臟問題 → T4；任何症狀 → 走症狀流程"
+    choices: [appointment_admin, education_question, medication_handling, minor_noncardiac, symptom]
+    script_zh: "請問今天主要是想問什麼？是門診時間、回診前的準備、藥怎麼吃、還是身體有不舒服？"
+    why_zh: "門診時間／排程 → T3；回診準備等衛教問題、藥物處理、輕微非心臟問題 → T4（DV-7）；任何症狀 → 走症狀流程"
 
   # ---------- refine ----------
   - id: Q-NAUSEA-01
