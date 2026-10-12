@@ -24,6 +24,20 @@ class SlotState:
             raise KeyError(f"unknown slot: {slot_id}")
         self._values[slot_id] = SlotValue(slot_id=slot_id, value=value, confidence=confidence,
                                           source_segment_id=source, asked_by_question_id=asked_by)
+        self._derive(slot_id, value, source)
+
+    def _derive(self, slot_id: str, value: Any, source: str | None) -> None:
+        """明確否認帶出的安全衍生：只填尚未知的 slot，且只往「無此症狀」方向推。"""
+        derived: dict[str, Any] = {}
+        if slot_id == "dyspnea_grade" and value == "none":
+            derived = {"dyspnea_acute": False, "orthopnea_pnd": False, "cant_finish_sentence": False,
+                       "dyspnea_complaint": False}
+        elif slot_id == "symptom_character" and value == "none":
+            derived = {"ongoing_now": False}
+        for k, v in derived.items():
+            if self.get(k) is None:
+                self._values[k] = SlotValue(slot_id=k, value=v, confidence=0.9,
+                                            source_segment_id=f"derived:{slot_id}={value}")
 
     def get(self, slot_id: str) -> Any:
         sv = self._values.get(slot_id)
@@ -74,7 +88,8 @@ class SlotState:
 
     def dyspnea_present(self) -> bool:
         g = self.get("dyspnea_grade")
-        return (g is not None and g != "none") or self.is_true("dyspnea_acute") or self.is_true("orthopnea_pnd")
+        return ((g is not None and g != "none") or self.is_true("dyspnea_acute") or self.is_true("orthopnea_pnd")
+                or (self.is_true("dyspnea_complaint") and g != "none"))
 
     def dyspnea_denied(self) -> bool:
         return self.get("dyspnea_grade") == "none"

@@ -17,6 +17,9 @@ slots:
     type: yes_no
   - id: syncope
     type: yes_no
+  - id: dyspnea_complaint
+    type: yes_no
+    note: 由 extractor 設定（開場白提到喘但未分級）；無對應題目，用來讓呼吸類題目變成相關
   - id: dyspnea_grade
     type: choice
     choices: [none, exertional_heavy, exertional_daily, rest]
@@ -36,7 +39,7 @@ slots:
     type: duration
   - id: symptom_character
     type: choice
-    choices: [pressure, pain, tightness, jaw_shoulder_heaviness, epigastric, vague, other]
+    choices: [pressure, pain, tightness, jaw_shoulder_heaviness, epigastric, vague, other, none]   # none = 病人明確否認胸部症狀
   - id: exertion_relation
     type: choice
     choices: [exertion_only, rest_only, both, unclear]
@@ -137,12 +140,6 @@ questions:
     answer_type: yes_no
     script_zh: "不舒服的時候有沒有冒冷汗？"
     why_zh: "胸部不適合併明顯冒汗 → RF-06 Hard stop（C5 A）"
-  - id: Q-DURATION-01
-    slot_id: episode_duration_min
-    priority: redflag
-    answer_type: duration
-    script_zh: "這一次不舒服持續了大概多久？幾分鐘、還是超過半小時？"
-    why_zh: "持續時間；≥20 分鐘未緩解為候選紅旗（Q-07）"
 
   # ---------- decisive：決定 acute vs chronic ----------
   - id: Q-ONSET-01
@@ -203,7 +200,7 @@ questions:
     why_zh: "第三方來電；本人不可及 → Tier 9 + safety net"
   - id: Q-DRUGTIME-01
     slot_id: drug_time_correlation
-    priority: decisive
+    priority: refine
     answer_type: yes_no
     script_zh: "不舒服是每次都在吃藥後固定的時間出現嗎？跟走路、用力有沒有關係？"
     why_zh: "藥物歸因不得降級（ND-03）；只用來判斷是否需要補問活動關係"
@@ -322,6 +319,12 @@ questions:
     answer_type: yes_no
     script_zh: "舌下含片最近用得比以前多嗎？"
     why_zh: "NTG 有效不得降級（ND-04）；用量增加是惡化線索"
+  - id: Q-DURATION-01
+    slot_id: episode_duration_min
+    priority: refine
+    answer_type: duration
+    script_zh: "這一次不舒服持續了大概多久？幾分鐘、還是超過半小時？"
+    why_zh: "持續時間；≥20 分鐘未緩解為候選紅旗（Q-07 未裁定前不改變等級，故列 refine）"
   - id: Q-NEWMED-01
     slot_id: new_medication_recent
     priority: refine

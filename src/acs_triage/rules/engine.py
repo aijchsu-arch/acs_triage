@@ -20,7 +20,8 @@ class RulesEngine:
         prov, rule_ids = tiers.provisional_tier(state)
         missing = sufficiency.missing_for(state, prov, rule_ids)
         gate_passed = not missing
-        final = prov if gate_passed else 9
+        # provisional 0 永不因資訊不足而變成 9（不得降級精神）；gate 只驅動 Prompter 繼續問
+        final = prov if (gate_passed or prov == 0) else 9
         evidence = list(rule_ids) + (["T9-GATE"] if not gate_passed else [])
         return TierDecision(provisional_tier=prov, tier=final, gate_passed=gate_passed, hard_stop=False,
                             rf_hits=[], evidence=evidence, missing=missing,

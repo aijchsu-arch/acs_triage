@@ -3,7 +3,7 @@
 **版本**：v0.3 · 2026-10-12（規則 0.3.1、中間帶 20 情境、provisional／final tier）
 **臨床負責人（Clinical Owner）**：Joseph（心臟內科）
 **本文件讀者**：Claude Code（實作）、後續加入的工程師與護理／客服流程負責人
-**狀態**：Phase 0（模擬）尚未開工；本文件是唯一的設計真相來源，程式碼與本文件衝突時以本文件為準，並回頭修文件。
+**狀態**：Phase 0 — M0／M1／M2 完成（2026-10-13，commit 見 git log）；M3 待 Q-02；M4 待 Q-01。本文件是唯一的設計真相來源，程式碼與本文件衝突時以本文件為準，並回頭修文件。
 
 相關文件：
 - `docs/CLINICAL_RULES.md` — 分流等級、紅旗、追問規則（**只有 Clinical Owner 能改**）
@@ -128,7 +128,7 @@
   3. 最後才是修飾題（`priority: refine`）。
   4. 已有高信心 slot 值的題跳過。
 - 每次只推**一題**到畫面，附「為什麼問這題」一行（給客服，不給病人）。
-- 上限：`MAX_QUESTIONS`（預設 8）。到上限仍不足 → Tier 9。
+- 上限：`MAX_QUESTIONS`（預設 10，見 D-22）。到上限仍不足 → Tier 9。
 
 ### 3.6 Sufficiency Gate
 - 判斷「現有 slot 是否足以安全指定 0–4」。
@@ -386,13 +386,16 @@ acs_triage/
 
 ## 11. 里程碑與驗收
 
-| M | 範圍 | 驗收條件 |
-|---|---|---|
-| M0 | repo 骨架、`schemas.py`、`clinical_rules.yaml` + loader、`question_bank_seed.yaml` loader、pytest 跑通 | `pytest` 綠；YAML 與 `CLINICAL_RULES.md` 內容一致（有測試比對版本號與 RF 數量） |
-| M1 | `RulesEngine`：紅旗（RF-01～06）、slot 規則、sufficiency、tier 0–4／9；Prompter 規則選題；Pathway 對照（含 Tier 9 護理師不可得預設） | v0.2 的 18 個 + 中間帶 20 個情境只給開場白 → `provisional_tier`／`hard_stop` 與 `truth_*` 一致；所有 boundary_variants 以 `hidden_slots`+`override` 直接餵 slot → `provisional_tier`／`hard_stop`／`rf` 與 `expect` 一致；紅旗測試 100% 覆蓋 |
-| M2 | 模擬器：hidden case sheets 展開、PatientSimulator、對話 runner、指標報告 | 38 個情境 + 全部 boundary_variants 展開為 hidden case sheets（預估 100+ cases）跑完產 `reports/eval_*.md`；對話結束後的 final `tier` 與 truth 比對；Hard-stop miss = 0；Under-triage 報表 |
-| M3 | `LLMStructuredAdapter`、`JevAdapter`（取得存取後）；模型 vs 規則比較報告；downgrade 阻擋測試 | 比較報告；`model_downgrade_blocked` 有測試 |
-| M4 | STT adapter + Confidence Gate；shadow-mode logger；最小客服 UI | 以錄製的合成音檔端到端跑通；UI 顯示紅旗全螢幕 |
-| 後續 | ECG adapter、電話系統整合、Phase 1 準備 | 依 `DECISIONS.md` 解決 Q-01/02/03/06 後排程 |
+| M | 狀態 | 範圍 | 驗收條件 |
+|---|---|---|---|
+| M0 | ✅ 2026-10-13 | repo 骨架、`schemas.py`、`clinical_rules.yaml` + loader、`question_bank_seed.yaml` loader、pytest 跑通 | `pytest` 綠；YAML 與 `CLINICAL_RULES.md` 內容一致（有測試比對版本號與 RF 數量） |
+| M1 | ✅ 2026-10-13 | `RulesEngine`：紅旗（RF-01～06）、slot 規則、sufficiency、tier 0–4／9；Prompter 規則選題；Pathway 對照（含 Tier 9 護理師不可得預設） | v0.2 的 18 個 + 中間帶 20 個情境只給開場白 → `provisional_tier`／`hard_stop` 與 `truth_*` 一致；所有 boundary_variants 以 `hidden_slots`+`override` 直接餵 slot → `provisional_tier`／`hard_stop`／`rf` 與 `expect` 一致；紅旗測試 100% 覆蓋 |
+| M2 | ✅ 2026-10-13（ScriptedPatient；LLM 病人 → M2b） | 模擬器：hidden case sheets 展開、PatientSimulator、對話 runner、指標報告 | 38 個情境 + 全部 boundary_variants 展開為 hidden case sheets（預估 100+ cases）跑完產 `reports/eval_*.md`；對話結束後的 final `tier` 與 truth 比對；Hard-stop miss = 0；Under-triage 報表 |
+| M2b | ⏳ | `LLMPatientSimulator`（LLM 扮演病人，只看 hidden sheet）；與 ScriptedPatient 結果比對 | 需院內可用的 LLM 端點（D-10）；指標與 clean 模式差異報告 |
+| M3 | ⏳ 待 Q-02 | `LLMStructuredAdapter`、`JevAdapter`（取得存取後）；模型 vs 規則比較報告；downgrade 阻擋測試 | 比較報告；`model_downgrade_blocked` 有測試 |
+| M4 | ⏳ 待 Q-01 | STT adapter + Confidence Gate；shadow-mode logger；最小客服 UI | 以錄製的合成音檔端到端跑通；UI 顯示紅旗全螢幕 |
+| 後續 | ⏳ | ECG adapter、電話系統整合、Phase 1 準備 | 依 `DECISIONS.md` 解決 Q-01/02/03/06 後排程 |
 
 每個 M 完成時更新本文件的狀態列與 `DECISIONS.md`。
+
+**M2 基線（2026-10-13，`reports/eval_2026-10-13_*.md`）**：119 cases／116 可評分。clean：Hard-stop miss 0/27、latency 0、under-triage 0、over-triage 0、exact 100%、abstention P/R 100%/100%、平均 4.9 題、core decisive recall 84.6%。vague（25% 答不知道）：under-triage 0、Hard-stop miss 0、24 例轉護理師（預期）。low_stt（20% 低信心）：130 次重問，結果與 clean 完全相同。

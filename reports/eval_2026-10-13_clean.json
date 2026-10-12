@@ -1,0 +1,47 @@
+{
+  "n_cases": 119,
+  "n_scored": 116,
+  "hard_stop": {
+    "truth": 27,
+    "hit": 27,
+    "miss": [],
+    "miss_rate": 0.0,
+    "false_alarm": [],
+    "latency_max": 0
+  },
+  "exact_rate": 1.0,
+  "under_triage": {
+    "rate": 0.0,
+    "cases": []
+  },
+  "over_triage": {
+    "rate": 0.0,
+    "cases": []
+  },
+  "abstention": {
+    "tp": 12,
+    "fp": [],
+    "fn": [],
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "decisive_recall_all": 0.7656565656565657,
+  "decisive_recall_core": 0.8457943925233645,
+  "questions_to_decision_mean": 4.915966386554622,
+  "gate_repeats": 0,
+  "stop_reasons": {
+    "gate_passed": 77,
+    "hard_stop": 25,
+    "max_questions": 15,
+    "hard_stop_opening": 2
+  },
+  "confusion": {
+    "0->0": 70,
+    "1->1": 7,
+    "2->2": 5,
+    "3->3": 18,
+    "4->4": 4,
+    "9->9": 12
+  },
+  "rf_mismatch": []
+}

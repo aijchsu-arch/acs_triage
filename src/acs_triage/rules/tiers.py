@@ -53,7 +53,7 @@ def _lower_tier_pattern(s: SlotState) -> bool:
 def t0_rules(s: SlotState) -> list[str]:
     hits: list[str] = []
     timing = s.get("last_episode_timing")
-    if (s.chest_symptom_present() and s.is_true("onset_new") and timing in ("today", None)
+    if (s.chest_symptom_present() and s.is_true("onset_new") and timing in ("today", None, "unknown")
             and not _lower_tier_pattern(s)):
         hits.append("T0-NEW-TODAY")
     if s.is_true("threshold_decreased") and s.get("threshold_decrease_timescale") in (UNKNOWN_TIMESCALE | {"days"}):

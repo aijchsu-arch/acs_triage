@@ -137,6 +137,9 @@ class RuleExtractor:
             grade = "none"
         if grade is not None:
             out["dyspnea_grade"] = grade
+        if grade not in ("none",) and re.search(r"喘|呼吸困難|呼吸不順|吸不到氣", masked) and not self._any(text, dg["none_patterns"]):
+            # 有提到喘但未分級 → 標記主訴，讓呼吸類題目進入提問
+            out["dyspnea_complaint"] = True
 
         # --- threshold_decrease_timescale（僅 threshold_decreased 為 True 時） ---
         if out.get("threshold_decreased") is True:

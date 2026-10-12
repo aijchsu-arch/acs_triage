@@ -8,7 +8,20 @@
 - Claude Code 工作守則：[`CLAUDE.md`](CLAUDE.md)
 
 ## 狀態
-Phase 0（模擬）— 設計完成，M0 未開工。
+Phase 0（模擬）— M0／M1／M2 完成（2026-10-13）。`pytest`：159 passed, 3 skipped。基線報告見 `reports/`。
+
+## 執行
+```bash
+pip install -e '.[dev]'          # 或：pip install pydantic pyyaml pytest
+pytest                           # 全部驗收測試
+python -m sim.run_eval --mode clean     # 產出 reports/eval_<date>_clean.md／.json（另有 vague、low_stt）
+```
+
+## 程式結構
+- `src/acs_triage/extract/` 關鍵詞 Slot Extractor（規則路徑）
+- `src/acs_triage/rules/` SlotState、紅旗、Tier 規則、Sufficiency Gate、RulesEngine（含 ND-01／ND-02 強制）
+- `src/acs_triage/prompter/` 固定問題庫選題　`pathway/` 流程對照　`audit/` append-only log　`decision/` DecisionModel 介面
+- `sim/` hidden case sheet 展開、ScriptedPatient、對話 runner、指標、報告
 
 ## 資料
 - `data/benchmark/v0.2/` — v0.2 盲性審查表與 Claude reviewer 結果（80 列＝18 唯一情境）

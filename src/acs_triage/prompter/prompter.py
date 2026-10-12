@@ -18,7 +18,8 @@ _CHEST_ONLY = {"ongoing_now", "presyncope", "diaphoresis", "episode_duration_min
                "recurrence", "onset_new", "onset_weeks_ago", "threshold_decreased", "threshold_decrease_timescale",
                "rest_symptom", "rest_symptom_first_time", "exertion_relation", "ntg_use_increased",
                "reproducible_mechanical", "cough_related", "postprandial_relieved", "symptom_vs_pre_pci",
-               "nausea", "antiplatelet_interrupted", "pattern_unchanged_duration_months"}
+               "nausea", "antiplatelet_interrupted"}
+_CHEST_OR_DYSPNEA = {"pattern_unchanged_duration_months"}
 _DYSPNEA_ONLY = {"cant_finish_sentence", "dyspnea_acute", "orthopnea_pnd", "edema"}
 _ALWAYS_REDFLAG = {"dyspnea_grade"}  # 呼吸分級：有呼吸主訴或未排除時都要問一次
 _CONDITIONAL = {
@@ -39,15 +40,15 @@ _CONDITIONAL = {
 def _relevant(q: Question, s: SlotState) -> bool:
     slot = q.slot_id
     chest = s.chest_symptom_present()
-    dysp = s.dyspnea_present() or (s.get("dyspnea_grade") is None and not s.chest_denied() and not chest and s.get("consult_topic") not in ("appointment_admin", "education_question", "medication_handling", "minor_noncardiac"))
     if slot in _CONDITIONAL and not _CONDITIONAL[slot](s):
         return False
     if slot in _CHEST_ONLY and not chest:
         return False
+    if slot in _CHEST_OR_DYSPNEA and not (chest or s.dyspnea_present()):
+        return False
     if slot in _DYSPNEA_ONLY and not s.dyspnea_present():
         return False
-    if slot == "dyspnea_grade" and s.chest_denied() is False and chest is False and s.get("consult_topic") == "symptom" and not dysp:
-        return False
+    # dyspnea_grade：所有人都問一次（RF-02 篩檢；無症狀諮詢的 gate 也需要明確否認）
     return True
 
 

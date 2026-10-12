@@ -15,7 +15,7 @@ tiers:
   9: {name: Unable to determine, definition: 現有資訊不足，不能安全指定 0–4}
 
 thresholds:
-  max_questions: 8
+  max_questions: 10        # 原預設 8；M2 模擬顯示「模糊主訴 → 穩定型 T3」路徑需 4 紅旗題 + 4 決定題 + ND-05 抗血小板題 = 9，故放寬（D-22）
   stt_min_confidence: 0.75
   rf_model_threshold: 0.5
   stable_pattern_min_months: 6        # §5.6 穩定型

@@ -13,8 +13,10 @@ DYSPNEA_CONTEXT = ["dyspnea_grade", "cant_finish_sentence", "orthopnea_pnd", "dy
 
 RULE_REQUIREMENTS: dict[str, list[str]] = {
     # T0
-    "T0-NEW-TODAY": CHEST_REDFLAG,
-    "T0-THRESHOLD-DAYS": CHEST_REDFLAG,
+    # T0 的 gate 不會把 final 降下來（provisional 0 → final 0），只決定 Prompter 還要問什麼：
+    # 紅旗題（偵測 hard stop）＋能把等級往下修正的時序題（DV-1／C3 B）。
+    "T0-NEW-TODAY": CHEST_REDFLAG + ["last_episode_timing"],
+    "T0-THRESHOLD-DAYS": CHEST_REDFLAG + ["threshold_decrease_timescale"],
     "T0-REST-NEW": CHEST_REDFLAG,
     "T0-DYSPNEA-ACUTE": DYSPNEA_REDFLAG,
     "T0-NTG-INCREASED": CHEST_REDFLAG,
@@ -30,7 +32,7 @@ RULE_REQUIREMENTS: dict[str, list[str]] = {
     "T2-DYSPNEA-DAILY": DYSPNEA_CONTEXT + ["symptom_character"],
     "T2-POSTURAL-NEWMED": ["symptom_character", "presyncope", "dyspnea_grade", "new_medication_recent"],
     # T3
-    "T3-STABLE": CHEST_CONTEXT + ["threshold_decreased", "dyspnea_acute"],
+    "T3-STABLE": [],  # 動態：見 missing_for
     "T3-ADMIN": ["consult_topic", "symptom_character", "dyspnea_grade", "presyncope"],
     "T3-ANTIPLT-ASYMPTOMATIC": ["symptom_character", "dyspnea_grade", "presyncope"],
     "T3-PALPITATIONS": ["symptom_character", "presyncope", "syncope", "dyspnea_grade"],
@@ -51,10 +53,20 @@ def missing_for(state: SlotState, provisional: int, rule_ids: list[str]) -> list
         for slot in RULE_REQUIREMENTS.get(rid, []):
             if slot not in required:
                 required.append(slot)
+    if "T3-STABLE" in rule_ids:
+        if state.chest_symptom_present():
+            required += [s for s in CHEST_CONTEXT + ["threshold_decreased", "dyspnea_acute"] if s not in required]
+        else:
+            required += [s for s in DYSPNEA_CONTEXT + ["presyncope"] if s not in required]
+    # ND-05：已知 CAD／PCI 且有胸部症狀、provisional 在 1–3 → 必須確認抗血小板是否中斷（升級因子）
+    if provisional in (1, 2, 3) and state.chest_symptom_present() and (state.is_true("pci_history") or state.is_true("cad_history")):
+        if "antiplatelet_interrupted" not in required:
+            required.append("antiplatelet_interrupted")
     missing = state.known_all(required)
     # 穩定型 T3 另需明確否認（不只是已知）
     if "T3-STABLE" in rule_ids:
-        for slot in ("rest_symptom", "threshold_decreased", "dyspnea_acute"):
+        explicit = ["rest_symptom", "threshold_decreased", "dyspnea_acute"] if state.chest_symptom_present() else ["dyspnea_acute", "orthopnea_pnd"]
+        for slot in explicit:
             if state.get(slot) is not False and slot not in missing:
                 missing.append(slot)
     return missing

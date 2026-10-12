@@ -22,7 +22,7 @@ scenarios:
       episode_duration_min: 10
       recurrence: false
       ongoing_now: false
-      rest_symptom: null        # 開場未說明活動關係；模擬病人若被問 → exertion_relation: unclear
+      rest_symptom: false       # 原為 null；e2e 需病人可答，取與 T1 一致之值
       exertion_relation: unclear
       diaphoresis: false
       presyncope: false
@@ -43,6 +43,8 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.5 (DV-2)"
     hidden_slots:
+      presyncope: false
+      syncope: false
       onset_new: true
       onset_weeks_ago: 3
       symptom_character: tightness
@@ -69,6 +71,13 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.3 C4 A"
     hidden_slots:
+      antiplatelet_interrupted: false
+      presyncope: false
+      diaphoresis: false
+      syncope: false
+      threshold_decreased: false
+      dyspnea_acute: false
+      dyspnea_grade: none
       cad_history: true
       ntg_use_increased: true
       exertion_relation: exertion_only
@@ -91,11 +100,14 @@ scenarios:
     pathway_actions: [expedite]
     rule_ref: "§5.6 C7 C"
     hidden_slots:
+      diaphoresis: false
+      syncope: false
+      threshold_decreased: false
       pci_history: true
       recent_pci_months: 6
       antiplatelet_interrupted: true
       consult_topic: medication_handling
-      symptom_character: null
+      symptom_character: none
       ongoing_now: false
       rest_symptom: false
       dyspnea_grade: none
@@ -115,9 +127,10 @@ scenarios:
     ecg_suggestion_allowed: false   # C8 B
     rule_ref: "§5.6 B5"
     hidden_slots:
+      diaphoresis: false
       cad_history: true
       palpitations: true
-      symptom_character: null
+      symptom_character: none
       presyncope: false
       syncope: false
       dyspnea_grade: none
@@ -137,13 +150,15 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.5 B6"
     hidden_slots:
+      rest_symptom: false
+      presyncope: false
       onset_new: true
       onset_weeks_ago: 1
       dyspnea_grade: exertional_daily
       dyspnea_acute: false
       orthopnea_pnd: false
       edema: false
-      symptom_character: null
+      symptom_character: none
       cant_finish_sentence: false
     decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-ACUTE-01, Q-ORTHO-01, Q-EDEMA-01, Q-CHARACTER-01]
     boundary_variants:
@@ -162,6 +177,11 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.4 C3 B"
     hidden_slots:
+      presyncope: false
+      diaphoresis: false
+      syncope: false
+      dyspnea_grade: none
+      antiplatelet_interrupted: false
       cad_history: true
       threshold_decreased: true
       threshold_decrease_timescale: weeks_to_month
@@ -187,6 +207,10 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.6 (DV-4)"
     hidden_slots:
+      presyncope: false
+      diaphoresis: false
+      syncope: false
+      dyspnea_grade: none
       pci_history: true
       recent_pci_months: 1
       symptom_vs_pre_pci: milder
@@ -214,8 +238,11 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.4 B9"
     hidden_slots:
+      diaphoresis: false
+      syncope: false
+      threshold_decreased: false
       pending_abnormal_test: true
-      symptom_character: null
+      symptom_character: none
       ongoing_now: false
       rest_symptom: false
       dyspnea_grade: none
@@ -233,10 +260,12 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.5 B10"
     hidden_slots:
+      diaphoresis: false
+      ongoing_now: false
       cad_history: true
       postural_dizziness: true
       new_medication_recent: true
-      symptom_character: null
+      symptom_character: none
       presyncope: false
       syncope: false
       dyspnea_grade: none
@@ -255,13 +284,15 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.3 C1 B"
     hidden_slots:
+      presyncope: false
+      syncope: false
       cad_history: true
       orthopnea_pnd: true
       dyspnea_grade: exertional_heavy
       dyspnea_acute: false
-      symptom_character: null
+      symptom_character: none
       cant_finish_sentence: false
-      edema: null
+      edema: false
     decisive_questions: [Q-ORTHO-01, Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-EDEMA-01]
     boundary_variants:
       - override: {dyspnea_grade: rest}
@@ -278,12 +309,15 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.5 B12"
     hidden_slots:
+      cant_finish_sentence: false
+      presyncope: false
+      syncope: false
       cad_history: true
       edema: true
       dyspnea_grade: exertional_daily
       dyspnea_acute: false
       orthopnea_pnd: false
-      symptom_character: null
+      symptom_character: none
     decisive_questions: [Q-EDEMA-01, Q-DYSPNEA-GRADE-01, Q-ORTHO-01, Q-DYSPNEA-ACUTE-01, Q-CHARACTER-01]
     boundary_variants:
       - override: {orthopnea_pnd: true}
@@ -299,6 +333,10 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.6 carve-out (DV-5)"
     hidden_slots:
+      antiplatelet_interrupted: false
+      rest_symptom: false
+      threshold_decreased: false
+      syncope: false
       cad_history: true
       postprandial_relieved: true
       ongoing_now: false
@@ -325,6 +363,11 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.6 B14"
     hidden_slots:
+      presyncope: false
+      syncope: false
+      rest_symptom: false
+      threshold_decreased: false
+      antiplatelet_interrupted: false
       cad_history: true
       onset_new: true             # 昨天搬重物後才出現
       last_episode_timing: today
@@ -350,9 +393,13 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.7"
     hidden_slots:
+      diaphoresis: false
+      syncope: false
+      threshold_decreased: false
+      antiplatelet_interrupted: false
       cad_history: true
       consult_topic: medication_handling
-      symptom_character: null
+      symptom_character: none
       ongoing_now: false
       rest_symptom: false
       dyspnea_grade: none
@@ -370,6 +417,11 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.6 B16"
     hidden_slots:
+      presyncope: false
+      syncope: false
+      rest_symptom: false
+      threshold_decreased: false
+      antiplatelet_interrupted: false
       cad_history: true
       onset_new: true             # 感冒後才出現
       cough_related: true
@@ -393,11 +445,14 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.7"
     hidden_slots:
+      syncope: false
+      diaphoresis: false
+      rest_symptom: false
       third_party_call: true
       patient_reachable: true
       cad_history: true
       consult_topic: medication_handling
-      symptom_character: null
+      symptom_character: none
       ongoing_now: false
       dyspnea_grade: none
       presyncope: false
@@ -416,9 +471,12 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.7"
     hidden_slots:
+      syncope: false
+      diaphoresis: false
+      rest_symptom: false
       cad_history: true
       consult_topic: minor_noncardiac
-      symptom_character: null
+      symptom_character: none
       ongoing_now: false
       dyspnea_grade: none
       presyncope: false
@@ -436,6 +494,9 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.4 (DV-1, DV-6)"
     hidden_slots:
+      syncope: false
+      dyspnea_grade: none
+      antiplatelet_interrupted: false
       cad_history: true
       onset_new: true
       symptom_character: tightness
@@ -468,9 +529,11 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.7 (DV-7)"
     hidden_slots:
+      syncope: false
+      diaphoresis: false
       cad_history: true
       consult_topic: education_question
-      symptom_character: null
+      symptom_character: none
       ongoing_now: false
       rest_symptom: false
       dyspnea_grade: none

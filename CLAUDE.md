@@ -43,4 +43,4 @@
 - 里程碑完成 → 更新 `docs/BLUEPRINT.md §11` 狀態與 `docs/DECISIONS.md`。
 
 ## 目前任務
-從 **M0** 開始（`docs/BLUEPRINT.md §11`）。M0 不需要任何模型呼叫、不需要網路。
+M0／M1／M2 已完成（2026-10-13）。下一步依 `docs/BLUEPRINT.md §11`：M2b（LLM 病人，需端點）、M3（待 Q-02）、M4（待 Q-01）。任何新工作先跑 `pytest` 確認 159 passed 的基線未破。

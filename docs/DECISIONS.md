@@ -28,6 +28,12 @@
 | D-18 | 2026-10-12 | DV-1～DV-5 全部確認（「照你的推論建立規則」），`[derived]` 標記移除。`rules_version` 0.3.0 → 0.3.1。 | Clinical Owner |
 | D-19 | 2026-10-12 | `TierDecision` 分 `provisional_tier`（不經 sufficiency gate）與 `tier`（final）。開場白 benchmark 比對 provisional；端到端模擬比對 final。否則「只給開場白 → truth」測試與 §5.9 gate 必然矛盾。 | 設計 |
 | D-20 | 2026-10-13 | **Q-13 結案**：DV-6、DV-7 確認。`rules_version` 0.3.1 → 0.3.2（僅移除待確認標記，規則內容不變）。Clinical Owner 指示：開始執行 M0→M2。 | Clinical Owner |
+| D-21 | 2026-10-13 | M2 模擬病人先以 **ScriptedPatient**（確定性、依 hidden sheet 作答、可重現）實作；LLM 扮演病人移至 **M2b**（需院內可用 LLM 端點，D-10）。理由：本環境無 LLM 端點；確定性病人才能作為回歸測試的 oracle。 | 設計（執行中決定） |
+| D-22 | 2026-10-13 | `max_questions` 8 → **10**。模擬顯示「模糊主訴 → 穩定型 T3」需 4 紅旗題 + 4 決定題 + ND-05 抗血小板題 = 9 題。 | 設計（執行中決定） |
+| D-23 | 2026-10-13 | **provisional 0 永不因 gate 未過而變 9**（final = 0）；T0 的 gate 只驅動 Prompter 續問紅旗題與可下修等級的時序題（DV-1／C3 B）。「新發、時序未知」→ 以今天視之（T0），病人答「不記得」亦同。 | 設計（不得降級精神） |
+| D-24 | 2026-10-13 | 資料層：(a) v0.2 的 18 情境補 `hidden_slots`（Claude 依 truth 與 reviewer boundary 撰寫，非 Clinical Owner 標籤）；資訊不足組標 `persona: vague`（紅旗題答沒有、決定題答不知道）以測節制；(b) `symptom_character` 新增 `none`（明確否認）、新增 extractor-only slot `dyspnea_complaint`；(c) `Q-DURATION-01`、`Q-DRUGTIME-01` 降為 refine；(d) S-MID-02 變體 `onset_weeks_ago=1` 期望 9 → 0（DV-2「落回其他規則」）；S-MID-14／16 hidden 補 `onset_new`。 | 設計（執行中決定） |
+| D-25 | 2026-10-13 | 安全衍生：病人明確否認喘（`dyspnea_grade=none`）→ `dyspnea_acute／orthopnea_pnd／cant_finish_sentence=false`；明確否認胸部症狀 → `ongoing_now=false`。只往「無此症狀」方向推，只填未知欄位。 | 設計 |
+| D-26 | 2026-10-13 | Sufficiency gate：ND-05 → 已知 CAD／PCI、有胸部症狀、provisional 1–3 時必問抗血小板是否中斷；T3 穩定型的必要 slot 依主訴（胸部／呼吸）動態決定。 | 設計 |
 
 ---
 
