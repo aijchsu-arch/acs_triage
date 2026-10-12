@@ -2,7 +2,7 @@
 
 **回答者**：Clinical Owner（Joseph）
 **用途**：答案回填 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`，並產生 `data/scenarios_midband_v0.1.yaml`；Part C 的答案回填 `docs/CLINICAL_RULES.md` 並 bump `rules_version`。
-**狀態**：Part A 已回答（2026-10-10，A1–A18 全部同意，已回填 `truth_tier`／`truth_hard_stop`）。Part B、Part C 未回答。
+**狀態**：Part A 已回答並回填（2026-10-10）。Part B 於 2026-10-12 收到 17／18 個答案，對齊待確認。Part C 於 2026-10-12 全部回答，但與 Part B 有 3 處衝突、C6 待規則說明；**尚未回填任何規則**，見文末「回覆紀錄」。
 
 ---
 
@@ -111,3 +111,24 @@
 **C8. 已知 CAD + 新發心悸、無胸悶無暈（B5 類）：是否允許系統建議居家 12 導程 ECG？**
 - A：允許（符合 §3.8 窗口）
 - B：不允許，先轉護理師
+
+---
+
+## 回覆紀錄（原文，未回填）
+
+**2026-10-12 Part B（原文）**：`1,2,1,3,3,2,2,3,1,1,2,3,3,4,3,4,4` — 17 個值對 18 題，漏一題，對齊待 Clinical Owner 確認（B1–B8 三種對齊皆相同：1,2,1,3,3,2,2,3）。
+
+**2026-10-12 Part C（原文）**：C1 B、C2 C、C3 B、C4 A、C5 A、C6 D、C7 C、C8 B。
+
+**待裁定的衝突**（Part B 與 Part C 對同一情境給了不同等級）：
+| # | Part B | Part C | 待選 |
+|---|---|---|---|
+| X1 | B3（舌下片一月一次→一週兩三次，仍勞累性）= **1** | C4 A：同情境 → **T0** | B3 改 0，或 C4 改 B |
+| X2 | B7（一個月內快走距離縮短才悶）= **2** | C3 B：數週～一月緩降 → **T1** | B7 改 1，或 C3 改 C |
+| X3 | B11（兩週躺下較喘要墊高枕頭）= **1 或 2** | C1 B：端坐呼吸 → **T0** | B11 改 0，或 C1 改 C |
+
+**C6 D 待補規則**：Tier 9 且護理師不可得時，依主訴預設等級的對照表。
+
+**C5 A 的連動**（待衝突解決後一併實作）：新增 RF-06（胸部不適＋明顯冒汗）；`Q-DIAPH-01` priority 改 redflag；`rules_version` bump。
+**C1 B 的連動**：slot `orthopnea_pnd_edema` 需拆為 `orthopnea_pnd`（→ T0）與 `edema`（非 T0 因子）。
+**C8 B 的連動**：`BLUEPRINT.md §3.8` 可建議量測的症狀清單移除「心悸」。
