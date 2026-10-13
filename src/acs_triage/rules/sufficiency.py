@@ -10,6 +10,8 @@ CHEST_REDFLAG = ["ongoing_now", "presyncope", "diaphoresis"]
 DYSPNEA_REDFLAG = ["dyspnea_grade", "cant_finish_sentence"]
 CHEST_CONTEXT = ["rest_symptom", "ongoing_now", "diaphoresis", "presyncope"]
 DYSPNEA_CONTEXT = ["dyspnea_grade", "cant_finish_sentence", "orthopnea_pnd", "dyspnea_acute"]
+T0_TRIGGERS_CHEST = ["rest_symptom", "threshold_decreased", "ntg_use_increased"]        # Q-14b
+CONSULT_SCREEN = ["palpitations", "postural_dizziness", "pending_abnormal_test"]          # Q-14f
 
 RULE_REQUIREMENTS: dict[str, list[str]] = {
     # T0
@@ -33,15 +35,15 @@ RULE_REQUIREMENTS: dict[str, list[str]] = {
     "T2-POSTURAL-NEWMED": ["symptom_character", "presyncope", "dyspnea_grade", "new_medication_recent"],
     # T3
     "T3-STABLE": [],  # 動態：見 missing_for
-    "T3-ADMIN": ["consult_topic", "symptom_character", "dyspnea_grade", "presyncope"],
-    "T3-ANTIPLT-ASYMPTOMATIC": ["symptom_character", "dyspnea_grade", "presyncope"],
+    "T3-ADMIN": ["consult_topic", "symptom_character", "dyspnea_grade", "presyncope"] + CONSULT_SCREEN,
+    "T3-ANTIPLT-ASYMPTOMATIC": ["symptom_character", "dyspnea_grade", "presyncope"] + CONSULT_SCREEN,
     "T3-PALPITATIONS": ["symptom_character", "presyncope", "syncope", "dyspnea_grade"],
     "T3-POST-PCI-MILDER": CHEST_CONTEXT + ["threshold_decreased"],
     "T3-POSTPRANDIAL": ["ongoing_now", "diaphoresis", "exertion_relation", "presyncope"],
     "T3-MECHANICAL": ["ongoing_now", "diaphoresis", "exertion_relation", "presyncope"],
     "T3-COUGH": ["ongoing_now", "diaphoresis", "exertion_relation", "presyncope"],
     # T4
-    "T4-CONSULT": ["consult_topic", "symptom_character", "dyspnea_grade", "presyncope"],
+    "T4-CONSULT": ["consult_topic", "symptom_character", "dyspnea_grade", "presyncope"] + CONSULT_SCREEN,
 }
 
 
@@ -58,6 +60,12 @@ def missing_for(state: SlotState, provisional: int, rule_ids: list[str]) -> list
             required += [s for s in CHEST_CONTEXT + ["threshold_decreased", "dyspnea_acute"] if s not in required]
         else:
             required += [s for s in DYSPNEA_CONTEXT + ["presyncope"] if s not in required]
+    # Q-14b：胸部症狀要定在 T1–T4 前，三個 T0 觸發因子必須已知
+    if provisional in (1, 2, 3, 4) and state.chest_symptom_present():
+        required += [s for s in T0_TRIGGERS_CHEST if s not in required]
+    # Q-14c：第三方來電必須確認病人本人可及
+    if state.is_true("third_party_call") and "patient_reachable" not in required:
+        required.append("patient_reachable")
     # ND-05：已知 CAD／PCI 且有胸部症狀、provisional 在 1–3 → 必須確認抗血小板是否中斷（升級因子）
     if provisional in (1, 2, 3) and state.chest_symptom_present() and (state.is_true("pci_history") or state.is_true("cad_history")):
         if "antiplatelet_interrupted" not in required:

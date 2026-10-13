@@ -27,13 +27,18 @@ class SlotState:
         self._derive(slot_id, value, source)
 
     def _derive(self, slot_id: str, value: Any, source: str | None) -> None:
-        """明確否認帶出的安全衍生：只填尚未知的 slot，且只往「無此症狀」方向推。"""
+        """病人明確陳述帶出的衍生：只填尚未知的 slot。
+        否認 → 往「無此症狀」方向推；唯一例外是病人自己說「現在還在發作」（Q-14g）→ ongoing_now=True（升級方向）。"""
         derived: dict[str, Any] = {}
         if slot_id == "dyspnea_grade" and value == "none":
             derived = {"dyspnea_acute": False, "orthopnea_pnd": False, "cant_finish_sentence": False,
                        "dyspnea_complaint": False}
         elif slot_id == "symptom_character" and value == "none":
             derived = {"ongoing_now": False}
+        elif slot_id == "consult_screen_positive" and value is False:
+            derived = {"palpitations": False, "postural_dizziness": False, "pending_abnormal_test": False}
+        elif slot_id == "last_episode_timing" and value == "ongoing":
+            derived = {"ongoing_now": True}
         for k, v in derived.items():
             if self.get(k) is None:
                 self._values[k] = SlotValue(slot_id=k, value=v, confidence=0.9,

@@ -39,6 +39,17 @@ class Case:
     module: str = ""
 
 
+def _complete(slots: dict[str, Any]) -> dict[str, Any]:
+    """Sheet 補全：合併篩檢題（Q-14f）的答案由三個底層事實推得。"""
+    if slots.get("consult_screen_positive") is None:
+        vals = [slots.get(k) for k in ("palpitations", "postural_dizziness", "pending_abnormal_test")]
+        if any(v is True for v in vals):
+            slots["consult_screen_positive"] = True
+        elif all(v is False for v in vals):
+            slots["consult_screen_positive"] = False
+    return slots
+
+
 def _decisive_fields(slots: dict[str, Any]) -> dict[str, list[str]]:
     c = classify(slots)
     return {"decisive_questions": list(c), "escalating_questions": [q for q, d in c.items() if "up" in d]}
@@ -49,6 +60,7 @@ def expand_scenario(sc: dict[str, Any]) -> list[Case]:
     for k, v in sc.get("hidden_slots", {}).items():
         if v is not None:
             base[k] = v
+    base = _complete(base)
     persona = sc.get("persona", "normal")
     module = sc.get("module", sc.get("_file", ""))
     cases = [Case(id=sc["id"], scenario_id=sc["id"], opening_zh=sc["opening_zh"],
@@ -59,6 +71,9 @@ def expand_scenario(sc: dict[str, Any]) -> list[Case]:
         exp = var["expect"]
         slots = dict(base)
         slots.update(var["override"])
+        if any(k in var["override"] for k in ("palpitations", "postural_dizziness", "pending_abnormal_test")):
+            slots.pop("consult_screen_positive", None)
+        slots = _complete(slots)
         cases.append(Case(id=f"{sc['id']}#{i}", scenario_id=sc["id"], opening_zh=sc["opening_zh"],
                           truth_tier=exp.get("tier"), truth_hard_stop=bool(exp.get("hard_stop", False)),
                           truth_rf=exp.get("rf"), slots=slots, reset_slots=list(var["override"].keys()),

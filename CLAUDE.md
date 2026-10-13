@@ -43,4 +43,4 @@
 - 里程碑完成 → 更新 `docs/BLUEPRINT.md §11` 狀態與 `docs/DECISIONS.md`。
 
 ## 目前任務
-M0／M1／M2 已完成（2026-10-13）。下一步依 `docs/BLUEPRINT.md §11`：M2b（LLM 病人，需端點）、M3（待 Q-02）、M4（待 Q-01）。任何新工作先跑 `pytest` 確認 163 passed 的基線未破。Q-14 各項待 Clinical Owner 裁定，裁定前不得自行修改相關規則或 gate。
+M0／M1／M2 已完成（2026-10-13）。下一步依 `docs/BLUEPRINT.md §11`：M2b（LLM 病人，需端點）、M3（待 Q-02）、M4（待 Q-01）。任何新工作先跑 `pytest` 確認 170 passed 的基線未破。Q-14d（時序單調性）與 Q-15（題數上限）待 Clinical Owner 裁定，裁定前不得自行修改相關規則、gate 或 `max_questions`。

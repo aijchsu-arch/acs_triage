@@ -1,6 +1,6 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.3.2 · 2026-10-13
+**rules_version**: 0.4.0 · 2026-10-13（Q-14 a／b／c／e／f／g）
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 
@@ -92,7 +92,7 @@ T0 永遠先於其他等級評估；§5.6 的 T3 carve-out 只在 **T0 條件全
 
 ### 5.3 T0（非 hard stop）
 以下任一成立：
-- 新發缺血等價症狀且 `last_episode_timing == today`（含「今天第一次」已緩解者；A1、A4）(DV-1)
+- 新發缺血等價症狀且 `last_episode_timing ∈ {today, ongoing}`（含「今天第一次」已緩解者；A1、A4）(DV-1)。病人答「現在還在」→ 同時視為 `ongoing_now=true`（RF-03）（Q-14g）
 - `threshold_decreased == true` 且 `threshold_decrease_timescale ∈ {days, unknown}`（C3 B；A2）
 - `rest_symptom == true` 且 `rest_symptom_first_time == true`（新發休息時症狀；A5）
 - `dyspnea_acute == true`（今日突發且與基線明顯不同；A3）
@@ -121,9 +121,9 @@ T0／T1／T2 不成立，且以下任一：
 - `antiplatelet_interrupted == true` 且無症狀 → T3 + `expedite`（C7 C；B4）
 - `palpitations == true`、無缺血等價症狀、無 presyncope／syncope（B5）。**系統不建議居家 ECG**（C8 B）
 - `symptom_vs_pre_pci == milder`、`exertion_relation == exertion_only`、`rest_symptom == false`、`threshold_decreased == false`（PCI 後輕症較術前輕；B8）(DV-4)
-- **Carve-out**：`postprandial_relieved == true`、`ongoing_now == false`、`exertion_relation ∈ {rest_only, unclear}`、`diaphoresis == false`（吃飽脹氣、打嗝後完全緩解；B13）(DV-5)
-- `reproducible_mechanical == true` 且活動不加重（按壓／深呼吸可重現；B14）
-- `cough_related == true` 且 `exertion_relation != exertion_only`（咳嗽時才痛；B16）
+- **Carve-out**：`symptom_character == epigastric`（Q-14e）、`postprandial_relieved == true`、`ongoing_now == false`、`exertion_relation ∈ {rest_only, unclear}`、`diaphoresis == false`（吃飽脹氣、打嗝後完全緩解；B13）(DV-5)
+- `symptom_character == pain`（Q-14e）、`reproducible_mechanical == true` 且活動不加重（按壓／深呼吸可重現；B14）。壓迫、悶、下顎肩膀沉重**不適用**
+- `symptom_character == pain`（Q-14e）、`cough_related == true` 且 `exertion_relation != exertion_only`（咳嗽時才痛；B16）
 
 ### 5.7 T4（Self-care）
 T0–T3 不成立，且：
@@ -152,6 +152,9 @@ T0–T3 不成立，且：
 - 判 T1／T2：對應條件的全部 slot 有高信心值，且 `rest_symptom`、`ongoing_now`、`diaphoresis` 已確認。
 - 判 T3：對應條件的全部 slot 有高信心值；穩定型另需 `rest_symptom`、`threshold_decreased`、`dyspnea_acute` 皆為 false。
 - 判 T4：`consult_topic` 已確認且三項否認（胸悶、喘、暈）皆有高信心值。
+- **所有 T1–T4（Q-14b）**：有胸部症狀者，`rest_symptom`、`threshold_decreased`、`ntg_use_increased` 必須已知（三個 T0 觸發因子都排除才能定案）。
+- **第三方來電（Q-14c）**：`patient_reachable` 必須已知。
+- **無症狀諮詢（T3 行政、T3 抗血小板中斷無症狀、T4；Q-14f）**：心悸、姿勢性頭暈、檢查異常待追蹤必須已知；以一題合併篩檢詢問，答「沒有」即三項皆 false。
 - 其他 → 不足。
 
 ---
@@ -242,7 +245,7 @@ Safety net 腳本：
 | DV-2 | 新發勞累性症狀、型態穩定、無休息症狀：**≥2 週** → T2；<2 週 → 不適用此條（落回其他規則或 Tier 9） | B2「三個禮拜」=2 |
 | DV-3 | 有症狀 + 抗血小板中斷 → 至少 T1 | ND-05 文字 + C7 C 反推 |
 | DV-4 | PCI 後新輕症、較術前輕、純勞累、無休息、無閾值下降 → T3；任一不成立 → 不適用 | B8=3 |
-| DV-5 | B13 carve-out 的四個條件（吃飽後、打嗝完全緩解、非活動相關、無冒汗）缺一即不適用，回到一般規則 | B13=3 |
+| DV-5 | B13 carve-out 的條件（上腹不適〔Q-14e 增列〕、吃飽後、打嗝完全緩解、非活動相關、無冒汗）缺一即不適用，回到一般規則 | B13=3 |
 
 | DV-6 | `ntg_use_increased` 指既有型態下用量增加；新發病人首次使用 NTG（即使有效）不觸發 C4 A 的 T0，仍依 DV-1 時序判定 | B19=1 與 C4 A 並存 |
 | DV-7 | 無症狀諮詢的分流：門診時間／排程事務 → T3（走例行門診流程）；衛教性問題（回診前空腹、飲食、運動）、藥物處理、輕微非心臟問題 → T4 | A9=3 vs B20=4 |

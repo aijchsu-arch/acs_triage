@@ -26,12 +26,18 @@ def test_clean_hard_stop_safety(clean):
     assert m.rf_mismatch == []
 
 
+# Q-14b 讓胸部症狀定案前須排除三個 T0 觸發因子；PCI＋模糊開場的穩定型需 11 題，
+# max_questions=10 時 S-INSUF-02#1 以 Tier 9（轉護理師）結束。是否調為 11 待 Clinical Owner 裁定（Q-15）。
+KNOWN_BUDGET_ABSTAIN = [("S-INSUF-02#1", 3)]
+ESCALATING_FLOOR = 0.958   # D-28 基線 95.9%（510/532）
+
+
 def test_clean_no_under_triage_and_exact(clean):
     _, m = clean
     assert m.under_triage == []
     assert m.over_triage == []
-    assert m.abstain_fp == [] and m.abstain_fn == []
-    assert m.exact_rate == 1.0
+    assert m.abstain_fp == KNOWN_BUDGET_ABSTAIN and m.abstain_fn == []
+    assert m.exact == m.n_scored - len(KNOWN_BUDGET_ABSTAIN)
 
 
 def test_clean_insufficient_group_abstains(clean):
@@ -43,10 +49,9 @@ def test_clean_insufficient_group_abstains(clean):
 
 
 def test_clean_escalating_recall_floor(clean):
-    """D-27 基線 86.5%（455/526）。目標 ≥ 90%；此測試只防退步，修正 Q-14 各項後再上調。"""
+    """D-27 基線 86.5%（455/526）→ Q-14 a/b/c/e/f/g 後見 D-28。目標 ≥ 90%；此測試防退步。"""
     _, m = clean
-    assert m.escalating_total == 526
-    assert m.escalating_recall >= 0.865
+    assert m.escalating_recall >= ESCALATING_FLOOR
 
 
 def test_vague_mode_never_under_triages_or_misses_hard_stop():
@@ -60,5 +65,5 @@ def test_low_stt_gate_repeats_without_changing_outcome(clean):
     _, m_clean = clean
     _, m = run_all("low_stt", seed=0)
     assert m.repeats > 0
-    assert m.exact_rate == m_clean.exact_rate == 1.0
+    assert m.exact_rate == m_clean.exact_rate
     assert m.hard_stop_miss == [] and m.under_triage == []

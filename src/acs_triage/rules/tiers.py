@@ -31,17 +31,22 @@ def dv4_post_pci_milder(s: SlotState) -> bool:
 
 
 def dv5_postprandial(s: SlotState) -> bool:
-    """DV-5：餐後脹氣、打嗝後完全緩解、非活動相關、無冒汗。四條件缺一不成立。"""
-    return (s.is_true("postprandial_relieved") and s.is_false("ongoing_now")
+    """DV-5：餐後脹氣、打嗝後完全緩解、非活動相關、無冒汗；Q-14e：僅限上腹不適（epigastric）。"""
+    return (s.get("symptom_character") == "epigastric"
+            and s.is_true("postprandial_relieved") and s.is_false("ongoing_now")
             and s.get("exertion_relation") != "exertion_only" and s.not_true("diaphoresis"))
 
 
 def mechanical(s: SlotState) -> bool:
-    return s.is_true("reproducible_mechanical") and s.get("exertion_relation") != "exertion_only"
+    """可重現胸壁痛；Q-14e：僅限刺痛（pain），壓迫／悶／下顎肩膀沉重不適用。"""
+    return (s.get("symptom_character") == "pain" and s.is_true("reproducible_mechanical")
+            and s.get("exertion_relation") != "exertion_only")
 
 
 def cough(s: SlotState) -> bool:
-    return s.is_true("cough_related") and s.get("exertion_relation") != "exertion_only"
+    """咳嗽相關胸痛；Q-14e：僅限刺痛（pain）。"""
+    return (s.get("symptom_character") == "pain" and s.is_true("cough_related")
+            and s.get("exertion_relation") != "exertion_only")
 
 
 def _lower_tier_pattern(s: SlotState) -> bool:
@@ -53,7 +58,7 @@ def _lower_tier_pattern(s: SlotState) -> bool:
 def t0_rules(s: SlotState) -> list[str]:
     hits: list[str] = []
     timing = s.get("last_episode_timing")
-    if (s.chest_symptom_present() and s.is_true("onset_new") and timing in ("today", None, "unknown")
+    if (s.chest_symptom_present() and s.is_true("onset_new") and timing in ("ongoing", "today", None, "unknown")
             and not _lower_tier_pattern(s)):
         hits.append("T0-NEW-TODAY")
     if s.is_true("threshold_decreased") and s.get("threshold_decrease_timescale") in (UNKNOWN_TIMESCALE | {"days"}):

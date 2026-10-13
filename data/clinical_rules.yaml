@@ -3,7 +3,7 @@
 # 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
 # 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
 
-rules_version: "0.3.2"
+rules_version: "0.4.0"
 source_doc: docs/CLINICAL_RULES.md
 
 tiers:
@@ -60,7 +60,7 @@ no_downgrade:
 # ---------------- §5 等級規則索引（條件在程式碼，id 供稽核與 audit） ----------------
 tier_rules:
   T0:
-    - {id: T0-NEW-TODAY, ref: "§5.3 (DV-1)", text: 新發胸部症狀且最後一次在今天或時序未知；排除 DV-2／DV-4／DV-5／可重現機械性／咳嗽相關型態}
+    - {id: T0-NEW-TODAY, ref: "§5.3 (DV-1)", text: 新發胸部症狀且最後一次在今天、現在仍在、或時序未知；排除 DV-2／DV-4／DV-5／可重現機械性／咳嗽相關型態（後三者僅限 pain／epigastric，Q-14e）}
     - {id: T0-THRESHOLD-DAYS, ref: "§5.3 C3 B", text: 活動閾值下降且時間尺度為數天或不明}
     - {id: T0-REST-NEW, ref: "§5.3", text: 新發休息時症狀（首次不明時以首次視之）}
     - {id: T0-DYSPNEA-ACUTE, ref: "§5.3", text: 今日突發且與基線明顯不同之呼吸困難}
@@ -82,9 +82,9 @@ tier_rules:
     - {id: T3-ANTIPLT-ASYMPTOMATIC, ref: "§5.6 C7 C", text: 抗血小板中斷且無症狀 → T3 + expedite}
     - {id: T3-PALPITATIONS, ref: "§5.6 C8 B", text: 心悸、無胸部症狀、無瀕厥／暈厥；不建議居家 ECG}
     - {id: T3-POST-PCI-MILDER, ref: "§5.6 (DV-4)", text: PCI 後輕症較術前輕、純勞累、無休息、無閾值下降}
-    - {id: T3-POSTPRANDIAL, ref: "§5.6 (DV-5)", text: 餐後脹氣、打嗝後完全緩解、非活動相關、無冒汗}
-    - {id: T3-MECHANICAL, ref: "§5.6", text: 按壓／深呼吸可重現且活動不加重}
-    - {id: T3-COUGH, ref: "§5.6", text: 咳嗽相關且非勞累性}
+    - {id: T3-POSTPRANDIAL, ref: "§5.6 (DV-5)", text: 上腹不適（epigastric）、餐後、打嗝後完全緩解、非活動相關、無冒汗（Q-14e）}
+    - {id: T3-MECHANICAL, ref: "§5.6", text: 刺痛（pain）、按壓／深呼吸可重現且活動不加重（Q-14e）}
+    - {id: T3-COUGH, ref: "§5.6", text: 刺痛（pain）、咳嗽相關且非勞累性（Q-14e）}
   T4:
     - {id: T4-CONSULT, ref: "§5.7 (DV-7)", text: 衛教問題／藥物處理／輕微非心臟問題且否認任何胸悶、喘、暈}
   T9:

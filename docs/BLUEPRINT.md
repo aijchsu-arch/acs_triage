@@ -402,3 +402,5 @@ acs_triage/
 **M2 基線（2026-10-13，`reports/eval_2026-10-13_*.md`）**：119 cases／116 可評分。clean：Hard-stop miss 0/27、latency 0、under-triage 0、over-triage 0、exact 100%、abstention P/R 100%/100%、平均 4.9 題。vague（25% 答不知道）：under-triage 0、Hard-stop miss 0、24 例轉護理師（預期）。low_stt（20% 低信心）：130 次重問，結果與 clean 完全相同。
 
 **M2 重訂基線（2026-10-13，D-27）**：decisive 改為反事實定義後，clean 的 escalating recall **86.5%（455/526）**、decisive recall 81.5%；未達 90% 目標。71 次漏問集中在 Q-NTG-01（33）、Q-THRESHOLD-01（9）、無症狀諮詢的篩檢題（PENDINGTEST 7、POSTURAL 6、PALP 4），成因與修正選項見 `DECISIONS.md` Q-14。
+
+**Q-14 修正後基線（2026-10-13，D-28，rules 0.4.0）**：clean escalating recall **95.9%（510/532）**、Hard-stop miss 0/27、latency 0、under 0、over 0、exact 115/116、平均 5.3 題。剩餘 22 次漏問中 15 次結束於 Tier 9 或 T0（無 under-triage 風險）；4 次（S-MID-02／08／16 時序題）源自待裁定的 Q-14d。

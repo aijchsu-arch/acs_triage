@@ -5,8 +5,8 @@
 # priority: redflag（先問，可觸發 Hard stop）> decisive（決定 acute vs chronic）> refine
 # 不得在程式碼中寫死任何問題文字。
 
-bank_version: "0.3"
-rules_version_required: "0.3.1"
+bank_version: "0.4"
+rules_version_required: "0.4.0"
 
 slots:
   - id: ongoing_now
@@ -78,6 +78,9 @@ slots:
   - id: threshold_decrease_timescale
     type: choice
     choices: [days, weeks_to_month, unknown]
+  - id: consult_screen_positive
+    type: yes_no
+    note: Q-14f 合併篩檢；答「沒有」→ 衍生心悸、姿勢性頭暈、檢查異常待追蹤皆為 false
   - id: palpitations
     type: yes_no
   - id: postural_dizziness
@@ -274,6 +277,12 @@ questions:
     choices: [milder, same, worse]
     script_zh: "跟放支架之前比，現在的不舒服是比較輕、差不多、還是比較重？"
     why_zh: "較輕且純勞累、無休息、無閾值下降 → T3（DV-4）；相同或更重 → T0"
+  - id: Q-SCREEN-01
+    slot_id: consult_screen_positive
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "另外再確認一下：最近有沒有心跳突然很快或亂跳、站起來會頭暈，或是有做過檢查被說異常、還沒回診的？"
+    why_zh: "無症狀諮詢的合併篩檢（Q-14f）；任一項有 → 逐項追問，可能升級"
   - id: Q-CONSULT-01
     slot_id: consult_topic
     priority: decisive
@@ -315,7 +324,7 @@ questions:
     why_zh: "近期中斷是升級因子（ND-05）"
   - id: Q-NTG-01
     slot_id: ntg_use_increased
-    priority: refine
+    priority: decisive        # Q-14a：C4 A 使 NTG 用量增加 → T0
     answer_type: yes_no
     script_zh: "舌下含片最近用得比以前多嗎？"
     why_zh: "NTG 有效不得降級（ND-04）；用量增加是惡化線索"

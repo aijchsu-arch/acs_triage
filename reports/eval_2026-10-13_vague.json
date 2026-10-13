@@ -9,20 +9,14 @@
     "false_alarm": [],
     "latency_max": 0
   },
-  "exact_rate": 0.7844827586206896,
+  "exact_rate": 0.7586206896551724,
   "under_triage": {
     "rate": 0.0,
     "cases": []
   },
   "over_triage": {
-    "rate": 0.008620689655172414,
-    "cases": [
-      [
-        "S-MID-15#0",
-        1,
-        0
-      ]
-    ]
+    "rate": 0.0,
+    "cases": []
   },
   "abstention": {
     "tp": 12,
@@ -76,8 +70,16 @@
         0
       ],
       [
+        "S-MID-01#1",
+        2
+      ],
+      [
         "S-MID-03#1",
         3
+      ],
+      [
+        "S-MID-04#0",
+        1
       ],
       [
         "S-MID-05#1",
@@ -108,6 +110,10 @@
         0
       ],
       [
+        "S-MID-13",
+        3
+      ],
+      [
         "S-MID-13#2",
         0
       ],
@@ -116,22 +122,26 @@
         0
       ],
       [
+        "S-MID-15#0",
+        1
+      ],
+      [
         "S-MID-16#0",
         0
       ],
       [
-        "S-MID-20#0",
-        3
+        "S-MID-17",
+        4
       ]
     ],
     "fn": [],
-    "precision": 0.3333333333333333,
+    "precision": 0.3,
     "recall": 1.0
   },
-  "escalating_recall": 0.8593155893536122,
+  "escalating_recall": 0.9398496240601504,
   "escalating": {
-    "hit": 452,
-    "total": 526,
+    "hit": 500,
+    "total": 532,
     "missed": [
       [
         "S-ACUTE-01#2",
@@ -170,58 +180,28 @@
         "gate_passed"
       ],
       [
-        "S-STABLE-01",
-        "Q-NTG-01",
-        9,
-        "max_questions"
-      ],
-      [
         "S-STABLE-01#2",
         "Q-NTG-01",
         9,
         "max_questions"
       ],
       [
-        "S-STABLE-02",
-        "Q-NTG-01",
+        "S-STABLE-03#0",
+        "Q-DIAPH-01",
         9,
-        "max_questions"
+        "no_more_questions"
       ],
       [
-        "S-STABLE-02#0",
-        "Q-NTG-01",
+        "S-STABLE-03#0",
+        "Q-TIMING-01",
         9,
-        "max_questions"
-      ],
-      [
-        "S-STABLE-03",
-        "Q-POSTURAL-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-STABLE-03",
-        "Q-PENDINGTEST-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-STABLE-04",
-        "Q-NTG-01",
-        3,
-        "gate_passed"
+        "no_more_questions"
       ],
       [
         "S-INSUF-01",
         "Q-NTG-01",
         9,
         "max_questions"
-      ],
-      [
-        "S-INSUF-01#1",
-        "Q-NTG-01",
-        3,
-        "gate_passed"
       ],
       [
         "S-INSUF-02",
@@ -290,12 +270,6 @@
         "max_questions"
       ],
       [
-        "S-INSUF-05#1",
-        "Q-NTG-01",
-        9,
-        "max_questions"
-      ],
-      [
         "S-INSUF-06",
         "Q-NTG-01",
         9,
@@ -315,6 +289,12 @@
       ],
       [
         "S-INSUF-07#1",
+        "Q-TIMING-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07#1",
         "Q-NTG-01",
         9,
         "max_questions"
@@ -326,75 +306,9 @@
         "max_questions"
       ],
       [
-        "S-INSUF-08#1",
-        "Q-NTG-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-01",
-        "Q-THRESHOLD-01",
-        1,
-        "gate_passed"
-      ],
-      [
-        "S-MID-01",
-        "Q-NTG-01",
-        1,
-        "gate_passed"
-      ],
-      [
-        "S-MID-01#1",
-        "Q-THRESHOLD-01",
-        2,
-        "gate_passed"
-      ],
-      [
-        "S-MID-01#1",
-        "Q-NTG-01",
-        2,
-        "gate_passed"
-      ],
-      [
         "S-MID-02",
         "Q-TIMING-01",
         2,
-        "gate_passed"
-      ],
-      [
-        "S-MID-02",
-        "Q-NTG-01",
-        2,
-        "gate_passed"
-      ],
-      [
-        "S-MID-03#1",
-        "Q-NTG-01",
-        9,
-        "max_questions"
-      ],
-      [
-        "S-MID-04",
-        "Q-POSTURAL-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-04",
-        "Q-PENDINGTEST-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-04#0",
-        "Q-THRESHOLD-01",
-        1,
-        "gate_passed"
-      ],
-      [
-        "S-MID-04#0",
-        "Q-NTG-01",
-        1,
         "gate_passed"
       ],
       [
@@ -404,88 +318,10 @@
         "no_more_questions"
       ],
       [
-        "S-MID-07",
-        "Q-NTG-01",
+        "S-MID-15#0",
+        "Q-TIMING-01",
         9,
         "max_questions"
-      ],
-      [
-        "S-MID-08",
-        "Q-NTG-01",
-        9,
-        "max_questions"
-      ],
-      [
-        "S-MID-08#2",
-        "Q-NTG-01",
-        9,
-        "max_questions"
-      ],
-      [
-        "S-MID-13",
-        "Q-THRESHOLD-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-13",
-        "Q-REST-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-13",
-        "Q-NTG-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-14",
-        "Q-THRESHOLD-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-14",
-        "Q-REST-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-14",
-        "Q-NTG-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-15",
-        "Q-PALP-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-15",
-        "Q-POSTURAL-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-15",
-        "Q-PENDINGTEST-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-16",
-        "Q-THRESHOLD-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-16",
-        "Q-REST-01",
-        3,
-        "gate_passed"
       ],
       [
         "S-MID-16",
@@ -494,112 +330,34 @@
         "gate_passed"
       ],
       [
-        "S-MID-16",
-        "Q-NTG-01",
-        3,
-        "gate_passed"
-      ],
-      [
-        "S-MID-17",
-        "Q-REACHABLE-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-17",
-        "Q-PALP-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-17",
-        "Q-POSTURAL-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-17",
-        "Q-PENDINGTEST-01",
-        4,
-        "gate_passed"
-      ],
-      [
         "S-MID-17#0",
         "Q-NTG-01",
         9,
         "max_questions"
-      ],
-      [
-        "S-MID-18",
-        "Q-PALP-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-18",
-        "Q-POSTURAL-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-18",
-        "Q-PENDINGTEST-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-19",
-        "Q-THRESHOLD-01",
-        1,
-        "gate_passed"
-      ],
-      [
-        "S-MID-19",
-        "Q-NTG-01",
-        1,
-        "gate_passed"
-      ],
-      [
-        "S-MID-20",
-        "Q-PALP-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-20",
-        "Q-POSTURAL-01",
-        4,
-        "gate_passed"
-      ],
-      [
-        "S-MID-20",
-        "Q-PENDINGTEST-01",
-        4,
-        "gate_passed"
       ]
     ]
   },
-  "decisive_recall": 0.8083441981747066,
-  "questions_to_decision_mean": 5.65546218487395,
+  "decisive_recall": 0.9182825484764543,
+  "questions_to_decision_mean": 5.949579831932773,
   "gate_repeats": 0,
   "stop_reasons": {
-    "gate_passed": 52,
+    "gate_passed": 49,
     "hard_stop": 25,
-    "max_questions": 37,
+    "max_questions": 39,
     "hard_stop_opening": 2,
-    "no_more_questions": 3
+    "no_more_questions": 4
   },
   "confusion": {
     "0->0": 58,
     "0->9": 12,
-    "1->0": 1,
-    "1->1": 4,
-    "1->9": 2,
-    "2->2": 4,
-    "2->9": 1,
+    "1->1": 3,
+    "1->9": 4,
+    "2->2": 3,
+    "2->9": 2,
     "3->3": 9,
     "3->9": 9,
-    "4->4": 4,
+    "4->4": 3,
+    "4->9": 1,
     "9->9": 12
   },
   "rf_mismatch": []

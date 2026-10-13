@@ -1,6 +1,6 @@
 # Phase 0 評估報告 — mode=vague seed=0
 
-- 日期：2026-10-13　rules_version：0.3.2
+- 日期：2026-10-13　rules_version：0.4.0
 - cases：119（可評分 116；`expect.tier: null` 的變體不計分）
 - 模擬病人：ScriptedPatient（確定性腳本；LLM 病人為 M2b）
 
@@ -12,12 +12,12 @@
 | Hard-stop latency（最大） | 0 句 | 0 句 |
 | Hard-stop false alarm | 0 | 記錄 |
 | Under-triage rate | 0.0%（0） | 趨近 0 |
-| Over-triage rate | 0.9%（1） | 記錄 |
-| Tier exact accuracy | 78.4% | 記錄 |
-| Escalating-question recall（答案可能使分流更急的題目） | 85.9%（452/526） | ≥ 90% |
-| Decisive-question recall（答案會改變分流的題目，含只會降級者） | 80.8%（620/767） | 記錄 |
-| Abstention precision / recall | 33.3% / 100.0% | 記錄 |
-| Questions-to-decision（平均） | 5.7 | 記錄 |
+| Over-triage rate | 0.0%（0） | 記錄 |
+| Tier exact accuracy | 75.9% | 記錄 |
+| Escalating-question recall（答案可能使分流更急的題目） | 94.0%（500/532） | ≥ 90% |
+| Decisive-question recall（答案會改變分流的題目，含只會降級者） | 91.8%（663/722） | 記錄 |
+| Abstention precision / recall | 30.0% / 100.0% | 記錄 |
+| Questions-to-decision（平均） | 5.9 | 記錄 |
 | Gate effect（低信心重問次數） | 0 | 記錄 |
 
 ## 混淆矩陣（truth → pred）
@@ -25,10 +25,10 @@
 | truth \ pred | 0 | 1 | 2 | 3 | 4 | 9 |
 |---|---|---|---|---|---|---|
 | **0** | 58 | 0 | 0 | 0 | 0 | 12 |
-| **1** | 1 | 4 | 0 | 0 | 0 | 2 |
-| **2** | 0 | 0 | 4 | 0 | 0 | 1 |
+| **1** | 0 | 3 | 0 | 0 | 0 | 4 |
+| **2** | 0 | 0 | 3 | 0 | 0 | 2 |
 | **3** | 0 | 0 | 0 | 9 | 0 | 9 |
-| **4** | 0 | 0 | 0 | 0 | 4 | 0 |
+| **4** | 0 | 0 | 0 | 0 | 3 | 1 |
 | **9** | 0 | 0 | 0 | 0 | 0 | 12 |
 
 ## 依模組
@@ -37,7 +37,7 @@
 |---|---|---|---|---|---|---|
 | acute | 16 | 15 | 0 | 0 | 1 | 0 |
 | insufficient | 25 | 19 | 0 | 0 | 6 | 0 |
-| midband | 64 | 50 | 0 | 1 | 13 | 0 |
+| midband | 64 | 47 | 0 | 0 | 17 | 0 |
 | stable | 11 | 7 | 0 | 0 | 4 | 0 |
 
 ## 指標說明
@@ -51,11 +51,11 @@
 
 ## 結束原因
 
-- gate_passed: 52
+- gate_passed: 49
 - hard_stop: 25
 - hard_stop_opening: 2
-- max_questions: 37
-- no_more_questions: 3
+- max_questions: 39
+- no_more_questions: 4
 
 ## Hard-stop miss（0）
 
@@ -69,11 +69,11 @@
 
 （無）
 
-## Over-triage（case, truth, pred）（1）
+## Over-triage（case, truth, pred）（0）
 
-- ('S-MID-15#0', 1, 0)
+（無）
 
-## Abstention FP（truth 0–4 但最終 9）（24）
+## Abstention FP（truth 0–4 但最終 9）（28）
 
 - ('S-ACUTE-01#2', 3)
 - ('S-STABLE-01', 3)
@@ -87,7 +87,9 @@
 - ('S-INSUF-05#1', 3)
 - ('S-INSUF-06#0', 0)
 - ('S-MID-01#0', 0)
+- ('S-MID-01#1', 2)
 - ('S-MID-03#1', 3)
+- ('S-MID-04#0', 1)
 - ('S-MID-05#1', 0)
 - ('S-MID-06', 2)
 - ('S-MID-07', 1)
@@ -95,10 +97,12 @@
 - ('S-MID-08#1', 0)
 - ('S-MID-08#2', 1)
 - ('S-MID-09#0', 0)
+- ('S-MID-13', 3)
 - ('S-MID-13#2', 0)
 - ('S-MID-14#0', 0)
+- ('S-MID-15#0', 1)
 - ('S-MID-16#0', 0)
-- ('S-MID-20#0', 3)
+- ('S-MID-17', 4)
 
 ## Abstention FN（truth 9 但給了 0–4）（0）
 
@@ -108,25 +112,21 @@
 
 （無）
 
-## 漏問的 escalating 題目（74）
+## 漏問的 escalating 題目（32）
 
 | 題目 | 漏問次數 |
 |---|---|
-| Q-NTG-01 | 33 |
-| Q-THRESHOLD-01 | 9 |
-| Q-POSTURAL-01 | 6 |
-| Q-PENDINGTEST-01 | 6 |
-| Q-REST-01 | 4 |
-| Q-PALP-01 | 4 |
+| Q-NTG-01 | 14 |
+| Q-TIMING-01 | 5 |
+| Q-DIAPH-01 | 3 |
 | Q-ONSET-01 | 2 |
-| Q-DIAPH-01 | 2 |
-| Q-TIMING-01 | 2 |
+| Q-THRESHOLD-01 | 2 |
 | Q-ORTHO-01 | 1 |
 | Q-REST-02 | 1 |
 | Q-ONGOING-01 | 1 |
 | Q-SYNCOPE-01 | 1 |
+| Q-REST-01 | 1 |
 | Q-PATTERN-01 | 1 |
-| Q-REACHABLE-01 | 1 |
 
 明細（case, 題目, final tier, 結束原因）：
 
@@ -136,15 +136,10 @@
 - ('S-ACUTE-05#1', 'Q-THRESHOLD-01', 0, 'gate_passed')
 - ('S-ACUTE-05#1', 'Q-REST-02', 0, 'gate_passed')
 - ('S-ACUTE-05#1', 'Q-NTG-01', 0, 'gate_passed')
-- ('S-STABLE-01', 'Q-NTG-01', 9, 'max_questions')
 - ('S-STABLE-01#2', 'Q-NTG-01', 9, 'max_questions')
-- ('S-STABLE-02', 'Q-NTG-01', 9, 'max_questions')
-- ('S-STABLE-02#0', 'Q-NTG-01', 9, 'max_questions')
-- ('S-STABLE-03', 'Q-POSTURAL-01', 3, 'gate_passed')
-- ('S-STABLE-03', 'Q-PENDINGTEST-01', 3, 'gate_passed')
-- ('S-STABLE-04', 'Q-NTG-01', 3, 'gate_passed')
+- ('S-STABLE-03#0', 'Q-DIAPH-01', 9, 'no_more_questions')
+- ('S-STABLE-03#0', 'Q-TIMING-01', 9, 'no_more_questions')
 - ('S-INSUF-01', 'Q-NTG-01', 9, 'max_questions')
-- ('S-INSUF-01#1', 'Q-NTG-01', 3, 'gate_passed')
 - ('S-INSUF-02', 'Q-NTG-01', 9, 'max_questions')
 - ('S-INSUF-02#1', 'Q-ONGOING-01', 9, 'no_more_questions')
 - ('S-INSUF-02#1', 'Q-SYNCOPE-01', 9, 'no_more_questions')
@@ -156,54 +151,17 @@
 - ('S-INSUF-02#1', 'Q-NTG-01', 9, 'no_more_questions')
 - ('S-INSUF-03', 'Q-NTG-01', 9, 'max_questions')
 - ('S-INSUF-05', 'Q-NTG-01', 9, 'max_questions')
-- ('S-INSUF-05#1', 'Q-NTG-01', 9, 'max_questions')
 - ('S-INSUF-06', 'Q-NTG-01', 9, 'max_questions')
 - ('S-INSUF-06#1', 'Q-NTG-01', 9, 'max_questions')
 - ('S-INSUF-07', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-07#1', 'Q-TIMING-01', 9, 'max_questions')
 - ('S-INSUF-07#1', 'Q-NTG-01', 9, 'max_questions')
 - ('S-INSUF-08', 'Q-NTG-01', 9, 'max_questions')
-- ('S-INSUF-08#1', 'Q-NTG-01', 3, 'gate_passed')
-- ('S-MID-01', 'Q-THRESHOLD-01', 1, 'gate_passed')
-- ('S-MID-01', 'Q-NTG-01', 1, 'gate_passed')
-- ('S-MID-01#1', 'Q-THRESHOLD-01', 2, 'gate_passed')
-- ('S-MID-01#1', 'Q-NTG-01', 2, 'gate_passed')
 - ('S-MID-02', 'Q-TIMING-01', 2, 'gate_passed')
-- ('S-MID-02', 'Q-NTG-01', 2, 'gate_passed')
-- ('S-MID-03#1', 'Q-NTG-01', 9, 'max_questions')
-- ('S-MID-04', 'Q-POSTURAL-01', 3, 'gate_passed')
-- ('S-MID-04', 'Q-PENDINGTEST-01', 3, 'gate_passed')
-- ('S-MID-04#0', 'Q-THRESHOLD-01', 1, 'gate_passed')
-- ('S-MID-04#0', 'Q-NTG-01', 1, 'gate_passed')
 - ('S-MID-05#1', 'Q-DIAPH-01', 9, 'no_more_questions')
-- ('S-MID-07', 'Q-NTG-01', 9, 'max_questions')
-- ('S-MID-08', 'Q-NTG-01', 9, 'max_questions')
-- ('S-MID-08#2', 'Q-NTG-01', 9, 'max_questions')
-- ('S-MID-13', 'Q-THRESHOLD-01', 3, 'gate_passed')
-- ('S-MID-13', 'Q-REST-01', 3, 'gate_passed')
-- ('S-MID-13', 'Q-NTG-01', 3, 'gate_passed')
-- ('S-MID-14', 'Q-THRESHOLD-01', 3, 'gate_passed')
-- ('S-MID-14', 'Q-REST-01', 3, 'gate_passed')
-- ('S-MID-14', 'Q-NTG-01', 3, 'gate_passed')
-- ('S-MID-15', 'Q-PALP-01', 4, 'gate_passed')
-- ('S-MID-15', 'Q-POSTURAL-01', 4, 'gate_passed')
-- ('S-MID-15', 'Q-PENDINGTEST-01', 4, 'gate_passed')
-- ('S-MID-16', 'Q-THRESHOLD-01', 3, 'gate_passed')
-- ('S-MID-16', 'Q-REST-01', 3, 'gate_passed')
+- ('S-MID-15#0', 'Q-TIMING-01', 9, 'max_questions')
 - ('S-MID-16', 'Q-TIMING-01', 3, 'gate_passed')
-- ('S-MID-16', 'Q-NTG-01', 3, 'gate_passed')
-- ('S-MID-17', 'Q-REACHABLE-01', 4, 'gate_passed')
-- ('S-MID-17', 'Q-PALP-01', 4, 'gate_passed')
-- ('S-MID-17', 'Q-POSTURAL-01', 4, 'gate_passed')
-- ('S-MID-17', 'Q-PENDINGTEST-01', 4, 'gate_passed')
 - ('S-MID-17#0', 'Q-NTG-01', 9, 'max_questions')
-- ('S-MID-18', 'Q-PALP-01', 4, 'gate_passed')
-- ('S-MID-18', 'Q-POSTURAL-01', 4, 'gate_passed')
-- ('S-MID-18', 'Q-PENDINGTEST-01', 4, 'gate_passed')
-- ('S-MID-19', 'Q-THRESHOLD-01', 1, 'gate_passed')
-- ('S-MID-19', 'Q-NTG-01', 1, 'gate_passed')
-- ('S-MID-20', 'Q-PALP-01', 4, 'gate_passed')
-- ('S-MID-20', 'Q-POSTURAL-01', 4, 'gate_passed')
-- ('S-MID-20', 'Q-PENDINGTEST-01', 4, 'gate_passed')
 
 ## 每案摘要
 
@@ -227,24 +185,24 @@
 | S-ACUTE-05#1 | — | 0 |  | gate_passed | 4 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 |
 | S-ACUTE-06 | 0Y | 0Y | RF-01 | hard_stop_opening | 0 |  |
 | S-ACUTE-06#0 | 0Y | 0Y | RF-01 | hard_stop_opening | 0 |  |
-| S-STABLE-01 | 3 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 REPRO-01 |
-| S-STABLE-01#0 | 0 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 REPRO-01 |
+| S-STABLE-01 | 3 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 NTG-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 |
+| S-STABLE-01#0 | 0 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 NTG-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 |
 | S-STABLE-01#1 | 0 | 0 |  | gate_passed | 7 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 THRESH-TIME-01 |
 | S-STABLE-01#2 | 9 | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 PATTERN-01 TIMING-01 PALP-01 POSTURAL-01 REPRO-01 |
-| S-STABLE-02 | 3 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 REPRO-01 |
-| S-STABLE-02#0 | — | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 REPRO-01 |
+| S-STABLE-02 | 3 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 NTG-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 |
+| S-STABLE-02#0 | — | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 NTG-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 |
 | S-STABLE-02#1 | 0 | 0 |  | gate_passed | 5 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 |
-| S-STABLE-03 | 3 | 3 |  | gate_passed | 1 | DYSPNEA-GRADE-01 |
-| S-STABLE-03#0 | 0 | 9 ⚠ |  | max_questions | 10 | DYSPNEA-GRADE-01 CHARACTER-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 TIMING-01 PALP-01 |
-| S-STABLE-04 | 3 | 3 |  | gate_passed | 4 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 |
+| S-STABLE-03 | 3 | 3 |  | gate_passed | 2 | DYSPNEA-GRADE-01 SCREEN-01 |
+| S-STABLE-03#0 | 0 | 9 ⚠ |  | no_more_questions | 5 | DYSPNEA-GRADE-01 SCREEN-01 CHARACTER-01 DRUGTIME-01 PCI-01 |
+| S-STABLE-04 | 3 | 3 |  | gate_passed | 5 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 NTG-01 |
 | S-STABLE-04#0 | 0 | 0 |  | gate_passed | 4 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 |
 | S-STABLE-04#1 | 0 | 0 |  | gate_passed | 6 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 THRESH-TIME-01 |
 | S-INSUF-01 | 9 | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 TIMING-01 |
 | S-INSUF-01#0 | 0 | 0 |  | gate_passed | 7 | DYSPNEA-GRADE-01 CHARACTER-01 ONGOING-01 SYNCOPE-01 DIAPH-01 ONSET-01 TIMING-01 |
-| S-INSUF-01#1 | 3 | 3 |  | gate_passed | 9 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 ANTIPLT-01 |
+| S-INSUF-01#1 | 3 | 3 |  | gate_passed | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 NTG-01 ANTIPLT-01 |
 | S-INSUF-02 | 9 | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 TIMING-01 |
 | S-INSUF-02#0 | 0 | 9 ⚠ |  | max_questions | 10 | DYSPNEA-GRADE-01 CHARACTER-01 ONGOING-01 SYNCOPE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 |
-| S-INSUF-02#1 | 3 | 9 ⚠ |  | no_more_questions | 8 | DYSPNEA-GRADE-01 CHARACTER-01 PALP-01 POSTURAL-01 DRUGTIME-01 CAD-01 PENDINGTEST-01 PCI-RECENT-01 |
+| S-INSUF-02#1 | 3 | 9 ⚠ |  | no_more_questions | 9 | DYSPNEA-GRADE-01 CHARACTER-01 PALP-01 POSTURAL-01 SCREEN-01 DRUGTIME-01 CAD-01 PENDINGTEST-01 PCI-RECENT-01 |
 | S-INSUF-03 | 9 | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 TIMING-01 |
 | S-INSUF-03#0 | 0 | 0 |  | gate_passed | 6 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 TIMING-01 |
 | S-INSUF-03#1 | 0 | 0 |  | gate_passed | 7 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 |
@@ -254,7 +212,7 @@
 | S-INSUF-04#2 | 3 | 9 ⚠ |  | max_questions | 10 | DYSPNEA-GRADE-01 DYSPNEA-SENTENCE-01 DYSPNEA-ACUTE-01 PATTERN-01 ORTHO-01 SYNCOPE-01 CHARACTER-01 PALP-01 POSTURAL-01 CONSULT-01 |
 | S-INSUF-05 | 9 | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 TIMING-01 PALP-01 |
 | S-INSUF-05#0 | 0 | 0 |  | gate_passed | 6 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 TIMING-01 |
-| S-INSUF-05#1 | 3 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 TIMING-01 PALP-01 |
+| S-INSUF-05#1 | 3 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 NTG-01 TIMING-01 |
 | S-INSUF-06 | 9 | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 TIMING-01 |
 | S-INSUF-06#0 | 0 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 TIMING-01 |
 | S-INSUF-06#1 | 9 | 9 |  | max_questions | 10 | DYSPNEA-GRADE-01 CHARACTER-01 ONGOING-01 SYNCOPE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 |
@@ -263,35 +221,35 @@
 | S-INSUF-07#1 | 9 | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 REACHABLE-01 |
 | S-INSUF-08 | 9 | 9 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 TIMING-01 PALP-01 |
 | S-INSUF-08#0 | 0 | 0 |  | gate_passed | 6 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESHOLD-01 THRESH-TIME-01 |
-| S-INSUF-08#1 | 3 | 3 |  | gate_passed | 7 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESHOLD-01 REST-01 PATTERN-01 |
-| S-MID-01 | 1 | 1 |  | gate_passed | 4 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 |
+| S-INSUF-08#1 | 3 | 3 |  | gate_passed | 8 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESHOLD-01 REST-01 PATTERN-01 NTG-01 |
+| S-MID-01 | 1 | 1 |  | gate_passed | 6 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 NTG-01 |
 | S-MID-01#0 | 0 | 9 ⚠ |  | max_questions | 10 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 TIMING-01 PALP-01 |
-| S-MID-01#1 | 2 | 2 |  | gate_passed | 6 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 TIMING-01 REST-01 |
+| S-MID-01#1 | 2 | 9 ⚠ |  | max_questions | 10 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ONSET-01 TIMING-01 REST-01 THRESHOLD-01 NTG-01 EXERTION-01 ONSET-WEEKS-01 |
 | S-MID-01#2 | 0Y | 0Y | RF-06 | hard_stop | 3 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 |
-| S-MID-02 | 2 | 2 |  | gate_passed | 3 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 |
+| S-MID-02 | 2 | 2 |  | gate_passed | 4 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 NTG-01 |
 | S-MID-02#0 | 0 | 0 |  | gate_passed | 6 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESHOLD-01 TIMING-01 THRESH-TIME-01 |
 | S-MID-02#1 | 0 | 0 |  | gate_passed | 5 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 TIMING-01 |
 | S-MID-02#2 | 0 | 0 |  | gate_passed | 4 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 TIMING-01 |
 | S-MID-03 | 0 | 0 |  | gate_passed | 3 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 |
 | S-MID-03#0 | 0Y | 0Y | RF-03 | hard_stop | 1 | ONGOING-01 |
-| S-MID-03#1 | 3 | 9 ⚠ |  | max_questions | 10 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESHOLD-01 PATTERN-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 REPRO-01 |
-| S-MID-04 | 3 | 3 |  | gate_passed | 2 | DYSPNEA-GRADE-01 SYNCOPE-01 |
-| S-MID-04#0 | 1 | 1 |  | gate_passed | 7 | DYSPNEA-GRADE-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 TIMING-01 REST-01 |
+| S-MID-03#1 | 3 | 9 ⚠ |  | max_questions | 10 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESHOLD-01 PATTERN-01 NTG-01 ANTIPLT-01 TIMING-01 PALP-01 POSTURAL-01 |
+| S-MID-04 | 3 | 3 |  | gate_passed | 3 | DYSPNEA-GRADE-01 SCREEN-01 SYNCOPE-01 |
+| S-MID-04#0 | 1 | 9 ⚠ |  | max_questions | 10 | DYSPNEA-GRADE-01 SCREEN-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 TIMING-01 REST-01 THRESHOLD-01 NTG-01 |
 | S-MID-05 | 3 | 3 |  | gate_passed | 2 | DYSPNEA-GRADE-01 SYNCOPE-02 |
 | S-MID-05#0 | 0Y | 0Y | RF-01 | hard_stop | 3 | DYSPNEA-GRADE-01 CHARACTER-01 SYNCOPE-01 |
-| S-MID-05#1 | 0 | 9 ⚠ |  | no_more_questions | 7 | DYSPNEA-GRADE-01 CHARACTER-01 SYNCOPE-02 POSTURAL-01 DRUGTIME-01 PCI-01 PENDINGTEST-01 |
+| S-MID-05#1 | 0 | 9 ⚠ |  | no_more_questions | 8 | DYSPNEA-GRADE-01 CHARACTER-01 SYNCOPE-02 POSTURAL-01 SCREEN-01 DRUGTIME-01 PCI-01 PENDINGTEST-01 |
 | S-MID-06 | 2 | 9 ⚠ |  | max_questions | 10 | DYSPNEA-SENTENCE-01 ORTHO-01 CHARACTER-01 PALP-01 POSTURAL-01 DRUGTIME-01 EDEMA-01 CAD-01 PCI-01 PENDINGTEST-01 |
 | S-MID-06#0 | 0Y | 0Y | RF-02 | hard_stop | 1 | DYSPNEA-GRADE-01 |
 | S-MID-06#1 | 0 | 0 |  | gate_passed | 2 | DYSPNEA-SENTENCE-01 ORTHO-01 |
 | S-MID-06#2 | 0 | 0 |  | gate_passed | 3 | DYSPNEA-SENTENCE-01 ORTHO-01 DYSPNEA-ACUTE-01 |
-| S-MID-07 | 1 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ANTIPLT-01 ONSET-01 PATTERN-01 TIMING-01 PALP-01 POSTURAL-01 |
+| S-MID-07 | 1 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 NTG-01 ANTIPLT-01 ONSET-01 PATTERN-01 TIMING-01 PALP-01 |
 | S-MID-07#0 | 0 | 0 |  | gate_passed | 5 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESH-TIME-01 |
 | S-MID-07#1 | 0 | 0 |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESH-TIME-01 ONSET-01 PATTERN-01 TIMING-01 PALP-01 POSTURAL-01 |
 | S-MID-07#2 | 0 | 0 |  | gate_passed | 5 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 |
-| S-MID-08 | 3 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 ANTIPLT-01 TIMING-01 ONSET-WEEKS-01 PALP-01 |
+| S-MID-08 | 3 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 NTG-01 ANTIPLT-01 TIMING-01 ONSET-WEEKS-01 |
 | S-MID-08#0 | 0 | 0 |  | gate_passed | 5 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 TIMING-01 |
-| S-MID-08#1 | 0 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 ANTIPLT-01 TIMING-01 ONSET-WEEKS-01 PALP-01 |
-| S-MID-08#2 | 1 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 ANTIPLT-01 TIMING-01 ONSET-WEEKS-01 PALP-01 |
+| S-MID-08#1 | 0 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 NTG-01 ANTIPLT-01 TIMING-01 ONSET-WEEKS-01 |
+| S-MID-08#2 | 1 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 NTG-01 ANTIPLT-01 TIMING-01 ONSET-WEEKS-01 |
 | S-MID-09 | 1 | 1 |  | gate_passed | 2 | DYSPNEA-GRADE-01 SYNCOPE-01 |
 | S-MID-09#0 | 0 | 9 ⚠ |  | max_questions | 10 | DYSPNEA-GRADE-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 TIMING-01 |
 | S-MID-10 | 2 | 2 |  | gate_passed | 3 | SYNCOPE-02 DYSPNEA-GRADE-01 SYNCOPE-01 |
@@ -303,28 +261,28 @@
 | S-MID-12 | 2 | 2 |  | gate_passed | 3 | DYSPNEA-SENTENCE-01 ORTHO-01 DYSPNEA-ACUTE-01 |
 | S-MID-12#0 | 0 | 0 |  | gate_passed | 2 | DYSPNEA-SENTENCE-01 ORTHO-01 |
 | S-MID-12#1 | 0Y | 0Y | RF-02 | hard_stop | 1 | DYSPNEA-GRADE-01 |
-| S-MID-13 | 3 | 3 |  | gate_passed | 5 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 EXERTION-01 ANTIPLT-01 |
+| S-MID-13 | 3 | 9 ⚠ |  | max_questions | 10 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 EXERTION-01 REST-01 THRESHOLD-01 NTG-01 ANTIPLT-01 ONSET-01 PATTERN-01 |
 | S-MID-13#0 | 0Y | 0Y | RF-06 | hard_stop | 3 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 |
 | S-MID-13#1 | 0Y | 0Y | RF-03 | hard_stop | 1 | ONGOING-01 |
-| S-MID-13#2 | 0 | 9 ⚠ |  | max_questions | 10 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 EXERTION-01 ANTIPLT-01 ONSET-01 THRESHOLD-01 REST-01 TIMING-01 ONSET-WEEKS-01 |
-| S-MID-14 | 3 | 3 |  | gate_passed | 5 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ANTIPLT-01 |
-| S-MID-14#0 | 0 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 EXERTION-01 ANTIPLT-01 ONSET-01 THRESHOLD-01 REST-01 ONSET-WEEKS-01 |
+| S-MID-13#2 | 0 | 9 ⚠ |  | max_questions | 10 | SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 EXERTION-01 REST-01 THRESHOLD-01 NTG-01 ANTIPLT-01 ONSET-01 PATTERN-01 |
+| S-MID-14 | 3 | 3 |  | gate_passed | 8 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 NTG-01 ANTIPLT-01 |
+| S-MID-14#0 | 0 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 EXERTION-01 REST-01 THRESHOLD-01 NTG-01 ANTIPLT-01 ONSET-01 |
 | S-MID-14#1 | 0Y | 0Y | RF-06 | hard_stop | 4 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 |
-| S-MID-15 | 4 | 4 |  | gate_passed | 2 | DYSPNEA-GRADE-01 SYNCOPE-01 |
-| S-MID-15#0 | 1 | 0 ⚠ |  | max_questions | 10 | DYSPNEA-GRADE-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 TIMING-01 THRESHOLD-01 REST-01 EXERTION-01 ONSET-WEEKS-01 |
-| S-MID-16 | 3 | 3 |  | gate_passed | 5 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ANTIPLT-01 |
-| S-MID-16#0 | 0 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 EXERTION-01 ANTIPLT-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 |
+| S-MID-15 | 4 | 4 |  | gate_passed | 3 | DYSPNEA-GRADE-01 SCREEN-01 SYNCOPE-01 |
+| S-MID-15#0 | 1 | 9 ⚠ |  | max_questions | 10 | DYSPNEA-GRADE-01 SCREEN-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 |
+| S-MID-16 | 3 | 3 |  | gate_passed | 8 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 THRESHOLD-01 NTG-01 ANTIPLT-01 |
+| S-MID-16#0 | 0 | 9 ⚠ |  | max_questions | 10 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 EXERTION-01 REST-01 THRESHOLD-01 NTG-01 ANTIPLT-01 ONSET-01 |
 | S-MID-16#1 | 0Y | 0Y | RF-02 | hard_stop | 3 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 |
-| S-MID-17 | 4 | 4 |  | gate_passed | 2 | DYSPNEA-GRADE-01 SYNCOPE-01 |
-| S-MID-17#0 | 9 | 9 |  | max_questions | 10 | DYSPNEA-GRADE-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 REACHABLE-01 |
-| S-MID-17#1 | 0Y | 0Y | RF-03 | hard_stop | 3 | DYSPNEA-GRADE-01 CHARACTER-01 ONGOING-01 |
-| S-MID-18 | 4 | 4 |  | gate_passed | 2 | DYSPNEA-GRADE-01 SYNCOPE-01 |
-| S-MID-18#0 | 0 | 0 |  | gate_passed | 6 | DYSPNEA-GRADE-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 TIMING-01 |
-| S-MID-19 | 1 | 1 |  | gate_passed | 5 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 ANTIPLT-01 |
+| S-MID-17 | 4 | 9 ⚠ |  | no_more_questions | 6 | DYSPNEA-GRADE-01 SCREEN-01 SYNCOPE-01 REACHABLE-01 DRUGTIME-01 PCI-01 |
+| S-MID-17#0 | 9 | 9 |  | max_questions | 10 | DYSPNEA-GRADE-01 SCREEN-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 THRESHOLD-01 REST-01 PATTERN-01 EXERTION-01 |
+| S-MID-17#1 | 0Y | 0Y | RF-03 | hard_stop | 4 | DYSPNEA-GRADE-01 SCREEN-01 CHARACTER-01 ONGOING-01 |
+| S-MID-18 | 4 | 4 |  | gate_passed | 3 | DYSPNEA-GRADE-01 SCREEN-01 SYNCOPE-01 |
+| S-MID-18#0 | 0 | 0 |  | gate_passed | 7 | DYSPNEA-GRADE-01 SCREEN-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 TIMING-01 |
+| S-MID-19 | 1 | 1 |  | gate_passed | 7 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 THRESHOLD-01 NTG-01 ANTIPLT-01 |
 | S-MID-19#0 | 0 | 0 |  | gate_passed | 5 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 TIMING-01 |
 | S-MID-19#1 | 0 | 0 |  | gate_passed | 5 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 REST-01 |
 | S-MID-19#2 | 0Y | 0Y | RF-03 | hard_stop | 1 | ONGOING-01 |
 | S-MID-19#3 | 0Y | 0Y | RF-06 | hard_stop | 4 | ONGOING-01 SYNCOPE-01 DYSPNEA-GRADE-01 DIAPH-01 |
-| S-MID-20 | 4 | 4 |  | gate_passed | 2 | DYSPNEA-GRADE-01 SYNCOPE-01 |
-| S-MID-20#0 | 3 | 9 ⚠ |  | no_more_questions | 7 | DYSPNEA-GRADE-01 PALP-01 POSTURAL-01 CONSULT-01 DRUGTIME-01 PCI-01 PENDINGTEST-01 |
-| S-MID-20#1 | 0 | 0 |  | gate_passed | 6 | DYSPNEA-GRADE-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 TIMING-01 |
+| S-MID-20 | 4 | 4 |  | gate_passed | 3 | DYSPNEA-GRADE-01 SCREEN-01 SYNCOPE-01 |
+| S-MID-20#0 | 3 | 3 |  | gate_passed | 7 | DYSPNEA-GRADE-01 PALP-01 POSTURAL-01 SCREEN-01 CONSULT-01 SYNCOPE-01 PENDINGTEST-01 |
+| S-MID-20#1 | 0 | 0 |  | gate_passed | 7 | DYSPNEA-GRADE-01 SCREEN-01 CHARACTER-01 SYNCOPE-01 DIAPH-01 ONSET-01 TIMING-01 |

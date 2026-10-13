@@ -9,7 +9,7 @@
 """
 from __future__ import annotations
 
-from ..loaders import questions
+from ..loaders import question_by_id, questions
 from ..rules.state import SlotState
 from ..schemas import Question
 
@@ -21,6 +21,7 @@ _CHEST_ONLY = {"ongoing_now", "presyncope", "diaphoresis", "episode_duration_min
                "nausea", "antiplatelet_interrupted"}
 _CHEST_OR_DYSPNEA = {"pattern_unchanged_duration_months"}
 _DYSPNEA_ONLY = {"cant_finish_sentence", "dyspnea_acute", "orthopnea_pnd", "edema"}
+_SCREEN_UNDERLYING = {"palpitations", "postural_dizziness", "pending_abnormal_test"}   # Q-14f
 _ALWAYS_REDFLAG = {"dyspnea_grade"}  # 呼吸分級：有呼吸主訴或未排除時都要問一次
 _CONDITIONAL = {
     "rest_symptom_first_time": lambda s: s.is_true("rest_symptom"),
@@ -48,6 +49,8 @@ def _relevant(q: Question, s: SlotState) -> bool:
         return False
     if slot in _DYSPNEA_ONLY and not s.dyspnea_present():
         return False
+    if slot == "consult_screen_positive" and (chest or s.dyspnea_present()):
+        return False  # Q-14f：合併篩檢只用於無胸部／呼吸症狀的來電
     # dyspnea_grade：所有人都問一次（RF-02 篩檢；無症狀諮詢的 gate 也需要明確否認）
     return True
 
@@ -69,7 +72,11 @@ class Prompter:
         rf = candidates(self._by_priority["redflag"])
         if rf:
             return rf[0]
-        # 2. gate 缺的 slot
+        # 2. gate 缺的 slot；Q-14f：無症狀來電的三項篩檢先問合併題，答「有」或「不知道」才逐項追問
+        if any(sl in _SCREEN_UNDERLYING for sl in missing) and not state.known("consult_screen_positive"):
+            scr = question_by_id()["Q-SCREEN-01"]
+            if scr.id not in asked and _relevant(scr, state):
+                return scr
         for slot in missing:
             for q in self._qs:
                 if q.slot_id == slot and q.id not in asked and not state.known(slot):
