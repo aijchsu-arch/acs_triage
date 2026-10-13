@@ -37,7 +37,7 @@ scenarios:
       episode_duration_min: 5
       recurrence: false
       dyspnea_grade: none
-    decisive_questions: [Q-ONGOING-01, Q-DURATION-01, Q-REST-01, Q-SYNCOPE-01, Q-DIAPH-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-CHARACTER-01, Q-TIMING-01, Q-ONSET-WEEKS-01]
     boundary_variants:
       - override: {ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}
@@ -72,7 +72,7 @@ scenarios:
       ntg_use_increased: false
       episode_duration_min: 5
       dyspnea_grade: none
-    decisive_questions: [Q-REST-01, Q-DURATION-01, Q-ONGOING-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-THRESH-TIME-01]
     boundary_variants:
       - override: {rest_symptom: true, ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}
@@ -99,7 +99,7 @@ scenarios:
       presyncope: false
       syncope: false
       diaphoresis: false
-    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-ORTHO-01, Q-DIAPH-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-DYSPNEA-ACUTE-01]
     boundary_variants:
       - override: {dyspnea_grade: rest}
         expect: {tier: 0, hard_stop: true, rf: RF-02}
@@ -134,7 +134,7 @@ scenarios:
       nausea: false
       episode_duration_min: 15
       dyspnea_grade: none
-    decisive_questions: [Q-ONGOING-01, Q-DURATION-01, Q-EXERTION-01, Q-DIAPH-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-CHARACTER-01, Q-TIMING-01, Q-REPRO-01, Q-COUGH-01, Q-POSTPRANDIAL-01]
     boundary_variants:
       - override: {ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}
@@ -163,7 +163,7 @@ scenarios:
       diaphoresis: false
       episode_duration_min: 10
       dyspnea_grade: none
-    decisive_questions: [Q-ONGOING-01, Q-DURATION-01, Q-REST-02, Q-SYNCOPE-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-REST-01, Q-REST-02]
     boundary_variants:
       - override: {ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}
@@ -189,7 +189,7 @@ scenarios:
       last_episode_timing: today
       ongoing_now: false
       diaphoresis: false
-    decisive_questions: []
+    decisive_questions: [Q-SYNCOPE-01, Q-CHARACTER-01]
     note: "開場白即命中 RF-01；Hard-stop latency 必須為 0 句"
     boundary_variants:
       - override: {syncope: true}
@@ -223,7 +223,7 @@ scenarios:
       ongoing_now: false
       diaphoresis: false
       antiplatelet_interrupted: false
-    decisive_questions: [Q-REST-01, Q-DYSPNEA-ACUTE-01, Q-SYNCOPE-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
     boundary_variants:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}
@@ -260,7 +260,7 @@ scenarios:
       syncope: false
       ongoing_now: false
       diaphoresis: false
-    decisive_questions: [Q-REST-01, Q-ANTIPLT-01, Q-DYSPNEA-ACUTE-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
     boundary_variants:
       - override: {antiplatelet_interrupted: true}
         expect: {tier: null, hard_stop: false}
@@ -285,7 +285,7 @@ scenarios:
       dyspnea_grade: none
       presyncope: false
       syncope: false
-    decisive_questions: []
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-POSTURAL-01, Q-CONSULT-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {onset_new: true, symptom_character: pressure}
         expect: {tier: 0, hard_stop: false}
@@ -316,7 +316,7 @@ scenarios:
       syncope: false
       ongoing_now: false
       diaphoresis: false
-    decisive_questions: [Q-REST-01, Q-DYSPNEA-ACUTE-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
     boundary_variants:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}
@@ -346,7 +346,7 @@ scenarios:
       syncope: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-ONSET-01, Q-EXERTION-01, Q-THRESHOLD-01, Q-REST-01, Q-CHARACTER-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-TIMING-01, Q-REPRO-01, Q-COUGH-01, Q-POSTPRANDIAL-01, Q-NTG-01]
     boundary_variants:
       - override: {onset_new: true, symptom_character: pressure}
         expect: {tier: 0, hard_stop: false}
@@ -375,7 +375,7 @@ scenarios:
       syncope: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-CHARACTER-01, Q-EXERTION-01, Q-ONSET-01, Q-ANTIPLT-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-TIMING-01, Q-REPRO-01, Q-COUGH-01, Q-POSTPRANDIAL-01, Q-NTG-01]
     boundary_variants:
       - override: {symptom_character: pressure, onset_new: true}
         expect: {tier: 0, hard_stop: false}
@@ -403,7 +403,7 @@ scenarios:
       syncope: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-ONSET-01, Q-EXERTION-01, Q-REST-01, Q-DURATION-01, Q-CAD-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-TIMING-01, Q-REPRO-01, Q-COUGH-01, Q-POSTPRANDIAL-01, Q-NTG-01]
     boundary_variants:
       - override: {onset_new: true}
         expect: {tier: 0, hard_stop: false}
@@ -429,7 +429,7 @@ scenarios:
       symptom_character: none
       presyncope: false
       syncope: false
-    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-ACUTE-01, Q-ORTHO-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-DYSPNEA-ACUTE-01, Q-PATTERN-01, Q-ORTHO-01, Q-PALP-01]
     boundary_variants:
       - override: {dyspnea_grade: rest}
         expect: {tier: 0, hard_stop: true, rf: RF-02}
@@ -461,7 +461,7 @@ scenarios:
       syncope: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-ONSET-01, Q-THRESHOLD-01, Q-EXERTION-01, Q-REST-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-TIMING-01, Q-NTG-01]
     boundary_variants:
       - override: {onset_new: true}
         expect: {tier: 0, hard_stop: false}
@@ -489,7 +489,7 @@ scenarios:
       syncope: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-DRUGTIME-01, Q-EXERTION-01, Q-CHARACTER-01, Q-ONSET-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-TIMING-01, Q-REPRO-01, Q-COUGH-01, Q-POSTPRANDIAL-01, Q-NTG-01]
     boundary_variants:
       - override: {exertion_relation: exertion_only, onset_new: true}
         expect: {tier: 0, hard_stop: false}
@@ -514,7 +514,7 @@ scenarios:
       patient_reachable: false
       cad_history: true
       symptom_character: vague
-    decisive_questions: [Q-REACHABLE-01, Q-ONGOING-01, Q-SYNCOPE-01, Q-DIAPH-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-NTG-01]
     boundary_variants:
       - override: {patient_reachable: true, ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}
@@ -544,7 +544,7 @@ scenarios:
       syncope: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-THRESHOLD-01, Q-REST-01, Q-DYSPNEA-ACUTE-01, Q-PATTERN-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-REPRO-01, Q-COUGH-01, Q-POSTPRANDIAL-01, Q-NTG-01]
     boundary_variants:
       - override: {threshold_decreased: true}
         expect: {tier: 0, hard_stop: false}

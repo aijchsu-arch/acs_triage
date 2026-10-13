@@ -14,8 +14,8 @@
 | Under-triage rate | 0.0%（0） | 趨近 0 |
 | Over-triage rate | 0.9%（1） | 記錄 |
 | Tier exact accuracy | 78.4% | 記錄 |
-| Decisive-question recall（core：redflag+decisive 題） | 85.0% | ≥ 90% |
-| Decisive-question recall（all：含 refine 題） | 77.2% | 記錄 |
+| Escalating-question recall（答案可能使分流更急的題目） | 85.9%（452/526） | ≥ 90% |
+| Decisive-question recall（答案會改變分流的題目，含只會降級者） | 80.8%（620/767） | 記錄 |
 | Abstention precision / recall | 33.3% / 100.0% | 記錄 |
 | Questions-to-decision（平均） | 5.7 | 記錄 |
 | Gate effect（低信心重問次數） | 0 | 記錄 |
@@ -44,8 +44,9 @@
 
 - Under/Over-triage 只計 truth 與 pred 皆在 0–4 的案例；pred 9 另計 abstention FP、truth 9 另計 abstention FN。
 - Hard-stop latency = 揭露紅旗事實的那句與觸發 Hard stop 之間相隔的句數；引擎逐句重算，理論上恆為 0。
-- Decisive recall 的分母是情境檔的 `decisive_questions`（設計者列的理想問題清單）；引擎只問會改變 disposition 的題，
-  所以 refine 題常在定案前被略過，這是設計使然。core 版只計 redflag／decisive 優先級的題。
+- Decisive／Escalating 題目由 `sim/decisive.py` 依每個 case 的完整事實逐題反事實計算（D-27）：
+  把該題換成任一可能答案，若 (provisional_tier, hard_stop) 會改變即為 decisive；其中存在答案使結果**更急**者為 escalating。
+  Tier 9 依 C6 D 主訴對照表換算急迫度。Escalating 漏問 = 可能 under-triage，是安全指標；只會降級的題漏問只造成 over-triage。
 - 資訊不足組（persona vague）的 base case 以 `max_questions` 結束並維持 Tier 9 是**預期行為**（節制），不是失敗。
 
 ## 結束原因
@@ -106,6 +107,103 @@
 ## RF 不一致（case, expected rf, got）（0）
 
 （無）
+
+## 漏問的 escalating 題目（74）
+
+| 題目 | 漏問次數 |
+|---|---|
+| Q-NTG-01 | 33 |
+| Q-THRESHOLD-01 | 9 |
+| Q-POSTURAL-01 | 6 |
+| Q-PENDINGTEST-01 | 6 |
+| Q-REST-01 | 4 |
+| Q-PALP-01 | 4 |
+| Q-ONSET-01 | 2 |
+| Q-DIAPH-01 | 2 |
+| Q-TIMING-01 | 2 |
+| Q-ORTHO-01 | 1 |
+| Q-REST-02 | 1 |
+| Q-ONGOING-01 | 1 |
+| Q-SYNCOPE-01 | 1 |
+| Q-PATTERN-01 | 1 |
+| Q-REACHABLE-01 | 1 |
+
+明細（case, 題目, final tier, 結束原因）：
+
+- ('S-ACUTE-01#2', 'Q-NTG-01', 9, 'max_questions')
+- ('S-ACUTE-03#2', 'Q-ORTHO-01', 9, 'max_questions')
+- ('S-ACUTE-05#1', 'Q-ONSET-01', 0, 'gate_passed')
+- ('S-ACUTE-05#1', 'Q-THRESHOLD-01', 0, 'gate_passed')
+- ('S-ACUTE-05#1', 'Q-REST-02', 0, 'gate_passed')
+- ('S-ACUTE-05#1', 'Q-NTG-01', 0, 'gate_passed')
+- ('S-STABLE-01', 'Q-NTG-01', 9, 'max_questions')
+- ('S-STABLE-01#2', 'Q-NTG-01', 9, 'max_questions')
+- ('S-STABLE-02', 'Q-NTG-01', 9, 'max_questions')
+- ('S-STABLE-02#0', 'Q-NTG-01', 9, 'max_questions')
+- ('S-STABLE-03', 'Q-POSTURAL-01', 3, 'gate_passed')
+- ('S-STABLE-03', 'Q-PENDINGTEST-01', 3, 'gate_passed')
+- ('S-STABLE-04', 'Q-NTG-01', 3, 'gate_passed')
+- ('S-INSUF-01', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-01#1', 'Q-NTG-01', 3, 'gate_passed')
+- ('S-INSUF-02', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-02#1', 'Q-ONGOING-01', 9, 'no_more_questions')
+- ('S-INSUF-02#1', 'Q-SYNCOPE-01', 9, 'no_more_questions')
+- ('S-INSUF-02#1', 'Q-DIAPH-01', 9, 'no_more_questions')
+- ('S-INSUF-02#1', 'Q-ONSET-01', 9, 'no_more_questions')
+- ('S-INSUF-02#1', 'Q-THRESHOLD-01', 9, 'no_more_questions')
+- ('S-INSUF-02#1', 'Q-REST-01', 9, 'no_more_questions')
+- ('S-INSUF-02#1', 'Q-PATTERN-01', 9, 'no_more_questions')
+- ('S-INSUF-02#1', 'Q-NTG-01', 9, 'no_more_questions')
+- ('S-INSUF-03', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-05', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-05#1', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-06', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-06#1', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-07', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-07#1', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-08', 'Q-NTG-01', 9, 'max_questions')
+- ('S-INSUF-08#1', 'Q-NTG-01', 3, 'gate_passed')
+- ('S-MID-01', 'Q-THRESHOLD-01', 1, 'gate_passed')
+- ('S-MID-01', 'Q-NTG-01', 1, 'gate_passed')
+- ('S-MID-01#1', 'Q-THRESHOLD-01', 2, 'gate_passed')
+- ('S-MID-01#1', 'Q-NTG-01', 2, 'gate_passed')
+- ('S-MID-02', 'Q-TIMING-01', 2, 'gate_passed')
+- ('S-MID-02', 'Q-NTG-01', 2, 'gate_passed')
+- ('S-MID-03#1', 'Q-NTG-01', 9, 'max_questions')
+- ('S-MID-04', 'Q-POSTURAL-01', 3, 'gate_passed')
+- ('S-MID-04', 'Q-PENDINGTEST-01', 3, 'gate_passed')
+- ('S-MID-04#0', 'Q-THRESHOLD-01', 1, 'gate_passed')
+- ('S-MID-04#0', 'Q-NTG-01', 1, 'gate_passed')
+- ('S-MID-05#1', 'Q-DIAPH-01', 9, 'no_more_questions')
+- ('S-MID-07', 'Q-NTG-01', 9, 'max_questions')
+- ('S-MID-08', 'Q-NTG-01', 9, 'max_questions')
+- ('S-MID-08#2', 'Q-NTG-01', 9, 'max_questions')
+- ('S-MID-13', 'Q-THRESHOLD-01', 3, 'gate_passed')
+- ('S-MID-13', 'Q-REST-01', 3, 'gate_passed')
+- ('S-MID-13', 'Q-NTG-01', 3, 'gate_passed')
+- ('S-MID-14', 'Q-THRESHOLD-01', 3, 'gate_passed')
+- ('S-MID-14', 'Q-REST-01', 3, 'gate_passed')
+- ('S-MID-14', 'Q-NTG-01', 3, 'gate_passed')
+- ('S-MID-15', 'Q-PALP-01', 4, 'gate_passed')
+- ('S-MID-15', 'Q-POSTURAL-01', 4, 'gate_passed')
+- ('S-MID-15', 'Q-PENDINGTEST-01', 4, 'gate_passed')
+- ('S-MID-16', 'Q-THRESHOLD-01', 3, 'gate_passed')
+- ('S-MID-16', 'Q-REST-01', 3, 'gate_passed')
+- ('S-MID-16', 'Q-TIMING-01', 3, 'gate_passed')
+- ('S-MID-16', 'Q-NTG-01', 3, 'gate_passed')
+- ('S-MID-17', 'Q-REACHABLE-01', 4, 'gate_passed')
+- ('S-MID-17', 'Q-PALP-01', 4, 'gate_passed')
+- ('S-MID-17', 'Q-POSTURAL-01', 4, 'gate_passed')
+- ('S-MID-17', 'Q-PENDINGTEST-01', 4, 'gate_passed')
+- ('S-MID-17#0', 'Q-NTG-01', 9, 'max_questions')
+- ('S-MID-18', 'Q-PALP-01', 4, 'gate_passed')
+- ('S-MID-18', 'Q-POSTURAL-01', 4, 'gate_passed')
+- ('S-MID-18', 'Q-PENDINGTEST-01', 4, 'gate_passed')
+- ('S-MID-19', 'Q-THRESHOLD-01', 1, 'gate_passed')
+- ('S-MID-19', 'Q-NTG-01', 1, 'gate_passed')
+- ('S-MID-20', 'Q-PALP-01', 4, 'gate_passed')
+- ('S-MID-20', 'Q-POSTURAL-01', 4, 'gate_passed')
+- ('S-MID-20', 'Q-PENDINGTEST-01', 4, 'gate_passed')
 
 ## 每案摘要
 

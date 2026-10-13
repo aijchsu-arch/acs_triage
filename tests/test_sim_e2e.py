@@ -42,9 +42,11 @@ def test_clean_insufficient_group_abstains(clean):
     assert all(r.stop_reason == "max_questions" for r in base_insuf)
 
 
-def test_clean_decisive_core_recall(clean):
+def test_clean_escalating_recall_floor(clean):
+    """D-27 基線 86.5%（455/526）。目標 ≥ 90%；此測試只防退步，修正 Q-14 各項後再上調。"""
     _, m = clean
-    assert m.decisive_core_recall >= 0.80   # 目標 90%，見報告「指標說明」；目前 84.6%
+    assert m.escalating_total == 526
+    assert m.escalating_recall >= 0.865
 
 
 def test_vague_mode_never_under_triages_or_misses_hard_stop():

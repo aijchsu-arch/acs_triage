@@ -26,7 +26,7 @@ scenarios:
       exertion_relation: unclear
       diaphoresis: false
       presyncope: false
-    decisive_questions: [Q-ONGOING-01, Q-TIMING-01, Q-RECUR-01, Q-EXERTION-01, Q-DIAPH-01, Q-SYNCOPE-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-CHARACTER-01, Q-TIMING-01, Q-NTG-01]
     boundary_variants:
       - override: {last_episode_timing: today}
         expect: {tier: 0, hard_stop: false}
@@ -53,7 +53,7 @@ scenarios:
       threshold_decreased: false
       ongoing_now: false
       diaphoresis: false
-    decisive_questions: [Q-ONSET-WEEKS-01, Q-REST-01, Q-THRESHOLD-01, Q-ONGOING-01, Q-DIAPH-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-EXERTION-01, Q-TIMING-01, Q-ONSET-WEEKS-01, Q-NTG-01]
     boundary_variants:
       - override: {threshold_decreased: true, threshold_decrease_timescale: days}
         expect: {tier: 0, hard_stop: false}
@@ -84,7 +84,7 @@ scenarios:
       rest_symptom: false
       ongoing_now: false
       symptom_character: pressure
-    decisive_questions: [Q-NTG-01, Q-ONGOING-01, Q-REST-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-NTG-01]
     boundary_variants:
       - override: {ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}
@@ -112,7 +112,7 @@ scenarios:
       rest_symptom: false
       dyspnea_grade: none
       presyncope: false
-    decisive_questions: [Q-ANTIPLT-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-POSTURAL-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {symptom_character: pressure, onset_new: true, last_episode_timing: yesterday_within_24h, recurrence: false}
         expect: {tier: 1, hard_stop: false}
@@ -135,7 +135,7 @@ scenarios:
       syncope: false
       dyspnea_grade: none
       ongoing_now: false
-    decisive_questions: [Q-PALP-01, Q-SYNCOPE-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-PALP-01]
     boundary_variants:
       - override: {presyncope: true, symptom_character: pressure}
         expect: {tier: 0, hard_stop: true, rf: RF-01}
@@ -160,7 +160,7 @@ scenarios:
       edema: false
       symptom_character: none
       cant_finish_sentence: false
-    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-ACUTE-01, Q-ORTHO-01, Q-EDEMA-01, Q-CHARACTER-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-DYSPNEA-ACUTE-01, Q-CHARACTER-01, Q-ORTHO-01]
     boundary_variants:
       - override: {dyspnea_grade: rest}
         expect: {tier: 0, hard_stop: true, rf: RF-02}
@@ -189,7 +189,7 @@ scenarios:
       ntg_use_increased: false
       ongoing_now: false
       symptom_character: tightness
-    decisive_questions: [Q-THRESHOLD-01, Q-THRESH-TIME-01, Q-REST-01, Q-NTG-01, Q-ONGOING-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-THRESH-TIME-01, Q-NTG-01]
     boundary_variants:
       - override: {threshold_decrease_timescale: days}
         expect: {tier: 0, hard_stop: false}
@@ -220,7 +220,7 @@ scenarios:
       symptom_character: tightness
       ongoing_now: false
       antiplatelet_interrupted: false
-    decisive_questions: [Q-MILDER-01, Q-EXERTION-01, Q-REST-01, Q-THRESHOLD-01, Q-ANTIPLT-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-REST-01, Q-CHARACTER-01, Q-EXERTION-01, Q-TIMING-01, Q-ONSET-WEEKS-01, Q-MILDER-01, Q-ANTIPLT-01, Q-NTG-01]
     boundary_variants:
       - override: {symptom_vs_pre_pci: same}
         expect: {tier: 0, hard_stop: false}
@@ -247,7 +247,7 @@ scenarios:
       rest_symptom: false
       dyspnea_grade: none
       presyncope: false
-    decisive_questions: [Q-PENDINGTEST-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-PALP-01, Q-POSTURAL-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {symptom_character: pressure, onset_new: true, last_episode_timing: today}
         expect: {tier: 0, hard_stop: false}
@@ -269,7 +269,7 @@ scenarios:
       presyncope: false
       syncope: false
       dyspnea_grade: none
-    decisive_questions: [Q-POSTURAL-01, Q-NEWMED-01, Q-CHARACTER-01, Q-SYNCOPE-02]
+    decisive_questions: [Q-SYNCOPE-02, Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-POSTURAL-01, Q-NEWMED-01]
     boundary_variants:
       - override: {symptom_character: pressure, presyncope: true}
         expect: {tier: 0, hard_stop: true, rf: RF-01}
@@ -293,7 +293,7 @@ scenarios:
       symptom_character: none
       cant_finish_sentence: false
       edema: false
-    decisive_questions: [Q-ORTHO-01, Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-EDEMA-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-ORTHO-01]
     boundary_variants:
       - override: {dyspnea_grade: rest}
         expect: {tier: 0, hard_stop: true, rf: RF-02}
@@ -318,7 +318,7 @@ scenarios:
       dyspnea_acute: false
       orthopnea_pnd: false
       symptom_character: none
-    decisive_questions: [Q-EDEMA-01, Q-DYSPNEA-GRADE-01, Q-ORTHO-01, Q-DYSPNEA-ACUTE-01, Q-CHARACTER-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-DYSPNEA-SENTENCE-01, Q-DYSPNEA-ACUTE-01, Q-CHARACTER-01, Q-ORTHO-01]
     boundary_variants:
       - override: {orthopnea_pnd: true}
         expect: {tier: 0, hard_stop: false}
@@ -345,7 +345,7 @@ scenarios:
       symptom_character: epigastric
       presyncope: false
       dyspnea_grade: none
-    decisive_questions: [Q-POSTPRANDIAL-01, Q-ONGOING-01, Q-EXERTION-01, Q-DIAPH-01, Q-SYNCOPE-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-REST-01, Q-EXERTION-01, Q-TIMING-01, Q-POSTPRANDIAL-01, Q-NTG-01]
     boundary_variants:
       - override: {diaphoresis: true}
         expect: {tier: 0, hard_stop: true, rf: RF-06}
@@ -377,7 +377,7 @@ scenarios:
       ongoing_now: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-REPRO-01, Q-EXERTION-01, Q-DIAPH-01, Q-DYSPNEA-GRADE-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-REST-01, Q-EXERTION-01, Q-TIMING-01, Q-REPRO-01, Q-ANTIPLT-01, Q-NTG-01]
     boundary_variants:
       - override: {exertion_relation: exertion_only}
         expect: {tier: 0, hard_stop: false}
@@ -404,7 +404,7 @@ scenarios:
       rest_symptom: false
       dyspnea_grade: none
       presyncope: false
-    decisive_questions: [Q-CONSULT-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-PALP-01, Q-POSTURAL-01, Q-CONSULT-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {symptom_character: pressure, onset_new: true, last_episode_timing: yesterday_within_24h, recurrence: false}
         expect: {tier: 1, hard_stop: false}
@@ -430,7 +430,7 @@ scenarios:
       ongoing_now: false
       dyspnea_grade: none
       diaphoresis: false
-    decisive_questions: [Q-COUGH-01, Q-EXERTION-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-REST-01, Q-EXERTION-01, Q-TIMING-01, Q-COUGH-01, Q-ANTIPLT-01, Q-NTG-01]
     boundary_variants:
       - override: {exertion_relation: exertion_only}
         expect: {tier: 0, hard_stop: false}
@@ -456,7 +456,7 @@ scenarios:
       ongoing_now: false
       dyspnea_grade: none
       presyncope: false
-    decisive_questions: [Q-CONSULT-01, Q-REACHABLE-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-REACHABLE-01, Q-PALP-01, Q-POSTURAL-01, Q-CONSULT-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {patient_reachable: false, symptom_character: vague}
         expect: {tier: 9, hard_stop: false}
@@ -480,7 +480,7 @@ scenarios:
       ongoing_now: false
       dyspnea_grade: none
       presyncope: false
-    decisive_questions: [Q-CONSULT-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-PALP-01, Q-POSTURAL-01, Q-CONSULT-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {symptom_character: jaw_shoulder_heaviness, onset_new: true, last_episode_timing: today}
         expect: {tier: 0, hard_stop: false}
@@ -509,7 +509,7 @@ scenarios:
       threshold_decreased: false
       diaphoresis: false
       presyncope: false
-    decisive_questions: [Q-ONGOING-01, Q-TIMING-01, Q-REST-01, Q-DIAPH-01, Q-NTG-01, Q-SYNCOPE-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-CHARACTER-01, Q-TIMING-01, Q-NTG-01]
     boundary_variants:
       - override: {last_episode_timing: today}
         expect: {tier: 0, hard_stop: false}
@@ -538,7 +538,7 @@ scenarios:
       rest_symptom: false
       dyspnea_grade: none
       presyncope: false
-    decisive_questions: [Q-CONSULT-01, Q-CHARACTER-01, Q-DYSPNEA-GRADE-01, Q-SYNCOPE-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-PALP-01, Q-POSTURAL-01, Q-CONSULT-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {consult_topic: appointment_admin}
         expect: {tier: 3, hard_stop: false}

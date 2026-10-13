@@ -34,6 +34,7 @@
 | D-24 | 2026-10-13 | 資料層：(a) v0.2 的 18 情境補 `hidden_slots`（Claude 依 truth 與 reviewer boundary 撰寫，非 Clinical Owner 標籤）；資訊不足組標 `persona: vague`（紅旗題答沒有、決定題答不知道）以測節制；(b) `symptom_character` 新增 `none`（明確否認）、新增 extractor-only slot `dyspnea_complaint`；(c) `Q-DURATION-01`、`Q-DRUGTIME-01` 降為 refine；(d) S-MID-02 變體 `onset_weeks_ago=1` 期望 9 → 0（DV-2「落回其他規則」）；S-MID-14／16 hidden 補 `onset_new`。 | 設計（執行中決定） |
 | D-25 | 2026-10-13 | 安全衍生：病人明確否認喘（`dyspnea_grade=none`）→ `dyspnea_acute／orthopnea_pnd／cant_finish_sentence=false`；明確否認胸部症狀 → `ongoing_now=false`。只往「無此症狀」方向推，只填未知欄位。 | 設計 |
 | D-26 | 2026-10-13 | Sufficiency gate：ND-05 → 已知 CAD／PCI、有胸部症狀、provisional 1–3 時必問抗血小板是否中斷；T3 穩定型的必要 slot 依主訴（胸部／呼吸）動態決定。 | 設計 |
+| D-27 | 2026-10-13 | **決定性問題改為反事實定義**（依 Reviewer Prompt「只列會真正改變 disposition 的問題」）：在 case 的完整事實下，把某題換成任一可能答案，若 (provisional_tier, hard_stop) 改變即為 decisive；存在答案使結果**更急**者為 escalating（Tier 9 依 C6 D 換算急迫度）。安全指標改為 **escalating recall**（目標 ≥ 90%）；decisive recall 僅記錄。實作 `sim/decisive.py`；情境檔 `decisive_questions` 由 `python -m sim.decisive --write` 產生，`tests/test_decisive.py` 確保一致。重訂基線：escalating 86.5%（455/526）。舊的人工清單同時過寬（列入不改變結果的題）與過窄（漏列紅旗題與 NTG 題）。 | 設計（Clinical Owner 指示重訂基線） |
 
 ---
 
@@ -50,3 +51,4 @@
 | Q-09 | Hard stop 通報管道：主管／護理師用什麼接收？（院內通訊軟體、簡訊、客服系統 escalation？） | `pathway/` | 客服主管 + 護理 |
 | Q-10 | 客服腳本逐字稿（S-HS、S-T0…S-T9、S-SN-A/B）誰定稿？ | `data/scripts_zh.yaml` | Clinical Owner + 客服主管 |
 | Q-12 | Phase 3 之前的法規諮詢：是否需 TFDA 智慧醫材申請？由誰啟動？ | Phase 3 | Clinical Owner + 院方 |
+| Q-14 | **D-27 稽核發現，待裁定**（詳見回覆紀錄與 `reports/eval_2026-10-13_clean.md`）：<br>(a) Q-NTG-01 仍為 refine，但 C4 A 已使「NTG 用量增加 → T0」——漏問 33 次。提案：升為 decisive。<br>(b) §5.9 gate 讓胸部症狀在 T1–T4 定案前不必排除 T0 觸發因子（休息時症狀、閾值下降、NTG 增加）。提案：任一胸部症狀、provisional 1–4 → 這三項必須已知。<br>(c) 第三方來電定案前不必確認病人可及（S-MID-17）。提案：`third_party_call` 時 `patient_reachable` 必須已知。<br>(d) **時序不單調**：DV-2／DV-4／可重現／咳嗽型態只豁免 T0（今天），不豁免 T1（昨天）→「今天發作」反而比「昨天發作」不急（S-MID-02、08、14、16）。需定規則。<br>(e) **豁免範圍過寬**：可重現／咳嗽／餐後豁免目前適用任何症狀性質 → 新發下顎左肩沉重 + 按壓會痛 → T3（S-ACUTE-04 反事實）。提案：只適用 `pain`（可重現、咳嗽）與 `epigastric`（餐後）。<br>(f) 無症狀諮詢（行政／衛教／藥物）不問心悸、姿勢性頭暈、檢查異常待追蹤。提案：加一題合併篩檢，或接受。<br>(g) 程式缺陷：`last_episode_timing=ongoing` 未視同今天（目前路徑不可達）。提案：視同今天並帶出 `ongoing_now=true`。 | `question_bank_seed.yaml`、`CLINICAL_RULES.md §5.3–5.9`、`rules/` | Clinical Owner |

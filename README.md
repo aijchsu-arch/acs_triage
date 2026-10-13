@@ -8,7 +8,7 @@
 - Claude Code 工作守則：[`CLAUDE.md`](CLAUDE.md)
 
 ## 狀態
-Phase 0（模擬）— M0／M1／M2 完成（2026-10-13）。`pytest`：159 passed, 3 skipped。基線報告見 `reports/`。
+Phase 0（模擬）— M0／M1／M2 完成（2026-10-13）。`pytest`：163 passed, 3 skipped。基線報告見 `reports/`。
 
 ## 執行
 ```bash

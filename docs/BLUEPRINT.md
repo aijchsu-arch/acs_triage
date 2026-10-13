@@ -292,7 +292,7 @@ Jev 的保留事項（寫進 `DECISIONS.md` Q-02）：
   hidden_slots: {onset_new: true, ongoing_now: false, rest_symptom: false, presyncope: false, ...}
   truth_tier: 0
   truth_hard_stop: false
-  decisive_questions: [Q-ONGOING-01, Q-REST-01, ...]
+  decisive_questions: [...]   # 由 sim/decisive.py 反事實計算（D-27），非人工列舉
   ```
 - 每條 boundary 句展開成 1–2 個變體（例：同一開場 + `ongoing_now: true` → `truth_hard_stop: true`）。18 → 預估 50–60 個 case。
 - 中間帶情境：`data/scenarios_midband_v0.1.yaml`（20 個，D-13／D-17；分布 T0 2／T1 4／T2 4／T3 6／T4 4）。
@@ -309,7 +309,8 @@ Jev 的保留事項（寫進 `DECISIONS.md` Q-02）：
 | Under-triage rate | 預測 tier 數字 > truth（更不急） | 主要安全指標，趨近 0 |
 | Over-triage rate | 預測 tier 數字 < truth | 記錄，不作硬目標 |
 | Tier exact accuracy | 完全一致 | 記錄 |
-| Decisive-question recall | sheet 的 decisive_questions 在分類前被問到的比例 | ≥ 90% |
+| Escalating-question recall | 「答案可能使分流更急」的題目（反事實計算，D-27）在結束前被問到或已知的比例；漏問 = 可能 under-triage | ≥ 90% |
+| Decisive-question recall | 「答案會改變分流」的全部題目（含只會降級者）之覆蓋率 | 記錄 |
 | Abstention precision/recall | Tier 9 對應 truth「資訊不足」的 P/R | 記錄 |
 | Questions-to-decision | 平均問幾題才分類 | 記錄 |
 | Gate effect | 低信心片段被正確擋下、重問的比例 | 記錄 |
@@ -398,4 +399,6 @@ acs_triage/
 
 每個 M 完成時更新本文件的狀態列與 `DECISIONS.md`。
 
-**M2 基線（2026-10-13，`reports/eval_2026-10-13_*.md`）**：119 cases／116 可評分。clean：Hard-stop miss 0/27、latency 0、under-triage 0、over-triage 0、exact 100%、abstention P/R 100%/100%、平均 4.9 題、core decisive recall 84.6%。vague（25% 答不知道）：under-triage 0、Hard-stop miss 0、24 例轉護理師（預期）。low_stt（20% 低信心）：130 次重問，結果與 clean 完全相同。
+**M2 基線（2026-10-13，`reports/eval_2026-10-13_*.md`）**：119 cases／116 可評分。clean：Hard-stop miss 0/27、latency 0、under-triage 0、over-triage 0、exact 100%、abstention P/R 100%/100%、平均 4.9 題。vague（25% 答不知道）：under-triage 0、Hard-stop miss 0、24 例轉護理師（預期）。low_stt（20% 低信心）：130 次重問，結果與 clean 完全相同。
+
+**M2 重訂基線（2026-10-13，D-27）**：decisive 改為反事實定義後，clean 的 escalating recall **86.5%（455/526）**、decisive recall 81.5%；未達 90% 目標。71 次漏問集中在 Q-NTG-01（33）、Q-THRESHOLD-01（9）、無症狀諮詢的篩檢題（PENDINGTEST 7、POSTURAL 6、PALP 4），成因與修正選項見 `DECISIONS.md` Q-14。

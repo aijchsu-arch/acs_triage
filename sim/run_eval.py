@@ -51,8 +51,8 @@ def render_md(mode: str, seed: int, results: list[RunResult], m: Metrics) -> str
     L.append(f"| Under-triage rate | {_fmt_pct(m.under_triage_rate)}（{len(m.under_triage)}） | 趨近 0 |")
     L.append(f"| Over-triage rate | {_fmt_pct(m.over_triage_rate)}（{len(m.over_triage)}） | 記錄 |")
     L.append(f"| Tier exact accuracy | {_fmt_pct(m.exact_rate)} | 記錄 |")
-    L.append(f"| Decisive-question recall（core：redflag+decisive 題） | {_fmt_pct(m.decisive_core_recall)} | ≥ 90% |")
-    L.append(f"| Decisive-question recall（all：含 refine 題） | {_fmt_pct(m.decisive_recall)} | 記錄 |")
+    L.append(f"| Escalating-question recall（答案可能使分流更急的題目） | {_fmt_pct(m.escalating_recall)}（{m.escalating_hit}/{m.escalating_total}） | ≥ 90% |")
+    L.append(f"| Decisive-question recall（答案會改變分流的題目，含只會降級者） | {_fmt_pct(m.decisive_recall)}（{m.decisive_hit}/{m.decisive_total}） | 記錄 |")
     L.append(f"| Abstention precision / recall | {_fmt_pct(m.abstention_precision)} / {_fmt_pct(m.abstention_recall)} | 記錄 |")
     L.append(f"| Questions-to-decision（平均） | {m.mean_questions:.1f} | 記錄 |")
     L.append(f"| Gate effect（低信心重問次數） | {m.repeats} | 記錄 |")
@@ -77,8 +77,9 @@ def render_md(mode: str, seed: int, results: list[RunResult], m: Metrics) -> str
     L.append("")
     L.append("- Under/Over-triage 只計 truth 與 pred 皆在 0–4 的案例；pred 9 另計 abstention FP、truth 9 另計 abstention FN。")
     L.append("- Hard-stop latency = 揭露紅旗事實的那句與觸發 Hard stop 之間相隔的句數；引擎逐句重算，理論上恆為 0。")
-    L.append("- Decisive recall 的分母是情境檔的 `decisive_questions`（設計者列的理想問題清單）；引擎只問會改變 disposition 的題，")
-    L.append("  所以 refine 題常在定案前被略過，這是設計使然。core 版只計 redflag／decisive 優先級的題。")
+    L.append("- Decisive／Escalating 題目由 `sim/decisive.py` 依每個 case 的完整事實逐題反事實計算（D-27）：")
+    L.append("  把該題換成任一可能答案，若 (provisional_tier, hard_stop) 會改變即為 decisive；其中存在答案使結果**更急**者為 escalating。")
+    L.append("  Tier 9 依 C6 D 主訴對照表換算急迫度。Escalating 漏問 = 可能 under-triage，是安全指標；只會降級的題漏問只造成 over-triage。")
     L.append("- 資訊不足組（persona vague）的 base case 以 `max_questions` 結束並維持 Tier 9 是**預期行為**（節制），不是失敗。")
     L.append("")
     L.append("## 結束原因")
@@ -103,6 +104,21 @@ def render_md(mode: str, seed: int, results: list[RunResult], m: Metrics) -> str
     _list("Abstention FP（truth 0–4 但最終 9）", m.abstain_fp)
     _list("Abstention FN（truth 9 但給了 0–4）", m.abstain_fn)
     _list("RF 不一致（case, expected rf, got）", m.rf_mismatch)
+
+    from collections import Counter as _C
+    by_q = _C(q for _, q, _, _ in m.escalating_missed)
+    L.append(f"## 漏問的 escalating 題目（{len(m.escalating_missed)}）")
+    L.append("")
+    L.append("| 題目 | 漏問次數 |")
+    L.append("|---|---|")
+    for q, n in by_q.most_common():
+        L.append(f"| {q} | {n} |")
+    L.append("")
+    L.append("明細（case, 題目, final tier, 結束原因）：")
+    L.append("")
+    for it in m.escalating_missed:
+        L.append(f"- {it}")
+    L.append("")
 
     L.append("## 每案摘要")
     L.append("")
@@ -130,7 +146,7 @@ def main() -> None:
     stem = f"eval_{date.today().isoformat()}_{args.mode}"
     (out / f"{stem}.md").write_text(render_md(args.mode, args.seed, results, m), encoding="utf-8")
     (out / f"{stem}.json").write_text(json.dumps(m.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
-    print(json.dumps({k: v for k, v in m.to_dict().items() if k in ("n_cases", "n_scored", "exact_rate", "decisive_recall_core", "decisive_recall_all", "questions_to_decision_mean")}, ensure_ascii=False))
+    print(json.dumps({k: v for k, v in m.to_dict().items() if k in ("n_cases", "n_scored", "exact_rate", "escalating_recall", "decisive_recall", "questions_to_decision_mean")}, ensure_ascii=False))
     print("hard_stop:", m.to_dict()["hard_stop"])
     print("under:", m.under_triage)
     print("over:", m.over_triage)

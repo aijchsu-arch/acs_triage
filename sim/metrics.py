@@ -25,8 +25,9 @@ class Metrics:
     abstain_fn: list[tuple[str, int]] = field(default_factory=list)   # truth 9, pred 0-4
     decisive_hit: int = 0
     decisive_total: int = 0
-    decisive_core_hit: int = 0
-    decisive_core_total: int = 0
+    escalating_hit: int = 0
+    escalating_total: int = 0
+    escalating_missed: list[tuple[str, str, int, str]] = field(default_factory=list)  # (case, qid, final tier, stop)
     questions: list[int] = field(default_factory=list)
     repeats: int = 0
     stop_reasons: Counter = field(default_factory=Counter)
@@ -56,8 +57,8 @@ class Metrics:
         return self.decisive_hit / self.decisive_total if self.decisive_total else 1.0
 
     @property
-    def decisive_core_recall(self) -> float:
-        return self.decisive_core_hit / self.decisive_core_total if self.decisive_core_total else 1.0
+    def escalating_recall(self) -> float:
+        return self.escalating_hit / self.escalating_total if self.escalating_total else 1.0
 
     @property
     def abstention_precision(self) -> float:
@@ -84,8 +85,9 @@ class Metrics:
             "over_triage": {"rate": self.over_triage_rate, "cases": self.over_triage},
             "abstention": {"tp": self.abstain_tp, "fp": self.abstain_fp, "fn": self.abstain_fn,
                            "precision": self.abstention_precision, "recall": self.abstention_recall},
-            "decisive_recall_all": self.decisive_recall,
-            "decisive_recall_core": self.decisive_core_recall,
+            "escalating_recall": self.escalating_recall,
+            "escalating": {"hit": self.escalating_hit, "total": self.escalating_total, "missed": self.escalating_missed},
+            "decisive_recall": self.decisive_recall,
             "questions_to_decision_mean": self.mean_questions,
             "gate_repeats": self.repeats,
             "stop_reasons": dict(self.stop_reasons),
@@ -103,8 +105,9 @@ def compute(results: list[RunResult]) -> Metrics:
         m.repeats += r.n_repeats
         m.decisive_hit += r.decisive_asked_or_known
         m.decisive_total += r.decisive_total
-        m.decisive_core_hit += r.decisive_core_asked_or_known
-        m.decisive_core_total += r.decisive_core_total
+        m.escalating_hit += r.escalating_asked_or_known
+        m.escalating_total += r.escalating_total
+        m.escalating_missed += [(r.case_id, q, r.final.tier, r.stop_reason) for q in r.escalating_missed]
         if r.truth_tier is None:
             continue
         m.n_scored += 1

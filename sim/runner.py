@@ -44,8 +44,9 @@ class RunResult:
     rf_reveal_turn: int | None = None          # 揭露 RF 事實的那一題（與 hard_stop_turn 相同 → latency 0）
     decisive_asked_or_known: int = 0
     decisive_total: int = 0
-    decisive_core_asked_or_known: int = 0
-    decisive_core_total: int = 0
+    escalating_asked_or_known: int = 0
+    escalating_total: int = 0
+    escalating_missed: list[str] = field(default_factory=list)
     pathway_script: str = ""
     stop_reason: str = ""
 
@@ -127,12 +128,15 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
     pw = route(d, state)
     res.pathway_script = pw.script_id
     audit.emit(call_id, "pathway_shown", pw.model_dump())
-    # decisive-question recall：被問到或結束時 slot 已知
+    # decisive／escalating recall：被問到或結束時 slot 已知（D-27）
     from acs_triage.loaders import question_by_id
     qb = question_by_id()
-    res.decisive_asked_or_known = sum(1 for qid in case.decisive_questions
-                                      if qid in asked or state.known(qb[qid].slot_id))
-    core = [qid for qid in case.decisive_questions if qb[qid].priority in ("redflag", "decisive")]
-    res.decisive_core_total = len(core)
-    res.decisive_core_asked_or_known = sum(1 for qid in core if qid in asked or state.known(qb[qid].slot_id))
+
+    def covered(qid: str) -> bool:
+        return qid in asked or state.known(qb[qid].slot_id)
+
+    res.decisive_asked_or_known = sum(1 for qid in case.decisive_questions if covered(qid))
+    res.escalating_total = len(case.escalating_questions)
+    res.escalating_missed = [qid for qid in case.escalating_questions if not covered(qid)]
+    res.escalating_asked_or_known = res.escalating_total - len(res.escalating_missed)
     return res
