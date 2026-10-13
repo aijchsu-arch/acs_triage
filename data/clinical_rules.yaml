@@ -3,7 +3,7 @@
 # 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
 # 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
 
-rules_version: "0.4.0"
+rules_version: "0.5.0"
 source_doc: docs/CLINICAL_RULES.md
 
 tiers:
@@ -15,7 +15,7 @@ tiers:
   9: {name: Unable to determine, definition: 現有資訊不足，不能安全指定 0–4}
 
 thresholds:
-  max_questions: 10        # 原預設 8；M2 模擬顯示「模糊主訴 → 穩定型 T3」路徑需 4 紅旗題 + 4 決定題 + ND-05 抗血小板題 = 9，故放寬（D-22）
+  max_questions: 11        # 8 → 10（D-22）→ 11（Q-15，Clinical Owner 2026-10-14）：Q-14b 後 PCI＋模糊開場之穩定型需 11 題
   stt_min_confidence: 0.75
   rf_model_threshold: 0.5
   stable_pattern_min_months: 6        # §5.6 穩定型
@@ -60,19 +60,19 @@ no_downgrade:
 # ---------------- §5 等級規則索引（條件在程式碼，id 供稽核與 audit） ----------------
 tier_rules:
   T0:
-    - {id: T0-NEW-TODAY, ref: "§5.3 (DV-1)", text: 新發胸部症狀且最後一次在今天、現在仍在、或時序未知；排除 DV-2／DV-4／DV-5／可重現機械性／咳嗽相關型態（後三者僅限 pain／epigastric，Q-14e）}
+    - {id: T0-NEW-TODAY, ref: "§5.3 (DV-1)", text: 新發胸部症狀且最後一次在今天、現在仍在、或時序未知；非缺血型豁免（刺痛可重現／刺痛咳嗽／上腹餐後）一律排除；勞累型豁免（DV-2／DV-4）只在時序不明時排除（Q-14d C）}
     - {id: T0-THRESHOLD-DAYS, ref: "§5.3 C3 B", text: 活動閾值下降且時間尺度為數天或不明}
     - {id: T0-REST-NEW, ref: "§5.3", text: 新發休息時症狀（首次不明時以首次視之）}
     - {id: T0-DYSPNEA-ACUTE, ref: "§5.3", text: 今日突發且與基線明顯不同之呼吸困難}
     - {id: T0-NTG-INCREASED, ref: "§5.3 C4 A (DV-6)", text: 既有型態下 NTG 用量明顯增加}
     - {id: T0-ORTHOPNEA, ref: "§5.3 C1 B", text: 端坐呼吸／PND（非 Hard stop）}
   T1:
-    - {id: T1-NEW-YESTERDAY, ref: "§5.4 (DV-1)", text: 新發胸部症狀、最後一次在昨天（<24h）、今日無發作}
+    - {id: T1-NEW-YESTERDAY, ref: "§5.4 (DV-1)", text: 新發胸部症狀、最後一次在昨天（<24h）、今日無發作；非缺血型豁免除外（Q-14d C）}
     - {id: T1-THRESHOLD-WEEKS, ref: "§5.4 C3 B", text: 活動閾值於數週～一個月緩慢下降}
     - {id: T1-PENDING-TEST, ref: "§5.4", text: 檢查異常待追蹤未掛號且無症狀}
     - {id: T1-ANTIPLT-SYMPTOMATIC, ref: "§5.4 (DV-3)", text: 新發胸部症狀合併抗血小板中斷}
   T2:
-    - {id: T2-NEW-OVER24H, ref: "§5.5 C2 C", text: 新發胸部症狀、已緩解 ≥24h、無再發、無休息症狀}
+    - {id: T2-NEW-OVER24H, ref: "§5.5 C2 C", text: 新發胸部症狀、已緩解 ≥24h、無再發、無休息症狀；非缺血型豁免除外（Q-14d C）}
     - {id: T2-NEW-STABLE-WEEKS, ref: "§5.5 (DV-2)", text: 新發勞累性、≥2 週、型態穩定、無休息、無閾值下降}
     - {id: T2-DYSPNEA-DAILY, ref: "§5.5", text: 日常勞動性呼吸困難、非今日突發、無端坐呼吸、無胸部症狀（含合併水腫）}
     - {id: T2-POSTURAL-NEWMED, ref: "§5.5", text: 新藥後姿勢性頭暈、無胸部症狀、無瀕厥}

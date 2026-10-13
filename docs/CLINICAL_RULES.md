@@ -1,6 +1,6 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.4.0 · 2026-10-13（Q-14 a／b／c／e／f／g）
+**rules_version**: 0.5.0 · 2026-10-14（Q-14d C、Q-15）
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 
@@ -93,6 +93,7 @@ T0 永遠先於其他等級評估；§5.6 的 T3 carve-out 只在 **T0 條件全
 ### 5.3 T0（非 hard stop）
 以下任一成立：
 - 新發缺血等價症狀且 `last_episode_timing ∈ {today, ongoing}`（含「今天第一次」已緩解者；A1、A4）(DV-1)。病人答「現在還在」→ 同時視為 `ongoing_now=true`（RF-03）（Q-14g）
+  - **時序與豁免（Q-14d C）**：非缺血型豁免（§5.6 刺痛可重現、刺痛咳嗽、上腹餐後）不論時序一律適用、不進 T0；勞累型豁免（DV-2 新發穩定 ≥2 週、DV-4 PCI 後較輕）**只在時序不明時**適用——病人明確說今天或仍在發作 → T0。
 - `threshold_decreased == true` 且 `threshold_decrease_timescale ∈ {days, unknown}`（C3 B；A2）
 - `rest_symptom == true` 且 `rest_symptom_first_time == true`（新發休息時症狀；A5）
 - `dyspnea_acute == true`（今日突發且與基線明顯不同；A3）
@@ -101,14 +102,14 @@ T0 永遠先於其他等級評估；§5.6 的 T3 carve-out 只在 **T0 條件全
 
 ### 5.4 T1（Same-day）
 T0 不成立，且以下任一：
-- 新發缺血等價症狀、已緩解、`last_episode_timing == yesterday_within_24h`、今日無發作（B1 單次；B19 兩天內多次亦同）(DV-1)。若確認為休息時首次發作，§5.3 T0 優先
+- 新發缺血等價症狀、已緩解、`last_episode_timing == yesterday_within_24h`、今日無發作（B1 單次；B19 兩天內多次亦同）(DV-1)。若確認為休息時首次發作，§5.3 T0 優先。非缺血型豁免除外（Q-14d C）
 - `threshold_decreased == true` 且 `threshold_decrease_timescale == weeks_to_month`（C3 B；B7）
 - `pending_abnormal_test == true` 且目前無症狀（檢查異常待追蹤未掛號；B9）
 - 新發缺血等價症狀 + `antiplatelet_interrupted == true`（ND-05 有症狀分支）(DV-3)
 
 ### 5.5 T2（24–72 h）
 T0／T1 不成立，且以下任一：
-- 新發缺血等價症狀、已緩解、`last_episode_timing == over_24h`、`recurrence == false`、`rest_symptom == false`（C2 C）
+- 新發缺血等價症狀、已緩解、`last_episode_timing == over_24h`、`recurrence == false`、`rest_symptom == false`（C2 C）。非缺血型豁免除外（Q-14d C）
 - 新發勞累性缺血等價症狀、`onset_weeks_ago >= 2`、型態穩定、`rest_symptom == false`、`threshold_decreased == false`（B2）(DV-2)
 - 新發 `dyspnea_grade == exertional_daily`、`dyspnea_acute == false`、無缺血等價症狀（B6）
 - `postural_dizziness == true` 且 `new_medication_recent == true`、無缺血等價症狀、無 presyncope 合併胸部症狀（B10）
@@ -154,6 +155,7 @@ T0–T3 不成立，且：
 - 判 T4：`consult_topic` 已確認且三項否認（胸悶、喘、暈）皆有高信心值。
 - **所有 T1–T4（Q-14b）**：有胸部症狀者，`rest_symptom`、`threshold_decreased`、`ntg_use_increased` 必須已知（三個 T0 觸發因子都排除才能定案）。
 - **第三方來電（Q-14c）**：`patient_reachable` 必須已知。
+- **勞累型豁免（DV-2、DV-4；Q-14d C）**：`last_episode_timing` 必須已知（答「不記得」算已知），否則不問就永遠豁免。
 - **無症狀諮詢（T3 行政、T3 抗血小板中斷無症狀、T4；Q-14f）**：心悸、姿勢性頭暈、檢查異常待追蹤必須已知；以一題合併篩檢詢問，答「沒有」即三項皆 false。
 - 其他 → 不足。
 

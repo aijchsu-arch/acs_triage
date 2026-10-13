@@ -128,7 +128,7 @@
   3. 最後才是修飾題（`priority: refine`）。
   4. 已有高信心 slot 值的題跳過。
 - 每次只推**一題**到畫面，附「為什麼問這題」一行（給客服，不給病人）。
-- 上限：`MAX_QUESTIONS`（預設 10，見 D-22）。到上限仍不足 → Tier 9。
+- 上限：`MAX_QUESTIONS`（預設 11，見 D-22、D-29）。到上限仍不足 → Tier 9。
 
 ### 3.6 Sufficiency Gate
 - 判斷「現有 slot 是否足以安全指定 0–4」。
@@ -404,3 +404,5 @@ acs_triage/
 **M2 重訂基線（2026-10-13，D-27）**：decisive 改為反事實定義後，clean 的 escalating recall **86.5%（455/526）**、decisive recall 81.5%；未達 90% 目標。71 次漏問集中在 Q-NTG-01（33）、Q-THRESHOLD-01（9）、無症狀諮詢的篩檢題（PENDINGTEST 7、POSTURAL 6、PALP 4），成因與修正選項見 `DECISIONS.md` Q-14。
 
 **Q-14 修正後基線（2026-10-13，D-28，rules 0.4.0）**：clean escalating recall **95.9%（510/532）**、Hard-stop miss 0/27、latency 0、under 0、over 0、exact 115/116、平均 5.3 題。剩餘 22 次漏問中 15 次結束於 Tier 9 或 T0（無 under-triage 風險）；4 次（S-MID-02／08／16 時序題）源自待裁定的 Q-14d。
+
+**Q-14d C＋Q-15 後基線（2026-10-14，D-29，rules 0.5.0，`reports/eval_2026-10-14_*`）**：clean exact **116/116**、escalating recall **96.6%（512/530）**、Hard-stop miss 0/27、latency 0、under 0、over 0、平均 5.5 題。剩餘 18 次漏問中 16 次結束於 Tier 9 或 T0；其餘 2 次：S-MID-07（逐月閾值下降的 CAD 病人若被認定為「新發」→ 依 D-23 時序不明視為今天 → T0）、S-MID-08（PCI 後較輕的新症狀若已 ≥2 週 → DV-2 的 T2 先於 DV-4 的 T3）。

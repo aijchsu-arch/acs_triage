@@ -30,7 +30,7 @@ RULE_REQUIREMENTS: dict[str, list[str]] = {
     "T1-ANTIPLT-SYMPTOMATIC": CHEST_CONTEXT,
     # T2
     "T2-NEW-OVER24H": CHEST_CONTEXT + ["recurrence"],
-    "T2-NEW-STABLE-WEEKS": CHEST_CONTEXT + ["onset_weeks_ago", "threshold_decreased"],
+    "T2-NEW-STABLE-WEEKS": CHEST_CONTEXT + ["onset_weeks_ago", "threshold_decreased", "last_episode_timing"],  # Q-14d C
     "T2-DYSPNEA-DAILY": DYSPNEA_CONTEXT + ["symptom_character"],
     "T2-POSTURAL-NEWMED": ["symptom_character", "presyncope", "dyspnea_grade", "new_medication_recent"],
     # T3
@@ -38,7 +38,7 @@ RULE_REQUIREMENTS: dict[str, list[str]] = {
     "T3-ADMIN": ["consult_topic", "symptom_character", "dyspnea_grade", "presyncope"] + CONSULT_SCREEN,
     "T3-ANTIPLT-ASYMPTOMATIC": ["symptom_character", "dyspnea_grade", "presyncope"] + CONSULT_SCREEN,
     "T3-PALPITATIONS": ["symptom_character", "presyncope", "syncope", "dyspnea_grade"],
-    "T3-POST-PCI-MILDER": CHEST_CONTEXT + ["threshold_decreased"],
+    "T3-POST-PCI-MILDER": CHEST_CONTEXT + ["threshold_decreased", "last_episode_timing"],  # Q-14d C
     "T3-POSTPRANDIAL": ["ongoing_now", "diaphoresis", "exertion_relation", "presyncope"],
     "T3-MECHANICAL": ["ongoing_now", "diaphoresis", "exertion_relation", "presyncope"],
     "T3-COUGH": ["ongoing_now", "diaphoresis", "exertion_relation", "presyncope"],

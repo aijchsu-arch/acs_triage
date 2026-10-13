@@ -36,6 +36,7 @@
 | D-26 | 2026-10-13 | Sufficiency gate：ND-05 → 已知 CAD／PCI、有胸部症狀、provisional 1–3 時必問抗血小板是否中斷；T3 穩定型的必要 slot 依主訴（胸部／呼吸）動態決定。 | 設計 |
 | D-27 | 2026-10-13 | **決定性問題改為反事實定義**（依 Reviewer Prompt「只列會真正改變 disposition 的問題」）：在 case 的完整事實下，把某題換成任一可能答案，若 (provisional_tier, hard_stop) 改變即為 decisive；存在答案使結果**更急**者為 escalating（Tier 9 依 C6 D 換算急迫度）。安全指標改為 **escalating recall**（目標 ≥ 90%）；decisive recall 僅記錄。實作 `sim/decisive.py`；情境檔 `decisive_questions` 由 `python -m sim.decisive --write` 產生，`tests/test_decisive.py` 確保一致。重訂基線：escalating 86.5%（455/526）。舊的人工清單同時過寬（列入不改變結果的題）與過窄（漏列紅旗題與 NTG 題）。 | 設計（Clinical Owner 指示重訂基線） |
 | D-28 | 2026-10-13 | **Q-14 裁定（a／b／c／e／f／g 同意）並實作，rules_version 0.3.2 → 0.4.0**：(a) Q-NTG-01 升為 decisive；(b) 胸部症狀定在 T1–T4 前，休息時症狀、閾值下降、NTG 增加必須已知；(c) 第三方來電須確認病人可及；(e) 可重現／咳嗽豁免限 `pain`、餐後豁免限 `epigastric`——新發下顎肩膀沉重或壓迫感不再能被豁免降級；(f A) 無症狀諮詢加一題合併篩檢 Q-SCREEN-01（心悸／姿勢性頭暈／檢查異常待追蹤），答「沒有」即三項 false，答「有」或「不知道」才逐項追問；(g) `last_episode_timing=ongoing` 視同今天並帶出 `ongoing_now=true`（RF-03）。資料：17 個胸部症狀情境 sheet 補 `ntg_use_increased: false`（C4 A 下唯一與 truth 一致的值）、7 個無症狀情境補三項篩檢事實。新基線（clean）：escalating **95.9%（510/532）**、Hard-stop miss 0/27、under 0、over 0、exact 115/116（S-INSUF-02#1 題數上限，見 Q-15）、平均 5.3 題。 | Clinical Owner（Q-14） |
+| D-29 | 2026-10-14 | **Q-14d 選 C、Q-15 同意，rules_version 0.4.0 → 0.5.0**：非缺血型豁免（刺痛可重現、刺痛咳嗽、上腹餐後；已由 Q-14e 限縮）不論時序都適用，不進 T0／T1-昨天／T2->24h；勞累型豁免（DV-2 新發穩定 ≥2 週、DV-4 PCI 後較輕）**只在時序不明時**適用，病人明確說今天或仍在發作 → T0。配套：DV-2／DV-4 定案前 gate 必須問過時序（答「不記得」算已知），否則不問就永遠豁免。`max_questions` 10 → **11**。新增 `tests/test_q14.py` 時序單調性測試（24 個胸部症狀情境：仍在 ≥ 今天 ≥ 昨天 ≥ >24h）。所有 truth 不變。新基線（clean，`reports/eval_2026-10-14_*`）：exact **116/116**、escalating **96.6%（512/530）**、Hard-stop miss 0/27、under 0、over 0、平均 5.5 題。 | Clinical Owner（Q-14d、Q-15） |
 
 ---
 
@@ -52,5 +53,3 @@
 | Q-09 | Hard stop 通報管道：主管／護理師用什麼接收？（院內通訊軟體、簡訊、客服系統 escalation？） | `pathway/` | 客服主管 + 護理 |
 | Q-10 | 客服腳本逐字稿（S-HS、S-T0…S-T9、S-SN-A/B）誰定稿？ | `data/scripts_zh.yaml` | Clinical Owner + 客服主管 |
 | Q-12 | Phase 3 之前的法規諮詢：是否需 TFDA 智慧醫材申請？由誰啟動？ | Phase 3 | Clinical Owner + 院方 |
-| Q-14d | **時序不單調，Clinical Owner 選 B（今天一律 T0、不適用豁免），但 B 與既有 truth 衝突，待再裁定**：依 D-23「時序不明視為今天」，B 會把 B2（三週新發穩定）、B8（PCI 後較輕）、B16（咳嗽痛）這三個開場沒講時間的情境，以及 B14（「今天」按壓痛）全部變成 T0，推翻原標 T2／T3／T3／T3。可選：<br>B-1 嚴格照 B：四個 truth 改為 T0。<br>B-2 只有明確說「今天」才 T0；時序不明仍適用豁免 → 只有 B14 改為 T0。<br>C 勞累型豁免（DV-2、DV-4）明確今天 → T0；非缺血型豁免（e 限縮後的刺痛可重現／咳嗽痛／上腹餐後）不論時序都適用 → 所有 truth 不變、時序單調。 | `CLINICAL_RULES.md §5.3–5.6`、`rules/tiers.py`、情境 truth | Clinical Owner |
-| Q-15 | `max_questions` 10 → 11？Q-14b 後，PCI＋模糊開場的穩定型（S-INSUF-02#1）需 11 題才能排除所有 T0 觸發因子＋ND-05 抗血小板；10 題時以 Tier 9 轉護理師結束（保守，非 under-triage）。 | `clinical_rules.yaml thresholds` | Clinical Owner |

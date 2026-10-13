@@ -49,17 +49,24 @@ def cough(s: SlotState) -> bool:
             and s.get("exertion_relation") != "exertion_only")
 
 
-def _lower_tier_pattern(s: SlotState) -> bool:
-    """owner 明確判為 T2／T3 的新發型態，排除於 T0-NEW-TODAY 之外。"""
-    return dv2_new_stable_weeks(s) or dv4_post_pci_milder(s) or dv5_postprandial(s) or mechanical(s) or cough(s)
+def _exertional_carveout(s: SlotState) -> bool:
+    """勞累型豁免（DV-2 新發穩定 ≥2 週、DV-4 PCI 後較輕）。Q-14d C：明確今天／仍在發作 → 不豁免（T0）。"""
+    return dv2_new_stable_weeks(s) or dv4_post_pci_milder(s)
+
+
+def _nonischemic_carveout(s: SlotState) -> bool:
+    """非缺血型豁免（刺痛可重現、刺痛咳嗽、上腹餐後；Q-14e 限縮）。Q-14d C：不論時序都適用。"""
+    return dv5_postprandial(s) or mechanical(s) or cough(s)
 
 
 # ---------------------------------------------------------------- T0
 def t0_rules(s: SlotState) -> list[str]:
     hits: list[str] = []
     timing = s.get("last_episode_timing")
-    if (s.chest_symptom_present() and s.is_true("onset_new") and timing in ("ongoing", "today", None, "unknown")
-            and not _lower_tier_pattern(s)):
+    timing_unknown = timing in (None, "unknown")
+    if (s.chest_symptom_present() and s.is_true("onset_new") and (timing in ("ongoing", "today") or timing_unknown)
+            and not _nonischemic_carveout(s)
+            and not (_exertional_carveout(s) and timing_unknown)):
         hits.append("T0-NEW-TODAY")
     if s.is_true("threshold_decreased") and s.get("threshold_decrease_timescale") in (UNKNOWN_TIMESCALE | {"days"}):
         hits.append("T0-THRESHOLD-DAYS")
@@ -86,7 +93,8 @@ def t9_explicit(s: SlotState) -> list[str]:
 def t1_rules(s: SlotState) -> list[str]:
     hits: list[str] = []
     if (s.chest_symptom_present() and s.get("onset_new") is not False
-            and s.get("last_episode_timing") == "yesterday_within_24h" and s.not_true("ongoing_now")):
+            and s.get("last_episode_timing") == "yesterday_within_24h" and s.not_true("ongoing_now")
+            and not _nonischemic_carveout(s)):
         hits.append("T1-NEW-YESTERDAY")
     if s.is_true("threshold_decreased") and s.get("threshold_decrease_timescale") == "weeks_to_month":
         hits.append("T1-THRESHOLD-WEEKS")
@@ -102,7 +110,7 @@ def t2_rules(s: SlotState) -> list[str]:
     hits: list[str] = []
     if (s.chest_symptom_present() and s.get("onset_new") is not False
             and s.get("last_episode_timing") == "over_24h" and s.not_true("recurrence")
-            and s.not_true("rest_symptom")):
+            and s.not_true("rest_symptom") and not _nonischemic_carveout(s)):
         hits.append("T2-NEW-OVER24H")
     if dv2_new_stable_weeks(s):
         hits.append("T2-NEW-STABLE-WEEKS")

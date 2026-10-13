@@ -38,7 +38,7 @@ scenarios:
       episode_duration_min: 5
       recurrence: false
       dyspnea_grade: none
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-CHARACTER-01, Q-TIMING-01, Q-ONSET-WEEKS-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-CHARACTER-01, Q-TIMING-01]
     boundary_variants:
       - override: {ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}

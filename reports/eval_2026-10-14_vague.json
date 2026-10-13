@@ -1,0 +1,340 @@
+{
+  "n_cases": 119,
+  "n_scored": 116,
+  "hard_stop": {
+    "truth": 27,
+    "hit": 27,
+    "miss": [],
+    "miss_rate": 0.0,
+    "false_alarm": [],
+    "latency_max": 0
+  },
+  "exact_rate": 0.7586206896551724,
+  "under_triage": {
+    "rate": 0.0,
+    "cases": []
+  },
+  "over_triage": {
+    "rate": 0.0,
+    "cases": []
+  },
+  "abstention": {
+    "tp": 12,
+    "fp": [
+      [
+        "S-ACUTE-01#2",
+        3
+      ],
+      [
+        "S-STABLE-01",
+        3
+      ],
+      [
+        "S-STABLE-01#0",
+        0
+      ],
+      [
+        "S-STABLE-02",
+        3
+      ],
+      [
+        "S-STABLE-03#0",
+        0
+      ],
+      [
+        "S-INSUF-02#0",
+        0
+      ],
+      [
+        "S-INSUF-02#1",
+        3
+      ],
+      [
+        "S-INSUF-04#1",
+        0
+      ],
+      [
+        "S-INSUF-04#2",
+        3
+      ],
+      [
+        "S-INSUF-05#1",
+        3
+      ],
+      [
+        "S-INSUF-06#0",
+        0
+      ],
+      [
+        "S-MID-01#0",
+        0
+      ],
+      [
+        "S-MID-01#1",
+        2
+      ],
+      [
+        "S-MID-03#1",
+        3
+      ],
+      [
+        "S-MID-04#0",
+        1
+      ],
+      [
+        "S-MID-05#1",
+        0
+      ],
+      [
+        "S-MID-06",
+        2
+      ],
+      [
+        "S-MID-07",
+        1
+      ],
+      [
+        "S-MID-08",
+        3
+      ],
+      [
+        "S-MID-08#1",
+        0
+      ],
+      [
+        "S-MID-08#2",
+        1
+      ],
+      [
+        "S-MID-09#0",
+        0
+      ],
+      [
+        "S-MID-13",
+        3
+      ],
+      [
+        "S-MID-13#2",
+        0
+      ],
+      [
+        "S-MID-14#0",
+        0
+      ],
+      [
+        "S-MID-15#0",
+        1
+      ],
+      [
+        "S-MID-16#0",
+        0
+      ],
+      [
+        "S-MID-17",
+        4
+      ]
+    ],
+    "fn": [],
+    "precision": 0.3,
+    "recall": 1.0
+  },
+  "escalating_recall": 0.9471698113207547,
+  "escalating": {
+    "hit": 502,
+    "total": 530,
+    "missed": [
+      [
+        "S-ACUTE-01#2",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-ACUTE-03#2",
+        "Q-ORTHO-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-ACUTE-05#1",
+        "Q-ONSET-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "S-ACUTE-05#1",
+        "Q-THRESHOLD-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "S-ACUTE-05#1",
+        "Q-REST-02",
+        0,
+        "gate_passed"
+      ],
+      [
+        "S-ACUTE-05#1",
+        "Q-NTG-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "S-STABLE-01#2",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-STABLE-03#0",
+        "Q-DIAPH-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-STABLE-03#0",
+        "Q-TIMING-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-INSUF-01",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-02",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-ONGOING-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-SYNCOPE-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-DIAPH-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-ONSET-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-THRESHOLD-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-REST-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-PATTERN-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-NTG-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-INSUF-03",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-05",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-08",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-MID-05#1",
+        "Q-DIAPH-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "S-MID-17#0",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ]
+    ]
+  },
+  "decisive_recall": 0.9343575418994413,
+  "questions_to_decision_mean": 6.277310924369748,
+  "gate_repeats": 0,
+  "stop_reasons": {
+    "gate_passed": 49,
+    "hard_stop": 25,
+    "max_questions": 38,
+    "hard_stop_opening": 2,
+    "no_more_questions": 5
+  },
+  "confusion": {
+    "0->0": 58,
+    "0->9": 12,
+    "1->1": 3,
+    "1->9": 4,
+    "2->2": 3,
+    "2->9": 2,
+    "3->3": 9,
+    "3->9": 9,
+    "4->4": 3,
+    "4->9": 1,
+    "9->9": 12
+  },
+  "rf_mismatch": []
+}
