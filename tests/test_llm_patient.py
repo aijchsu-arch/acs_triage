@@ -89,7 +89,7 @@ def test_request_shape():
     _, _, fc = _run(case)
     req = fc.requests[0]
     assert req["system"] == build_system(case)
-    assert req["fallbacks"] == "default"
+    assert req["model"] == "claude-haiku-5-5" and "fallbacks" not in req   # Haiku 無 server-side fallback
     schema = req["output_config"]["format"]["schema"]
     assert schema["additionalProperties"] is False
     # 對話只增不改（append-only）：後一次請求的 messages 以前一次為前綴

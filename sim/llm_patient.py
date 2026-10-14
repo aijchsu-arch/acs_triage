@@ -21,8 +21,8 @@ from .cases import Case
 from .patient import _ZH_CHOICE, PatientReply, ScriptedPatient
 
 KEY_ENV = "ACS_PATIENT_LLM_KEY"
-DEFAULT_MODEL = "claude-opus-5-5"
-_FALLBACK_BETA = "server-side-fallback-2026-07-01"
+DEFAULT_MODEL = "claude-haiku-5-5"
+_FALLBACK_BETA = "server-side-fallback-2026-07-01"   # Haiku 無 server-side fallback，只在其他模型帶
 
 
 @dataclass
@@ -122,8 +122,7 @@ class LLMPatientSimulator:
             messages=self.messages,
             cache_control={"type": "ephemeral"},
             output_config={"effort": self.effort, "format": {"type": "json_schema", "schema": answer_schema(q)}},
-            betas=[_FALLBACK_BETA],
-            fallbacks="default",
+            **({} if "haiku" in self.model else {"betas": [_FALLBACK_BETA], "fallbacks": "default"}),
         )
         if resp.stop_reason != "end_turn":
             raise RuntimeError(f"{self.case.id} {q.id}: stop_reason={resp.stop_reason}")
