@@ -37,6 +37,7 @@
 | D-27 | 2026-10-13 | **決定性問題改為反事實定義**（依 Reviewer Prompt「只列會真正改變 disposition 的問題」）：在 case 的完整事實下，把某題換成任一可能答案，若 (provisional_tier, hard_stop) 改變即為 decisive；存在答案使結果**更急**者為 escalating（Tier 9 依 C6 D 換算急迫度）。安全指標改為 **escalating recall**（目標 ≥ 90%）；decisive recall 僅記錄。實作 `sim/decisive.py`；情境檔 `decisive_questions` 由 `python -m sim.decisive --write` 產生，`tests/test_decisive.py` 確保一致。重訂基線：escalating 86.5%（455/526）。舊的人工清單同時過寬（列入不改變結果的題）與過窄（漏列紅旗題與 NTG 題）。 | 設計（Clinical Owner 指示重訂基線） |
 | D-28 | 2026-10-13 | **Q-14 裁定（a／b／c／e／f／g 同意）並實作，rules_version 0.3.2 → 0.4.0**：(a) Q-NTG-01 升為 decisive；(b) 胸部症狀定在 T1–T4 前，休息時症狀、閾值下降、NTG 增加必須已知；(c) 第三方來電須確認病人可及；(e) 可重現／咳嗽豁免限 `pain`、餐後豁免限 `epigastric`——新發下顎肩膀沉重或壓迫感不再能被豁免降級；(f A) 無症狀諮詢加一題合併篩檢 Q-SCREEN-01（心悸／姿勢性頭暈／檢查異常待追蹤），答「沒有」即三項 false，答「有」或「不知道」才逐項追問；(g) `last_episode_timing=ongoing` 視同今天並帶出 `ongoing_now=true`（RF-03）。資料：17 個胸部症狀情境 sheet 補 `ntg_use_increased: false`（C4 A 下唯一與 truth 一致的值）、7 個無症狀情境補三項篩檢事實。新基線（clean）：escalating **95.9%（510/532）**、Hard-stop miss 0/27、under 0、over 0、exact 115/116（S-INSUF-02#1 題數上限，見 Q-15）、平均 5.3 題。 | Clinical Owner（Q-14） |
 | D-29 | 2026-10-14 | **Q-14d 選 C、Q-15 同意，rules_version 0.4.0 → 0.5.0**：非缺血型豁免（刺痛可重現、刺痛咳嗽、上腹餐後；已由 Q-14e 限縮）不論時序都適用，不進 T0／T1-昨天／T2->24h；勞累型豁免（DV-2 新發穩定 ≥2 週、DV-4 PCI 後較輕）**只在時序不明時**適用，病人明確說今天或仍在發作 → T0。配套：DV-2／DV-4 定案前 gate 必須問過時序（答「不記得」算已知），否則不問就永遠豁免。`max_questions` 10 → **11**。新增 `tests/test_q14.py` 時序單調性測試（24 個胸部症狀情境：仍在 ≥ 今天 ≥ 昨天 ≥ >24h）。所有 truth 不變。新基線（clean，`reports/eval_2026-10-14_*`）：exact **116/116**、escalating **96.6%（512/530）**、Hard-stop miss 0/27、under 0、over 0、平均 5.5 題。 | Clinical Owner（Q-14d、Q-15） |
+| D-30 | 2026-10-14 | **M2b 端點更正**：M2b 的 LLM 只扮演病人、只讀合成 hidden sheet，不含真實病人資料，D-10 不適用；本地 llama.cpp（llama-server 的 OpenAI 相容 API）或任何雲端 API 皆可。先前「需院內端點」為 Claude 誤寫。實際限制：雲端開發環境連不到外部 LLM 也無金鑰 → 在 Clinical Owner 可連到端點的電腦上以 Claude Code Desktop 執行。規則：金鑰只放環境變數、不得進 repo；扮演病人的模型與分類器模型應不同家，避免自己出題自己答。驗收：LLM 病人下 Hard-stop miss 與 under-triage 仍為 0，並量測病人模型編造 sheet 以外事實的比率。 | 設計（Clinical Owner 確認） |
 
 ---
 
@@ -44,12 +45,12 @@
 
 | ID | 問題 | 影響範圍 | 誰決定 |
 |---|---|---|---|
-| Q-01 | STT 供應商：國語＋台語混合、高齡口音的辨識率誰最好？是否需本地部署？ | M4 `stt/` adapter | Clinical Owner + IT |
-| Q-02 | Jev（TypeSafe AI）：取得存取？資料出境？有無本地／VPC 部署？費用？ | M3 `decision/jev_adapter.py` | Clinical Owner + IT + 法務 |
+| Q-01 | **STT 供應商**（2026-10-14 更新）。<br>**必要規格**：院內或私有雲部署（真實音訊不出院，D-10）；國台語夾雜、高齡口音；電話窄頻（多為 8 kHz）音訊；串流、延遲約 1 秒；**每段輸出信心分數**（Confidence Gate 依賴，無則淘汰）；自訂詞彙（保栓通、舌下含片、支架、冠心症）；授權可用於醫療。<br>**候選（準確率皆為廠商自述，須實測）**：MediaTek Research Breeze-ASR-26（2026-02-26 開源，Apache-2.0，Hugging Face `MediaTek-Research/Breeze-ASR-26`，Whisper 架構，約 1 萬小時合成台語含國台語夾雜，輸出中文字；官方台語基準 CER 30.1%，並註明重口音、方言、專業術語表現下降）；台灣大哥大開源 ASR（2024，國台英客混用，可私有雲／院內部署，自家客服使用）；myVoca（台灣大哥大＋長問科技，2026-03，部署方式未公開）；本地 Whisper 為基準。<br>**評選方法（不需真實病人）**：以 38 情境＋變體為劇本，客服同仁（含慣用台語的年長志工）經真實電話線路角色扮演錄音，分國語／台語／混合；量 CER、**關鍵詞正確率**（有／沒有、今天／昨天、坐著也喘）、信心分數是否在錯字處偏低、以轉寫稿跑系統的分流一致率。錄音前取得同仁書面同意。<br>**依賴**：Q-08 雙聲道串流；M3 模型版 slot 抽取（現行關鍵詞 extractor 對真實口語會掉分，否則量到的是 extractor 而非 ASR）。 | M4 `stt/` adapter | Clinical Owner + IT + 客服主管 |
+| Q-02 | **Jev（TypeSafe AI）**（2026-10-14 更新）：**Clinical Owner 已有測試用 API key → M3 可用合成資料開工**（D-10 只限制真實病人資料）。<br>**已知狀態（第三方整理，待原廠文件確認）**：early access；僅美國西岸託管 API，不開放權重、不可自架、未見 VPC；宣稱不以客戶輸入訓練，企業方案可零保留；有 DPA；未見 BAA；SOC 2 須索取報告；以英文為主、中日韓文準確度不穩；可鎖定版本（`jev-1.13.0`，勿用 `jev-latest`）。<br>**設計對策**：Jev 輸入以結構化 slot 狀態（英文 key／enum）為主，不送中文逐字稿；逐句紅旗維持規則引擎保底。<br>**真實資料前（Phase 1）仍待決**：向原廠索取零保留企業合約、DPA 與次處理者清單、SOC 2 Type II、VPC／本地部署時程；請法務判斷「僅送去識別結構化臨床欄位」的境外傳輸評估。否決則真實資料路徑改用院內模型，Jev 僅留研究用。 | M3 `decision/jev_adapter.py` | Clinical Owner + IT 資安 + 法務 |
 | Q-03 | 居家 12 導程 ECG 裝置型號與 API；AI-ECG 模型來源（院內 AI-ECG 專案？）；訊號品質判定由誰提供？ | `ecg/` | Clinical Owner |
 | Q-06 | 錄音與逐字稿：同意聲明文字、加密方式、去識別化流程、保存期限、個資法合規審查。 | Phase 1 前置 | 法務 + IT + Clinical Owner |
 | Q-07 | 候選紅旗：單次發作 ≥20 min 未緩解是否獨立成條（冒汗已於 D-14 定為 RF-06）。 | `CLINICAL_RULES.md §3` | Clinical Owner |
-| Q-08 | 電話系統整合：客服用哪套 PBX／雲端客服？能否取得雙聲道即時音訊串流？ | M4 以後 | IT |
+| Q-08 | 電話系統整合：客服用哪套 PBX／雲端客服？能否取得雙聲道（客服一軌、病人一軌）即時音訊串流？請 IT／電話廠商確認是否支援 SIPREC 或 media forking。 | M4 以後 | IT |
 | Q-09 | Hard stop 通報管道：主管／護理師用什麼接收？（院內通訊軟體、簡訊、客服系統 escalation？） | `pathway/` | 客服主管 + 護理 |
 | Q-10 | 客服腳本逐字稿（S-HS、S-T0…S-T9、S-SN-A/B）誰定稿？ | `data/scripts_zh.yaml` | Clinical Owner + 客服主管 |
 | Q-12 | Phase 3 之前的法規諮詢：是否需 TFDA 智慧醫材申請？由誰啟動？ | Phase 3 | Clinical Owner + 院方 |

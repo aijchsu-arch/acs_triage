@@ -43,4 +43,4 @@
 - 里程碑完成 → 更新 `docs/BLUEPRINT.md §11` 狀態與 `docs/DECISIONS.md`。
 
 ## 目前任務
-M0／M1／M2 已完成（2026-10-13）。下一步依 `docs/BLUEPRINT.md §11`：M2b（LLM 病人，需端點）、M3（待 Q-02）、M4（待 Q-01）。任何新工作先跑 `pytest` 確認 198 passed 的基線未破。規則修改後須執行 `python -m sim.decisive --write` 重算情境檔的決定性問題清單。
+M0／M1／M2 已完成（2026-10-13）。下一步依 `docs/BLUEPRINT.md §11`：M2b（需任一 LLM 端點，見 D-30）、M3（Jev 測試金鑰已有，僅限合成資料，見 Q-02）、M4（待 Q-01）。所有 API 金鑰只從環境變數讀取，不得寫入程式碼、設定檔或 commit。任何新工作先跑 `pytest` 確認 198 passed 的基線未破。規則修改後須執行 `python -m sim.decisive --write` 重算情境檔的決定性問題清單。

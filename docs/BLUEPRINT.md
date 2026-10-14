@@ -276,6 +276,7 @@ Jev 的保留事項（寫進 `DECISIONS.md` Q-02）：
 - 「零幻覺」指保證符合 schema，不代表答案正確；臨床驗證一樣要做。
 - 美國 API；**真實病人逐字稿在確認資料出境／本地部署方案前，不得送出**。Phase 0 只用合成資料。
 - Jev 不產生文字 → 問題庫必須是固定腳本（本設計本來就如此）。
+- 以英文為主、中日韓文準確度不穩（第三方資料，見 Q-02）→ 輸入以結構化 slot 狀態（英文 key／enum）為主，不送中文逐字稿；若要測逐句紅旗，先在合成資料上量測，規則引擎保底不變。鎖定版本 `jev-1.13.0`，`model_version` 寫入 audit。
 
 ---
 
@@ -392,8 +393,8 @@ acs_triage/
 | M0 | ✅ 2026-10-13 | repo 骨架、`schemas.py`、`clinical_rules.yaml` + loader、`question_bank_seed.yaml` loader、pytest 跑通 | `pytest` 綠；YAML 與 `CLINICAL_RULES.md` 內容一致（有測試比對版本號與 RF 數量） |
 | M1 | ✅ 2026-10-13 | `RulesEngine`：紅旗（RF-01～06）、slot 規則、sufficiency、tier 0–4／9；Prompter 規則選題；Pathway 對照（含 Tier 9 護理師不可得預設） | v0.2 的 18 個 + 中間帶 20 個情境只給開場白 → `provisional_tier`／`hard_stop` 與 `truth_*` 一致；所有 boundary_variants 以 `hidden_slots`+`override` 直接餵 slot → `provisional_tier`／`hard_stop`／`rf` 與 `expect` 一致；紅旗測試 100% 覆蓋 |
 | M2 | ✅ 2026-10-13（ScriptedPatient；LLM 病人 → M2b） | 模擬器：hidden case sheets 展開、PatientSimulator、對話 runner、指標報告 | 38 個情境 + 全部 boundary_variants 展開為 hidden case sheets（預估 100+ cases）跑完產 `reports/eval_*.md`；對話結束後的 final `tier` 與 truth 比對；Hard-stop miss = 0；Under-triage 報表 |
-| M2b | ⏳ | `LLMPatientSimulator`（LLM 扮演病人，只看 hidden sheet）；與 ScriptedPatient 結果比對 | 需院內可用的 LLM 端點（D-10）；指標與 clean 模式差異報告 |
-| M3 | ⏳ 待 Q-02 | `LLMStructuredAdapter`、`JevAdapter`（取得存取後）；模型 vs 規則比較報告；downgrade 阻擋測試 | 比較報告；`model_downgrade_blocked` 有測試 |
+| M2b | ⏳ 待 Clinical Owner 指定端點 | `LLMPatientSimulator`（LLM 扮演病人，只看 hidden sheet）；與 ScriptedPatient 結果比對 | 需任一 LLM 端點：只用合成資料，D-10 不適用，本地 llama.cpp 或雲端 API 皆可（D-30）；Hard-stop miss 與 under-triage 仍為 0；指標與 clean 模式差異報告 |
+| M3 | ⏳ 可開工（Jev 測試金鑰已有，僅合成資料；Q-02） | `LLMStructuredAdapter`、`JevAdapter`；模型 vs 規則比較報告；downgrade 阻擋測試 | 比較報告；`model_downgrade_blocked` 有測試 |
 | M4 | ⏳ 待 Q-01 | STT adapter + Confidence Gate；shadow-mode logger；最小客服 UI | 以錄製的合成音檔端到端跑通；UI 顯示紅旗全螢幕 |
 | 後續 | ⏳ | ECG adapter、電話系統整合、Phase 1 準備 | 依 `DECISIONS.md` 解決 Q-01/02/03/06 後排程 |
 
