@@ -1,0 +1,752 @@
+{
+  "model": "claude-haiku-5-5",
+  "model_versions": [
+    "claude-haiku-5-5"
+  ],
+  "effort": "low",
+  "rules_version": "0.5.0",
+  "metrics": {
+    "n_cases": 119,
+    "n_scored": 116,
+    "hard_stop": {
+      "truth": 27,
+      "hit": 26,
+      "miss": [
+        "S-MID-11#1"
+      ],
+      "miss_rate": 0.037037037037037035,
+      "false_alarm": [],
+      "latency_max": 0
+    },
+    "exact_rate": 0.9396551724137931,
+    "under_triage": {
+      "rate": 0.017241379310344827,
+      "cases": [
+        [
+          "S-INSUF-04#1",
+          0,
+          2
+        ],
+        [
+          "S-MID-06#2",
+          0,
+          2
+        ]
+      ]
+    },
+    "over_triage": {
+      "rate": 0.008620689655172414,
+      "cases": [
+        [
+          "S-MID-03#1",
+          3,
+          0
+        ]
+      ]
+    },
+    "abstention": {
+      "tp": 11,
+      "fp": [
+        [
+          "S-STABLE-03#0",
+          0
+        ],
+        [
+          "S-INSUF-02#0",
+          0
+        ],
+        [
+          "S-MID-13#2",
+          0
+        ]
+      ],
+      "fn": [
+        [
+          "S-STABLE-01#2",
+          3
+        ]
+      ],
+      "precision": 0.7857142857142857,
+      "recall": 0.9166666666666666
+    },
+    "escalating_recall": 0.9679245283018868,
+    "escalating": {
+      "hit": 513,
+      "total": 530,
+      "missed": [
+        [
+          "S-ACUTE-03#2",
+          "Q-ORTHO-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-ACUTE-05#1",
+          "Q-ONSET-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "S-ACUTE-05#1",
+          "Q-THRESHOLD-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "S-ACUTE-05#1",
+          "Q-REST-02",
+          0,
+          "gate_passed"
+        ],
+        [
+          "S-ACUTE-05#1",
+          "Q-NTG-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "S-INSUF-01",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-02",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-03",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-05",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-08",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-MID-07",
+          "Q-ONSET-01",
+          1,
+          "gate_passed"
+        ],
+        [
+          "S-MID-08",
+          "Q-ONSET-WEEKS-01",
+          3,
+          "gate_passed"
+        ],
+        [
+          "S-MID-17#0",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ]
+      ]
+    },
+    "decisive_recall": 0.9511173184357542,
+    "questions_to_decision_mean": 5.588235294117647,
+    "gate_repeats": 0,
+    "stop_reasons": {
+      "gate_passed": 78,
+      "hard_stop": 24,
+      "max_questions": 15,
+      "hard_stop_opening": 2
+    },
+    "confusion": {
+      "0->0": 65,
+      "0->2": 2,
+      "0->9": 3,
+      "1->1": 7,
+      "2->2": 5,
+      "3->0": 1,
+      "3->3": 17,
+      "4->4": 4,
+      "9->3": 1,
+      "9->9": 11
+    },
+    "rf_mismatch": [
+      [
+        "S-MID-11#0",
+        "RF-02",
+        [
+          "RF-03"
+        ]
+      ]
+    ]
+  },
+  "scripted_metrics": {
+    "n_cases": 119,
+    "n_scored": 116,
+    "hard_stop": {
+      "truth": 27,
+      "hit": 27,
+      "miss": [],
+      "miss_rate": 0.0,
+      "false_alarm": [],
+      "latency_max": 0
+    },
+    "exact_rate": 1.0,
+    "under_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "over_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "abstention": {
+      "tp": 12,
+      "fp": [],
+      "fn": [],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "escalating_recall": 0.9660377358490566,
+    "escalating": {
+      "hit": 512,
+      "total": 530,
+      "missed": [
+        [
+          "S-ACUTE-03#2",
+          "Q-ORTHO-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-ACUTE-05#1",
+          "Q-ONSET-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "S-ACUTE-05#1",
+          "Q-THRESHOLD-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "S-ACUTE-05#1",
+          "Q-REST-02",
+          0,
+          "gate_passed"
+        ],
+        [
+          "S-ACUTE-05#1",
+          "Q-NTG-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "S-STABLE-01#2",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-01",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-02",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-03",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-05",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-08",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-MID-07",
+          "Q-ONSET-01",
+          1,
+          "gate_passed"
+        ],
+        [
+          "S-MID-08",
+          "Q-ONSET-WEEKS-01",
+          3,
+          "gate_passed"
+        ],
+        [
+          "S-MID-17#0",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ]
+      ]
+    },
+    "decisive_recall": 0.952513966480447,
+    "questions_to_decision_mean": 5.445378151260504,
+    "gate_repeats": 0,
+    "stop_reasons": {
+      "gate_passed": 77,
+      "hard_stop": 25,
+      "max_questions": 15,
+      "hard_stop_opening": 2
+    },
+    "confusion": {
+      "0->0": 70,
+      "1->1": 7,
+      "2->2": 5,
+      "3->3": 18,
+      "4->4": 4,
+      "9->9": 12
+    },
+    "rf_mismatch": []
+  },
+  "deviations": [
+    {
+      "case_id": "S-ACUTE-03",
+      "question_id": "Q-ONGOING-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "已經沒有了，今天不舒服的感覺好了，現在胸口不會痛。"
+    },
+    {
+      "case_id": "S-ACUTE-03#0",
+      "question_id": "Q-ONGOING-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "胸口現在沒有痛，也沒有悶悶的感覺。"
+    },
+    {
+      "case_id": "S-ACUTE-03#1",
+      "question_id": "Q-ONGOING-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "不在了，剛剛就好了，現在胸口沒有痛。"
+    },
+    {
+      "case_id": "S-ACUTE-03#2",
+      "question_id": "Q-THRESHOLD-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "沒有耶，我還是只有很激烈的運動才會喘，走平路或做家事都沒問題。"
+    },
+    {
+      "case_id": "S-ACUTE-03#2",
+      "question_id": "Q-REST-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "沒有耶，我坐著或躺著休息的時候都不會喘。"
+    },
+    {
+      "case_id": "S-ACUTE-03#2",
+      "question_id": "Q-EXERTION-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "exertion_only",
+      "utterance_zh": "就是很激烈的運動才會喘，停下來休息就好，坐著或躺著休息的時候不會喘。"
+    },
+    {
+      "case_id": "S-STABLE-01#0",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "就是很激烈的運動才會喘，平常走路做家事都還好，坐著休息也不會喘。"
+    },
+    {
+      "case_id": "S-STABLE-01#1",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "只有做很激烈的運動才會喘，平常走路、做家事都沒有喘。"
+    },
+    {
+      "case_id": "S-STABLE-01#2",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "就只有快走上坡的時候會喘，平常走路做家事都還好，坐著休息也不會喘。"
+    },
+    {
+      "case_id": "S-STABLE-01#2",
+      "question_id": "Q-DYSPNEA-SENTENCE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "不會，講話很正常，沒有喘到講不完。"
+    },
+    {
+      "case_id": "S-STABLE-01#2",
+      "question_id": "Q-PATTERN-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": 24,
+      "utterance_zh": "大概兩年了，這兩年都差不多一樣，沒有變嚴重。"
+    },
+    {
+      "case_id": "S-STABLE-02",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "就是很用力運動才會喘，平常走路做家事都不會喘，坐著休息也不會。"
+    },
+    {
+      "case_id": "S-STABLE-02#0",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "就是很用力運動的時候才會喘，平常走路做家事都還好，坐著休息也不會喘。"
+    },
+    {
+      "case_id": "S-STABLE-02#1",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "就是比較用力運動的時候才會喘，平常走路做家事都還好，坐著休息的時候完全不會。"
+    },
+    {
+      "case_id": "S-STABLE-03#0",
+      "question_id": "Q-ONSET-01",
+      "kind": "contradicted",
+      "expected": true,
+      "got": false,
+      "utterance_zh": "這種感覺以前就有過了，不是最近才第一次出現的。"
+    },
+    {
+      "case_id": "S-STABLE-04",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "我的喘只有在做很激烈的運動的時候才會，平常走路、做家事都還好，坐著休息也不會喘。"
+    },
+    {
+      "case_id": "S-STABLE-04#1",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "我的喘是只有做很激烈的運動才會喘，平常走路做家事都不會。"
+    },
+    {
+      "case_id": "S-INSUF-01",
+      "question_id": "Q-REST-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "坐著或躺著休息的時候，我沒有印象有發作過，都是在走路或做事的時候比較會。"
+    },
+    {
+      "case_id": "S-INSUF-01",
+      "question_id": "Q-EXERTION-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "exertion_only",
+      "utterance_zh": "通常是走路或用力的時候才會，停下來休息就會好，休息的時候我沒有印象會發作。"
+    },
+    {
+      "case_id": "S-INSUF-01#0",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "我現在坐著休息的時候完全不會喘，平常走路做家事也沒有喘，只有很激烈的運動才會。"
+    },
+    {
+      "case_id": "S-INSUF-02#0",
+      "question_id": "Q-ONSET-01",
+      "kind": "contradicted",
+      "expected": true,
+      "got": false,
+      "utterance_zh": "這幾天才開始的，以前沒有這樣的感覺。"
+    },
+    {
+      "case_id": "S-INSUF-03#1",
+      "question_id": "Q-ONSET-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": true,
+      "utterance_zh": "這種悶悶的感覺之前比較少有，最近才比較常出現，大概這一兩個禮拜開始的。"
+    },
+    {
+      "case_id": "S-INSUF-04",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "exertional_daily",
+      "utterance_zh": "我現在坐著休息也會喘嗎？不會啦，我坐著的時候都還好，比較是走路或做家事的時候才會喘。"
+    },
+    {
+      "case_id": "S-INSUF-04",
+      "question_id": "Q-PALP-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "心跳突然很快或不規則這個我不太確定耶。不舒服的時候我沒有覺得快昏倒或眼前發黑。"
+    },
+    {
+      "case_id": "S-INSUF-04",
+      "question_id": "Q-CONSULT-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "symptom",
+      "utterance_zh": "我是因為最近覺得比較喘，不知道是不是心臟的問題，所以想打來問看看，身體有不舒服才打來的。"
+    },
+    {
+      "case_id": "S-INSUF-04",
+      "question_id": "Q-DRUGTIME-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": true,
+      "utterance_zh": "吃藥後固定時間出現這個我不太確定耶。但我是走路或做家事比較容易喘，這個有關係。"
+    },
+    {
+      "case_id": "S-INSUF-04#1",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "exertional_daily",
+      "utterance_zh": "我就是平常走路、做家事就會喘，坐著休息的時候還好，不用特別去做很激烈的運動。"
+    },
+    {
+      "case_id": "S-INSUF-04#1",
+      "question_id": "Q-DYSPNEA-ACUTE-01",
+      "kind": "contradicted",
+      "expected": true,
+      "got": false,
+      "utterance_zh": "不是今天忽然的，是這幾個月慢慢變明顯的。"
+    },
+    {
+      "case_id": "S-INSUF-05",
+      "question_id": "Q-REST-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "坐著或躺著休息的時候都沒有發作過，都是走路的時候才會胸悶。"
+    },
+    {
+      "case_id": "S-INSUF-05",
+      "question_id": "Q-PALP-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "心跳好像沒有特別快或不規則，我感覺就是胸口悶悶的，沒有覺得快昏倒。"
+    },
+    {
+      "case_id": "S-INSUF-05",
+      "question_id": "Q-POSTURAL-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "我沒有頭暈的感覺，所以站起來或坐著躺著都沒有這種情況。"
+    },
+    {
+      "case_id": "S-INSUF-05#0",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_daily",
+      "utterance_zh": "只有走路或用力的時候才會喘，平常坐著休息是不會的。"
+    },
+    {
+      "case_id": "S-INSUF-05#1",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_daily",
+      "utterance_zh": "我只有走路或用力的時候才會喘，平常坐著休息是不會的。"
+    },
+    {
+      "case_id": "S-INSUF-06",
+      "question_id": "Q-REST-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "坐著或躺著休息的時候，沒有發作過，都是吃藥後比較活動的時候才會悶。"
+    },
+    {
+      "case_id": "S-INSUF-06",
+      "question_id": "Q-EXERTION-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "exertion_only",
+      "utterance_zh": "通常是走路或用力的時候才會悶，停下來休息就會慢慢好，休息的時候一般不會發作。"
+    },
+    {
+      "case_id": "S-INSUF-06#1",
+      "question_id": "Q-THRESHOLD-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "這個我不太確定耶，我也沒有特別注意以前是怎樣，好像就是最近走路或做家事的時候比較常覺得怪怪的。"
+    },
+    {
+      "case_id": "S-INSUF-06#1",
+      "question_id": "Q-REST-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": ""
+    },
+    {
+      "case_id": "S-MID-03#1",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_daily",
+      "utterance_zh": "我是走路、做家事就會喘，不是只有激烈運動才會，坐著休息的時候就不會喘了。"
+    },
+    {
+      "case_id": "S-MID-03#1",
+      "question_id": "Q-NTG-01",
+      "kind": "contradicted",
+      "expected": false,
+      "got": true,
+      "utterance_zh": "有，最近比以前多，以前一個月含一次，這兩個禮拜變成一個禮拜兩三次。"
+    },
+    {
+      "case_id": "S-MID-06#2",
+      "question_id": "Q-DYSPNEA-ACUTE-01",
+      "kind": "contradicted",
+      "expected": true,
+      "got": false,
+      "utterance_zh": "不是今天忽然變的，是這一個禮拜慢慢開始比較會喘。"
+    },
+    {
+      "case_id": "S-MID-11",
+      "question_id": "Q-ONGOING-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "現在坐著休息，胸口是不會痛啦，不舒服的感覺已經沒有了。"
+    },
+    {
+      "case_id": "S-MID-11#0",
+      "question_id": "Q-ONGOING-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": true,
+      "utterance_zh": "現在坐著休息，胸口是不會痛啦，不舒服的感覺是今天有比較明顯。"
+    },
+    {
+      "case_id": "S-MID-11#1",
+      "question_id": "Q-ONGOING-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "現在坐著休息，胸口是不痛了，也不會不舒服，沒有在痛。"
+    },
+    {
+      "case_id": "S-MID-11#1",
+      "question_id": "Q-DYSPNEA-SENTENCE-01",
+      "kind": "contradicted",
+      "expected": true,
+      "got": false,
+      "utterance_zh": "不會啊，講話很順，一句話可以講完，沒有喘。"
+    },
+    {
+      "case_id": "S-MID-13#2",
+      "question_id": "Q-ONSET-01",
+      "kind": "contradicted",
+      "expected": true,
+      "got": false,
+      "utterance_zh": "是最近才第一次這樣，以前沒有過一樣的感覺。"
+    },
+    {
+      "case_id": "S-MID-17#0",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "contradicted",
+      "expected": "none",
+      "got": "exertional_heavy",
+      "utterance_zh": "我爸現在坐著休息也不會喘，平常走路做家事也都沒有喘，只有很激烈的運動才會喘。"
+    },
+    {
+      "case_id": "S-MID-17#0",
+      "question_id": "Q-EXERTION-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "rest_only",
+      "utterance_zh": "休息的時候沒有發作過，但他走路或用力的時候會不會不舒服，我不太確定。"
+    }
+  ],
+  "errors": []
+}

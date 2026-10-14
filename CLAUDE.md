@@ -43,4 +43,4 @@
 - 里程碑完成 → 更新 `docs/BLUEPRINT.md §11` 狀態與 `docs/DECISIONS.md`。
 
 ## 目前任務
-M0／M1／M2 已完成（2026-10-13）。下一步依 `docs/BLUEPRINT.md §11`：M2b（程式已完成，待金鑰實跑：`python -m sim.run_llm_eval`，見 D-32）、M3（Jev 測試金鑰已有，僅限合成資料，見 Q-02）、M4（待 Q-01）。所有 API 金鑰只從環境變數讀取（`ACS_PATIENT_LLM_KEY`、`ACS_JEV_API_KEY`，見 D-31），以 `api_key=` 明確傳給 SDK；不得使用 `ANTHROPIC_API_KEY`，不得寫入程式碼、設定檔或 commit，任何輸出不得印出金鑰。任何新工作先跑 `pytest` 確認 204 passed 的基線未破。規則修改後須執行 `python -m sim.decisive --write` 重算情境檔的決定性問題清單。
+M0／M1／M2 已完成（2026-10-13）。下一步依 `docs/BLUEPRINT.md §11`：M2b 已完成（2026-10-15，D-33；重跑：`python -m sim.run_llm_eval`）、M3（Jev 測試金鑰已有，僅限合成資料，見 Q-02）、M4（待 Q-01）。所有 API 金鑰只從環境變數讀取（`ACS_PATIENT_LLM_KEY`、`ACS_JEV_API_KEY`，見 D-31），以 `api_key=` 明確傳給 SDK；不得使用 `ANTHROPIC_API_KEY`，不得寫入程式碼、設定檔或 commit，任何輸出不得印出金鑰。任何新工作先跑 `pytest` 確認 204 passed 的基線未破。規則修改後須執行 `python -m sim.decisive --write` 重算情境檔的決定性問題清單。

@@ -46,9 +46,9 @@ def _prompt_cfg() -> dict[str, Any]:
 
 def _render_value(v: Any) -> str:
     if v is True:
-        return "是"
+        return "true"
     if v is False:
-        return "否"
+        return "false"
     if isinstance(v, str) and v in _ZH_CHOICE:
         return f"{v}（{_ZH_CHOICE[v]}）"
     return str(v)

@@ -1,0 +1,4242 @@
+[
+  {
+    "case_id": "S-ACUTE-01",
+    "opening_zh": "今天第一次在快走時胸口像被壓住，休息後才比較好。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，沒有覺得快昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是胸口會悶，平常走路做家事都沒有喘，坐著休息也沒有。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口被壓住的感覺，休息一下就好。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-01#0",
+    "opening_zh": "今天第一次在快走時胸口像被壓住，休息後才比較好。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "現在已經不會了，休息一下就好了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-01#1",
+    "opening_zh": "今天第一次在快走時胸口像被壓住，休息後才比較好。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就是胸口悶悶的，沒有覺得快要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是走快一點胸口會悶，平常走路做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-01#2",
+    "opening_zh": "今天第一次在快走時胸口像被壓住，休息後才比較好。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，沒有覺得快昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是走路用力的時候胸口會悶，平常坐著或做家事都還好。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": false,
+        "utterance_zh": "其實以前就有過類似的感覺，只是今天特別明顯，我以為是小問題。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有啦，還是跟以前一樣，要走比較快或用力的時候才會悶，走平路不會。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有不舒服，都是走路用力的時候才會。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": 24,
+        "utterance_zh": "大概兩年了吧，這兩年都差不多，沒有越來越嚴重。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有啦，含片我都沒有比以前多用，還是照常用而已。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-02",
+    "opening_zh": "原本只有爬很多樓梯才會不舒服，這兩天走平地也會胸悶。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經沒有了，休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，沒有想要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我就是只有做很激烈的運動才會喘，平常走路做家事都還好，坐著休息更是沒有。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶而已。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-02#0",
+    "opening_zh": "原本只有爬很多樓梯才會不舒服，這兩天走平地也會胸悶。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "還在，現在胸口還是悶悶的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-02#1",
+    "opening_zh": "原本只有爬很多樓梯才會不舒服，這兩天走平地也會胸悶。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "還在啊，現在坐著還是覺得胸口悶悶的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-03",
+    "opening_zh": "今天忽然喘得很明顯，和平常差很多，但胸口沒有痛。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "胸口沒有不舒服，也沒有痛，我說的是喘比較明顯。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，我沒有覺得快昏倒，眼前也沒有發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_daily",
+        "utterance_zh": "平常走路、做家事就會喘。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "不會，我講話還是可以一句講完。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-03#0",
+    "opening_zh": "今天忽然喘得很明顯，和平常差很多，但胸口沒有痛。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "胸口沒有不舒服，也沒有痛，只是喘。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，我沒有覺得快要昏倒，眼前也沒有發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "rest",
+        "utterance_zh": "我現在坐著休息也會喘，不是只有運動才會。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-03#1",
+    "opening_zh": "今天忽然喘得很明顯，和平常差很多，但胸口沒有痛。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "胸口本來就沒有痛，現在也沒有悶悶的感覺。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就是喘，沒有覺得快昏倒，眼前也沒有發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_daily",
+        "utterance_zh": "就是平常走路、做家事就會喘，現在坐著休息就還好。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": true,
+        "utterance_zh": "對，我現在講話有點喘，常常一句話講不完。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-03#2",
+    "opening_zh": "今天忽然喘得很明顯，和平常差很多，但胸口沒有痛。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "胸口現在沒有不舒服，就是會喘而已。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，沒有覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "只有做很激烈的運動才會喘，平常走路做家事都還好。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "不會啦，講話還是可以一句話講完。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定怎麼講，您可以再說清楚一點嗎？"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "不是喔，我走平路還是正常，只有很激烈的運動才會喘。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "坐著或躺著休息的時候都沒有喘，只有很激烈運動才會。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": false,
+        "utterance_zh": "不是今天忽然的，是慢慢變明顯的。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定大概多久了，您可以再問得具體一點嗎？"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": "exertion_only",
+        "utterance_zh": "只有用力運動的時候才會，停下來休息就好了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-04",
+    "opening_zh": "下午突然下顎和左肩有沉重不適，以前從來沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經沒有了，不舒服是過一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就只是覺得下巴和肩膀很沉重，沒有眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘的話，我沒有喘，就是坐著休息也都正常，不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是下巴和肩膀覺得沉沉的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-04#0",
+    "opening_zh": "下午突然下顎和左肩有沉重不適，以前從來沒有。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "還在啊，現在坐著還是有一點悶悶的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-05",
+    "opening_zh": "以前只有運動才胸悶，今晚躺著看電視時也發作了。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，已經好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就只是胸口悶，沒有快要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就只是胸口悶悶的，平常走路做家事都還好。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-05#0",
+    "opening_zh": "以前只有運動才胸悶，今晚躺著看電視時也發作了。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "還在啊，現在胸口還是悶悶的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-05#1",
+    "opening_zh": "以前只有運動才胸悶，今晚躺著看電視時也發作了。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經不會了，剛剛休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就是胸口悶悶的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘的話，只有做很激烈的運動才會喘，平常走路做家事都不會喘，坐著休息也不會。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-ACUTE-06",
+    "opening_zh": "剛才胸口一陣壓迫感，站起來時差點昏倒。",
+    "final": "0Y",
+    "stop": "hard_stop_opening",
+    "turns": []
+  },
+  {
+    "case_id": "S-ACUTE-06#0",
+    "opening_zh": "剛才胸口一陣壓迫感，站起來時差點昏倒。",
+    "final": "0Y",
+    "stop": "hard_stop_opening",
+    "turns": []
+  },
+  {
+    "case_id": "S-STABLE-01",
+    "opening_zh": "我有冠心症，快走上坡時偶爾胸悶，這個情況兩年來都一樣，最近沒有任何變化。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有不舒服了，休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，不會覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "只有走快一點、爬坡的時候才會喘，平常走路做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，您可以再問醫師。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": false,
+        "utterance_zh": "不是今天忽然變明顯的，這個情況兩年來都差不多，沒有變嚴重。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近沒有比以前用得多。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有停過，也沒有漏吃，都有照常吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-01#0",
+    "opening_zh": "我有冠心症，快走上坡時偶爾胸悶，這個情況兩年來都一樣，最近沒有任何變化。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，我坐著休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就只是胸口悶悶的，不會覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我只有很激烈運動才會喘，平常走路做家事都沒問題。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": true,
+        "utterance_zh": "有的，我坐著休息的時候也有發作過，這個是最近才開始的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-01#1",
+    "opening_zh": "我有冠心症，快走上坡時偶爾胸悶，這個情況兩年來都一樣，最近沒有任何變化。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，我停下來休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_daily",
+        "utterance_zh": "就是平常走路做家事會喘啦，坐著休息的時候就不會喘了，也不是只有激烈運動才會。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": null,
+        "utterance_zh": "這個我自己也不太確定，沒有特別注意過講話會不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": true,
+        "utterance_zh": "對，以前要爬樓梯才會不舒服，現在走平路也會了。"
+      },
+      {
+        "q": "Q-THRESH-TIME-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太記得確切是哪個時候開始的，沒辦法說得很準。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-01#2",
+    "opening_zh": "我有冠心症，快走上坡時偶爾胸悶，這個情況兩年來都一樣，最近沒有任何變化。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經沒有了，休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就是胸口悶悶的，不會覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "只有很激烈運動才會喘啦，平常走路做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，都是走路用力的時候才會，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": 24,
+        "utterance_zh": "大概兩年了，這兩年都差不多，最近沒有變嚴重。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近用得跟以前一樣，沒有比較多。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有停過，也沒有漏吃，每天都有照吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-02",
+    "opening_zh": "三年前放過支架，之後一直都是很用力運動才有一點胸悶，半年內完全沒有變嚴重。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，不會想昏倒。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "就只有做很激烈的運動才會喘，平常走路做家事都還好。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我現在講話好好的，您是指什麼情況？"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": false,
+        "utterance_zh": "不是今天忽然的，是慢慢變的，大概半年都差不多，沒有越來越嚴重。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近用得跟以前差不多，沒有比較多。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有停過，也沒有漏吃，都有照時間吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-02#0",
+    "opening_zh": "三年前放過支架，之後一直都是很用力運動才有一點胸悶，半年內完全沒有變嚴重。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，停下來休息就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是悶悶的，不會覺得要昏倒。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "只有做很激烈的運動才會喘，平常走路、做家事都沒有問題。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是悶悶的。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都不會這樣。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近用得跟以前差不多，沒有比較多。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": true,
+        "utterance_zh": "有啊，前陣子忘記吃，漏吃了幾天。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-02#1",
+    "opening_zh": "三年前放過支架，之後一直都是很用力運動才有一點胸悶，半年內完全沒有變嚴重。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有不舒服了，坐著休息就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，沒有覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "就是很用力運動的時候才會喘，平常走路做家事都沒有問題。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定，您是問我現在講話會不會喘嗎？我自己感覺還好，沒有特別喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候也不會冒冷汗。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": true,
+        "utterance_zh": "有，最近坐著休息的時候也發作過。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-03",
+    "opening_zh": "我有冠心症，今天只是想確認下次例行門診時間，目前沒有新的胸悶、喘或暈。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我現在坐著休息的時候完全不會喘，平常也沒有喘的情形。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有啦，最近沒有心跳突然很快或亂跳，站起來也不會頭暈，檢查也沒有被說異常、還要回去的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-03#0",
+    "opening_zh": "我有冠心症，今天只是想確認下次例行門診時間，目前沒有新的胸悶、喘或暈。",
+    "final": "0",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我現在坐著休息也不會喘，平常也沒有喘啦。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有啦，最近心跳都正常，站起來也不會頭暈，也沒有檢查被說異常要回診。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是胸口好像被壓住一樣，悶悶的。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": null,
+        "utterance_zh": "冒冷汗的部分我不太確定，這個我沒有特別注意到。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "是最近才開始的，以前沒有這樣的感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "我不太確定它是什麼時候完全好的，目前也還沒有完全不見，應該還是有一點悶悶的。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不確定，我沒有特別去比較，好像就是最近才有這樣的感覺。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": true,
+        "utterance_zh": "坐著或躺著休息的時候，也會覺得胸口悶悶的，有發生過。"
+      },
+      {
+        "q": "Q-REST-02",
+        "value": true,
+        "utterance_zh": "是最近才開始的，以前沒有這樣。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": "both",
+        "utterance_zh": "休息的時候也會悶，停下來不一定會好，坐著也會有。"
+      },
+      {
+        "q": "Q-ONSET-WEEKS-01",
+        "value": null,
+        "utterance_zh": "大概是最近幾天才開始的，應該不到一個禮拜。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-04",
+    "opening_zh": "過去一年都是走很快約十分鐘才會有固定的胸口緊感，停下來就好，最近完全相同。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就是胸口悶悶的，不會覺得快昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啊，就只有走路用力的時候胸口悶，平常坐著休息都不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過，都是走路用力的時候才會。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近沒有比以前用得多。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-04#0",
+    "opening_zh": "過去一年都是走很快約十分鐘才會有固定的胸口緊感，停下來就好，最近完全相同。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "眼前發黑、快要昏倒的感覺喔？沒有，不舒服的時候我都還很清醒，不會覺得要昏倒。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘的話，就是沒有喘啊，我平常走路做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "冒冷汗喔？沒有，不舒服的時候我身上不會冷冷的流汗。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": true,
+        "utterance_zh": "有喔，最近坐著休息的時候也有發作過，這是最近才開始的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-STABLE-04#1",
+    "opening_zh": "過去一年都是走很快約十分鐘才會有固定的胸口緊感，停下來就好，最近完全相同。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就是胸口悶悶的，還不到會昏倒的感覺，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是走快了胸口會悶，平常走路做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，都是走快或用力的時候才會，停下來休息就好，坐著或躺著的時候沒有發作過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": true,
+        "utterance_zh": "對啊，以前要爬樓梯才會胸口悶，現在走平路也會了。"
+      },
+      {
+        "q": "Q-THRESH-TIME-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太確定耶，就是慢慢發現走平路也會胸口悶，到底是幾天還是幾個禮拜，我講不太準。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-01",
+    "opening_zh": "我有冠心症，最近胸口有時候怪怪的，想問要不要提早看醫生。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經不會了，剛剛就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，就只是胸口悶悶的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就算是走路做家事也不會喘，坐著休息更不會。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我也記不清楚以前有沒有過一樣的感覺。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不太清楚耶，我也說不準跟以前比有沒有變，所以不確定。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": null,
+        "utterance_zh": "這個我真的不太確定耶，我不知道是不是在坐著或躺著的時候發作過。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我沒有算過大概多久了，也不知道有沒有變嚴重。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我沒辦法分清楚是走路用力的時候還是休息的時候比較常出現。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": null,
+        "utterance_zh": "這個我不太記得了耶，不確定是今天、昨天還是更早以前好的。"
+      },
+      {
+        "q": "Q-PALP-01",
+        "value": null,
+        "utterance_zh": "心跳有沒有突然很快或不規則，我不太確定耶。快昏倒的部分我剛剛已經講過沒有了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-01#0",
+    "opening_zh": "我有冠心症，最近胸口有時候怪怪的，想問要不要提早看醫生。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有會喘啦，平常走路、做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是覺得胸口被壓住，悶悶的那種感覺。"
+      },
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在不會了，已經沒有那種感覺了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就是胸口悶，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只有胸口悶悶的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": false,
+        "utterance_zh": "這種感覺以前就有過了，不是第一次，醫生也知道我有冠心症。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定，好像沒有特別覺得比以前容易發作，我不知道要怎麼比。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "坐著或躺著休息的時候，我沒有特別感覺到胸口悶，喘也沒有。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我真的不太清楚，也沒有特別算過是多久了。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": null,
+        "utterance_zh": "這個我講不太準，我不確定是不是走路或用力的時候才會，也不太記得每次的情形。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我真的記不太清楚是今天還是昨天，也不確定是什麼時候好的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-01#1",
+    "opening_zh": "我有冠心症，最近胸口有時候怪怪的，想問要不要提早看醫生。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經沒有了，剛剛那一下過了就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，就只是胸口怪怪的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "只有做很激烈的運動才會喘，平常走路、做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口怪怪的而已。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": false,
+        "utterance_zh": "不是最近才第一次，以前就有過一樣的感覺了。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有，跟以前一樣，還是要爬樓梯或比較累的時候才會，走平路不會。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": 24,
+        "utterance_zh": "大概有兩年了，這樣一直差不多，都沒有變嚴重。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近跟以前一樣，沒有比較常用。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有停過，也沒有漏吃，每天都有照吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-02",
+    "opening_zh": "我以前放過支架，這幾天偶爾不太舒服，但我也說不上來。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經沒有了，不舒服的感覺已經過了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，就是胸口悶悶的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘的話，我現在坐著休息就不會喘，平常走路做家事也都還好，沒有喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "冒冷汗？沒有耶，我那時候沒有出冷汗。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個不在我知道的範圍內，我也不太確定是不是以前就有過類似的感覺。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不太清楚耶，我沒有特別去比較以前跟現在的差別。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": null,
+        "utterance_zh": "坐著或躺著休息的時候喔？我不太確定，這個我沒有特別注意，所以不知道有沒有發作過。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，也說不準大概多久了，我沒有特別去算時間。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我沒有特別去注意是走路用力才有，還是休息的時候也會，所以說不準。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "over_24h",
+        "utterance_zh": "最後一次喔，那次我現在想不太起來確切是什麼時候了，不過應該不是今天，也不是昨天，大概是更早以前的事。"
+      },
+      {
+        "q": "Q-RECUR-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，那次之後有沒有再發作，我沒有特別去記，所以說不準。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-02#0",
+    "opening_zh": "我以前放過支架，這幾天偶爾不太舒服，但我也說不上來。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "我平常沒有喘啦，就是做很激烈的運動才會喘。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，現在講話很正常，不會喘到講不完。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": false,
+        "utterance_zh": "不是今天忽然變的，也不是慢慢變的，我是根本沒有喘啊。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我真的不太確定耶，也說不上來是多久以前開始的。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是覺得胸口被壓住、悶悶的，感覺怪怪的。"
+      },
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在好了，已經沒有那種感覺了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候也沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "對，這種感覺是最近才第一次出現，以前沒有這樣過。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我真的不太記得耶，不知道是什麼時候好的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-02#1",
+    "opening_zh": "我以前放過支架，這幾天偶爾不太舒服，但我也說不上來。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "就是只有做很激烈的運動才會喘啦，平常走路、做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "tightness",
+        "utterance_zh": "就是悶悶的，好像胸口被什麼東西輕輕壓著那種感覺，不是刺刺痛痛的。"
+      },
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，我現在坐在這邊講電話很好，不舒服已經過了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是悶悶的，沒有覺得要昏倒，眼前也沒有發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，就是悶悶的，身上也不會濕濕黏黏的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": false,
+        "utterance_zh": "這種悶悶的感覺我以前就有過啦，不是第一次，只是這幾天比較常出現。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有耶，還是跟以前一樣，要爬樓梯或走快一點才會悶，走平路不會。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有耶，坐著或躺著休息的時候都沒有發作過，都是走路或爬樓梯比較快的時候才會悶。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": 36,
+        "utterance_zh": "大概三年好幾了吧，差不多三十六個月左右，就一直是這樣悶悶的，沒有變嚴重。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有耶，舌下含片我就跟以前一樣，不舒服的時候才偶爾用，沒有比較多。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有耶，阿斯匹靈和保栓通我都每天照吃，沒有停過也沒有漏吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-03",
+    "opening_zh": "最近有時胸口悶一下，但沒有特別記時間。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經沒有不舒服了，剛剛就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，沒有覺得快昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就算坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個不是第一次啦，以前也有過類似胸口悶的感覺，只是最近比較常出現。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定，我沒有特別去比較，所以不知道。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": null,
+        "utterance_zh": "坐著或躺著休息的時候，我倒是沒有特別注意到有發作過，不過也說不準。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我真的不知道，沒有特別記時間，所以講不出來。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": null,
+        "utterance_zh": "我想想，通常是在走路或用力的時候比較容易不舒服，停下來休息就會慢慢好，但我不確定休息的時候完全沒有。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "today",
+        "utterance_zh": "剛剛就好了，就是今天的事，應該是今天。"
+      },
+      {
+        "q": "Q-PALP-01",
+        "value": null,
+        "utterance_zh": "心跳好像有比較快，但是不規則我不確定，胸悶的話是有的，快昏倒的感覺則是沒有。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-03#0",
+    "opening_zh": "最近有時胸口悶一下，但沒有特別記時間。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在喔，我坐著的時候好像沒有那麼悶了，應該是不在了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，就是悶悶的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就算走路做家事也都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有耶，不舒服的時候也沒有冒冷汗。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "最近才開始的，以前沒有這樣的感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我真的沒有特別記時間，不太確定是什麼時候好的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-03#1",
+    "opening_zh": "最近有時胸口悶一下，但沒有特別記時間。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在喔，不舒服已經沒有了，比較好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，就只是胸口悶悶的，沒有覺得快昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘耶，走路做家事都還好，坐著也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有耶，冒冷汗倒是沒有。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "最近才開始的，以前沒有這樣過。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我真的沒有特別記時間，不太確定是什麼時候好的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-04",
+    "opening_zh": "最近覺得比較喘，但不知道是不是心臟。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": null,
+        "utterance_zh": "這個我真的不太確定耶，我也沒有特別注意是什麼時候比較喘。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，我現在講話還好，一句話講得完，不會喘。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定，我也說不清楚是今天突然變明顯，還是慢慢變的。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我也說不準已經多久了，沒有特別算過。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": null,
+        "utterance_zh": "這個我真的說不太上來耶，我也不確定是哪種感覺，位置也講不清楚。"
+      },
+      {
+        "q": "Q-ORTHO-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我也沒有特別注意躺下去會不會比較喘，半夜也沒有印象。"
+      },
+      {
+        "q": "Q-PALP-01",
+        "value": false,
+        "utterance_zh": "快昏倒、眼前發黑的感覺是沒有啦，我不會覺得快要暈過去。"
+      },
+      {
+        "q": "Q-POSTURAL-01",
+        "value": null,
+        "utterance_zh": "頭暈這個我沒有特別印象耶，站起來還是坐著躺著有什麼差別，我不太確定。"
+      },
+      {
+        "q": "Q-CONSULT-01",
+        "value": "symptom",
+        "utterance_zh": "主要是身體有不舒服啦，最近覺得比較喘，不知道是不是心臟的問題。"
+      },
+      {
+        "q": "Q-DRUGTIME-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我也沒有注意是不是吃藥之後才會喘，跟走路或用力有沒有關係也說不清楚。"
+      },
+      {
+        "q": "Q-EDEMA-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我沒有特別看我的腳有沒有腫。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-04#0",
+    "opening_zh": "最近覺得比較喘，但不知道是不是心臟。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "rest",
+        "utterance_zh": "我現在坐著休息也會喘啦，不是只有運動才這樣。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-04#1",
+    "opening_zh": "最近覺得比較喘，但不知道是不是心臟。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_daily",
+        "utterance_zh": "就是走路、做家事都會喘，不是只有運動才這樣。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，講話還是可以一句講完，就是比較容易喘一點。"
+      },
+      {
+        "q": "Q-ORTHO-01",
+        "value": false,
+        "utterance_zh": "躺下去不會特別喘，也不用墊枕頭，半夜也不會喘醒。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": true,
+        "utterance_zh": "是今天忽然變很明顯的，以前沒有這麼喘。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-04#2",
+    "opening_zh": "最近覺得比較喘，但不知道是不是心臟。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "就是很激烈的運動才會喘啦，平常走路或做家事都還好。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "不會啦，講話很正常，一句話講得完。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": false,
+        "utterance_zh": "不是今天突然的，也不是最近才變嚴重，就一直這樣差不多六個月了，沒有變嚴重。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": 6,
+        "utterance_zh": "大概六個月了吧，一直都差不多，沒有變嚴重。"
+      },
+      {
+        "q": "Q-ORTHO-01",
+        "value": false,
+        "utterance_zh": "躺下來不會更喘，也不用墊枕頭，半夜也不會喘醒。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不會覺得要昏倒，眼前也不會發黑。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-05",
+    "opening_zh": "走路時有時會胸悶，不知道嚴不嚴重。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經不會了，休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就只是胸悶，眼前不會發黑，也沒有快要昏倒的感覺。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我都沒有喘，平常走路做家事也不會，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸悶而已。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我沒有去特別記，不知道是第一次還是以前就有過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我沒有特別去比較以前和現在的差別，不知道走平路會不會比較容易不舒服。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "坐著或躺著休息的時候，我沒有印象有發作過，都是走路的時候比較會。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我沒有特別記時間，不知道大概持續多久了。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": null,
+        "utterance_zh": "這個我不太記得耶，我不知道是什麼時候好的。"
+      },
+      {
+        "q": "Q-PALP-01",
+        "value": null,
+        "utterance_zh": "心跳有時候會覺得比較快，但我不確定是不是不規則，不太清楚。"
+      },
+      {
+        "q": "Q-POSTURAL-01",
+        "value": null,
+        "utterance_zh": "頭暈的事情我沒有講到，我不太清楚是站起來才有還是坐著躺著也會，所以不確定。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-05#0",
+    "opening_zh": "走路時有時會胸悶，不知道嚴不嚴重。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經不會了，停下來休息就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，沒有覺得快昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "只有做很激烈的運動才會喘啦，平常走路做家事都還好。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "最近才開始的，以前都沒有這種感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太確定耶，沒有特別去記是今天、昨天還是更早。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-05#1",
+    "opening_zh": "走路時有時會胸悶，不知道嚴不嚴重。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在坐著休息，已經不會悶了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不會覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "沒有喘啦，就是只有走路用力的時候才會，平常在家坐著都還好。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": false,
+        "utterance_zh": "不是最近才有的，這種感覺以前就有了，已經差不多一年了。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有，還是跟以前一樣，要走路用力才會不舒服，走平路沒有變得更容易。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都不會發作。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": 12,
+        "utterance_zh": "大概一年了，這一年都差不多，沒有變嚴重。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近沒有比以前多用。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-06",
+    "opening_zh": "最近吃藥後偶爾覺得胸口不太舒服，想知道是不是藥物造成。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經沒有了，不舒服那時候過了就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，就只是胸口悶悶的，沒有覺得快昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘的問題，平常走路做家事、坐著休息都不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，好像不是第一次，但也說不準以前有沒有完全一樣。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不太清楚耶，我沒有特別去比較以前跟現在的差別，所以講不準。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": null,
+        "utterance_zh": "坐著或躺著休息的時候，我不確定有沒有發作過，這個我真的講不準。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定，時間也講不準，沒有特別算過。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我沒有特別注意是在走路還是休息的時候比較多，所以講不準。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": null,
+        "utterance_zh": "最後一次是什麼時候好的，我不太確定耶，應該是最近，但今天還是昨天我真的記不清楚。"
+      },
+      {
+        "q": "Q-PALP-01",
+        "value": null,
+        "utterance_zh": "心跳的部分我不太確定有沒有很快或不規則，我沒有特別量過，不過胸悶的感覺有，快昏倒的話就沒有。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-06#0",
+    "opening_zh": "最近吃藥後偶爾覺得胸口不太舒服，想知道是不是藥物造成。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經不會了，剛剛休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口怪怪的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "就是沒有很喘啦，除非很激烈運動，平常走路做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，就是胸口怪怪的而已。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "最近才第一次出現，以前沒有這樣的感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太確定耶，就是剛剛休息一下就好了，我沒有很注意是幾點好的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-06#1",
+    "opening_zh": "最近吃藥後偶爾覺得胸口不太舒服，想知道是不是藥物造成。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是爬樓梯或走快一點的時候會覺得胸口怪怪的，平常坐著休息也都還好。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "vague",
+        "utterance_zh": "就是說不上來啦，不是刺痛，也說不出是哪裡，就是覺得怪怪的。"
+      },
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經沒有了，剛剛休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就是覺得怪怪的，沒有快要暈倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，就是胸口怪怪的而已。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我也沒有特別去注意是什麼時候開始的。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我真的不太清楚，我沒有特別比較以前跟現在差在哪裡。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": null,
+        "utterance_zh": "坐著或躺著休息的時候，我不太確定有沒有發作過，我沒有特別去留意。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定大概多久了，我沒有算過時間。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": "unclear",
+        "utterance_zh": "這個我不太清楚，我也說不準是走路的時候比較多，還是休息的時候也會有。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "today",
+        "utterance_zh": "就是今天剛剛休息一下就好了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-07",
+    "opening_zh": "我爸爸有心臟病，這兩天說胸口不太舒服，但他現在不在我旁邊。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我現在不在他旁邊，沒辦法看到他現在的狀況。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我不在他旁邊，他有沒有那種感覺我沒辦法確定。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我不在他旁邊，沒辦法確定他是什麼時候會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我不在他旁邊，沒看到他有沒有冒冷汗。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我不在他旁邊，沒辦法確定他以前有沒有過這種感覺。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我不在他旁邊，沒辦法確定他現在是不是走平路也會不舒服。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我不在他旁邊，沒辦法確定他坐著或躺著的時候有沒有不舒服。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我不在他旁邊，沒辦法確定他這樣大概有多久了。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我不在他旁邊，沒辦法確定他是走路用力才會，還是休息的時候也會。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": null,
+        "utterance_zh": "這個我真的不知道耶，我不在他旁邊，沒辦法確定他是什麼時候好的。"
+      },
+      {
+        "q": "Q-PALP-01",
+        "value": null,
+        "utterance_zh": "這個我不知道耶，我不在他旁邊，沒辦法確定他心跳有沒有很快或不規則。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-07#0",
+    "opening_zh": "我爸爸有心臟病，這兩天說胸口不太舒服，但他現在不在我旁邊。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "還在，他現在還是覺得胸口悶悶的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-07#1",
+    "opening_zh": "我爸爸有心臟病，這兩天說胸口不太舒服，但他現在不在我旁邊。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": null,
+        "utterance_zh": "這個我真的不知道，他現在不在我旁邊，我沒辦法確認他現在還會不會不舒服。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": null,
+        "utterance_zh": "這個我不知道，他沒有跟我講過有這種感覺，我也不在他旁邊看到。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": null,
+        "utterance_zh": "這個我不確定，他有沒有喘、是什麼時候喘，我都沒辦法確認，他現在不在我旁邊。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": null,
+        "utterance_zh": "這個我不知道，他沒有跟我說過有冒冷汗，我也沒有看到。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個我不清楚，他有沒有以前就這樣不舒服，我沒有辦法確定。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不知道，他有沒有因為走路就不舒服，我沒有辦法確認。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": null,
+        "utterance_zh": "這個我不確定，他休息的時候有沒有發作，我沒有看到，也沒辦法確認。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不知道確切多久了，我沒辦法確定他的情況有沒有變嚴重，他現在不在我旁邊。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": null,
+        "utterance_zh": "這個我不確定，他是走路或用力才會，還是休息的時候也會，我沒辦法確認。"
+      },
+      {
+        "q": "Q-REACHABLE-01",
+        "value": false,
+        "utterance_zh": "現在不行，他不在我旁邊，我也沒辦法馬上請他過來接電話，身邊也沒有其他人可以幫我確認。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不知道，他什麼時候好的，我沒有辦法確定，他現在不在我旁邊。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-08",
+    "opening_zh": "我胸悶很多年了，最近忙到沒注意是不是有變。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有不舒服了，這個當下胸口很好。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，就只是胸悶，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就算坐著休息也不會喘，走路做家事也都還好。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有耶，不舒服的時候也沒有冒冷汗。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我真的不太確定，我也沒有特別去注意以前跟現在的差別。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": null,
+        "utterance_zh": "坐著或躺著休息的時候，我不確定有沒有發作過，我也沒有特別注意。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定大概多久了，因為最近忙，也沒有特別去算時間。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我也沒有特別去分辨是走路還是休息的時候比較常發生。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": null,
+        "utterance_zh": "最後一次是什麼時候好的，我真的記不太清楚，因為最近忙，也沒有特別去注意。"
+      },
+      {
+        "q": "Q-PALP-01",
+        "value": null,
+        "utterance_zh": "心跳有沒有很快或不規則，我不太確定耶，我也沒有特別去量或注意。不過我剛剛講過，我只有胸悶，沒有快昏倒。"
+      },
+      {
+        "q": "Q-POSTURAL-01",
+        "value": null,
+        "utterance_zh": "頭暈的事情我沒有提過，我胸悶的時候也沒有頭暈的感覺，所以這個我不太能講。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-08#0",
+    "opening_zh": "我胸悶很多年了，最近忙到沒注意是不是有變。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在喔，我坐著休息，已經沒有不舒服了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，沒有覺得快要昏倒，眼前也沒有發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "只有很激烈的運動才會喘啦，平常走路做家事都還好。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": null,
+        "utterance_zh": "講話會不會喘到講不完，這個我不太確定耶。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，我那時候只是覺得胸口悶悶的。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": true,
+        "utterance_zh": "對，有比以前差，以前要爬樓梯才會不舒服，現在走平路也會了。"
+      },
+      {
+        "q": "Q-THRESH-TIME-01",
+        "value": "weeks_to_month",
+        "utterance_zh": "不是這幾天突然的，是這幾個禮拜慢慢變的。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": null,
+        "utterance_zh": "坐著或躺著休息的時候會不會發作，我不太確定耶。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "舌下含片喔，我最近沒有比以前用得多。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": false,
+        "utterance_zh": "不是今天忽然的，是這幾個禮拜、幾個月慢慢變的。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個大概持續多久了，我講不太準耶。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-INSUF-08#1",
+    "opening_zh": "我胸悶很多年了，最近忙到沒注意是不是有變。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在喔，我坐著休息的時候，胸口的不舒服已經沒有了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，我不會覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "喘的話，就是只有做很激烈的運動才會喘啦，平常走路做家事都還好。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，您問的這種情況我沒有特別留意過。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有喔，不舒服的時候我不會冒冷汗。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有喔，跟以前比沒有變，還是要爬樓梯或做比較累的事才會不舒服。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候，我都沒有發作過。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": false,
+        "utterance_zh": "不是今天忽然變的啦，是慢慢來的，好幾個禮拜、幾個月前就這樣了。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": 24,
+        "utterance_zh": "大概兩年了，這兩年都差不多，沒有變嚴重。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片我最近沒有比以前用得多。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-01",
+    "opening_zh": "昨天晚上胸口悶了大概十分鐘，自己好了，今天到現在都沒有再發作。",
+    "final": "1",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，走路做家事都正常，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，我都是在活動的時候比較容易覺得悶，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有耶，跟以前一樣，還是要比較用力或走比較快才會悶，走平路不會因為這樣不舒服。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有耶，含片我都是需要的時候才吃，最近沒有比以前吃得多。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-01#0",
+    "opening_zh": "昨天晚上胸口悶了大概十分鐘，自己好了，今天到現在都沒有再發作。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候我都還很清醒，也沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘的問題啦，不管是運動、走路做家事，還是坐著休息，都不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的，其他沒什麼。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "最近才第一次出現，以前沒有這樣的感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "today",
+        "utterance_zh": "就是昨天晚上那次，我十分鐘就自己好了，今天到現在都沒再不舒服。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-01#1",
+    "opening_zh": "昨天晚上胸口悶了大概十分鐘，自己好了，今天到現在都沒有再發作。",
+    "final": "2",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候沒有覺得快昏倒，眼前也沒有發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，只有胸口悶，平常走路做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "最近才第一次出現，以前沒有這樣的感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "over_24h",
+        "utterance_zh": "應該是更早以前啦，昨天晚上那次好了之後，今天到現在都沒有再發作。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有耶，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有耶，跟以前比沒有變得比較容易不舒服，走平路也不會。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有耶，含片最近沒有比以前用得多。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-01#2",
+    "opening_zh": "昨天晚上胸口悶了大概十分鐘，自己好了，今天到現在都沒有再發作。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，不管是運動、走路做家事，還是坐著休息，都不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": true,
+        "utterance_zh": "有耶，胸口悶的時候會冒冷汗。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-02",
+    "opening_zh": "三個禮拜前開始，快走上坡會悶，每次都一樣，停下來就好，沒有變嚴重，休息時從來沒有。",
+    "final": "2",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候我沒有覺得快要昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": null,
+        "utterance_zh": "喘的部分我不太確定耶，我講的比較是胸口悶，喘這個我沒有特別注意。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候我沒有冒冷汗。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太記得確切是哪一天好的，我只知道停下來就會好。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近沒有比以前用得多。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-02#0",
+    "opening_zh": "三個禮拜前開始，快走上坡會悶，每次都一樣，停下來就好，沒有變嚴重，休息時從來沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候不會覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": null,
+        "utterance_zh": "我不太確定您說的喘是什麼意思，我比較是覺得胸口悶悶的，喘的部分我沒有特別注意。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": true,
+        "utterance_zh": "對，以前要爬樓梯才會不舒服，現在走平路也會了。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太確定耶，我沒有特別記是哪一天好的，就是停下來就會慢慢好。"
+      },
+      {
+        "q": "Q-THRESH-TIME-01",
+        "value": "days",
+        "utterance_zh": "是這幾天的事，我感覺最近幾天就變得比較容易不舒服。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-02#1",
+    "opening_zh": "三個禮拜前開始，快走上坡會悶，每次都一樣，停下來就好，沒有變嚴重，休息時從來沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候沒有覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": null,
+        "utterance_zh": "喘的話……我不太確定耶，您是問哪一種情況，我沒有特別注意過。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有耶，不舒服的時候沒有冒冷汗。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": true,
+        "utterance_zh": "有耶，坐著或躺著休息的時候也有發作過。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太確定耶，什麼時候好的我沒有特別記。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-02#2",
+    "opening_zh": "三個禮拜前開始，快走上坡會悶，每次都一樣，停下來就好，沒有變嚴重，休息時從來沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是悶悶的，不會覺得快暈倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": null,
+        "utterance_zh": "我不太確定耶，我講的是胸口悶悶的，喘不喘、是哪種程度，我沒有特別注意，不太能分辨。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有耶，就是胸口悶悶的，沒有冒冷汗。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我沒有特別記時間耶，就是走快了悶，停下來就好，最後一次是什麼時候我講不出來。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-03",
+    "opening_zh": "我的心絞痛以前一個月含一次舌下片，這兩個禮拜變成一個禮拜兩三次，都是走路時發作，停下來含一顆就好，休息時沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候我都還很清醒，也沒有眼前發黑的感覺。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我只有走路或做事太用力才會喘，平常坐著休息就沒有喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口被壓住悶悶的感覺而已。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-03#0",
+    "opening_zh": "我的心絞痛以前一個月含一次舌下片，這兩個禮拜變成一個禮拜兩三次，都是走路時發作，停下來含一顆就好，休息時沒有。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "還在，現在胸口還是悶悶的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-03#1",
+    "opening_zh": "我的心絞痛以前一個月含一次舌下片，這兩個禮拜變成一個禮拜兩三次，都是走路時發作，停下來含一顆就好，休息時沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候都還很清醒，也沒有眼前發黑的感覺。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘的話，就是只有做很激烈的運動才會，平常走路做家事都不會喘，坐著休息也不會。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有啦，還是跟以前一樣，要走比較快或是爬坡才會不舒服，走平路還是沒問題。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": 12,
+        "utterance_zh": "大概有一年了吧，這一年都差不多，就是最近這兩個禮拜比較頻繁一點。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": true,
+        "utterance_zh": "有啊，以前一個月才含一次，這兩個禮拜變成一個禮拜兩三次，所以是比較多了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-04",
+    "opening_zh": "放支架半年，上禮拜因為拔牙停了保栓通三天，還沒有不舒服，想問要不要趕快回去吃。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，不管是運動還是走路做家事，或坐著休息，都不會喘。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有心跳突然很快或亂跳，站起來也不會頭暈，也沒有做過檢查被說異常。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候也沒有覺得快昏倒或眼前發黑。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-04#0",
+    "opening_zh": "放支架半年，上禮拜因為拔牙停了保栓通三天，還沒有不舒服，想問要不要趕快回去吃。",
+    "final": "1",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘，就是很激烈運動才會，平常走路做家事都沒問題，坐著也不會。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有，心跳沒有突然很快或亂跳，站起來也不會頭暈，也沒有做檢查被說異常要回診。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是胸口好像被壓住一樣，悶悶的感覺。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候沒有覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的，身上不會濕濕黏黏的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "最近才第一次出現的，以前沒有這樣的感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "yesterday_within_24h",
+        "utterance_zh": "是昨天好的，昨天就不痛了。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有，跟以前一樣，還是要爬樓梯或比較用力才會，走平路不會。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片跟以前一樣，沒有用得比較多。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-05",
+    "opening_zh": "我有冠心症，這兩天心跳有時候會突然很快，幾分鐘就好，沒有胸悶也沒有暈。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我平常走路、做家事都不會喘，坐著休息也沒有喘，只有很激烈運動的時候才會。"
+      },
+      {
+        "q": "Q-SYNCOPE-02",
+        "value": false,
+        "utterance_zh": "沒有，我沒有昏過去，也沒有失去意識。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-05#0",
+    "opening_zh": "我有冠心症，這兩天心跳有時候會突然很快，幾分鐘就好，沒有胸悶也沒有暈。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我平常沒有喘啦，就算走路、做家事也都不會喘，坐著休息也沒有。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是胸口好像被什麼壓住，悶悶的那種感覺。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": true,
+        "utterance_zh": "有啊，發作的時候會覺得好像快要昏倒、眼前黑黑的，但最後還是沒有真的倒下去。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-05#1",
+    "opening_zh": "我有冠心症，這兩天心跳有時候會突然很快，幾分鐘就好，沒有胸悶也沒有暈。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就算走路做家事也不會喘，現在坐著休息也沒有。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是覺得胸口像被壓住一樣，悶悶的那種感覺。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是心跳比較快而已，身上是乾的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "最近才開始的，這兩天才比較常出現，以前沒有這樣的感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "today",
+        "utterance_zh": "今天的，今天早上那次好的，昨天就沒有了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-06",
+    "opening_zh": "這一個禮拜走路做家事比較會喘，坐著不會，以前不會這樣。",
+    "final": "2",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "不會啦，講話還是可以講完整句，只有走路或做家事才會喘。"
+      },
+      {
+        "q": "Q-ORTHO-01",
+        "value": false,
+        "utterance_zh": "躺平也不會更喘，也不用墊枕頭，半夜也沒有被喘醒過。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "none",
+        "utterance_zh": "就是說不上來，沒有被壓住或刺痛的感覺，也沒有特別哪裡痛。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-06#0",
+    "opening_zh": "這一個禮拜走路做家事比較會喘，坐著不會，以前不會這樣。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "rest",
+        "utterance_zh": "坐著休息也會喘啊，現在坐著也是這樣。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-06#1",
+    "opening_zh": "這一個禮拜走路做家事比較會喘，坐著不會，以前不會這樣。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，講話還是可以講完整句，不會喘到講不完。"
+      },
+      {
+        "q": "Q-ORTHO-01",
+        "value": true,
+        "utterance_zh": "會耶，躺平就比較喘，要墊高枕頭才會好一點，半夜也會被喘醒。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-06#2",
+    "opening_zh": "這一個禮拜走路做家事比較會喘，坐著不會，以前不會這樣。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "不會啦，我講話還是可以講完整句，只有走路或做家事才會喘。"
+      },
+      {
+        "q": "Q-ORTHO-01",
+        "value": false,
+        "utterance_zh": "躺下來不會更喘，也不用墊枕頭，半夜也不會喘醒。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": true,
+        "utterance_zh": "不是今天忽然的，是這幾個禮拜慢慢變明顯的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-07",
+    "opening_zh": "我有冠心症，這一個月快走的距離比以前短一點才會悶，但沒有休息時發作，也沒有變頻繁。",
+    "final": "1",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在坐著沒有不舒服了，胸口已經不悶了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，不會覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘的話，我只有做很激烈的運動才會喘，平常走路做家事都沒有喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有耶，不會冒冷汗。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有耶，舌下含片最近沒有比以前多用。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有耶，阿斯匹靈我都有照吃，沒有停過也沒有漏吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-07#0",
+    "opening_zh": "我有冠心症，這一個月快走的距離比以前短一點才會悶，但沒有休息時發作，也沒有變頻繁。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，我坐著休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，不會覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是胸口悶，坐著休息的時候也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-THRESH-TIME-01",
+        "value": "days",
+        "utterance_zh": "是這幾天才這樣的，不是好幾個禮拜慢慢變的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-07#1",
+    "opening_zh": "我有冠心症，這一個月快走的距離比以前短一點才會悶，但沒有休息時發作，也沒有變頻繁。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在坐著休息，已經不會悶了，沒有在痛。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不會覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘的話，我現在坐著休息是不會喘的，平常也沒有只是做很激烈的運動才喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的，走路走久了會這樣。"
+      },
+      {
+        "q": "Q-THRESH-TIME-01",
+        "value": "unknown",
+        "utterance_zh": "這個我真的不太記得是幾天還是幾個禮拜了，就是慢慢覺得變得比較容易不舒服。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-07#2",
+    "opening_zh": "我有冠心症，這一個月快走的距離比以前短一點才會悶，但沒有休息時發作，也沒有變頻繁。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在坐著的時候已經沒有不舒服了，不會悶。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，不會覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘的話，我只有走路或用力的時候才會，平常坐著休息是不會喘的。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": true,
+        "utterance_zh": "有耶，最近有幾次坐著休息的時候也會悶。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-08",
+    "opening_zh": "上個月放支架，傷口沒問題，最近走路會有一點悶，比放支架前輕很多，但以前是完全沒有。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有不舒服了，坐著的時候都很好。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候沒有覺得要昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "沒有喘，平常走路做家事都還好，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有，不是走平路也會，還是要走比較快或用力的時候才會。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太確定耶，我沒有特別記時間，就是走路用力以後停下來休息就會好。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近沒有比以前用得多。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有停過，也沒有漏吃，每天都有照吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-08#0",
+    "opening_zh": "上個月放支架，傷口沒問題，最近走路會有一點悶，比放支架前輕很多，但以前是完全沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，我現在坐著好好的，不舒服已經過去了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就只是悶悶的，不會覺得快昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是走路用力的時候胸口悶，不會喘，坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我真的記不太清楚，只知道走路用力悶的時候，停下來休息就會慢慢好。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-08#1",
+    "opening_zh": "上個月放支架，傷口沒問題，最近走路會有一點悶，比放支架前輕很多，但以前是完全沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，不舒服是走路用力的時候才會，停下來就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不會覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘喔，我現在坐著休息都不會喘，平常走路做家事也沒有喘，是沒有喘的情形。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是覺得胸口悶悶的。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": true,
+        "utterance_zh": "有喔，有幾次是坐著休息的時候也會悶悶的，醫生，這是最近才開始的。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太確定耶，我也沒有特別記時間，不知道是哪一天好的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-08#2",
+    "opening_zh": "上個月放支架，傷口沒問題，最近走路會有一點悶，比放支架前輕很多，但以前是完全沒有。",
+    "final": "1",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在不會了，我坐著休息就好了，現在沒有不舒服。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就只是胸口悶悶的，眼前不會黑掉，也沒有快要昏倒的感覺。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就算走路、做家事也不會喘，坐著休息也一樣，完全沒有。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過，都是走路用力的時候才會。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有，不是那樣，我還是跟以前一樣，要走比較快或用力才會悶，走平路不會。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我不太確定耶，我也不知道是哪一天好的，沒辦法跟您講得很準。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片我沒有比以前多用，還是跟平常一樣。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": true,
+        "utterance_zh": "有耶，最近有停過幾天，因為我忘記吃，後來才又開始吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-09",
+    "opening_zh": "一個月前做過運動心電圖說有點異常，醫師叫我回診，我還沒掛到號，目前沒有症狀。",
+    "final": "1",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘的問題，就算坐著休息也不會喘，只有平常正常活動的話也都沒有。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，我不舒服的時候不會覺得快要昏倒，眼前也不會發黑。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-09#0",
+    "opening_zh": "一個月前做過運動心電圖說有點異常，醫師叫我回診，我還沒掛到號，目前沒有症狀。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我現在坐著休息的時候完全不會喘，平常走路做家事也都還好，沒有喘的問題。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是胸口像被什麼東西壓住，悶悶的那種感覺。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候我不會覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口悶悶的，身上不會濕濕冷冷的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "這種感覺是最近才第一次出現的，以前沒有這樣過。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "today",
+        "utterance_zh": "最後一次是今天，不舒服的感覺今天有出現過，後來就好了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-10",
+    "opening_zh": "我有冠心症，最近換了新的降血壓藥，站起來會頭暈幾秒，沒有胸悶。",
+    "final": "2",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-02",
+        "value": false,
+        "utterance_zh": "沒有，我沒有真的昏過去，也沒有失去意識。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘的問題，就算是走路做家事或坐著休息都不會喘。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候我沒有覺得快要昏倒，眼前也不會發黑。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-10#0",
+    "opening_zh": "我有冠心症，最近換了新的降血壓藥，站起來會頭暈幾秒，沒有胸悶。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-02",
+        "value": false,
+        "utterance_zh": "沒有，我沒有真的昏過去，就是覺得快要暈、眼前發黑而已。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘的情況，不管是運動、走路做家事還是坐著休息都不會喘。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是胸口好像被壓住，悶悶的那種感覺。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": true,
+        "utterance_zh": "有，不舒服的時候會覺得快要昏倒、眼前發黑。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-10#1",
+    "opening_zh": "我有冠心症，最近換了新的降血壓藥，站起來會頭暈幾秒，沒有胸悶。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-02",
+        "value": true,
+        "utterance_zh": "有，我有真的昏過去，失去意識。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-11",
+    "opening_zh": "我有冠心症，這兩個禮拜晚上躺下會覺得比較喘要墊高枕頭，白天走路還可以，胸口不會痛。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在胸口沒有不舒服，還好。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候也不會覺得快暈倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "就是做很激烈的運動才會喘啦，平常走路做家事都還好。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，講話都還好，不會喘到講不完。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-11#0",
+    "opening_zh": "我有冠心症，這兩個禮拜晚上躺下會覺得比較喘要墊高枕頭，白天走路還可以，胸口不會痛。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在胸口不會痛，不舒服的感覺已經好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候我不會覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "rest",
+        "utterance_zh": "現在坐著休息也會喘，連講話都會覺得不太夠力。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-11#1",
+    "opening_zh": "我有冠心症，這兩個禮拜晚上躺下會覺得比較喘要墊高枕頭，白天走路還可以，胸口不會痛。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在胸口沒有不舒服，還好。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候也沒有覺得快要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "exertional_heavy",
+        "utterance_zh": "只有做很激烈的運動才會喘，平常走路、做家事都還好。"
+      },
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": true,
+        "utterance_zh": "講話會喘到一句話講不完，要停下來換氣。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-12",
+    "opening_zh": "我有冠心症，這幾天腳有點腫，走路比平常喘一點，坐著不喘，胸口不會悶。",
+    "final": "2",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "不會啦，我講話還是可以一句講完，就是走快一點會喘。"
+      },
+      {
+        "q": "Q-ORTHO-01",
+        "value": false,
+        "utterance_zh": "躺下來也沒有比較喘，我也不用墊枕頭，半夜也不會喘醒。"
+      },
+      {
+        "q": "Q-DYSPNEA-ACUTE-01",
+        "value": false,
+        "utterance_zh": "不是今天忽然的，是這幾天慢慢覺得比較喘，大概就這樣。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-12#0",
+    "opening_zh": "我有冠心症，這幾天腳有點腫，走路比平常喘一點，坐著不喘，胸口不會悶。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-SENTENCE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，我講話還是可以講完整句，不會喘到講不完。"
+      },
+      {
+        "q": "Q-ORTHO-01",
+        "value": true,
+        "utterance_zh": "會啊，躺平就會更喘，要墊高枕頭才比較舒服，半夜也會喘醒。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-12#1",
+    "opening_zh": "我有冠心症，這幾天腳有點腫，走路比平常喘一點，坐著不喘，胸口不會悶。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "rest",
+        "utterance_zh": "現在坐著休息也會喘啊，不是只有運動的時候。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-13",
+    "opening_zh": "我有冠心症，剛剛吃太飽胸口脹脹的，打嗝之後就好了，現在完全沒事，想確認要不要去急診。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口脹脹的，沒有覺得快昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘喔？我沒有喘啦，現在坐著也沒有喘，平常也都沒有。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，就只是胸口悶悶脹脹的而已。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": "rest_only",
+        "utterance_zh": "我是在休息的時候才會不舒服啦，不是走路用力的時候。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": true,
+        "utterance_zh": "有啊，就是吃太飽之後坐著或躺著的時候胸口會脹脹的，不過打個嗝就好了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-13#0",
+    "opening_zh": "我有冠心症，剛剛吃太飽胸口脹脹的，打嗝之後就好了，現在完全沒事，想確認要不要去急診。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口脹脹的，沒有覺得快要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘喔？我沒有喘啦，就是胸口脹脹的而已，走路做事都沒有喘，坐著也沒有。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": true,
+        "utterance_zh": "有耶，那時候就會冒冷汗，手心都濕濕的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-13#1",
+    "opening_zh": "我有冠心症，剛剛吃太飽胸口脹脹的，打嗝之後就好了，現在完全沒事，想確認要不要去急診。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "還在啦，現在坐著還是有一點悶悶的。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-13#2",
+    "opening_zh": "我有冠心症，剛剛吃太飽胸口脹脹的，打嗝之後就好了，現在完全沒事，想確認要不要去急診。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶脹脹的，沒有覺得快要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是走路用力的時候胸口會悶，坐著休息都沒有喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗啦，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": "exertion_only",
+        "utterance_zh": "走路或用力的時候才會悶，停下來就好了，休息的時候不會。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "最近才第一次出現的啦，以前沒有這種感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "today",
+        "utterance_zh": "就是今天啊，剛剛打嗝之後就好了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-14",
+    "opening_zh": "我有冠心症，昨天搬重物後今天胸口肌肉按下去會痛，深呼吸也痛，走路不會更痛。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經不會痛了，坐著休息就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口痛，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘喔，我沒有喘，就只有胸口痛，平常走路做家事也都正常。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口痛而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有耶，跟以前一樣，還是要比較用力才會痛，走平路不會。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片最近沒有比以前用得多。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有停過，也沒有漏吃，都有照常吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-14#0",
+    "opening_zh": "我有冠心症，昨天搬重物後今天胸口肌肉按下去會痛，深呼吸也痛，走路不會更痛。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在坐著不痛了，已經沒有不舒服了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候沒有覺得要昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "沒有喘，我只有走路用力或搬東西的時候才會不舒服，平常坐著休息都不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就是胸口肌肉痛而已。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": "exertion_only",
+        "utterance_zh": "走路或用力的時候才會，停下來就好，休息的時候不會。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "是最近才第一次出現，昨天搬重物之後才開始的，以前沒有這樣過。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-14#1",
+    "opening_zh": "我有冠心症，昨天搬重物後今天胸口肌肉按下去會痛，深呼吸也痛，走路不會更痛。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經不會了，坐著休息就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就只是胸口痛，沒有覺得快要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘，不管是運動、走路做家事，或坐著休息，都不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": true,
+        "utterance_zh": "有，不舒服的時候會冒冷汗。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-15",
+    "opening_zh": "我有穩定的冠心症，想問舌下含片過期了可以用嗎，最近沒有任何發作。",
+    "final": "4",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我現在坐著休息也不會喘，平常也沒有喘啦。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有啦，最近心跳都正常，站起來也不會頭暈，也沒有做檢查被說異常的。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候也沒有覺得快昏倒，眼前也不會發黑。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-15#0",
+    "opening_zh": "我有穩定的冠心症，想問舌下含片過期了可以用嗎，最近沒有任何發作。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我現在坐著休息的時候都不會喘，平常走路做家事也都還好，沒有喘的問題。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有，最近心跳都正常，站起來也不會頭暈，也沒有做過檢查被說異常的，所以也沒有要回診。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是胸口像被壓住，悶悶的那種感覺。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候沒有覺得快要昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，不舒服的時候身上都是乾的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": false,
+        "utterance_zh": "這種感覺以前就有過了，不是最近才第一次出現，我之前就已經被醫師診斷是冠心症了。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有，跟以前比沒有變得比較容易不舒服，還是一樣是爬樓梯或比較用力的時候才會。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我沒有特別算過時間，也不知道確切是多久了。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": "exertion_only",
+        "utterance_zh": "就是走路或爬樓梯、用力的時候會出現，停下來休息一下就好了，坐著或躺著的時候不會。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "yesterday_within_24h",
+        "utterance_zh": "最後一次是昨天，昨天有不舒服，後來就好了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-16",
+    "opening_zh": "我有冠心症，最近感冒咳嗽，咳的時候胸口會痛，不咳就不會，走路沒有悶。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經沒有了，我停下來就不痛了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，沒有覺得快昏倒，眼前也不會發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，走路做家事都沒有喘，坐著休息也沒有。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口痛而已。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "坐著或躺著休息的時候，沒有發作過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有耶，跟以前一樣，不會比較容易發作。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，舌下含片我沒有比以前多吃。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有停過，也沒有漏吃，都有照醫師說的吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-16#0",
+    "opening_zh": "我有冠心症，最近感冒咳嗽，咳的時候胸口會痛，不咳就不會，走路沒有悶。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，我停下來就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，就只是胸口痛，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就算坐著休息也不會喘，只有胸口會痛。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有耶，不舒服的時候沒有冒冷汗。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": "exertion_only",
+        "utterance_zh": "通常是走路或用力的時候才會痛，停下來就好，休息的時候不會。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": false,
+        "utterance_zh": "這個是最近才開始的，以前沒有這樣痛過。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有耶，跟以前比並沒有變得比較輕的活動就會痛，還是一樣要用力才會。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有，坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，大概不知道是多久了，我也沒特別算。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "unknown",
+        "utterance_zh": "這個我真的不太記得耶，我也沒有特別注意是什麼時候好的。"
+      },
+      {
+        "q": "Q-PALP-01",
+        "value": null,
+        "utterance_zh": "心跳有沒有很快或不規則，我沒有特別注意，不太確定耶。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-16#1",
+    "opening_zh": "我有冠心症，最近感冒咳嗽，咳的時候胸口會痛，不咳就不會，走路沒有悶。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，我現在不咳就不會痛。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就是胸口痛，不會覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "rest",
+        "utterance_zh": "我現在坐著休息也會喘，不是只有運動才會。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-17",
+    "opening_zh": "我爸有冠心症，今天忘記吃早上的藥，現在補吃可以嗎？他沒有不舒服。",
+    "final": "4",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喔，他平常都不會喘啦，就算做很激烈的運動也沒有，坐著休息也沒有。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有耶，最近沒有心跳很快或亂跳，站起來也不會頭暈，也沒有做過檢查被說有問題還沒回診。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有耶，他不舒服的時候也沒有覺得要昏倒或眼前發黑啦。"
+      },
+      {
+        "q": "Q-REACHABLE-01",
+        "value": true,
+        "utterance_zh": "可以啊，我就在他旁邊，我來幫你確認他現在的狀況。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-17#0",
+    "opening_zh": "我爸有冠心症，今天忘記吃早上的藥，現在補吃可以嗎？他沒有不舒服。",
+    "final": "9",
+    "stop": "max_questions",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我爸就是很激烈運動才會喘啦，平常走路做家事都沒有問題，現在坐著也不會喘。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有啦，最近心跳都正常，站起來也不會頭暈，也沒有做過什麼檢查被說異常。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "vague",
+        "utterance_zh": "就是說不上來啦，怪怪的，他自己也講不清楚，也沒有特別指哪裡。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，他說沒有覺得快要昏倒，也沒有眼前發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有耶，他沒有冒冷汗，皮膚也是乾乾的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我不知道他以前有沒有類似的感覺。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": null,
+        "utterance_zh": "這個我不太清楚耶，他沒有特別跟我說走平路也會不舒服，我不知道有沒有變化。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": false,
+        "utterance_zh": "沒有耶，他坐著或躺著休息的時候都沒有發作過。"
+      },
+      {
+        "q": "Q-PATTERN-01",
+        "value": null,
+        "utterance_zh": "這個我不太確定耶，我不知道他這個狀況從什麼時候開始、有沒有變嚴重，我沒辦法說出確切的時間。"
+      },
+      {
+        "q": "Q-EXERTION-01",
+        "value": "exertion_only",
+        "utterance_zh": "他說是走路或用力的時候比較會有，停下來休息也沒有再繼續，但是休息的時候有沒有發作過我剛剛已經確認過，是沒有。"
+      },
+      {
+        "q": "Q-REACHABLE-01",
+        "value": false,
+        "utterance_zh": "他現在人不在我旁邊，我沒辦法請他來接電話，也沒辦法現在確認他的狀況。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-17#1",
+    "opening_zh": "我爸有冠心症，今天忘記吃早上的藥，現在補吃可以嗎？他沒有不舒服。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我爸現在坐著休息也不會喘，平常也沒有喘，只有很激烈的運動才會。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有啦，最近沒有心跳突然很快或亂跳，站起來也不會頭暈，也沒有做檢查被說異常的情形。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是胸口被壓住的感覺，悶悶的，有點像被壓著。"
+      },
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "還在，胸口現在還是有被壓住的感覺。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-18",
+    "opening_zh": "我有冠心症，昨天打完流感疫苗手臂痠，其他都沒有不舒服。",
+    "final": "4",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就算爬樓梯或做家事也都沒有，坐著休息更不會。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有啦，最近心跳都正常，站起來也不會頭暈，檢查也沒有被說有問題，沒有還沒回診的。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，不舒服的時候也沒有覺得快昏倒或眼前發黑。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-18#0",
+    "opening_zh": "我有冠心症，昨天打完流感疫苗手臂痠，其他都沒有不舒服。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘，就算走路做家事也不會喘，坐著休息也沒有。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有心跳突然很快或亂跳，站起來也不會頭暈，也沒有做過檢查被說異常還沒回診。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "jaw_shoulder_heaviness",
+        "utterance_zh": "就是下巴和肩膀沉沉的，好像被壓住一樣。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候沒有覺得快要昏倒，也沒有眼前發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "是最近才第一次出現的，以前沒有這樣的感覺。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "today",
+        "utterance_zh": "是今天才好的，今天早上還有一點，後來就沒有了。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-19",
+    "opening_zh": "我有冠心症，前天開始走路會胸悶，昨天含了一次舌下片有效，今天還沒發作，休息時沒有。",
+    "final": "1",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在已經不會了，我坐著休息，胸口沒有不舒服。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就只是胸口悶悶的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "喘的話，我只有做很激烈的運動才會，平常走路做家事都沒有喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-THRESHOLD-01",
+        "value": false,
+        "utterance_zh": "沒有，跟以前一樣，還是要走比較快或爬樓梯才會悶，走平路不會。"
+      },
+      {
+        "q": "Q-NTG-01",
+        "value": false,
+        "utterance_zh": "沒有，含片跟以前差不多，最近沒有比較常用。"
+      },
+      {
+        "q": "Q-ANTIPLT-01",
+        "value": false,
+        "utterance_zh": "沒有停過，阿斯匹靈我每天都有吃，也沒有漏吃。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-19#0",
+    "opening_zh": "我有冠心症，前天開始走路會胸悶，昨天含了一次舌下片有效，今天還沒發作，休息時沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，就只是胸口悶悶的，沒有覺得要昏倒。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是走路用力的時候胸口悶，坐著休息就沒有了。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "today",
+        "utterance_zh": "今天啊，今天早上的時候好的，不是昨天。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-19#1",
+    "opening_zh": "我有冠心症，前天開始走路會胸悶，昨天含了一次舌下片有效，今天還沒發作，休息時沒有。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在不會了，我坐著的時候很好，沒有在不舒服。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，我沒有覺得快昏倒，眼前也沒有發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘，只有走路用力的時候胸口悶，平常坐著休息也不會喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，只是胸口悶悶的。"
+      },
+      {
+        "q": "Q-REST-01",
+        "value": true,
+        "utterance_zh": "有，前幾天有一次是坐著休息的時候也悶了一下。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-19#2",
+    "opening_zh": "我有冠心症，前天開始走路會胸悶，昨天含了一次舌下片有效，今天還沒發作，休息時沒有。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": true,
+        "utterance_zh": "對，現在還是悶悶的，還沒有好。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-19#3",
+    "opening_zh": "我有冠心症，前天開始走路會胸悶，昨天含了一次舌下片有效，今天還沒發作，休息時沒有。",
+    "final": "0Y",
+    "stop": "hard_stop",
+    "turns": [
+      {
+        "q": "Q-ONGOING-01",
+        "value": false,
+        "utterance_zh": "現在沒有了，坐著休息一下就好了。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，就只是胸口悶悶的，沒有覺得要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我不會喘啦，只有走路或用力的時候胸口悶，休息的時候都沒有喘。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": true,
+        "utterance_zh": "有耶，那時候會出一點冷汗。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-20",
+    "opening_zh": "我有冠心症，想問下次回診要不要空腹抽血，最近沒有任何不舒服。",
+    "final": "4",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就算做很激烈的運動也不會喘，平常走路做家事也都沒有，坐著休息也沒有。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有啦，最近心跳都正常，站起來也不會頭暈，也沒有做過檢查被說異常的情形。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，我不舒服的時候也沒有覺得快要昏倒，眼前也不會發黑。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-20#0",
+    "opening_zh": "我有冠心症，想問下次回診要不要空腹抽血，最近沒有任何不舒服。",
+    "final": "3",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我沒有喘啦，就是只有很激烈運動的時候才會喘，平常走路做家事都沒事，坐著休息也不會。"
+      },
+      {
+        "q": "Q-PALP-01",
+        "value": false,
+        "utterance_zh": "沒有啦，我心跳都正常，發作的時候也沒有胸悶或快昏倒的感覺。"
+      },
+      {
+        "q": "Q-POSTURAL-01",
+        "value": false,
+        "utterance_zh": "沒有啦，我站起來不會頭暈，坐著躺著也都不會。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有啦，最近心跳都正常，站起來也不會頭暈，也沒有做過檢查被說異常。"
+      },
+      {
+        "q": "Q-CONSULT-01",
+        "value": "appointment_admin",
+        "utterance_zh": "我想問門診時間，就是下次回診要不要空腹抽血，我最近沒有不舒服。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有啦，我沒有覺得快要昏倒，眼前也不會發黑。"
+      }
+    ]
+  },
+  {
+    "case_id": "S-MID-20#1",
+    "opening_zh": "我有冠心症，想問下次回診要不要空腹抽血，最近沒有任何不舒服。",
+    "final": "0",
+    "stop": "gate_passed",
+    "turns": [
+      {
+        "q": "Q-DYSPNEA-GRADE-01",
+        "value": "none",
+        "utterance_zh": "我現在坐著休息也不會喘，平常走路做家事也都沒有，我沒有喘的問題。"
+      },
+      {
+        "q": "Q-SCREEN-01",
+        "value": false,
+        "utterance_zh": "沒有啦，最近心跳都正常，站起來也不會暈，也沒有做過檢查被說異常的。"
+      },
+      {
+        "q": "Q-CHARACTER-01",
+        "value": "pressure",
+        "utterance_zh": "就是胸口好像被壓住的感覺，悶悶重重的。"
+      },
+      {
+        "q": "Q-SYNCOPE-01",
+        "value": false,
+        "utterance_zh": "沒有，不舒服的時候我都還清醒，也沒有覺得快要昏倒或眼前發黑。"
+      },
+      {
+        "q": "Q-DIAPH-01",
+        "value": false,
+        "utterance_zh": "沒有冒冷汗，就只是胸口悶悶的，身上不會濕濕冷冷的。"
+      },
+      {
+        "q": "Q-ONSET-01",
+        "value": true,
+        "utterance_zh": "這是最近才第一次有這種感覺，以前沒有過一樣的。"
+      },
+      {
+        "q": "Q-TIMING-01",
+        "value": "today",
+        "utterance_zh": "就是今天，今天早上才好的，昨天沒有。"
+      }
+    ]
+  }
+]
