@@ -104,6 +104,8 @@ class LLMPatientSimulator:
         self.oracle = ScriptedPatient(case)
         self.deviations: list[Deviation] = []
         self.model_versions: set[str] = set()
+        self.usage = {"input_tokens": 0, "output_tokens": 0, "cache_creation_input_tokens": 0,
+                      "cache_read_input_tokens": 0, "calls": 0}
 
     def _parse(self, q: Question, data: dict[str, Any]) -> Any:
         if data["dont_know"]:
@@ -127,6 +129,9 @@ class LLMPatientSimulator:
         if resp.stop_reason != "end_turn":
             raise RuntimeError(f"{self.case.id} {q.id}: stop_reason={resp.stop_reason}")
         self.model_versions.add(resp.model)
+        self.usage["calls"] += 1
+        for k in ("input_tokens", "output_tokens", "cache_creation_input_tokens", "cache_read_input_tokens"):
+            self.usage[k] += getattr(resp.usage, k, None) or 0
         self.messages.append({"role": "assistant", "content": resp.content})
         data = json.loads(next(b.text for b in resp.content if b.type == "text"))
         value = self._parse(q, data)

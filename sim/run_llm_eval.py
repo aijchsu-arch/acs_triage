@@ -11,6 +11,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
@@ -41,6 +42,21 @@ def run_llm(cases: list[Case], *, client, model: str, effort: str, workers: int)
 
 def _key(r: RunResult) -> str:
     return f"{r.final.tier}{'Y' if r.final.hard_stop else ''}"
+
+
+# 估算成本用的牌價（USD / 1M tokens：input, output；cache 寫入 1.25×input、讀取 0.1×input）。
+# 來源：Claude API 價目（2026-10-06 快取版）；以帳單為準。
+PRICES = {"claude-haiku-5-5": (0.10, 0.50), "claude-sonnet-5-5": (2.00, 10.00), "claude-opus-5-5": (4.00, 20.00)}
+
+
+def usage_summary(patients: list[LLMPatientSimulator], model: str) -> dict:
+    u = {k: sum(p.usage[k] for p in patients) for k in patients[0].usage} if patients else {}
+    pin, pout = PRICES.get(model, (None, None))
+    if pin is not None and u:
+        u["est_cost_usd"] = round((u["input_tokens"] * pin + u["output_tokens"] * pout
+                                   + u["cache_creation_input_tokens"] * pin * 1.25
+                                   + u["cache_read_input_tokens"] * pin * 0.1) / 1e6, 4)
+    return u
 
 
 def render_compare(llm_res: list[RunResult], m_llm: Metrics, scripted: dict[str, RunResult], m_s: Metrics,
@@ -92,6 +108,13 @@ def render_compare(llm_res: list[RunResult], m_llm: Metrics, scripted: dict[str,
         why = "病人偏差" if r.case_id in dev_cases else "無偏差（需查）"
         L.append(f"- {r.case_id}：truth {r.truth_tier}{'Y' if r.truth_hard_stop else ''}，LLM {_key(r)}，Scripted {_key(s)}（{why}）")
     L.append("")
+    u = usage_summary(patients, patients[0].model) if patients else {}
+    L.append("## Token 用量與估算成本")
+    L.append("")
+    for k, v in u.items():
+        L.append(f"- {k}：{v}")
+    L.append("- 成本為依牌價估算（`PRICES`），以帳單為準；output 含 thinking token。")
+    L.append("")
     L.append(f"## 執行錯誤（{len(errors)}）")
     L.append("")
     L.append("（無）" if not errors else "\n".join(f"- {cid}：{msg}" for cid, msg in errors))
@@ -120,7 +143,9 @@ def main() -> None:
     print(f"{KEY_ENV}: OK")
 
     cases = all_cases()[: args.limit] if args.limit else all_cases()
+    t0 = time.monotonic()
     out = run_llm(cases, client=make_client(), model=args.model, effort=args.effort, workers=args.workers)
+    elapsed = time.monotonic() - t0
     llm_res = [r for r, _, _ in out if r is not None]
     patients = [p for r, p, _ in out if r is not None]
     errors = [(p.case.id, err) for _, p, err in out if err]
@@ -138,13 +163,15 @@ def main() -> None:
                     + "\n## 核心安全指標（LLM 病人）", 1)
     outdir = Path(args.out)
     outdir.mkdir(parents=True, exist_ok=True)
-    stem = f"eval_{date.today().isoformat()}_llm{'_limit' + str(args.limit) if args.limit else ''}"
+    tag = "" if (args.model, args.effort) == (DEFAULT_MODEL, "low") else f"_{args.model.removeprefix('claude-')}_{args.effort}"
+    stem = f"eval_{date.today().isoformat()}_llm{tag}{'_limit' + str(args.limit) if args.limit else ''}"
     (outdir / f"{stem}.md").write_text(md, encoding="utf-8")
     devs = [asdict(d) for p in patients for d in p.deviations]
     (outdir / f"{stem}.json").write_text(json.dumps(
         {"model": args.model, "model_versions": versions, "effort": args.effort, "rules_version": rules_version(),
          "metrics": m_llm.to_dict(), "scripted_metrics": m_s.to_dict(), "deviations": devs,
-         "errors": errors}, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+         "errors": errors, "usage": usage_summary(patients, args.model),
+         "wall_seconds": round(elapsed, 1)}, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     (outdir / f"{stem}_transcripts.json").write_text(json.dumps(
         [{"case_id": r.case_id, "opening_zh": next(c.opening_zh for c in cases if c.id == r.case_id),
           "final": _key(r), "stop": r.stop_reason,

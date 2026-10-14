@@ -33,7 +33,8 @@ class FakeClient:
         filler = {"boolean": False, "number": 0, "string": (schema_ans.get("enum") or [""])[0]}[schema_ans["type"]]
         data = {"utterance_zh": "不知道。" if dont_know else f"{v}。", "dont_know": dont_know,
                 "answer": filler if dont_know else v}
-        return SimpleNamespace(stop_reason="end_turn", model="fake-model",
+        usage = SimpleNamespace(input_tokens=10, output_tokens=5, cache_creation_input_tokens=0, cache_read_input_tokens=0)
+        return SimpleNamespace(stop_reason="end_turn", model="fake-model", usage=usage,
                                content=[SimpleNamespace(type="text", text=json.dumps(data, ensure_ascii=False))])
 
 
@@ -90,6 +91,9 @@ def test_request_shape():
     req = fc.requests[0]
     assert req["system"] == build_system(case)
     assert req["model"] == "claude-haiku-5-5" and "fallbacks" not in req   # Haiku 無 server-side fallback
+    p = LLMPatientSimulator(case, client=FakeClient(case))
+    run_case(case, patient=p)
+    assert p.usage["calls"] > 0 and p.usage["input_tokens"] == 10 * p.usage["calls"]
     schema = req["output_config"]["format"]["schema"]
     assert schema["additionalProperties"] is False
     # 對話只增不改（append-only）：後一次請求的 messages 以前一次為前綴
