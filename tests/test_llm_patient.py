@@ -90,7 +90,8 @@ def test_request_shape():
     _, _, fc = _run(case)
     req = fc.requests[0]
     assert req["system"] == build_system(case)
-    assert req["model"] == "claude-haiku-5-5" and "fallbacks" not in req   # Haiku 無 server-side fallback
+    assert req["model"] == "claude-opus-5-5" and req["fallbacks"] == "default"   # D-34
+    assert req["output_config"]["effort"] == "medium"
     p = LLMPatientSimulator(case, client=FakeClient(case))
     run_case(case, patient=p)
     assert p.usage["calls"] > 0 and p.usage["input_tokens"] == 10 * p.usage["calls"]

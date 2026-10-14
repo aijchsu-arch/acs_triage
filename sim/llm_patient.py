@@ -21,7 +21,8 @@ from .cases import Case
 from .patient import _ZH_CHOICE, PatientReply, ScriptedPatient
 
 KEY_ENV = "ACS_PATIENT_LLM_KEY"
-DEFAULT_MODEL = "claude-haiku-5-5"
+DEFAULT_MODEL = "claude-opus-5-5"   # D-34：品質優先
+DEFAULT_EFFORT = "medium"
 _FALLBACK_BETA = "server-side-fallback-2026-07-01"   # Haiku 無 server-side fallback，只在其他模型帶
 
 
@@ -94,7 +95,7 @@ def _norm(v: Any) -> Any:
 
 
 class LLMPatientSimulator:
-    def __init__(self, case: Case, *, client: Any = None, model: str = DEFAULT_MODEL, effort: str = "low") -> None:
+    def __init__(self, case: Case, *, client: Any = None, model: str = DEFAULT_MODEL, effort: str = DEFAULT_EFFORT) -> None:
         self.case = case
         self.client = client if client is not None else make_client()
         self.model = model

@@ -1,8 +1,9 @@
 """M2b 評估入口：LLM 扮演病人跑全部 case，與 ScriptedPatient（clean）比對。
 
-python -m sim.run_llm_eval [--model claude-opus-5-5] [--effort low] [--workers 8] [--limit N] [--out reports/]
+python -m sim.run_llm_eval [--model claude-opus-5-5] [--effort medium] [--workers 8] [--limit N] [--out reports/]
 
-產出 reports/eval_<date>_llm.md／.json，以及 llm_transcripts_<date>.json（逐題問答，供人工抽查）。
+產出 reports/eval_<date>_llm_<model>_<effort>[_limitN][_rN].md／.json，以及同名 _transcripts.json（逐題問答，供人工抽查）；
+同日同設定重跑自動加 _r2、_r3，不覆蓋。
 金鑰只讀 ACS_PATIENT_LLM_KEY（D-31）；缺少時只印 MISSING 並結束，不印任何金鑰內容。
 """
 from __future__ import annotations
@@ -21,7 +22,7 @@ from pathlib import Path
 from acs_triage.loaders import REPO_ROOT, rules_version
 
 from .cases import Case, all_cases
-from .llm_patient import DEFAULT_MODEL, KEY_ENV, LLMPatientSimulator, _prompt_cfg, make_client
+from .llm_patient import DEFAULT_EFFORT, DEFAULT_MODEL, KEY_ENV, LLMPatientSimulator, _prompt_cfg, make_client
 from .metrics import Metrics, compute
 from .run_eval import _fmt_pct, render_md, run_all
 from .runner import RunResult, run_case
@@ -132,7 +133,7 @@ def scripted_turn_unknown(case_id: str, qid: str, patients: list[LLMPatientSimul
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default=DEFAULT_MODEL)
-    ap.add_argument("--effort", default="low")
+    ap.add_argument("--effort", default=DEFAULT_EFFORT)
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--limit", type=int, default=None, help="只跑前 N 個 case（冒煙測試）")
     ap.add_argument("--out", default=str(REPO_ROOT / "reports"))
@@ -163,8 +164,10 @@ def main() -> None:
                     + "\n## 核心安全指標（LLM 病人）", 1)
     outdir = Path(args.out)
     outdir.mkdir(parents=True, exist_ok=True)
-    tag = "" if (args.model, args.effort) == (DEFAULT_MODEL, "low") else f"_{args.model.removeprefix('claude-')}_{args.effort}"
+    tag = f"_{args.model.removeprefix('claude-')}_{args.effort}"
     stem = f"eval_{date.today().isoformat()}_llm{tag}{'_limit' + str(args.limit) if args.limit else ''}"
+    if (outdir / f"{stem}.md").exists():          # 同日同設定重跑：加 _r2、_r3…，不覆蓋舊報告
+        stem = next(f"{stem}_r{i}" for i in range(2, 1000) if not (outdir / f"{stem}_r{i}.md").exists())
     (outdir / f"{stem}.md").write_text(md, encoding="utf-8")
     devs = [asdict(d) for p in patients for d in p.deviations]
     (outdir / f"{stem}.json").write_text(json.dumps(

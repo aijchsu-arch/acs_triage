@@ -393,7 +393,7 @@ acs_triage/
 | M0 | ✅ 2026-10-13 | repo 骨架、`schemas.py`、`clinical_rules.yaml` + loader、`question_bank_seed.yaml` loader、pytest 跑通 | `pytest` 綠；YAML 與 `CLINICAL_RULES.md` 內容一致（有測試比對版本號與 RF 數量） |
 | M1 | ✅ 2026-10-13 | `RulesEngine`：紅旗（RF-01～06）、slot 規則、sufficiency、tier 0–4／9；Prompter 規則選題；Pathway 對照（含 Tier 9 護理師不可得預設） | v0.2 的 18 個 + 中間帶 20 個情境只給開場白 → `provisional_tier`／`hard_stop` 與 `truth_*` 一致；所有 boundary_variants 以 `hidden_slots`+`override` 直接餵 slot → `provisional_tier`／`hard_stop`／`rf` 與 `expect` 一致；紅旗測試 100% 覆蓋 |
 | M2 | ✅ 2026-10-13（ScriptedPatient；LLM 病人 → M2b） | 模擬器：hidden case sheets 展開、PatientSimulator、對話 runner、指標報告 | 38 個情境 + 全部 boundary_variants 展開為 hidden case sheets（預估 100+ cases）跑完產 `reports/eval_*.md`；對話結束後的 final `tier` 與 truth 比對；Hard-stop miss = 0；Under-triage 報表 |
-| M2b | ✅ 2026-10-15（`claude-haiku-5-5`，提示詞 v0.2；`reports/eval_2026-10-15_llm.md`；D-32、D-33） | `LLMPatientSimulator`（LLM 扮演病人，只看 hidden sheet）；與 ScriptedPatient 結果比對 | 需任一 LLM 端點：只用合成資料，D-10 不適用，本地 llama.cpp 或雲端 API 皆可（D-30）；Hard-stop miss 與 under-triage 仍為 0；指標與 clean 模式差異報告 |
+| M2b | ✅ 2026-10-15（提示詞 v0.2；預設 `claude-opus-5-5` effort medium，三次全量皆 Hard-stop miss 0、under 0：`reports/eval_2026-10-15_llm_opus-5-5_medium*.md`；D-32～D-34） | `LLMPatientSimulator`（LLM 扮演病人，只看 hidden sheet）；與 ScriptedPatient 結果比對 | 需任一 LLM 端點：只用合成資料，D-10 不適用，本地 llama.cpp 或雲端 API 皆可（D-30）；Hard-stop miss 與 under-triage 仍為 0；指標與 clean 模式差異報告 |
 | M3 | ⏳ 可開工（Jev 測試金鑰已有，僅合成資料；Q-02） | `LLMStructuredAdapter`、`JevAdapter`；模型 vs 規則比較報告；downgrade 阻擋測試 | 比較報告；`model_downgrade_blocked` 有測試 |
 | M4 | ⏳ 待 Q-01 | STT adapter + Confidence Gate；shadow-mode logger；最小客服 UI | 以錄製的合成音檔端到端跑通；UI 顯示紅旗全螢幕 |
 | 後續 | ⏳ | ECG adapter、電話系統整合、Phase 1 準備 | 依 `DECISIONS.md` 解決 Q-01/02/03/06 後排程 |
