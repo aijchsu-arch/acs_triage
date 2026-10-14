@@ -33,13 +33,14 @@ def _fmt_pct(x: float) -> str:
     return f"{100 * x:.1f}%"
 
 
-def render_md(mode: str, seed: int, results: list[RunResult], m: Metrics) -> str:
+def render_md(mode: str, seed: int, results: list[RunResult], m: Metrics,
+              patient_label: str = "ScriptedPatient（確定性腳本；LLM 病人為 M2b）") -> str:
     L: list[str] = []
     L.append(f"# Phase 0 評估報告 — mode={mode} seed={seed}")
     L.append("")
     L.append(f"- 日期：{date.today().isoformat()}　rules_version：{rules_version()}")
     L.append(f"- cases：{m.n_cases}（可評分 {m.n_scored}；`expect.tier: null` 的變體不計分）")
-    L.append(f"- 模擬病人：ScriptedPatient（確定性腳本；LLM 病人為 M2b）")
+    L.append(f"- 模擬病人：{patient_label}")
     L.append("")
     L.append("## 核心安全指標")
     L.append("")
