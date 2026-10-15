@@ -483,7 +483,7 @@ scenarios:
       ongoing_now: false
       dyspnea_grade: none
       presyncope: false
-    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-CHARACTER-01, Q-REACHABLE-01, Q-PALP-01, Q-POSTURAL-01, Q-CONSULT-01, Q-PENDINGTEST-01]
+    decisive_questions: [Q-DYSPNEA-GRADE-01, Q-REACHABLE-01, Q-CHARACTER-01, Q-PALP-01, Q-POSTURAL-01, Q-CONSULT-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {patient_reachable: false, symptom_character: vague}
         expect: {tier: 9, hard_stop: false}

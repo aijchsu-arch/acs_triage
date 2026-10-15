@@ -189,7 +189,7 @@ def main() -> None:
           f"- 本次實際：紅旗 US${rf_cost:.4f}、分級 US${tier_cost:.4f}，合計 US${rf_cost + tier_cost:.4f}",
           f"- 每次呼叫平均：紅旗 US${est['redflag_per_call']:.5f}、分級 US${est['tier_per_call']:.5f}",
           f"- **全量推估**（{n_cases_all} cases、紅旗 {full_steps} 步）：紅旗 US${est['redflag_full']:.2f} ＋ 分級 US${est['tier_full']:.2f} "
-          f"＋ slot 抽取（尚未實作，以紅旗每次費用 × {full_turns} 輪推估）US${est['slot_extraction_full_extrapolated']:.2f} "
+          f"＋ slot 抽取（實測見 sim.openai_slots；此處以紅旗每次費用 × {full_turns} 輪粗估）US${est['slot_extraction_full_extrapolated']:.2f} "
           f"＝ **US${est['total_full']:.2f}**", "",
           f"## 執行錯誤（{len(errors)}）", "", "（無）" if not errors else "\n".join(f"- {a}：{b}" for a, b in errors), ""]
     outdir = Path(args.out)

@@ -145,6 +145,13 @@ questions:
     why_zh: "胸部不適合併明顯冒汗 → RF-06 Hard stop（C5 A）"
 
   # ---------- decisive：決定 acute vs chronic ----------
+  - id: Q-REACHABLE-01
+    slot_id: patient_reachable
+    priority: decisive
+    answer_type: yes_no
+    script_zh: "現在能不能請病人本人來接電話，或有人在他身邊可以確認他現在的狀況？"
+    why_zh: "第三方來電；本人不可及 → Tier 9 + safety net"
+    # D-40：排在 decisive 第一題（只在第三方來電時出題），避免被 max_questions 擠掉
   - id: Q-ONSET-01
     slot_id: onset_new
     priority: decisive
@@ -195,12 +202,6 @@ questions:
     choices: [exertion_only, rest_only, both, unclear]
     script_zh: "不舒服通常是在走路、用力的時候出現，停下來就好？還是休息的時候也會？"
     why_zh: "活動關係與停止即緩解"
-  - id: Q-REACHABLE-01
-    slot_id: patient_reachable
-    priority: decisive
-    answer_type: yes_no
-    script_zh: "現在能不能請病人本人來接電話，或有人在他身邊可以確認他現在的狀況？"
-    why_zh: "第三方來電；本人不可及 → Tier 9 + safety net"
   - id: Q-DRUGTIME-01
     slot_id: drug_time_correlation
     priority: refine
