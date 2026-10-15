@@ -46,8 +46,15 @@ def _urllib_transport(url: str, headers: dict[str, str], body: bytes) -> tuple[i
         return e.code, dict(e.headers or {}), payload
 
 
-def slot_state(slots: dict[str, Any], preamble: str) -> dict[str, Any]:
-    """英文 slot 結構：全部 slot 都列出，未知者為 "unknown"（讓模型看得到哪些沒問到）。"""
+def slot_state(slots: dict[str, Any], preamble: str, mode: str = "all") -> dict[str, Any]:
+    """英文 slot 結構。
+    mode="all"：全部 slot 都列出，未知者為 "unknown"（M3a 基線）。
+    mode="known"：只列已知 slot，未知者只列名稱於 not_yet_asked（M3a 對照實驗，減少無關內容）。
+    """
+    if mode == "known":
+        return {"record": preamble,
+                "findings": {k: slots[k] for k in sorted(slot_defs()) if slots.get(k) is not None},
+                "not_yet_asked": [k for k in sorted(slot_defs()) if slots.get(k) is None]}
     findings = {k: ("unknown" if slots.get(k) is None else slots[k]) for k in sorted(slot_defs())}
     return {"record": preamble, "findings": findings}
 

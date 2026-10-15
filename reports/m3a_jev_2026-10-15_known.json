@@ -1,0 +1,3453 @@
+{
+  "rows": [
+    {
+      "case_id": "S-ACUTE-01",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.34,
+      "model_probs": {
+        "T2": 0.12,
+        "T0": 0.38,
+        "T9": 0.05,
+        "T4": 0.0,
+        "T1": 0.45,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.22,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1217,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-ACUTE-01#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.56,
+      "model_probs": {
+        "T1": 0.29,
+        "T3": 0.0,
+        "T0": 0.63,
+        "T2": 0.05,
+        "T4": 0.0,
+        "T9": 0.03
+      },
+      "sufficient_p": 0.23,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1201,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-01#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.35,
+      "model_probs": {
+        "T1": 0.46,
+        "T4": 0.0,
+        "T9": 0.06,
+        "T2": 0.1,
+        "T3": 0.0,
+        "T0": 0.38
+      },
+      "sufficient_p": 0.21,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1217,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-ACUTE-01#2",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 3,
+      "model_conf": 0.76,
+      "model_probs": {
+        "T9": 0.06,
+        "T4": 0.02,
+        "T2": 0.03,
+        "T1": 0.06,
+        "T3": 0.8,
+        "T0": 0.03
+      },
+      "sufficient_p": 0.44,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1226,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-02",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.28,
+      "model_probs": {
+        "T2": 0.39,
+        "T0": 0.15,
+        "T1": 0.4,
+        "T3": 0.01,
+        "T4": 0.0,
+        "T9": 0.05
+      },
+      "sufficient_p": 0.16,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1219,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-ACUTE-02#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.26,
+      "model_probs": {
+        "T2": 0.23,
+        "T0": 0.37,
+        "T9": 0.02,
+        "T1": 0.38,
+        "T3": 0.0,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.17,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1203,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-ACUTE-02#1",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.42,
+      "model_probs": {
+        "T3": 0.0,
+        "T9": 0.01,
+        "T0": 0.52,
+        "T1": 0.35,
+        "T4": 0.0,
+        "T2": 0.12
+      },
+      "sufficient_p": 0.16,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1203,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-03",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.44,
+      "model_probs": {
+        "T2": 0.03,
+        "T1": 0.33,
+        "T4": 0.0,
+        "T9": 0.11,
+        "T0": 0.53,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1205,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-03#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.99,
+      "model_probs": {
+        "T0": 0.99,
+        "T3": 0.0,
+        "T1": 0.01,
+        "T9": 0.0,
+        "T2": 0.0,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.44,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1200,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-03#1",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.6,
+      "model_probs": {
+        "T1": 0.1,
+        "T3": 0.0,
+        "T2": 0.0,
+        "T4": 0.0,
+        "T0": 0.67,
+        "T9": 0.23
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1205,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-03#2",
+      "truth": null,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 0,
+      "model_conf": 0.3,
+      "model_probs": {
+        "T2": 0.04,
+        "T0": 0.42,
+        "T1": 0.31,
+        "T9": 0.23,
+        "T4": 0.0,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1208,
+        "output_tokens": 85
+      }
+    },
+    {
+      "case_id": "S-ACUTE-04",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.81,
+      "model_probs": {
+        "T0": 0.84,
+        "T1": 0.13,
+        "T3": 0.0,
+        "T9": 0.03,
+        "T2": 0.0,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.21,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1216,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-04#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.71,
+      "model_probs": {
+        "T1": 0.19,
+        "T9": 0.05,
+        "T2": 0.0,
+        "T0": 0.76,
+        "T4": 0.0,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.13,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1200,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-05",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.88,
+      "model_probs": {
+        "T4": 0.0,
+        "T0": 0.9,
+        "T9": 0.0,
+        "T2": 0.01,
+        "T3": 0.0,
+        "T1": 0.09
+      },
+      "sufficient_p": 0.5,
+      "model_sufficient": true,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1218,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-05#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.92,
+      "model_probs": {
+        "T9": 0.01,
+        "T2": 0.0,
+        "T3": 0.0,
+        "T1": 0.05,
+        "T0": 0.93,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.31,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1202,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-05#1",
+      "truth": null,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.65,
+      "model_probs": {
+        "T2": 0.01,
+        "T4": 0.0,
+        "T3": 0.0,
+        "T0": 0.71,
+        "T9": 0.02,
+        "T1": 0.26
+      },
+      "sufficient_p": 0.17,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1216,
+        "output_tokens": 85
+      }
+    },
+    {
+      "case_id": "S-ACUTE-06",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.74,
+      "model_probs": {
+        "T2": 0.01,
+        "T0": 0.78,
+        "T4": 0.0,
+        "T9": 0.12,
+        "T1": 0.09,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1192,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-ACUTE-06#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.68,
+      "model_probs": {
+        "T9": 0.19,
+        "T1": 0.08,
+        "T3": 0.0,
+        "T0": 0.73,
+        "T2": 0.0,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1192,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-STABLE-01",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 3,
+      "model_conf": 0.89,
+      "model_probs": {
+        "T3": 0.91,
+        "T4": 0.01,
+        "T9": 0.05,
+        "T1": 0.01,
+        "T2": 0.02,
+        "T0": 0.0
+      },
+      "sufficient_p": 0.58,
+      "model_sufficient": true,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1228,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-STABLE-01#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.47,
+      "model_probs": {
+        "T9": 0.04,
+        "T1": 0.25,
+        "T4": 0.01,
+        "T3": 0.02,
+        "T0": 0.56,
+        "T2": 0.11
+      },
+      "sufficient_p": 0.26,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1224,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-STABLE-01#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 2,
+      "model_conf": 0.27,
+      "model_probs": {
+        "T1": 0.28,
+        "T3": 0.11,
+        "T9": 0.07,
+        "T0": 0.14,
+        "T4": 0.01,
+        "T2": 0.39
+      },
+      "sufficient_p": 0.27,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1228,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-STABLE-01#2",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.39,
+      "model_probs": {
+        "T4": 0.02,
+        "T0": 0.01,
+        "T2": 0.1,
+        "T3": 0.25,
+        "T9": 0.49,
+        "T1": 0.13
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1225,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-STABLE-02",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 3,
+      "model_conf": 0.84,
+      "model_probs": {
+        "T0": 0.01,
+        "T2": 0.02,
+        "T9": 0.07,
+        "T3": 0.87,
+        "T1": 0.02,
+        "T4": 0.01
+      },
+      "sufficient_p": 0.48,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1230,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-STABLE-02#0",
+      "truth": null,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 3,
+      "model_conf": 0.76,
+      "model_probs": {
+        "T2": 0.03,
+        "T1": 0.04,
+        "T4": 0.03,
+        "T0": 0.01,
+        "T9": 0.09,
+        "T3": 0.8
+      },
+      "sufficient_p": 0.43,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1230,
+        "output_tokens": 85
+      }
+    },
+    {
+      "case_id": "S-STABLE-02#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.59,
+      "model_probs": {
+        "T9": 0.05,
+        "T0": 0.66,
+        "T2": 0.06,
+        "T4": 0.01,
+        "T3": 0.03,
+        "T1": 0.19
+      },
+      "sufficient_p": 0.19,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1226,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-STABLE-03",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.84,
+      "model_probs": {
+        "T3": 0.11,
+        "T2": 0.01,
+        "T0": 0.0,
+        "T4": 0.01,
+        "T1": 0.0,
+        "T9": 0.87
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "same_urgency_diff_tier",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1212,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "same_urgency"
+    },
+    {
+      "case_id": "S-STABLE-03#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.27,
+      "model_probs": {
+        "T0": 0.39,
+        "T4": 0.0,
+        "T9": 0.12,
+        "T3": 0.0,
+        "T2": 0.12,
+        "T1": 0.37
+      },
+      "sufficient_p": 0.13,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1218,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-STABLE-04",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 3,
+      "model_conf": 0.74,
+      "model_probs": {
+        "T3": 0.78,
+        "T1": 0.04,
+        "T2": 0.05,
+        "T9": 0.11,
+        "T4": 0.01,
+        "T0": 0.01
+      },
+      "sufficient_p": 0.45,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1227,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-STABLE-04#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.64,
+      "model_probs": {
+        "T0": 0.7,
+        "T9": 0.03,
+        "T4": 0.0,
+        "T2": 0.03,
+        "T1": 0.22,
+        "T3": 0.02
+      },
+      "sufficient_p": 0.24,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1225,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-STABLE-04#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 2,
+      "model_conf": 0.44,
+      "model_probs": {
+        "T1": 0.31,
+        "T2": 0.53,
+        "T3": 0.01,
+        "T4": 0.0,
+        "T0": 0.1,
+        "T9": 0.05
+      },
+      "sufficient_p": 0.31,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1229,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-INSUF-01",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.99,
+      "model_probs": {
+        "T2": 0.01,
+        "T0": 0.0,
+        "T4": 0.0,
+        "T1": 0.0,
+        "T9": 0.99,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.06,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1207,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-01#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.42,
+      "model_probs": {
+        "T1": 0.26,
+        "T0": 0.52,
+        "T2": 0.05,
+        "T4": 0.0,
+        "T3": 0.0,
+        "T9": 0.17
+      },
+      "sufficient_p": 0.13,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1212,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-01#1",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 3,
+      "model_conf": 0.59,
+      "model_probs": {
+        "T1": 0.02,
+        "T9": 0.25,
+        "T0": 0.0,
+        "T3": 0.66,
+        "T4": 0.01,
+        "T2": 0.06
+      },
+      "sufficient_p": 0.33,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1220,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-02",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.98,
+      "model_probs": {
+        "T0": 0.0,
+        "T4": 0.0,
+        "T2": 0.01,
+        "T9": 0.98,
+        "T3": 0.0,
+        "T1": 0.01
+      },
+      "sufficient_p": 0.06,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1207,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-02#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.29,
+      "model_probs": {
+        "T1": 0.31,
+        "T0": 0.41,
+        "T4": 0.0,
+        "T2": 0.04,
+        "T9": 0.24,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1212,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-02#1",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 3,
+      "model_conf": 0.68,
+      "model_probs": {
+        "T3": 0.73,
+        "T9": 0.2,
+        "T1": 0.03,
+        "T2": 0.02,
+        "T0": 0.01,
+        "T4": 0.01
+      },
+      "sufficient_p": 0.43,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1221,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-03",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.92,
+      "model_probs": {
+        "T2": 0.01,
+        "T3": 0.0,
+        "T1": 0.02,
+        "T4": 0.0,
+        "T0": 0.04,
+        "T9": 0.93
+      },
+      "sufficient_p": 0.06,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1206,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-03#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.21,
+      "model_probs": {
+        "T4": 0.0,
+        "T9": 0.34,
+        "T1": 0.2,
+        "T3": 0.0,
+        "T0": 0.34,
+        "T2": 0.12
+      },
+      "sufficient_p": 0.1,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1212,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-03#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.72,
+      "model_probs": {
+        "T1": 0.15,
+        "T9": 0.06,
+        "T3": 0.0,
+        "T0": 0.77,
+        "T4": 0.0,
+        "T2": 0.02
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1208,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-04",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.9,
+      "model_probs": {
+        "T2": 0.02,
+        "T3": 0.0,
+        "T9": 0.92,
+        "T1": 0.03,
+        "T0": 0.03,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.05,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1181,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-04#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.92,
+      "model_probs": {
+        "T9": 0.04,
+        "T0": 0.93,
+        "T1": 0.03,
+        "T2": 0.0,
+        "T4": 0.0,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.14,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1183,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-04#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.36,
+      "model_probs": {
+        "T1": 0.16,
+        "T0": 0.47,
+        "T3": 0.0,
+        "T9": 0.35,
+        "T2": 0.02,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1195,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-04#2",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.35,
+      "model_probs": {
+        "T1": 0.14,
+        "T2": 0.25,
+        "T9": 0.46,
+        "T4": 0.01,
+        "T3": 0.12,
+        "T0": 0.02
+      },
+      "sufficient_p": 0.14,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1197,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-INSUF-05",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.8,
+      "model_probs": {
+        "T1": 0.07,
+        "T9": 0.83,
+        "T0": 0.04,
+        "T3": 0.02,
+        "T4": 0.0,
+        "T2": 0.04
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1213,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-05#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.3,
+      "model_probs": {
+        "T3": 0.0,
+        "T9": 0.18,
+        "T4": 0.0,
+        "T2": 0.11,
+        "T1": 0.42,
+        "T0": 0.29
+      },
+      "sufficient_p": 0.13,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1219,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-INSUF-05#1",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 3,
+      "model_conf": 0.59,
+      "model_probs": {
+        "T3": 0.66,
+        "T2": 0.05,
+        "T4": 0.01,
+        "T0": 0.01,
+        "T1": 0.03,
+        "T9": 0.24
+      },
+      "sufficient_p": 0.38,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1224,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-06",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.98,
+      "model_probs": {
+        "T0": 0.0,
+        "T9": 0.98,
+        "T2": 0.01,
+        "T3": 0.0,
+        "T1": 0.01,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.05,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1205,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-06#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.64,
+      "model_probs": {
+        "T0": 0.11,
+        "T3": 0.0,
+        "T1": 0.12,
+        "T9": 0.7,
+        "T2": 0.07,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.07,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1211,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-INSUF-06#1",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.99,
+      "model_probs": {
+        "T1": 0.01,
+        "T4": 0.0,
+        "T3": 0.0,
+        "T9": 0.99,
+        "T0": 0.0,
+        "T2": 0.0
+      },
+      "sufficient_p": 0.05,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1214,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-07",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.96,
+      "model_probs": {
+        "T1": 0.01,
+        "T2": 0.0,
+        "T0": 0.02,
+        "T3": 0.0,
+        "T4": 0.0,
+        "T9": 0.97
+      },
+      "sufficient_p": 0.05,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1193,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-07#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.94,
+      "model_probs": {
+        "T4": 0.0,
+        "T2": 0.01,
+        "T0": 0.01,
+        "T3": 0.0,
+        "T1": 0.03,
+        "T9": 0.95
+      },
+      "sufficient_p": 0.05,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1193,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-INSUF-07#1",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.96,
+      "model_probs": {
+        "T9": 0.97,
+        "T0": 0.01,
+        "T4": 0.0,
+        "T2": 0.01,
+        "T3": 0.0,
+        "T1": 0.01
+      },
+      "sufficient_p": 0.04,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1197,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-08",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.83,
+      "model_probs": {
+        "T2": 0.03,
+        "T9": 0.86,
+        "T3": 0.01,
+        "T1": 0.07,
+        "T4": 0.0,
+        "T0": 0.03
+      },
+      "sufficient_p": 0.06,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1208,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-INSUF-08#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 2,
+      "model_conf": 0.18,
+      "model_probs": {
+        "T4": 0.0,
+        "T3": 0.01,
+        "T2": 0.32,
+        "T1": 0.21,
+        "T0": 0.17,
+        "T9": 0.29
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1214,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-INSUF-08#1",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 3,
+      "model_conf": 0.56,
+      "model_probs": {
+        "T1": 0.03,
+        "T0": 0.01,
+        "T4": 0.03,
+        "T3": 0.63,
+        "T2": 0.03,
+        "T9": 0.27
+      },
+      "sufficient_p": 0.35,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1217,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-01",
+      "truth": 1,
+      "truth_hs": false,
+      "rules": 1,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.51,
+      "model_probs": {
+        "T9": 0.59,
+        "T2": 0.12,
+        "T0": 0.1,
+        "T1": 0.18,
+        "T3": 0.01,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.1,
+      "model_sufficient": false,
+      "relation": "same_urgency_diff_tier",
+      "downgrade_blocked": false,
+      "merged_tier": 1,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1230,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "same_urgency"
+    },
+    {
+      "case_id": "S-MID-01#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.34,
+      "model_probs": {
+        "T2": 0.07,
+        "T1": 0.45,
+        "T4": 0.0,
+        "T0": 0.31,
+        "T3": 0.0,
+        "T9": 0.17
+      },
+      "sufficient_p": 0.16,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1217,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-01#1",
+      "truth": 2,
+      "truth_hs": false,
+      "rules": 2,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.32,
+      "model_probs": {
+        "T0": 0.31,
+        "T9": 0.09,
+        "T1": 0.43,
+        "T3": 0.0,
+        "T2": 0.17,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.21,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 1,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1227,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-01#2",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.33,
+      "model_probs": {
+        "T0": 0.26,
+        "T1": 0.22,
+        "T9": 0.44,
+        "T3": 0.0,
+        "T2": 0.08,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1224,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-02",
+      "truth": 2,
+      "truth_hs": false,
+      "rules": 2,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.22,
+      "model_probs": {
+        "T4": 0.0,
+        "T2": 0.3,
+        "T3": 0.01,
+        "T1": 0.35,
+        "T0": 0.24,
+        "T9": 0.1
+      },
+      "sufficient_p": 0.18,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 1,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1220,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-02#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.63,
+      "model_probs": {
+        "T0": 0.69,
+        "T1": 0.24,
+        "T3": 0.0,
+        "T4": 0.0,
+        "T2": 0.06,
+        "T9": 0.01
+      },
+      "sufficient_p": 0.45,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1222,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-02#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.88,
+      "model_probs": {
+        "T0": 0.9,
+        "T9": 0.01,
+        "T1": 0.08,
+        "T2": 0.01,
+        "T3": 0.0,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.44,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1218,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-02#2",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.3,
+      "model_probs": {
+        "T3": 0.01,
+        "T9": 0.05,
+        "T0": 0.32,
+        "T4": 0.0,
+        "T1": 0.42,
+        "T2": 0.2
+      },
+      "sufficient_p": 0.18,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1216,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-03",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.16,
+      "model_probs": {
+        "T0": 0.29,
+        "T3": 0.01,
+        "T1": 0.3,
+        "T9": 0.15,
+        "T2": 0.25,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1221,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-03#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.34,
+      "model_probs": {
+        "T4": 0.0,
+        "T0": 0.45,
+        "T9": 0.03,
+        "T3": 0.0,
+        "T2": 0.15,
+        "T1": 0.37
+      },
+      "sufficient_p": 0.15,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1205,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-04",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.52,
+      "model_probs": {
+        "T9": 0.6,
+        "T1": 0.04,
+        "T4": 0.1,
+        "T0": 0.0,
+        "T3": 0.22,
+        "T2": 0.04
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "same_urgency_diff_tier",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1220,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "same_urgency"
+    },
+    {
+      "case_id": "S-MID-04#0",
+      "truth": 1,
+      "truth_hs": false,
+      "rules": 1,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.29,
+      "model_probs": {
+        "T9": 0.19,
+        "T1": 0.41,
+        "T3": 0.0,
+        "T2": 0.12,
+        "T4": 0.0,
+        "T0": 0.28
+      },
+      "sufficient_p": 0.19,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 1,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1243,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-05",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.76,
+      "model_probs": {
+        "T1": 0.08,
+        "T3": 0.01,
+        "T4": 0.0,
+        "T9": 0.8,
+        "T0": 0.02,
+        "T2": 0.09
+      },
+      "sufficient_p": 0.07,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1210,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-05#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.5,
+      "model_probs": {
+        "T4": 0.0,
+        "T2": 0.02,
+        "T0": 0.58,
+        "T3": 0.0,
+        "T1": 0.2,
+        "T9": 0.2
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1208,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-05#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.54,
+      "model_probs": {
+        "T9": 0.03,
+        "T2": 0.03,
+        "T4": 0.0,
+        "T3": 0.0,
+        "T1": 0.32,
+        "T0": 0.62
+      },
+      "sufficient_p": 0.21,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1216,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-06",
+      "truth": 2,
+      "truth_hs": false,
+      "rules": 2,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 2,
+      "model_conf": 0.38,
+      "model_probs": {
+        "T3": 0.0,
+        "T0": 0.09,
+        "T4": 0.0,
+        "T1": 0.24,
+        "T2": 0.48,
+        "T9": 0.19
+      },
+      "sufficient_p": 0.13,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 2,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1209,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-06#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.81,
+      "model_probs": {
+        "T2": 0.02,
+        "T0": 0.84,
+        "T3": 0.0,
+        "T9": 0.02,
+        "T4": 0.0,
+        "T1": 0.12
+      },
+      "sufficient_p": 0.41,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1196,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-06#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.35,
+      "model_probs": {
+        "T1": 0.46,
+        "T0": 0.14,
+        "T3": 0.0,
+        "T2": 0.34,
+        "T4": 0.0,
+        "T9": 0.05
+      },
+      "sufficient_p": 0.22,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1203,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-06#2",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.35,
+      "model_probs": {
+        "T3": 0.0,
+        "T2": 0.29,
+        "T9": 0.02,
+        "T4": 0.0,
+        "T0": 0.23,
+        "T1": 0.46
+      },
+      "sufficient_p": 0.24,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1203,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-07",
+      "truth": 1,
+      "truth_hs": false,
+      "rules": 1,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 2,
+      "model_conf": 0.41,
+      "model_probs": {
+        "T3": 0.01,
+        "T1": 0.42,
+        "T2": 0.51,
+        "T0": 0.05,
+        "T4": 0.0,
+        "T9": 0.01
+      },
+      "sufficient_p": 0.3,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 1,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1229,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-07#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.3,
+      "model_probs": {
+        "T0": 0.21,
+        "T9": 0.01,
+        "T2": 0.35,
+        "T3": 0.01,
+        "T4": 0.0,
+        "T1": 0.42
+      },
+      "sufficient_p": 0.25,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1223,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-07#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.38,
+      "model_probs": {
+        "T4": 0.0,
+        "T0": 0.12,
+        "T9": 0.07,
+        "T2": 0.32,
+        "T1": 0.48,
+        "T3": 0.01
+      },
+      "sufficient_p": 0.14,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1223,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-07#2",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.74,
+      "model_probs": {
+        "T2": 0.05,
+        "T0": 0.78,
+        "T3": 0.0,
+        "T1": 0.16,
+        "T4": 0.0,
+        "T9": 0.01
+      },
+      "sufficient_p": 0.43,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1225,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-08",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 2,
+      "model_conf": 0.34,
+      "model_probs": {
+        "T4": 0.0,
+        "T3": 0.01,
+        "T2": 0.45,
+        "T1": 0.26,
+        "T9": 0.18,
+        "T0": 0.1
+      },
+      "sufficient_p": 0.15,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 2,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1236,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-08#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.16,
+      "model_probs": {
+        "T4": 0.0,
+        "T1": 0.3,
+        "T3": 0.01,
+        "T0": 0.28,
+        "T2": 0.16,
+        "T9": 0.25
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1223,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-08#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.8,
+      "model_probs": {
+        "T0": 0.83,
+        "T9": 0.01,
+        "T2": 0.02,
+        "T1": 0.14,
+        "T4": 0.0,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.42,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1230,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-08#2",
+      "truth": 1,
+      "truth_hs": false,
+      "rules": 1,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.35,
+      "model_probs": {
+        "T4": 0.0,
+        "T0": 0.16,
+        "T2": 0.27,
+        "T9": 0.1,
+        "T1": 0.46,
+        "T3": 0.01
+      },
+      "sufficient_p": 0.16,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 1,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1236,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-09",
+      "truth": 1,
+      "truth_hs": false,
+      "rules": 1,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.95,
+      "model_probs": {
+        "T0": 0.0,
+        "T9": 0.96,
+        "T2": 0.02,
+        "T1": 0.01,
+        "T4": 0.0,
+        "T3": 0.01
+      },
+      "sufficient_p": 0.06,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 1,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1199,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-09#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.48,
+      "model_probs": {
+        "T3": 0.0,
+        "T0": 0.57,
+        "T2": 0.05,
+        "T1": 0.28,
+        "T4": 0.0,
+        "T9": 0.1
+      },
+      "sufficient_p": 0.19,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1207,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-10",
+      "truth": 2,
+      "truth_hs": false,
+      "rules": 2,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.66,
+      "model_probs": {
+        "T9": 0.72,
+        "T3": 0.01,
+        "T0": 0.07,
+        "T2": 0.11,
+        "T4": 0.0,
+        "T1": 0.09
+      },
+      "sufficient_p": 0.07,
+      "model_sufficient": false,
+      "relation": "same_urgency_diff_tier",
+      "downgrade_blocked": false,
+      "merged_tier": 2,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1210,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "same_urgency"
+    },
+    {
+      "case_id": "S-MID-10#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.3,
+      "model_probs": {
+        "T3": 0.0,
+        "T0": 0.42,
+        "T1": 0.2,
+        "T4": 0.0,
+        "T2": 0.05,
+        "T9": 0.33
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1210,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-10#1",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.62,
+      "model_probs": {
+        "T1": 0.13,
+        "T4": 0.0,
+        "T3": 0.0,
+        "T0": 0.68,
+        "T2": 0.03,
+        "T9": 0.16
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1196,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-11",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.57,
+      "model_probs": {
+        "T0": 0.64,
+        "T1": 0.21,
+        "T3": 0.0,
+        "T2": 0.01,
+        "T9": 0.14,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1215,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-11#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.9,
+      "model_probs": {
+        "T1": 0.03,
+        "T3": 0.0,
+        "T0": 0.92,
+        "T4": 0.0,
+        "T2": 0.0,
+        "T9": 0.05
+      },
+      "sufficient_p": 0.2,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1209,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-11#1",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.58,
+      "model_probs": {
+        "T2": 0.03,
+        "T9": 0.12,
+        "T4": 0.0,
+        "T1": 0.2,
+        "T0": 0.65,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1215,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-12",
+      "truth": 2,
+      "truth_hs": false,
+      "rules": 2,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.63,
+      "model_probs": {
+        "T4": 0.0,
+        "T0": 0.01,
+        "T2": 0.18,
+        "T3": 0.03,
+        "T1": 0.09,
+        "T9": 0.69
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1209,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-12#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.59,
+      "model_probs": {
+        "T1": 0.12,
+        "T3": 0.02,
+        "T2": 0.16,
+        "T4": 0.0,
+        "T0": 0.04,
+        "T9": 0.66
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1207,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-12#1",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.46,
+      "model_probs": {
+        "T0": 0.55,
+        "T2": 0.04,
+        "T9": 0.25,
+        "T3": 0.0,
+        "T1": 0.16,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.1,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1200,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-13",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.44,
+      "model_probs": {
+        "T0": 0.12,
+        "T3": 0.02,
+        "T2": 0.08,
+        "T1": 0.24,
+        "T4": 0.01,
+        "T9": 0.53
+      },
+      "sufficient_p": 0.11,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1228,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-13#0",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.5,
+      "model_probs": {
+        "T3": 0.01,
+        "T1": 0.19,
+        "T0": 0.2,
+        "T2": 0.02,
+        "T9": 0.58,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1215,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-13#1",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.56,
+      "model_probs": {
+        "T4": 0.0,
+        "T2": 0.01,
+        "T9": 0.63,
+        "T0": 0.16,
+        "T1": 0.19,
+        "T3": 0.01
+      },
+      "sufficient_p": 0.07,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1199,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-13#2",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.39,
+      "model_probs": {
+        "T9": 0.06,
+        "T1": 0.49,
+        "T3": 0.0,
+        "T4": 0.0,
+        "T0": 0.35,
+        "T2": 0.1
+      },
+      "sufficient_p": 0.2,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1224,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-13#3",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.56,
+      "model_probs": {
+        "T3": 0.0,
+        "T2": 0.03,
+        "T4": 0.0,
+        "T1": 0.24,
+        "T9": 0.1,
+        "T0": 0.63
+      },
+      "sufficient_p": 0.13,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1217,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-14",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.41,
+      "model_probs": {
+        "T9": 0.51,
+        "T3": 0.04,
+        "T0": 0.09,
+        "T4": 0.01,
+        "T2": 0.13,
+        "T1": 0.22
+      },
+      "sufficient_p": 0.1,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1225,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-14#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.47,
+      "model_probs": {
+        "T2": 0.12,
+        "T1": 0.56,
+        "T9": 0.09,
+        "T4": 0.01,
+        "T3": 0.02,
+        "T0": 0.2
+      },
+      "sufficient_p": 0.17,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1221,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-14#1",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.36,
+      "model_probs": {
+        "T4": 0.0,
+        "T0": 0.21,
+        "T9": 0.47,
+        "T3": 0.01,
+        "T2": 0.06,
+        "T1": 0.25
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1217,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-15",
+      "truth": 4,
+      "truth_hs": false,
+      "rules": 4,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.69,
+      "model_probs": {
+        "T0": 0.0,
+        "T1": 0.01,
+        "T9": 0.74,
+        "T4": 0.08,
+        "T3": 0.15,
+        "T2": 0.02
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1218,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-15#0",
+      "truth": 1,
+      "truth_hs": false,
+      "rules": 1,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.29,
+      "model_probs": {
+        "T3": 0.0,
+        "T4": 0.0,
+        "T0": 0.41,
+        "T9": 0.06,
+        "T1": 0.41,
+        "T2": 0.12
+      },
+      "sufficient_p": 0.24,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1241,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-16",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.7,
+      "model_probs": {
+        "T1": 0.1,
+        "T3": 0.0,
+        "T0": 0.1,
+        "T9": 0.75,
+        "T2": 0.05,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1221,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-16#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.36,
+      "model_probs": {
+        "T1": 0.22,
+        "T2": 0.07,
+        "T3": 0.0,
+        "T4": 0.0,
+        "T9": 0.24,
+        "T0": 0.47
+      },
+      "sufficient_p": 0.12,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1221,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-16#1",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.6,
+      "model_probs": {
+        "T0": 0.67,
+        "T9": 0.23,
+        "T3": 0.0,
+        "T2": 0.01,
+        "T4": 0.0,
+        "T1": 0.09
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1203,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-17",
+      "truth": 4,
+      "truth_hs": false,
+      "rules": 4,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.48,
+      "model_probs": {
+        "T4": 0.25,
+        "T9": 0.57,
+        "T1": 0.01,
+        "T2": 0.02,
+        "T0": 0.0,
+        "T3": 0.15
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1220,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-17#0",
+      "truth": 9,
+      "truth_hs": false,
+      "rules": 9,
+      "rules_hs": false,
+      "rules_sufficient": false,
+      "model": 9,
+      "model_conf": 0.88,
+      "model_probs": {
+        "T2": 0.02,
+        "T1": 0.04,
+        "T3": 0.01,
+        "T4": 0.03,
+        "T0": 0.0,
+        "T9": 0.9
+      },
+      "sufficient_p": 0.07,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1225,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-17#1",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.59,
+      "model_probs": {
+        "T0": 0.17,
+        "T4": 0.01,
+        "T9": 0.66,
+        "T3": 0.01,
+        "T1": 0.12,
+        "T2": 0.03
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1216,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-18",
+      "truth": 4,
+      "truth_hs": false,
+      "rules": 4,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.57,
+      "model_probs": {
+        "T9": 0.64,
+        "T4": 0.09,
+        "T0": 0.0,
+        "T2": 0.02,
+        "T3": 0.24,
+        "T1": 0.01
+      },
+      "sufficient_p": 0.1,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1214,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-18#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.51,
+      "model_probs": {
+        "T4": 0.0,
+        "T9": 0.04,
+        "T2": 0.04,
+        "T1": 0.33,
+        "T0": 0.59,
+        "T3": 0.0
+      },
+      "sufficient_p": 0.2,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1228,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-19",
+      "truth": 1,
+      "truth_hs": false,
+      "rules": 1,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.26,
+      "model_probs": {
+        "T3": 0.0,
+        "T4": 0.0,
+        "T1": 0.38,
+        "T9": 0.02,
+        "T0": 0.33,
+        "T2": 0.27
+      },
+      "sufficient_p": 0.31,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 1,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1238,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-19#0",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.3,
+      "model_probs": {
+        "T0": 0.38,
+        "T2": 0.15,
+        "T1": 0.42,
+        "T4": 0.0,
+        "T3": 0.0,
+        "T9": 0.05
+      },
+      "sufficient_p": 0.21,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1223,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-19#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.78,
+      "model_probs": {
+        "T2": 0.01,
+        "T1": 0.16,
+        "T9": 0.01,
+        "T3": 0.0,
+        "T0": 0.82,
+        "T4": 0.0
+      },
+      "sufficient_p": 0.58,
+      "model_sufficient": true,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1232,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-19#2",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 0,
+      "model_conf": 0.75,
+      "model_probs": {
+        "T4": 0.0,
+        "T3": 0.0,
+        "T0": 0.79,
+        "T1": 0.17,
+        "T9": 0.01,
+        "T2": 0.02
+      },
+      "sufficient_p": 0.31,
+      "model_sufficient": false,
+      "relation": "agree",
+      "downgrade_blocked": false,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1216,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "exact"
+    },
+    {
+      "case_id": "S-MID-19#3",
+      "truth": 0,
+      "truth_hs": true,
+      "rules": 0,
+      "rules_hs": true,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.38,
+      "model_probs": {
+        "T9": 0.01,
+        "T4": 0.0,
+        "T3": 0.0,
+        "T2": 0.08,
+        "T0": 0.43,
+        "T1": 0.48
+      },
+      "sufficient_p": 0.27,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1232,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    },
+    {
+      "case_id": "S-MID-20",
+      "truth": 4,
+      "truth_hs": false,
+      "rules": 4,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.47,
+      "model_probs": {
+        "T9": 0.56,
+        "T4": 0.36,
+        "T1": 0.0,
+        "T3": 0.07,
+        "T0": 0.0,
+        "T2": 0.01
+      },
+      "sufficient_p": 0.08,
+      "model_sufficient": false,
+      "relation": "model_more_urgent",
+      "downgrade_blocked": false,
+      "merged_tier": 9,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1212,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "over"
+    },
+    {
+      "case_id": "S-MID-20#0",
+      "truth": 3,
+      "truth_hs": false,
+      "rules": 3,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 9,
+      "model_conf": 0.77,
+      "model_probs": {
+        "T4": 0.01,
+        "T0": 0.0,
+        "T1": 0.01,
+        "T2": 0.01,
+        "T3": 0.16,
+        "T9": 0.81
+      },
+      "sufficient_p": 0.09,
+      "model_sufficient": false,
+      "relation": "same_urgency_diff_tier",
+      "downgrade_blocked": false,
+      "merged_tier": 3,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1212,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "same_urgency"
+    },
+    {
+      "case_id": "S-MID-20#1",
+      "truth": 0,
+      "truth_hs": false,
+      "rules": 0,
+      "rules_hs": false,
+      "rules_sufficient": true,
+      "model": 1,
+      "model_conf": 0.35,
+      "model_probs": {
+        "T2": 0.05,
+        "T9": 0.08,
+        "T3": 0.0,
+        "T4": 0.0,
+        "T1": 0.46,
+        "T0": 0.41
+      },
+      "sufficient_p": 0.16,
+      "model_sufficient": false,
+      "relation": "model_less_urgent",
+      "downgrade_blocked": true,
+      "merged_tier": 0,
+      "model_version": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1220,
+        "output_tokens": 85
+      },
+      "model_vs_truth": "under"
+    }
+  ],
+  "errors": []
+}

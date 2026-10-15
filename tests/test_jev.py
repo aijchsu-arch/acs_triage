@@ -118,3 +118,10 @@ def test_key_policy():
         src = (REPO_ROOT / f).read_text(encoding="utf-8")
         assert "ANTHROPIC_API_KEY" not in src and "OPENAI_API_KEY" not in src and "TYPESAFE_API_KEY" not in src
     assert KEY_ENV == "ACS_JEV_API_KEY"
+
+
+def test_slot_state_known_mode():
+    s = slot_state({"cad_history": True, "ongoing_now": None}, "pre", "known")
+    assert s["findings"] == {"cad_history": True}
+    assert "ongoing_now" in s["not_yet_asked"] and "cad_history" not in s["not_yet_asked"]
+    assert set(s["findings"]) | set(s["not_yet_asked"]) == set(slot_defs())

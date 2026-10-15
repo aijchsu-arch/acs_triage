@@ -1,8 +1,8 @@
 """M3a 評估（D-36）：Jev 對每個 case 對話結束時的 slot 狀態判 tier 與「資訊是否足夠」，與規則引擎並列比較（shadow）。
 
-python -m sim.jev_eval [--limit N] [--workers 4] [--out reports/]
+python -m sim.jev_eval [--input all|known] [--limit N] [--workers 4] [--out reports/]
 
-產出 reports/m3a_jev_<date>[_limitN].md／.json。金鑰只讀 ACS_JEV_API_KEY（D-31），缺少時只印 MISSING。
+產出 reports/m3a_jev_<date>[_known][_limitN].md／.json（--input all 為基線，檔名不加後綴）。金鑰只讀 ACS_JEV_API_KEY（D-31），缺少時只印 MISSING。
 """
 from __future__ import annotations
 
@@ -24,8 +24,8 @@ from .run_eval import _fmt_pct, run_all
 from .runner import RunResult
 
 
-def judge(r: RunResult, cfg: dict, *, api_key: str | None = None, transport=None) -> dict:
-    ctx = json.dumps(slot_state(r.final_slots, cfg["state_preamble"].strip()), ensure_ascii=False, sort_keys=True)
+def judge(r: RunResult, cfg: dict, *, api_key: str | None = None, transport=None, input_mode: str = "all") -> dict:
+    ctx = json.dumps(slot_state(r.final_slots, cfg["state_preamble"].strip(), input_mode), ensure_ascii=False, sort_keys=True)
     jev = JevAdapter(api_key=api_key, model=cfg["model"], transport=transport, seed=r.case_id)
     tier_d, suff_d = jev.decide_many(triage_questions(cfg, ctx))
     model_tier = int(str(tier_d.answer).removeprefix("T"))
@@ -47,7 +47,7 @@ def judge(r: RunResult, cfg: dict, *, api_key: str | None = None, transport=None
     return out
 
 
-def render(rows: list[dict], errors: list[tuple[str, str]], cfg: dict) -> str:
+def render(rows: list[dict], errors: list[tuple[str, str]], cfg: dict, input_mode: str = "all") -> str:
     n = len(rows)
     rel = Counter(x["relation"] for x in rows)
     vt = Counter(x.get("model_vs_truth") for x in rows if "model_vs_truth" in x)
@@ -55,7 +55,7 @@ def render(rows: list[dict], errors: list[tuple[str, str]], cfg: dict) -> str:
     versions = sorted({x["model_version"] for x in rows})
     L = [f"# M3a：Jev vs 規則引擎（shadow）— {date.today().isoformat()}", "",
          f"- rules_version：{rules_version()}　Jev 要求 `{cfg['model']}`，回應 model_version：{', '.join(versions)}"
-         f"　questions_version：{cfg['questions_version']}",
+         f"　questions_version：{cfg['questions_version']}　輸入格式：`{input_mode}`",
          f"- cases：{n}（失敗 {len(errors)}）；輸入 = Scripted clean 對話結束時的英文 slot 狀態；分流結果仍由規則決定（D-36）", "",
          "## 摘要", "", "| 指標 | 值 |", "|---|---|",
          f"| 與規則完全一致 | {rel['agree']}/{n}（{_fmt_pct(rel['agree'] / n) if n else '—'}） |",
@@ -92,6 +92,7 @@ def render(rows: list[dict], errors: list[tuple[str, str]], cfg: dict) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--input", choices=["all", "known"], default="all")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--out", default=str(REPO_ROOT / "reports"))
@@ -107,7 +108,7 @@ def main() -> None:
 
     def one(r: RunResult):
         try:
-            return judge(r, cfg), None
+            return judge(r, cfg, input_mode=args.input), None
         except Exception as e:  # noqa: BLE001 — 單案失敗記錄後繼續
             return None, (r.case_id, f"{type(e).__name__}: {e}")
 
@@ -117,8 +118,9 @@ def main() -> None:
     errors = [e for _, e in out if e]
     outdir = Path(args.out)
     outdir.mkdir(parents=True, exist_ok=True)
-    stem = f"m3a_jev_{date.today().isoformat()}{'_limit' + str(args.limit) if args.limit else ''}"
-    (outdir / f"{stem}.md").write_text(render(rows, errors, cfg), encoding="utf-8")
+    stem = (f"m3a_jev_{date.today().isoformat()}{'' if args.input == 'all' else '_' + args.input}"
+            f"{'_limit' + str(args.limit) if args.limit else ''}")
+    (outdir / f"{stem}.md").write_text(render(rows, errors, cfg, args.input), encoding="utf-8")
     (outdir / f"{stem}.json").write_text(json.dumps({"rows": rows, "errors": errors}, ensure_ascii=False, indent=2),
                                          encoding="utf-8")
     print(json.dumps({"n": len(rows), "errors": len(errors), "relation": dict(Counter(x["relation"] for x in rows))},
