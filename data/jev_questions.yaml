@@ -1,0 +1,41 @@
+# Jev（M3a，D-36）的題目定義。輸入只有英文 slot 結構（Q-02），不送中文逐字稿。
+# 內容 = CLINICAL_RULES.md §1 等級意義＋§2 判斷原則的英文版（方案 A：給臨床原則、不給 §5 規則條文，
+# 讓模型獨立判斷，與規則引擎不一致處即潛在規則漏洞）。
+# status: draft —— Clinical Owner 審核通過前不得用於呼叫（sim/jev_eval.py 會檢查）。
+
+status: draft
+questions_version: "0.1"
+model: jev-1.13.0
+
+state_preamble: >-
+  Structured telephone-triage record from a cardiology nurse line (synthetic training case).
+  Keys are clinical findings; "unknown" means the caller has not been asked or did not know.
+
+principles: >-
+  Triage urgency, do not diagnose ACS/MI.
+  New-onset, clearly worsening, a lowered activity threshold, symptoms starting at rest,
+  or chest pain / anginal-equivalent symptoms with obvious instability usually need emergency evaluation.
+  Known CAD or prior PCI by itself is not an emergency trigger.
+  Only when the caller clearly describes a long-standing fixed pattern with no recent change,
+  no symptoms at rest, and no new dyspnea or syncope may routine follow-up be considered.
+  If the record cannot distinguish an acute change from a long-standing stable pattern, do not guess.
+  Never lower urgency because symptoms are mild, there is no literal chest pain,
+  nitroglycerin helped, or a previous ECG was reported normal.
+
+tier:
+  instructions: "Which triage tier is appropriate for this caller right now?"
+  criteria:
+    T0: "Emergency: immediate EMS / emergency department evaluation."
+    T1: "Same-day: must receive medical evaluation today."
+    T2: "Within 24-72 hours: prompt evaluation."
+    T3: "Routine: regular outpatient follow-up."
+    T4: "Self-care: education / observation with a safety net."
+    T9: "Unable to determine: the available information is insufficient to safely assign T0-T4."
+
+sufficient:
+  instructions: >-
+    Is the information in the record sufficient to safely decide how soon this caller must be seen
+    (T0-T4)? Answer independently of which tier you would choose.
+  criteria:
+    "true": "Sufficient: the decisive facts (acute change vs stable pattern, red-flag symptoms) are known."
+    "false": "Insufficient: at least one decisive fact is unknown, so a tier cannot be safely assigned."
