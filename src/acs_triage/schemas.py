@@ -93,9 +93,11 @@ class TypedQuestion(BaseModel):
     prompt: str
     choices: list[str] | None = None
     context: str = ""
+    criteria: dict[str, str] | None = None   # M3a：Jev 需要每個選項／是否的說明
 
 
 class Decision(BaseModel):
     answer: Any
     confidence: float
     model_version: str
+    probabilities: dict[str, float] | None = None   # M3a：模型回傳的機率分布（noul 為 {"true": p}）

@@ -49,6 +49,7 @@ class RunResult:
     escalating_missed: list[str] = field(default_factory=list)
     pathway_script: str = ""
     stop_reason: str = ""
+    final_slots: dict[str, Any] = field(default_factory=dict)   # M3a：對話結束時的 slot 狀態
 
     @property
     def hard_stop_latency(self) -> int | None:
@@ -124,6 +125,7 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                 audit.emit(call_id, "redflag_hit", {"rf": d.rf_hits, "turn": res.n_questions})
                 break
     res.final = d
+    res.final_slots = state.as_dict()
     audit.emit(call_id, "tier_decision", d.model_dump())
     pw = route(d, state)
     res.pathway_script = pw.script_id

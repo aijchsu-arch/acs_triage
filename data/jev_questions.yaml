@@ -1,9 +1,9 @@
 # Jev（M3a，D-36）的題目定義。輸入只有英文 slot 結構（Q-02），不送中文逐字稿。
 # 內容 = CLINICAL_RULES.md §1 等級意義＋§2 判斷原則的英文版（方案 A：給臨床原則、不給 §5 規則條文，
 # 讓模型獨立判斷，與規則引擎不一致處即潛在規則漏洞）。
-# status: draft —— Clinical Owner 審核通過前不得用於呼叫（sim/jev_eval.py 會檢查）。
+# status 必須為 approved 才能呼叫（decision/jev_adapter.load_config 會檢查）。
 
-status: draft
+status: approved   # Clinical Owner 2026-10-15 審核同意（D-36）
 questions_version: "0.1"
 model: jev-1.13.0
 
