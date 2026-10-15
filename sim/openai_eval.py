@@ -31,7 +31,7 @@ from .run_eval import _fmt_pct, run_all
 RFS = ["RF-01", "RF-02", "RF-03", "RF-04", "RF-05", "RF-06"]
 # USD / 1M tokens：input, cached input, output。來源：OpenAI 官方價目頁（2026-10-15 查證）；以帳單為準。
 PRICES = {"gpt-6.1-sol": (2.00, 0.10, 10.00)}
-DEFAULT_TRANSCRIPTS = REPO_ROOT / "reports" / "eval_2026-10-16_llm_opus-5-5_medium_transcripts.json"
+DEFAULT_TRANSCRIPTS = REPO_ROOT / "reports" / "eval_2026-10-16_llm_opus-5-5_medium_r2_transcripts.json"
 RF_SCHEMA = {"type": "object", "properties": {rf: {"type": "boolean"} for rf in RFS},
              "required": RFS, "additionalProperties": False}
 TIERS = ["T0", "T1", "T2", "T3", "T4", "T9"]
@@ -195,6 +195,8 @@ def main() -> None:
     outdir = Path(args.out)
     outdir.mkdir(parents=True, exist_ok=True)
     stem = f"m3b_openai_{date.today().isoformat()}_{model}{'_limit' + str(args.limit) if args.limit else ''}"
+    if (outdir / f"{stem}.md").exists():          # 同日同設定重跑：加 _r2、_r3…，不覆蓋舊報告
+        stem = next(f"{stem}_r{i}" for i in range(2, 1000) if not (outdir / f"{stem}_r{i}.md").exists())
     (outdir / f"{stem}.md").write_text("\n".join(L), encoding="utf-8")
     (outdir / f"{stem}.json").write_text(json.dumps({"rf": rf_rows, "rf_summary": rf_sum, "tier": tier_rows, "estimate": est,
                                                      "errors": errors}, ensure_ascii=False, indent=2), encoding="utf-8")

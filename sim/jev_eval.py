@@ -120,6 +120,8 @@ def main() -> None:
     outdir.mkdir(parents=True, exist_ok=True)
     stem = (f"m3a_jev_{date.today().isoformat()}_{args.input}"
             f"{'_limit' + str(args.limit) if args.limit else ''}")
+    if (outdir / f"{stem}.md").exists():          # 同日同設定重跑：加 _r2、_r3…，不覆蓋舊報告
+        stem = next(f"{stem}_r{i}" for i in range(2, 1000) if not (outdir / f"{stem}_r{i}.md").exists())
     (outdir / f"{stem}.md").write_text(render(rows, errors, cfg, args.input), encoding="utf-8")
     (outdir / f"{stem}.json").write_text(json.dumps({"rows": rows, "errors": errors}, ensure_ascii=False, indent=2),
                                          encoding="utf-8")
