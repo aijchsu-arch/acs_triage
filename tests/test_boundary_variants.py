@@ -17,7 +17,7 @@ def test_variant(engine, sc, var):
     exp = var["expect"]
     if exp.get("tier") is None:
         pytest.skip(f"{sc['id']} 變體目標 tier 未定：{var.get('note')}")
-    slots = extract(sc["opening_zh"])
+    slots = extract(var.get("opening_zh", sc["opening_zh"]))   # D-35：變體可帶專用開場白
     for k, v in sc.get("hidden_slots", {}).items():
         if v is not None:
             slots[k] = v
@@ -30,4 +30,4 @@ def test_variant(engine, sc, var):
 
 
 def test_variant_count():
-    assert len(CASES) == 80   # D-35：刪除 S-MID-03#1
+    assert len(CASES) == 81   # D-35：刪除 S-MID-03#1、新增 S-MID-13#3

@@ -369,6 +369,10 @@ scenarios:
       - override: {exertion_relation: exertion_only, onset_new: true, last_episode_timing: today}
         expect: {tier: 0, hard_stop: false}
         note: "carve-out 條件不成立 → 回一般規則"
+      - override: {postprandial_relieved: false, rest_symptom: true}
+        opening_zh: "我有冠心症，剛剛吃太飽胸口脹脹的，打嗝也沒有比較好，悶了一陣子才慢慢退，現在沒事了，想確認要不要去急診。"
+        expect: {tier: 0, hard_stop: false}
+        note: "D-35：餐後不適未快速緩解 → rest_symptom=true；A5 首次（或未答）→ T0"
 
   - id: S-MID-14
     source: B14

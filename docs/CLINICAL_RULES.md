@@ -1,6 +1,6 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.5.0 · 2026-10-14（Q-14d C、Q-15）
+**rules_version**: 0.5.1 · 2026-10-15（D-35：`rest_symptom` 餐後判定定義；判定邏輯不變）
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 
@@ -96,6 +96,7 @@ T0 永遠先於其他等級評估；§5.6 的 T3 carve-out 只在 **T0 條件全
   - **時序與豁免（Q-14d C）**：非缺血型豁免（§5.6 刺痛可重現、刺痛咳嗽、上腹餐後）不論時序一律適用、不進 T0；勞累型豁免（DV-2 新發穩定 ≥2 週、DV-4 PCI 後較輕）**只在時序不明時**適用——病人明確說今天或仍在發作 → T0。
 - `threshold_decreased == true` 且 `threshold_decrease_timescale ∈ {days, unknown}`（C3 B；A2）
 - `rest_symptom == true` 且 `rest_symptom_first_time == true`（新發休息時症狀；A5）
+  - **`rest_symptom` 餐後判定（D-35）**：吃飽後胸口不適，**快速緩解**（如打嗝後就好）不算 `rest_symptom`（可適用 §5.6 DV-5 carve-out）；**沒有快速緩解** → `rest_symptom = true`，依本條判定（首次 → T0）。
 - `dyspnea_acute == true`（今日突發且與基線明顯不同；A3）
 - `ntg_use_increased == true`（NTG 用量明顯增加，即使仍為勞累性；C4 A；B3）。指**既有型態下**用量增加；新發病人首次使用不算（B19）(DV-6)
 - `orthopnea_pnd == true`（端坐呼吸／PND；C1 B；B11）

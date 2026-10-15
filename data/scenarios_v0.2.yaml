@@ -234,6 +234,7 @@ scenarios:
       - override: {threshold_decreased: true}
         expect: {tier: 0, hard_stop: false}
       - override: {pattern_unchanged_duration_months: null}
+        opening_zh: "我有冠心症，快走上坡時偶爾會胸悶，以前就有過，不記得多久了。"   # D-35：原開場白含「兩年來都一樣」與本變體矛盾
         expect: {tier: 9, hard_stop: false}
 
   - id: S-STABLE-02

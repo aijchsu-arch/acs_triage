@@ -12,7 +12,7 @@ def clean():
 
 def test_case_expansion_counts():
     cases = all_cases()
-    assert len(cases) == 118                       # D-35：刪除 S-MID-03#1
+    assert len(cases) == 119                       # D-35：刪除 S-MID-03#1、新增 S-MID-13#3
     assert sum(1 for c in cases if not c.is_variant) == 38
     assert sum(1 for c in cases if c.truth_tier is None) == 3
 
@@ -26,7 +26,7 @@ def test_clean_hard_stop_safety(clean):
     assert m.rf_mismatch == []
 
 
-ESCALATING_FLOOR = 0.9654  # D-35 基線 96.55%（503/521）；D-29 為 512/530，差異僅為刪除 S-MID-03#1（9/9 全覆蓋）
+ESCALATING_FLOOR = 0.9654  # D-35 基線 96.57%（507/525）；D-29 為 512/530，差異 = 刪除 S-MID-03#1（−9/9）＋新增 S-MID-13#3（+4/4）
 
 
 def test_clean_no_under_triage_and_exact(clean):
