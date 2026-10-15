@@ -30,4 +30,4 @@ def test_variant(engine, sc, var):
 
 
 def test_variant_count():
-    assert len(CASES) == 81
+    assert len(CASES) == 80   # D-35：刪除 S-MID-03#1

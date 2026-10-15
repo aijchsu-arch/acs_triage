@@ -36,7 +36,7 @@
 - `tests/test_boundary_variants.py`：兩份情境檔的每個 `boundary_variants`，以 `hidden_slots` + `override` 直接餵規則引擎 → `provisional_tier`／`hard_stop`／`rf` 等於 `expect`。`expect.tier: null` 的變體跳過並列印。
 - 規則中標 `[derived DV-n]` 的門檻（`CLINICAL_RULES.md §9.2`）照寫，但在程式碼註解標 `# DV-n pending`，Clinical Owner 確認後移除；`(DV-n)` 已確認，照一般規則處理。
 - `pytest` 不綠不交付。
-- **每次改規則（`data/clinical_rules.yaml` 或 `src/acs_triage/rules/`）都要跑 LLM 病人評估**（D-34）：`pytest` 全綠後執行 `python -m sim.run_llm_eval`（預設 `claude-opus-5-5` effort medium，約 US$3–4、3.5 分鐘；金鑰見 D-31），報告 commit 進 `reports/`。Hard-stop miss 與 under-triage 必須為 0；報告「與 Scripted 不同的 case」須逐一說明原因。不得為了省錢改用其他模型交差；Haiku 只用於改程式後的冒煙測試（`--limit`）。
+- **每次改規則（`data/clinical_rules.yaml`、`src/acs_triage/rules/`、題庫 `data/question_bank_seed.yaml`、Prompter `src/acs_triage/prompter/`）都要跑 LLM 病人評估**（D-34）：`pytest` 全綠後執行 `python -m sim.run_llm_eval`（預設 `claude-opus-5-5` effort medium，約 US$3–4、3.5 分鐘；金鑰見 D-31），報告 commit 進 `reports/`。Hard-stop miss 與 under-triage 必須為 0；報告「與 Scripted 不同的 case」須逐一說明原因。不得為了省錢改用其他模型交差；Haiku 只用於改程式後的冒煙測試（`--limit`）。
 
 ## 版本紀律
 - 改 `data/clinical_rules.yaml` → bump `rules_version`，並在 `docs/CLINICAL_RULES.md` 頂部同步。

@@ -92,8 +92,7 @@ scenarios:
     boundary_variants:
       - override: {ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}
-      - override: {ntg_use_increased: false, pattern_unchanged_duration_months: 12}
-        expect: {tier: 3, hard_stop: false}
+      # 原 variant {ntg_use_increased: false, pattern_unchanged_duration_months: 12} → T3 已刪除（D-35）：與開場白「舌下片用量增加」矛盾
 
   - id: S-MID-04
     source: B4

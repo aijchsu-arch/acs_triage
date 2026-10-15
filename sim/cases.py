@@ -5,6 +5,7 @@
 - truth: {tier, hard_stop, rf}  —— e2e 的期望（base 用 truth_*；變體用 expect）
 - slots: 病人「知道」的全部事實 = extract(opening) ∪ hidden_slots ∪ override
 - reset_slots: 變體 override 的 key —— runner 初始狀態要把它們設回未知，讓資訊只能靠問出來
+- 變體可帶自己的 opening_zh（D-35）：開場白與變體事實矛盾時使用；該變體的事實改由 extract(變體開場白) 起算
 - persona: normal | vague
 - decisive_questions：由 sim/decisive.py 依 case 的完整事實計算（答案會改變分流結果的題目），
   base 與每個變體各自計算；情境檔 YAML 的同名欄位只是 base 的紀錄，由 tests/test_decisive.py 確保一致。
@@ -55,12 +56,16 @@ def _decisive_fields(slots: dict[str, Any]) -> dict[str, list[str]]:
     return {"decisive_questions": list(c), "escalating_questions": [q for q, d in c.items() if "up" in d]}
 
 
-def expand_scenario(sc: dict[str, Any]) -> list[Case]:
-    base = extract(sc["opening_zh"])
+def _base_slots(sc: dict[str, Any], opening: str) -> dict[str, Any]:
+    base = extract(opening)
     for k, v in sc.get("hidden_slots", {}).items():
         if v is not None:
             base[k] = v
-    base = _complete(base)
+    return _complete(base)
+
+
+def expand_scenario(sc: dict[str, Any]) -> list[Case]:
+    base = _base_slots(sc, sc["opening_zh"])
     persona = sc.get("persona", "normal")
     module = sc.get("module", sc.get("_file", ""))
     cases = [Case(id=sc["id"], scenario_id=sc["id"], opening_zh=sc["opening_zh"],
@@ -69,12 +74,13 @@ def expand_scenario(sc: dict[str, Any]) -> list[Case]:
                   **_decisive_fields(base))]
     for i, var in enumerate(sc.get("boundary_variants", [])):
         exp = var["expect"]
-        slots = dict(base)
+        opening = var.get("opening_zh", sc["opening_zh"])
+        slots = dict(base) if opening == sc["opening_zh"] else _base_slots(sc, opening)
         slots.update(var["override"])
         if any(k in var["override"] for k in ("palpitations", "postural_dizziness", "pending_abnormal_test")):
             slots.pop("consult_screen_positive", None)
         slots = _complete(slots)
-        cases.append(Case(id=f"{sc['id']}#{i}", scenario_id=sc["id"], opening_zh=sc["opening_zh"],
+        cases.append(Case(id=f"{sc['id']}#{i}", scenario_id=sc["id"], opening_zh=opening,
                           truth_tier=exp.get("tier"), truth_hard_stop=bool(exp.get("hard_stop", False)),
                           truth_rf=exp.get("rf"), slots=slots, reset_slots=list(var["override"].keys()),
                           persona="normal", **_decisive_fields(slots),
