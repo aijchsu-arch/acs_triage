@@ -1,8 +1,8 @@
 """M3a 評估（D-36）：Jev 對每個 case 對話結束時的 slot 狀態判 tier 與「資訊是否足夠」，與規則引擎並列比較（shadow）。
 
-python -m sim.jev_eval [--input all|known] [--limit N] [--workers 4] [--out reports/]
+python -m sim.jev_eval [--input known|all] [--limit N] [--workers 4] [--out reports/]
 
-產出 reports/m3a_jev_<date>[_known][_limitN].md／.json（--input all 為基線，檔名不加後綴）。金鑰只讀 ACS_JEV_API_KEY（D-31），缺少時只印 MISSING。
+產出 reports/m3a_jev_<date>_<input>[_limitN].md／.json。預設 known（D-37）；all 為 M3a 基線格式。金鑰只讀 ACS_JEV_API_KEY（D-31），缺少時只印 MISSING。
 """
 from __future__ import annotations
 
@@ -92,7 +92,7 @@ def render(rows: list[dict], errors: list[tuple[str, str]], cfg: dict, input_mod
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--input", choices=["all", "known"], default="all")
+    ap.add_argument("--input", choices=["known", "all"], default="known")   # D-37
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--out", default=str(REPO_ROOT / "reports"))
@@ -118,7 +118,7 @@ def main() -> None:
     errors = [e for _, e in out if e]
     outdir = Path(args.out)
     outdir.mkdir(parents=True, exist_ok=True)
-    stem = (f"m3a_jev_{date.today().isoformat()}{'' if args.input == 'all' else '_' + args.input}"
+    stem = (f"m3a_jev_{date.today().isoformat()}_{args.input}"
             f"{'_limit' + str(args.limit) if args.limit else ''}")
     (outdir / f"{stem}.md").write_text(render(rows, errors, cfg, args.input), encoding="utf-8")
     (outdir / f"{stem}.json").write_text(json.dumps({"rows": rows, "errors": errors}, ensure_ascii=False, indent=2),
