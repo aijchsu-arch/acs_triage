@@ -76,3 +76,17 @@ def test_key_policy_and_prompt_matches_rules():
                  "呼吸困難到**無法完整說完一句話**，或口唇發紺", "真正**意識喪失**（任何心臟相關症狀脈絡下）",
                  "胸部不適／缺血等價症狀 **合併明顯冒汗**（diaphoresis）"]:
         assert cond in rules and cond in prompt   # 紅旗條件逐字取自 CLINICAL_RULES §3
+
+
+def test_slot_grade_and_schema():
+    from acs_triage.loaders import question_by_id
+    from sim.openai_slots import grade, slot_schema, turns
+    assert grade(True, True) == "correct" and grade(10, 10.0) == "correct"
+    assert grade(None, "unknown") == "unknown_equiv" and grade("unknown", None) == "unknown_equiv"
+    assert grade(True, None) == "missed" and grade(None, False) == "invented" and grade(True, False) == "wrong"
+    qb = question_by_id()
+    s = slot_schema(qb["Q-DYSPNEA-GRADE-01"])
+    assert s["additionalProperties"] is False and "none" in s["properties"]["answer"]["enum"]
+    tr = [{"case_id": "X", "opening_zh": "o", "turns": [{"q": "Q-ONGOING-01", "value": True, "utterance_zh": "還在。"}]}]
+    assert turns(tr, None) == [{"case_id": "X", "turn": 1, "q": "Q-ONGOING-01", "slot": "ongoing_now", "priority": "redflag",
+                                "answer_type": "yes_no", "utterance_zh": "還在。", "truth": True}]

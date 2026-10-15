@@ -23,3 +23,19 @@ redflag_system_zh: |
 redflag_user_zh: |
   開場白：「{opening_zh}」
   {dialogue}
+
+# slot 抽取（M3b）：客服問一題、病人回答一句 → 該題 slot 的結構化值。以下為操作說明，非臨床規則。
+slot_system_zh: |
+  你是心臟科電話衛教專線的紀錄員（模擬訓練，資料全為虛構）。客服剛問了一題，病人（或家屬）回答了。
+  請把病人這句回答轉成該題的結構化答案。
+  規則：
+  1. 只依病人這句話判斷，不要推測沒說的事。
+  2. 病人沒有回答這題、說不知道、或答非所問 → dont_know=true（answer 隨便填一個合法值，會被忽略）。
+  3. 選擇題若有「unknown（不記得）」選項，病人說不記得、記不清楚 → 選 unknown，dont_know=false。
+  4. 是非題 answer 填 true／false；選擇題從選項代碼中挑一個；時間長度題填數字，單位依欄位名稱（_min 分鐘、_months 月、_weeks_ago 週）。
+
+slot_user_zh: |
+  欄位：{slot_id}（{answer_type}）
+  {choices}
+  客服：{question_zh}
+  病人：{utterance_zh}
