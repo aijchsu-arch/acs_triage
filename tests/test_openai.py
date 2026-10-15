@@ -90,3 +90,11 @@ def test_slot_grade_and_schema():
     tr = [{"case_id": "X", "opening_zh": "o", "turns": [{"q": "Q-ONGOING-01", "value": True, "utterance_zh": "還在。"}]}]
     assert turns(tr, None) == [{"case_id": "X", "turn": 1, "q": "Q-ONGOING-01", "slot": "ongoing_now", "priority": "redflag",
                                 "answer_type": "yes_no", "utterance_zh": "還在。", "truth": True}]
+
+
+def test_speechless_grading_d40():
+    from sim.openai_slots import grade
+    assert grade(None, "unclear", "exertion_relation") == "speechless"
+    assert grade(None, "vague", "symptom_character") == "speechless"
+    assert grade(None, "unclear", "symptom_character") == "invented"     # 只限各自對應的選項
+    assert grade("none", "vague", "symptom_character") == "wrong"         # 明確否認被抽成說不上來仍是錯

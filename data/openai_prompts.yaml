@@ -2,7 +2,7 @@
 # 逐句紅旗：紅旗定義逐字取自 docs/CLINICAL_RULES.md §3（rules 0.5.1），不得在此改寫；規則改版時同步更新。
 # 分級：沿用 data/jev_questions.yaml（已核可）的英文題目與第二版輸入（D-37），以便與 Jev 對照。
 
-prompts_version: "0.2"   # 0.2：RF-02 備註補回「不得因疑似焦慮下修」（0.1 遺漏；D-38 結果為 0.1）
+prompts_version: "0.3"   # 0.2：RF-02 備註補回「不得因疑似焦慮下修」（0.1 遺漏）；0.3：slot 抽取「說不上來」→ unclear／vague（D-40）
 model: gpt-6.1-sol
 reasoning_effort: medium
 
@@ -32,6 +32,8 @@ slot_system_zh: |
   1. 只依病人這句話判斷，不要推測沒說的事。
   2. 病人沒有回答這題、說不知道、或答非所問 → dont_know=true（answer 隨便填一個合法值，會被忽略）。
   3. 選擇題若有「unknown（不記得）」選項，病人說不記得、記不清楚 → 選 unknown，dont_know=false。
+  3b. 病人表示「說不上來」「講不出來」（有這個狀況，但描述不出它的性質或時機）→ 若該欄有 unclear（不太清楚）或 vague（說不上來）選項，選它，dont_know=false。
+      病人表示不知道、沒注意、沒留意 → 仍依規則 2（dont_know=true）。
   4. 是非題 answer 填 true／false；選擇題從選項代碼中挑一個；時間長度題填數字，單位依欄位名稱（_min 分鐘、_months 月、_weeks_ago 週）。
 
 slot_user_zh: |

@@ -22,6 +22,11 @@ class SlotState:
             asked_by: str | None = None, confidence: float = 1.0) -> None:
         if slot_id not in self._defs:
             raise KeyError(f"unknown slot: {slot_id}")
+        if self.get(slot_id) != value:
+            # 來源值改變（含變體把它設回未知）→ 由它衍生、且之後未被明確回答的值失去依據，一併清除
+            prefix = f"derived:{slot_id}="
+            for k in [k for k, sv in self._values.items() if (sv.source_segment_id or "").startswith(prefix)]:
+                del self._values[k]
         self._values[slot_id] = SlotValue(slot_id=slot_id, value=value, confidence=confidence,
                                           source_segment_id=source, asked_by_question_id=asked_by)
         self._derive(slot_id, value, source)

@@ -52,9 +52,15 @@ def norm(v: Any) -> Any:
     return float(v) if isinstance(v, (int, float)) and not isinstance(v, bool) else v
 
 
-def grade(truth: Any, pred: Any) -> str:
+SPEECHLESS = {"exertion_relation": "unclear", "symptom_character": "vague"}   # D-40：「說不上來」記為此選項
+
+
+def grade(truth: Any, pred: Any, slot: str | None = None) -> str:
     if norm(truth) == norm(pred):
         return "correct"
+    if truth is None and slot in SPEECHLESS and pred == SPEECHLESS[slot]:
+        return "speechless"               # D-40 前的逐字稿把「說不上來」記成不知道；依裁定抽成 unclear／vague
+
     if {truth, pred} <= {None, "unknown"}:
         return "unknown_equiv"            # 「不知道」與「不記得」互換
     if pred is None or pred == "unknown":
@@ -106,8 +112,8 @@ def main() -> None:
             return None, (f"{it['case_id']}#t{it['turn']}", f"{type(e).__name__}: {e}")
         pred = None if obj["dont_know"] else obj["answer"]
         rule = extract(it["utterance_zh"]).get(it["slot"])
-        return {**it, "pred": pred, "rule_pred": rule, "grade": grade(it["truth"], pred),
-                "rule_grade": grade(it["truth"], rule), "usage": usage, "model": m}, None
+        return {**it, "pred": pred, "rule_pred": rule, "grade": grade(it["truth"], pred, it["slot"]),
+                "rule_grade": grade(it["truth"], rule, it["slot"]), "usage": usage, "model": m}, None
 
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
         out = list(ex.map(one, items))
@@ -130,16 +136,21 @@ def main() -> None:
          f"- 模型：`{model}` effort={effort}，回應 model：{', '.join(sorted({r['model'] for r in rows}))}；prompts_version {cfg['prompts_version']}",
          f"- 輪數 {n}（錯誤 {len(errors)}）；正確答案 = M2b Opus 病人逐字稿每輪的結構化答案", "",
          "## 總覽", "", "| 結果 | OpenAI | 關鍵詞抽取器 |", "|---|---|---|"]
-    for k, label in [("correct", "正確"), ("unknown_equiv", "「不知道」⇄「不記得」互換"), ("missed", "漏抽（病人有答，判成不知道）"),
+    for k, label in [("correct", "正確"), ("unknown_equiv", "「不知道」⇄「不記得」互換"),
+                     ("speechless", "「說不上來」→ unclear／vague（D-40，非錯誤，逐句列於下）"), ("missed", "漏抽（病人有答，判成不知道）"),
                      ("wrong", "抽錯值"), ("invented", "多抽（病人沒答，卻抽出值）")]:
         L.append(f"| {label} | {g[k]}（{_fmt_pct(g[k] / n) if n else '—'}） | {rg[k]}（{_fmt_pct(rg[k] / n) if n else '—'}） |")
     L += ["", f"- **紅旗題中病人答「有」**：{len(rf_pos)} 輪；OpenAI 未抽成「有」{len(rf_pos_miss)}；關鍵詞抽取器 {len(rf_pos_miss_rule)}", "",
           "## OpenAI 依題型", "", "| 題型 | 正確 | 互換 | 漏抽 | 抽錯 | 多抽 |", "|---|---|---|---|---|---|"]
     for t, c in sorted(by_type.items()):
         L.append(f"| {t} | {c['correct']} | {c['unknown_equiv']} | {c['missed']} | {c['wrong']} | {c['invented']} |")
-    L += ["", "## OpenAI 非正確的輪（互換除外）", ""]
+    L += ["", "## 「說不上來」→ unclear／vague 的輪（D-40；請確認病人原話確為說不上來）", ""]
     for r in rows:
-        if r["grade"] not in ("correct", "unknown_equiv"):
+        if r["grade"] == "speechless":
+            L.append(f"- {r['case_id']} 第 {r['turn']} 輪 {r['q']}（{r['slot']}）→ {r['pred']}｜{r['utterance_zh']}")
+    L += ["", "## OpenAI 非正確的輪（互換、說不上來除外）", ""]
+    for r in rows:
+        if r["grade"] not in ("correct", "unknown_equiv", "speechless"):
             L.append(f"- {r['case_id']} 第 {r['turn']} 輪 {r['q']}（{r['slot']}）：正確 {r['truth']}／抽出 {r['pred']}（{r['grade']}）｜{r['utterance_zh']}")
     L += ["", "## 費用（依牌價估算，以帳單為準）", "",
           f"- 本次 US${cost:.4f}；每輪平均 US${cost / max(n, 1):.5f}；**全量 {full_n} 輪推估 US${cost / max(n, 1) * full_n:.2f}**", "",

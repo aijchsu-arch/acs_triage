@@ -31,7 +31,7 @@ from .run_eval import _fmt_pct, run_all
 RFS = ["RF-01", "RF-02", "RF-03", "RF-04", "RF-05", "RF-06"]
 # USD / 1M tokens：input, cached input, output。來源：OpenAI 官方價目頁（2026-10-15 查證）；以帳單為準。
 PRICES = {"gpt-6.1-sol": (2.00, 0.10, 10.00)}
-DEFAULT_TRANSCRIPTS = REPO_ROOT / "reports" / "eval_2026-10-15_llm_opus-5-5_medium_r4_transcripts.json"
+DEFAULT_TRANSCRIPTS = REPO_ROOT / "reports" / "eval_2026-10-16_llm_opus-5-5_medium_transcripts.json"
 RF_SCHEMA = {"type": "object", "properties": {rf: {"type": "boolean"} for rf in RFS},
              "required": RFS, "additionalProperties": False}
 TIERS = ["T0", "T1", "T2", "T3", "T4", "T9"]
