@@ -1,6 +1,6 @@
 {
   "total_flips": 1214,
-  "under": 147,
+  "under": 146,
   "transitions": {
     "T0→T9": 83,
     "HS→T9": 29,
@@ -12,7 +12,6 @@
     "T0→T3": 2,
     "T0→T1": 2,
     "T1→T4": 2,
-    "T1→T2": 1,
     "T1→T9": 1
   },
   "severe": [
@@ -85,7 +84,7 @@
       "priority": "decisive"
     },
     "Q-DYSPNEA-GRADE-01": {
-      "under": 20,
+      "under": 19,
       "total": 305,
       "priority": "redflag"
     },

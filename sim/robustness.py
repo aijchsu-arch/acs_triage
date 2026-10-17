@@ -42,7 +42,7 @@ def flip_sensitivity(results: list[RunResult]) -> dict[str, Any]:
     for r in results:
         if r.truth_tier is None:
             continue
-        st0 = SlotState(r.final_slots)
+        st0 = r.final_state if r.final_state is not None else SlotState(r.final_slots)
         d0 = engine.decide(st0)
         u0 = _urgency(d0, st0)
         for t in r.turns:
@@ -50,9 +50,8 @@ def flip_sensitivity(results: list[RunResult]) -> dict[str, Any]:
             for alt in answer_values(q):
                 if alt == t.answer:
                     continue
-                s = dict(r.final_slots)
-                s[q.slot_id] = alt
-                st = SlotState(s)
+                st = st0.copy()                      # 保留來源：改答案時由它推導的值會一併清除（同真實 SlotState.set）
+                st.set(q.slot_id, alt, source="flip", asked_by=q.id)
                 d = engine.decide(st)
                 total += 1
                 by_q[q.id]["total"] += 1
@@ -65,9 +64,8 @@ def flip_sensitivity(results: list[RunResult]) -> dict[str, Any]:
                                        "transition": f"{_label(d0)}→{_label(d)}"})
             if q.priority == "redflag" and t.answer is True:
                 rf_yes_no[q.id][1] += 1
-                s = dict(r.final_slots)
-                s[q.slot_id] = False
-                st = SlotState(s)
+                st = st0.copy()
+                st.set(q.slot_id, False, source="flip", asked_by=q.id)
                 if _urgency(engine.decide(st), st) > u0:
                     rf_yes_no[q.id][0] += 1
     return {"total_flips": total, "under": under,

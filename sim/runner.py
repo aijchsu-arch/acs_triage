@@ -51,6 +51,7 @@ class RunResult:
     pathway_script: str = ""
     stop_reason: str = ""
     final_slots: dict[str, Any] = field(default_factory=dict)   # M3a：對話結束時的 slot 狀態
+    final_state: Any = None                                      # D-42：含來源的 SlotState 副本（翻轉測試需保留推導語意）
 
     @property
     def hard_stop_latency(self) -> int | None:
@@ -127,6 +128,7 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                 break
     res.final = d
     res.final_slots = state.as_dict()
+    res.final_state = state.copy()
     audit.emit(call_id, "tier_decision", d.model_dump())
     pw = route(d, state)
     res.pathway_script = pw.script_id

@@ -957,6 +957,8 @@
     }
   ],
   "latency": [],
+  "premature": [],
+  "asked_only": false,
   "slot_rows": [
     {
       "case_id": "S-ACUTE-01",
