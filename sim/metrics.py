@@ -28,6 +28,7 @@ class Metrics:
     escalating_hit: int = 0
     escalating_total: int = 0
     escalating_missed: list[tuple[str, str, int, str]] = field(default_factory=list)  # (case, qid, final tier, stop)
+    escalating_missed_strict: list[tuple[str, str, int, str]] = field(default_factory=list)  # D-42：推導值不算已知
     questions: list[int] = field(default_factory=list)
     repeats: int = 0
     stop_reasons: Counter = field(default_factory=Counter)
@@ -61,6 +62,10 @@ class Metrics:
         return self.escalating_hit / self.escalating_total if self.escalating_total else 1.0
 
     @property
+    def escalating_recall_strict(self) -> float:
+        return (self.escalating_total - len(self.escalating_missed_strict)) / self.escalating_total if self.escalating_total else 1.0
+
+    @property
     def abstention_precision(self) -> float:
         d = self.abstain_tp + len(self.abstain_fp)
         return self.abstain_tp / d if d else 1.0
@@ -87,6 +92,8 @@ class Metrics:
                            "precision": self.abstention_precision, "recall": self.abstention_recall},
             "escalating_recall": self.escalating_recall,
             "escalating": {"hit": self.escalating_hit, "total": self.escalating_total, "missed": self.escalating_missed},
+            "escalating_recall_strict": self.escalating_recall_strict,
+            "escalating_missed_strict": self.escalating_missed_strict,
             "decisive_recall": self.decisive_recall,
             "questions_to_decision_mean": self.mean_questions,
             "gate_repeats": self.repeats,
@@ -108,6 +115,7 @@ def compute(results: list[RunResult]) -> Metrics:
         m.escalating_hit += r.escalating_asked_or_known
         m.escalating_total += r.escalating_total
         m.escalating_missed += [(r.case_id, q, r.final.tier, r.stop_reason) for q in r.escalating_missed]
+        m.escalating_missed_strict += [(r.case_id, q, r.final.tier, r.stop_reason) for q in r.escalating_missed_strict]
         if r.truth_tier is None:
             continue
         m.n_scored += 1

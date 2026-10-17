@@ -56,6 +56,11 @@ class SlotState:
     def known(self, slot_id: str) -> bool:
         return self.get(slot_id) is not None
 
+    def is_derived(self, slot_id: str) -> bool:
+        """值只由其他 slot 推導而來（未被明確回答或抽取）。"""
+        sv = self._values.get(slot_id)
+        return sv is not None and (sv.source_segment_id or "").startswith("derived:")
+
     def update(self, values: dict[str, Any], *, source: str, skip_none: bool = False) -> None:
         for k, v in values.items():
             if v is None and skip_none:

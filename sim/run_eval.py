@@ -53,6 +53,7 @@ def render_md(mode: str, seed: int, results: list[RunResult], m: Metrics,
     L.append(f"| Over-triage rate | {_fmt_pct(m.over_triage_rate)}（{len(m.over_triage)}） | 記錄 |")
     L.append(f"| Tier exact accuracy | {_fmt_pct(m.exact_rate)} | 記錄 |")
     L.append(f"| Escalating-question recall（答案可能使分流更急的題目） | {_fmt_pct(m.escalating_recall)}（{m.escalating_hit}/{m.escalating_total}） | ≥ 90% |")
+    L.append(f"| Escalating recall（嚴格：由否認推導出的值不算已知，D-42） | {_fmt_pct(m.escalating_recall_strict)}（{m.escalating_total - len(m.escalating_missed_strict)}/{m.escalating_total}） | 記錄 |")
     L.append(f"| Decisive-question recall（答案會改變分流的題目，含只會降級者） | {_fmt_pct(m.decisive_recall)}（{m.decisive_hit}/{m.decisive_total}） | 記錄 |")
     L.append(f"| Abstention precision / recall | {_fmt_pct(m.abstention_precision)} / {_fmt_pct(m.abstention_recall)} | 記錄 |")
     L.append(f"| Questions-to-decision（平均） | {m.mean_questions:.1f} | 記錄 |")

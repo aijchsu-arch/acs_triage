@@ -47,6 +47,7 @@ class RunResult:
     escalating_asked_or_known: int = 0
     escalating_total: int = 0
     escalating_missed: list[str] = field(default_factory=list)
+    escalating_missed_strict: list[str] = field(default_factory=list)   # D-42：推導值不算已知
     pathway_script: str = ""
     stop_reason: str = ""
     final_slots: dict[str, Any] = field(default_factory=dict)   # M3a：對話結束時的 slot 狀態
@@ -141,4 +142,6 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
     res.escalating_total = len(case.escalating_questions)
     res.escalating_missed = [qid for qid in case.escalating_questions if not covered(qid)]
     res.escalating_asked_or_known = res.escalating_total - len(res.escalating_missed)
+    res.escalating_missed_strict = [qid for qid in case.escalating_questions
+                                    if not (qid in asked or (state.known(qb[qid].slot_id) and not state.is_derived(qb[qid].slot_id)))]
     return res

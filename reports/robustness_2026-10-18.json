@@ -1,0 +1,230 @@
+{
+  "total_flips": 1214,
+  "under": 147,
+  "transitions": {
+    "T0→T9": 83,
+    "HS→T9": 29,
+    "HS→T0": 14,
+    "T0→T4": 4,
+    "T9→T9": 3,
+    "T1→T3": 3,
+    "T3→T4": 3,
+    "T0→T3": 2,
+    "T0→T1": 2,
+    "T1→T4": 2,
+    "T1→T2": 1,
+    "T1→T9": 1
+  },
+  "severe": [
+    {
+      "case_id": "S-STABLE-03#0",
+      "question_id": "Q-CHARACTER-01",
+      "answer": "pressure",
+      "flipped_to": "other",
+      "transition": "T0→T3"
+    },
+    {
+      "case_id": "S-STABLE-03#0",
+      "question_id": "Q-CHARACTER-01",
+      "answer": "pressure",
+      "flipped_to": "none",
+      "transition": "T0→T3"
+    },
+    {
+      "case_id": "S-MID-09#0",
+      "question_id": "Q-CHARACTER-01",
+      "answer": "pressure",
+      "flipped_to": "other",
+      "transition": "T0→T1"
+    },
+    {
+      "case_id": "S-MID-09#0",
+      "question_id": "Q-CHARACTER-01",
+      "answer": "pressure",
+      "flipped_to": "none",
+      "transition": "T0→T1"
+    },
+    {
+      "case_id": "S-MID-18#0",
+      "question_id": "Q-CHARACTER-01",
+      "answer": "jaw_shoulder_heaviness",
+      "flipped_to": "other",
+      "transition": "T0→T4"
+    },
+    {
+      "case_id": "S-MID-18#0",
+      "question_id": "Q-CHARACTER-01",
+      "answer": "jaw_shoulder_heaviness",
+      "flipped_to": "none",
+      "transition": "T0→T4"
+    },
+    {
+      "case_id": "S-MID-20#1",
+      "question_id": "Q-CHARACTER-01",
+      "answer": "pressure",
+      "flipped_to": "other",
+      "transition": "T0→T4"
+    },
+    {
+      "case_id": "S-MID-20#1",
+      "question_id": "Q-CHARACTER-01",
+      "answer": "pressure",
+      "flipped_to": "none",
+      "transition": "T0→T4"
+    }
+  ],
+  "by_question": {
+    "Q-TIMING-01": {
+      "under": 32,
+      "total": 147,
+      "priority": "decisive"
+    },
+    "Q-CHARACTER-01": {
+      "under": 26,
+      "total": 127,
+      "priority": "decisive"
+    },
+    "Q-DYSPNEA-GRADE-01": {
+      "under": 20,
+      "total": 305,
+      "priority": "redflag"
+    },
+    "Q-ONSET-01": {
+      "under": 14,
+      "total": 44,
+      "priority": "decisive"
+    },
+    "Q-ONGOING-01": {
+      "under": 10,
+      "total": 80,
+      "priority": "redflag"
+    },
+    "Q-REST-01": {
+      "under": 9,
+      "total": 50,
+      "priority": "decisive"
+    },
+    "Q-EXERTION-01": {
+      "under": 9,
+      "total": 47,
+      "priority": "decisive"
+    },
+    "Q-THRESH-TIME-01": {
+      "under": 5,
+      "total": 12,
+      "priority": "decisive"
+    },
+    "Q-DIAPH-01": {
+      "under": 4,
+      "total": 76,
+      "priority": "redflag"
+    },
+    "Q-THRESHOLD-01": {
+      "under": 4,
+      "total": 45,
+      "priority": "decisive"
+    },
+    "Q-SYNCOPE-01": {
+      "under": 3,
+      "total": 91,
+      "priority": "redflag"
+    },
+    "Q-CONSULT-01": {
+      "under": 3,
+      "total": 16,
+      "priority": "decisive"
+    },
+    "Q-DYSPNEA-SENTENCE-01": {
+      "under": 2,
+      "total": 12,
+      "priority": "redflag"
+    },
+    "Q-DYSPNEA-ACUTE-01": {
+      "under": 2,
+      "total": 6,
+      "priority": "decisive"
+    },
+    "Q-ORTHO-01": {
+      "under": 2,
+      "total": 9,
+      "priority": "decisive"
+    },
+    "Q-ANTIPLT-01": {
+      "under": 1,
+      "total": 12,
+      "priority": "refine"
+    },
+    "Q-SYNCOPE-02": {
+      "under": 1,
+      "total": 4,
+      "priority": "redflag"
+    },
+    "Q-PATTERN-01": {
+      "under": 0,
+      "total": 53,
+      "priority": "decisive"
+    },
+    "Q-NTG-01": {
+      "under": 0,
+      "total": 19,
+      "priority": "decisive"
+    },
+    "Q-PALP-01": {
+      "under": 0,
+      "total": 21,
+      "priority": "decisive"
+    },
+    "Q-POSTURAL-01": {
+      "under": 0,
+      "total": 11,
+      "priority": "decisive"
+    },
+    "Q-SCREEN-01": {
+      "under": 0,
+      "total": 14,
+      "priority": "decisive"
+    },
+    "Q-ONSET-WEEKS-01": {
+      "under": 0,
+      "total": 2,
+      "priority": "decisive"
+    },
+    "Q-DRUGTIME-01": {
+      "under": 0,
+      "total": 4,
+      "priority": "refine"
+    },
+    "Q-EDEMA-01": {
+      "under": 0,
+      "total": 4,
+      "priority": "refine"
+    },
+    "Q-REACHABLE-01": {
+      "under": 0,
+      "total": 3,
+      "priority": "decisive"
+    }
+  },
+  "redflag_yes_to_no": {
+    "Q-ONGOING-01": {
+      "downgraded": 10,
+      "turns": 10
+    },
+    "Q-DYSPNEA-SENTENCE-01": {
+      "downgraded": 2,
+      "turns": 2
+    },
+    "Q-DIAPH-01": {
+      "downgraded": 4,
+      "turns": 4
+    },
+    "Q-SYNCOPE-01": {
+      "downgraded": 2,
+      "turns": 2
+    },
+    "Q-SYNCOPE-02": {
+      "downgraded": 1,
+      "turns": 1
+    }
+  }
+}
