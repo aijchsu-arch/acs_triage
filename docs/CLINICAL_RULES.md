@@ -1,6 +1,6 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.5.1 · 2026-10-15（D-35：`rest_symptom` 餐後判定定義；判定邏輯不變）
+**rules_version**: 0.5.2 · 2026-10-18（D-43：紅旗題與 Q-CHARACTER-01 的 STT 信心門檻 0.9，見 BLUEPRINT §3.2；分級判定邏輯不變）
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 

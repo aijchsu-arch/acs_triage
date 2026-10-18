@@ -66,6 +66,8 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
     th = load_clinical_rules()["thresholds"]
     max_q = max_questions if max_questions is not None else th["max_questions"]
     min_conf = stt_min_conf if stt_min_conf is not None else th["stt_min_confidence"]
+    crit_conf = th.get("stt_min_confidence_critical", min_conf)          # D-43：關鍵題門檻
+    crit_qs = set(th.get("stt_critical_questions", []))
     engine = engine or RulesEngine()
     prompter = prompter or Prompter()
     patient = patient or ScriptedPatient(case)
@@ -105,9 +107,10 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
             audit.emit(call_id, "question_shown", {"question_id": q.id, "slot_id": q.slot_id})
             reply = patient.answer(q)
             repeated = False
-            if reply.stt_confidence < min_conf:
-                # Confidence Gate：請病人再說一次（不餵下游）
-                audit.emit(call_id, "gate_uncertain", {"question_id": q.id, "confidence": reply.stt_confidence})
+            thr = crit_conf if (q.priority == "redflag" or q.id in crit_qs) else min_conf
+            if reply.stt_confidence < thr:
+                # Confidence Gate：請病人再說一次（不餵下游）；紅旗題與關鍵題用較高門檻（D-43）
+                audit.emit(call_id, "gate_uncertain", {"question_id": q.id, "confidence": reply.stt_confidence, "threshold": thr})
                 res.n_repeats += 1
                 repeated = True
                 reply = patient.answer(q)

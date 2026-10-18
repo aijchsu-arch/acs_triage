@@ -101,6 +101,7 @@
 
 ### 3.2 Confidence Gate
 - 規則：`confidence < STT_MIN_CONFIDENCE`（預設 0.75，可設定）→ 該段標記 `uncertain`，**不餵** red-flag／slot extractor，並向客服推一條提示：「請跟病人確認：『您剛才是說＿＿嗎？』」
+- **關鍵題門檻（D-43）**：紅旗題（`priority: redflag`）與 `stt_critical_questions`（目前 Q-CHARACTER-01）的回答，門檻提高為 `stt_min_confidence_critical`（0.9）。理由：翻轉測試（D-42）顯示紅旗題「有」被聽成「沒有」必降級，症狀性質聽錯是唯一會讓 HS／T0 掉到 T1–T4 的單點。代價：這些題偶爾多問一次。
 - 例外：若低信心片段含紅旗關鍵詞（規則路徑命中），**仍然觸發紅旗確認**：提示客服「請立即確認病人是否現在仍有胸痛／是否快昏倒」。寧可多問一次，不漏。
 
 ### 3.3 Red-flag Detector（雙路徑）
