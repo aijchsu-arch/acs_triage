@@ -31,10 +31,12 @@ def dv4_post_pci_milder(s: SlotState) -> bool:
 
 
 def dv5_postprandial(s: SlotState) -> bool:
-    """DV-5：餐後脹氣、打嗝後完全緩解、非活動相關、無冒汗；Q-14e：僅限上腹不適（epigastric）。"""
+    """DV-5：餐後脹氣、打嗝後完全緩解、非活動相關、無冒汗；Q-14e：僅限上腹不適（epigastric）。
+    D-44：exertion_relation 明確答「說不上來」（unclear）不豁免——降級豁免須有明確證據；
+    尚未問到（None）時暫時適用（provisional），定案前 sufficiency gate 會強制問到。"""
     return (s.get("symptom_character") == "epigastric"
             and s.is_true("postprandial_relieved") and s.is_false("ongoing_now")
-            and s.get("exertion_relation") != "exertion_only" and s.not_true("diaphoresis"))
+            and s.get("exertion_relation") in (None, "rest_only") and s.not_true("diaphoresis"))
 
 
 def mechanical(s: SlotState) -> bool:
@@ -166,6 +168,21 @@ def t4_rules(s: SlotState) -> list[str]:
 def provisional_tier(s: SlotState) -> tuple[int, list[str]]:
     """回傳 (tier, rule_ids)。不含 hard stop 判斷（由 engine 先做）。"""
     h = t0_rules(s)
+    # D-44（§5.8）：症狀未定性（vague）→ Tier 9，兩個例外（Clinical Owner 2026-10-18）：
+    #   B. 新發且活動相關 → 視同缺血等價症狀，走一般規則（S-INSUF-06#0 維持 T0）
+    #   A. 有明確穩定型態證據（T3-STABLE 成立）→ 可定案 T3（S-INSUF-01#1 維持 T3）
+    # 其餘：T0-NEW-TODAY 以缺血等價症狀為前提、vague 不成立；不依賴症狀性質的 T0 觸發因子仍升 T0；紅旗不變。
+    vague_ischemic_like = s.is_true("onset_new") and s.get("exertion_relation") == "exertion_only"
+    if s.get("symptom_character") == "vague" and not vague_ischemic_like:
+        h = [x for x in h if x != "T0-NEW-TODAY"]
+        if h:
+            return 0, h
+        h = t9_explicit(s)
+        if h:
+            return 9, h
+        if "T3-STABLE" in t3_rules(s):
+            return 3, ["T3-STABLE"]
+        return 9, ["T9-VAGUE-CHARACTER"]
     if h:
         return 0, h
     h = t9_explicit(s)

@@ -198,7 +198,7 @@ scenarios:
       ntg_use_increased: false
       ongoing_now: false
       symptom_character: tightness
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-THRESH-TIME-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-CHARACTER-01, Q-THRESH-TIME-01, Q-NTG-01]
     boundary_variants:
       - override: {threshold_decrease_timescale: days}
         expect: {tier: 0, hard_stop: false}

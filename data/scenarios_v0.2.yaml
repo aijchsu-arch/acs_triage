@@ -355,7 +355,7 @@ scenarios:
       syncope: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-TIMING-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
     boundary_variants:
       - override: {onset_new: true, symptom_character: pressure}
         expect: {tier: 0, hard_stop: false}
@@ -385,7 +385,7 @@ scenarios:
       syncope: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-TIMING-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
     boundary_variants:
       - override: {symptom_character: pressure, onset_new: true}
         expect: {tier: 0, hard_stop: false}
@@ -502,7 +502,7 @@ scenarios:
       syncope: false
       diaphoresis: false
       dyspnea_grade: none
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-TIMING-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
     boundary_variants:
       - override: {exertion_relation: exertion_only, onset_new: true}
         expect: {tier: 0, hard_stop: false}
@@ -528,7 +528,7 @@ scenarios:
       patient_reachable: false
       cad_history: true
       symptom_character: vague
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-TIMING-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-REST-01, Q-TIMING-01, Q-NTG-01]
     boundary_variants:
       - override: {patient_reachable: true, ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}

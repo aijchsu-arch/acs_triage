@@ -26,7 +26,7 @@ def test_clean_hard_stop_safety(clean):
     assert m.rf_mismatch == []
 
 
-ESCALATING_FLOOR = 0.9654  # D-35 基線 96.57%（507/525）；D-29 為 512/530，差異 = 刪除 S-MID-03#1（−9/9）＋新增 S-MID-13#3（+4/4）
+ESCALATING_FLOOR = 0.965   # D-44 基線 96.53%（500/518）；D-35 為 507/525，差異僅為 vague → T9 後 INSUF 情境的 escalating 題數減少（漏問的 18 題不變）
 
 
 def test_clean_no_under_triage_and_exact(clean):

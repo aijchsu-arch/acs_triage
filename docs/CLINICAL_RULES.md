@@ -1,6 +1,6 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.5.2 · 2026-10-18（D-43：紅旗題與 Q-CHARACTER-01 的 STT 信心門檻 0.9，見 BLUEPRINT §3.2；分級判定邏輯不變）
+**rules_version**: 0.6.0 · 2026-10-18（D-44：DV-5 豁免不接受 `exertion_relation = unclear`；`symptom_character = vague` → Tier 9 實作為規則。D-43：STT 關鍵題門檻 0.9）
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 
@@ -123,7 +123,7 @@ T0／T1／T2 不成立，且以下任一：
 - `antiplatelet_interrupted == true` 且無症狀 → T3 + `expedite`（C7 C；B4）
 - `palpitations == true`、無缺血等價症狀、無 presyncope／syncope（B5）。**系統不建議居家 ECG**（C8 B）
 - `symptom_vs_pre_pci == milder`、`exertion_relation == exertion_only`、`rest_symptom == false`、`threshold_decreased == false`（PCI 後輕症較術前輕；B8）(DV-4)
-- **Carve-out**：`symptom_character == epigastric`（Q-14e）、`postprandial_relieved == true`、`ongoing_now == false`、`exertion_relation ∈ {rest_only, unclear}`、`diaphoresis == false`（吃飽脹氣、打嗝後完全緩解；B13）(DV-5)
+- **Carve-out**：`symptom_character == epigastric`（Q-14e）、`postprandial_relieved == true`、`ongoing_now == false`、`exertion_relation == rest_only`（D-44：答「說不上來」（unclear）不豁免，降級豁免須有明確證據；尚未問到時暫時適用，定案前必須問到）、`diaphoresis == false`（吃飽脹氣、打嗝後完全緩解；B13）(DV-5)
 - `symptom_character == pain`（Q-14e）、`reproducible_mechanical == true` 且活動不加重（按壓／深呼吸可重現；B14）。壓迫、悶、下顎肩膀沉重**不適用**
 - `symptom_character == pain`（Q-14e）、`cough_related == true` 且 `exertion_relation != exertion_only`（咳嗽時才痛；B16）
 
@@ -135,7 +135,7 @@ T0–T3 不成立，且：
 ### 5.8 Tier 9（資訊不足）
 以下任一：
 - 無法判定 `onset_new` 與 `pattern_unchanged`（既不知新發也不知穩定）
-- `symptom_character` 未定性（「怪怪的」「不太舒服」「說不上來」）
+- `symptom_character` 未定性（「怪怪的」「不太舒服」「說不上來」）——D-44 實作為 `T9-VAGUE-CHARACTER`：T0-NEW-TODAY 以缺血等價症狀為前提、vague 不成立；不依賴症狀性質的 T0 觸發因子（§5.3 其餘各條）仍優先升 T0；紅旗判定不變（vague 仍算胸部症狀）。**例外**（Clinical Owner 2026-10-18）：(A) 穩定型（§5.6 全部條件）成立 → 可定案 T3；(B) `onset_new == true` 且 `exertion_relation == exertion_only` → 視同缺血等價症狀，走一般規則
 - `third_party_call == true` 且 `patient_reachable == false`
 - 呼吸困難但 `dyspnea_grade` 與 `dyspnea_acute` 皆未知
 - 問題數達 `MAX_QUESTIONS` 仍未滿足 §5.3–§5.7 任一

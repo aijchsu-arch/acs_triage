@@ -3,7 +3,7 @@
 # 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
 # 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
 
-rules_version: "0.5.2"   # D-43：紅旗題與 Q-CHARACTER-01 的 STT 信心門檻 0.9（D-35：rest_symptom 餐後判定定義）
+rules_version: "0.6.0"   # D-44：DV-5 不接受 unclear；症狀未定性（vague）→ T9（D-43：STT 關鍵題門檻 0.9）
 source_doc: docs/CLINICAL_RULES.md
 
 tiers:
