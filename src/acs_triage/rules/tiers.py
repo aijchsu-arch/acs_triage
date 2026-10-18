@@ -180,7 +180,7 @@ def provisional_tier(s: SlotState) -> tuple[int, list[str]]:
         h = t9_explicit(s)
         if h:
             return 9, h
-        if "T3-STABLE" in t3_rules(s):
+        if "T3-STABLE" in t3_rules(s) and s.get("onset_new") is not True:   # A：穩定證據與「新發」矛盾時不適用
             return 3, ["T3-STABLE"]
         return 9, ["T9-VAGUE-CHARACTER"]
     if h:

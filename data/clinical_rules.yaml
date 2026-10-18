@@ -91,7 +91,8 @@ tier_rules:
     - {id: T4-CONSULT, ref: "§5.7 (DV-7)", text: 衛教問題／藥物處理／輕微非心臟問題且否認任何胸悶、喘、暈}
   T9:
     - {id: T9-THIRD-PARTY-UNREACHABLE, ref: "§5.8", text: 第三方來電且病人不可及}
-    - {id: T9-NO-RULE, ref: "§5.8", text: 無任何 0–4 規則成立（含症狀未定性、無法判定新發 vs 穩定、呼吸困難未分級）}
+    - {id: T9-VAGUE-CHARACTER, ref: "§5.8 (D-44)", text: 症狀未定性（vague）且不符例外（A 穩定型成立且非新發 → T3；B 新發且活動相關 → 走一般規則）；不依賴症狀性質的 T0 觸發因子與紅旗仍優先}
+    - {id: T9-NO-RULE, ref: "§5.8", text: 無任何 0–4 規則成立（無法判定新發 vs 穩定、呼吸困難未分級）}
     - {id: T9-GATE, ref: "§5.9", text: provisional 已定但 sufficiency gate 未過}
 
 # ---------------- §5.8 Tier 9 且護理師不可得之預設（C6 D） ----------------

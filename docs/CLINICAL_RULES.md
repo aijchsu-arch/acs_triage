@@ -135,7 +135,7 @@ T0–T3 不成立，且：
 ### 5.8 Tier 9（資訊不足）
 以下任一：
 - 無法判定 `onset_new` 與 `pattern_unchanged`（既不知新發也不知穩定）
-- `symptom_character` 未定性（「怪怪的」「不太舒服」「說不上來」）——D-44 實作為 `T9-VAGUE-CHARACTER`：T0-NEW-TODAY 以缺血等價症狀為前提、vague 不成立；不依賴症狀性質的 T0 觸發因子（§5.3 其餘各條）仍優先升 T0；紅旗判定不變（vague 仍算胸部症狀）。**例外**（Clinical Owner 2026-10-18）：(A) 穩定型（§5.6 全部條件）成立 → 可定案 T3；(B) `onset_new == true` 且 `exertion_relation == exertion_only` → 視同缺血等價症狀，走一般規則
+- `symptom_character` 未定性（「怪怪的」「不太舒服」「說不上來」）——D-44 實作為 `T9-VAGUE-CHARACTER`：T0-NEW-TODAY 以缺血等價症狀為前提、vague 不成立；不依賴症狀性質的 T0 觸發因子（§5.3 其餘各條）仍優先升 T0；紅旗判定不變（vague 仍算胸部症狀）。**例外**（Clinical Owner 2026-10-18）：(A) 穩定型（§5.6 全部條件）成立且 `onset_new` 不為 true → 可定案 T3；(B) `onset_new == true` 且 `exertion_relation == exertion_only` → 視同缺血等價症狀，走一般規則
 - `third_party_call == true` 且 `patient_reachable == false`
 - 呼吸困難但 `dyspnea_grade` 與 `dyspnea_acute` 皆未知
 - 問題數達 `MAX_QUESTIONS` 仍未滿足 §5.3–§5.7 任一
