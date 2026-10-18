@@ -49,5 +49,6 @@ def test_vague_red_flags_unchanged():
 
 
 def test_vague_third_party_unreachable_precedes():
-    d = _d(symptom_character="vague", third_party_call=True, patient_reachable=False)
+    d = _d(symptom_character="vague", third_party_call=True, patient_reachable=False,
+           onset_new=True, last_episode_timing="today")                 # 被剔除的 T0-NEW-TODAY 不得搶先
     assert d.provisional_tier == 9 and d.evidence == ["T9-THIRD-PARTY-UNREACHABLE"]
