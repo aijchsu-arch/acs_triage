@@ -1,5 +1,5 @@
 {
-  "total_flips": 1265,
+  "total_flips": 1221,
   "under": 162,
   "transitions": {
     "T0→T9": 98,
@@ -76,7 +76,7 @@
   "by_question": {
     "Q-CHARACTER-01": {
       "under": 33,
-      "total": 134,
+      "total": 127,
       "priority": "decisive"
     },
     "Q-TIMING-01": {
@@ -101,12 +101,12 @@
     },
     "Q-EXERTION-01": {
       "under": 10,
-      "total": 53,
+      "total": 46,
       "priority": "decisive"
     },
     "Q-REST-01": {
       "under": 9,
-      "total": 53,
+      "total": 51,
       "priority": "decisive"
     },
     "Q-REST-02": {
@@ -126,7 +126,7 @@
     },
     "Q-THRESHOLD-01": {
       "under": 4,
-      "total": 48,
+      "total": 46,
       "priority": "decisive"
     },
     "Q-SYNCOPE-01": {
@@ -136,7 +136,7 @@
     },
     "Q-CONSULT-01": {
       "under": 3,
-      "total": 16,
+      "total": 11,
       "priority": "decisive"
     },
     "Q-DYSPNEA-SENTENCE-01": {
@@ -146,7 +146,7 @@
     },
     "Q-ORTHO-01": {
       "under": 2,
-      "total": 10,
+      "total": 9,
       "priority": "decisive"
     },
     "Q-DYSPNEA-ACUTE-01": {
@@ -166,7 +166,7 @@
     },
     "Q-PATTERN-01": {
       "under": 0,
-      "total": 61,
+      "total": 55,
       "priority": "decisive"
     },
     "Q-NTG-01": {
@@ -181,12 +181,12 @@
     },
     "Q-PALP-01": {
       "under": 0,
-      "total": 23,
+      "total": 19,
       "priority": "decisive"
     },
     "Q-POSTURAL-01": {
       "under": 0,
-      "total": 13,
+      "total": 9,
       "priority": "decisive"
     },
     "Q-SCREEN-01": {
@@ -194,24 +194,24 @@
       "total": 14,
       "priority": "decisive"
     },
-    "Q-ONSET-WEEKS-01": {
-      "under": 0,
-      "total": 4,
-      "priority": "decisive"
-    },
     "Q-DRUGTIME-01": {
       "under": 0,
-      "total": 4,
+      "total": 2,
       "priority": "refine"
     },
     "Q-EDEMA-01": {
       "under": 0,
-      "total": 4,
+      "total": 2,
       "priority": "refine"
     },
     "Q-REACHABLE-01": {
       "under": 0,
       "total": 3,
+      "priority": "decisive"
+    },
+    "Q-ONSET-WEEKS-01": {
+      "under": 0,
+      "total": 2,
       "priority": "decisive"
     }
   },

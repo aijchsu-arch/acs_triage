@@ -1,7 +1,7 @@
 # 穩健度：單一答案翻轉敏感度 — 2026-10-19
 
 - 對 Scripted clean 每個 case 的每一輪，把答案換成另一個合法值（只換一題），重跑規則引擎；模擬 STT 聽反或病人答錯一題。
-- 翻轉總數 1265；變得較不急 162（12.8%）；**嚴重降級（Hard stop／T0 → T1–T4）8**
+- 翻轉總數 1221；變得較不急 162（13.3%）；**嚴重降級（Hard stop／T0 → T1–T4）8**
 
 ## 降級轉移（原 → 翻轉後）
 
@@ -37,17 +37,17 @@
 
 | 題目 | 優先級 | 降級／翻轉 |
 |---|---|---|
-| Q-CHARACTER-01 | decisive | 33/134 |
+| Q-CHARACTER-01 | decisive | 33/127 |
 | Q-TIMING-01 | decisive | 32/147 |
 | Q-DYSPNEA-GRADE-01 | redflag | 20/314 |
 | Q-ONSET-01 | decisive | 14/46 |
 | Q-ONGOING-01 | redflag | 10/70 |
-| Q-EXERTION-01 | decisive | 10/53 |
-| Q-REST-01 | decisive | 9/53 |
+| Q-EXERTION-01 | decisive | 10/46 |
+| Q-REST-01 | decisive | 9/51 |
 | Q-REST-02 | decisive | 7/11 |
 | Q-THRESH-TIME-01 | decisive | 5/12 |
 | Q-DIAPH-01 | redflag | 4/78 |
-| Q-THRESHOLD-01 | decisive | 4/48 |
+| Q-THRESHOLD-01 | decisive | 4/46 |
 | Q-SYNCOPE-01 | redflag | 3/87 |
 
 ## 紅旗題「有」被聽成「沒有」
