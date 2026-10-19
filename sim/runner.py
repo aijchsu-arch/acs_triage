@@ -87,6 +87,8 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                     final=opening_decision, opening_decision=opening_decision,
                     decisive_total=len(case.decisive_questions))
     asked: set[str] = set()
+    from acs_triage.loaders import question_by_id as _qbi
+    qb0 = _qbi()
     d = opening_decision
     if d.hard_stop:
         res.hard_stop_turn = 0
@@ -96,6 +98,11 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
         while True:
             if d.provisional_tier != 9 and d.gate_passed:
                 res.stop_reason = "gate_passed"
+                break
+            if d.provisional_tier == 0 and d.missing and all(
+                    any(qb0[q].slot_id == slot for q in asked) for slot in d.missing):
+                # D-45：T0 不會被 gate 降級；缺的題都問過（病人答不知道）→ 直接定案，不再拖到題數上限
+                res.stop_reason = "gate_passed_t0_asked"
                 break
             if res.n_questions >= max_q:
                 res.stop_reason = "max_questions"

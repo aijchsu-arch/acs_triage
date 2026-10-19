@@ -121,7 +121,7 @@ T0／T1 不成立，且以下任一：
 T0／T1／T2 不成立，且以下任一：
 - **穩定型**（A7、A8、A10）：全部成立 — `cad_history == true` 或已知穩定型態；`pattern_unchanged_duration_months >= 6`；`rest_symptom == false`；無 `dyspnea_acute`、`presyncope`、`syncope`；`threshold_decreased == false`
 - **穩定型（反覆休息時症狀）**（Q-05 S-ACUTE-05#1，D-45）：`cad_history == true` 或已知穩定型態（定案前須問到）；`pattern_unchanged_duration_months >= 6`；`rest_symptom == true` 但 `rest_symptom_first_time == false`；`onset_new != true`；已緩解（`ongoing_now != true`）；**明確** `threshold_decreased == false` 且 `ntg_use_increased == false`；無 `dyspnea_acute`、`presyncope`、`syncope`、端坐呼吸、靜止喘。首次休息時症狀仍為 §5.3 T0
-- 穩定型 ＋ `antiplatelet_interrupted == true` → T3 並附 `expedite`（Q-05 S-STABLE-02#0，D-45；新發症狀＋中斷仍為 §5.4 T1）
+- 任一 T3 條件成立 ＋ `antiplatelet_interrupted == true` → T3 並附 `expedite`（Q-05 S-STABLE-02#0，D-45；程式範圍為所有 T3 規則；新發症狀＋中斷仍為 §5.4 T1）
 - **行政性來電**（A9）：`consult_topic == appointment_admin`（門診時間、排程等事務）且病人明確否認新發胸悶、喘、暈 (DV-7)
 - `antiplatelet_interrupted == true` 且無症狀 → T3 + `expedite`（C7 C；B4）
 - `palpitations == true`、無缺血等價症狀、無 presyncope／syncope（B5）。**系統不建議居家 ECG**（C8 B）
