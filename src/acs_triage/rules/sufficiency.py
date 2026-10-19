@@ -19,26 +19,30 @@ RULE_REQUIREMENTS: dict[str, list[str]] = {
     # 紅旗題（偵測 hard stop）＋能把等級往下修正的時序題（DV-1／C3 B）。
     "T0-NEW-TODAY": CHEST_REDFLAG + ["last_episode_timing"],
     "T0-THRESHOLD-DAYS": CHEST_REDFLAG + ["threshold_decrease_timescale"],
-    "T0-REST-NEW": CHEST_REDFLAG,
+    "T0-REST-NEW": CHEST_REDFLAG + ["rest_symptom_first_time"],   # D-45：先問是否首次；非首次且型態不變 → §5.6 T3-STABLE-REST-RECURRENT
     "T0-DYSPNEA-ACUTE": DYSPNEA_REDFLAG,
     "T0-NTG-INCREASED": CHEST_REDFLAG,
     "T0-ORTHOPNEA": DYSPNEA_REDFLAG,
     # T1
     "T1-NEW-YESTERDAY": CHEST_CONTEXT + ["last_episode_timing"],
-    "T1-THRESHOLD-WEEKS": CHEST_CONTEXT + ["threshold_decrease_timescale"],
+    "T1-THRESHOLD-WEEKS": CHEST_CONTEXT + ["threshold_decrease_timescale", "onset_new"],   # D-45：定案前先問是否新發（新發 → T0）
     "T1-PENDING-TEST": ["symptom_character", "dyspnea_grade", "presyncope"],
     "T1-ANTIPLT-SYMPTOMATIC": CHEST_CONTEXT,
     # T2
     "T2-NEW-OVER24H": CHEST_CONTEXT + ["recurrence"],
     "T2-NEW-STABLE-WEEKS": CHEST_CONTEXT + ["onset_weeks_ago", "threshold_decreased", "last_episode_timing"],  # Q-14d C
     "T2-DYSPNEA-DAILY": DYSPNEA_CONTEXT + ["symptom_character"],
+    "T2-DYSPNEA-HEAVY": DYSPNEA_CONTEXT + ["symptom_character", "pattern_unchanged_duration_months"],   # D-45（Q-05）：≥6 個月穩定 → 改走 T3
     "T2-POSTURAL-NEWMED": ["symptom_character", "presyncope", "dyspnea_grade", "new_medication_recent"],
     # T3
     "T3-STABLE": [],  # 動態：見 missing_for
+    "T3-STABLE-REST-RECURRENT": CHEST_CONTEXT + ["rest_symptom_first_time", "threshold_decreased", "ntg_use_increased",
+                                                 "dyspnea_acute", "onset_new", "pattern_unchanged_duration_months",
+                                                 "cad_history"],   # D-45（Q-05）
     "T3-ADMIN": ["consult_topic", "symptom_character", "dyspnea_grade", "presyncope"] + CONSULT_SCREEN,
     "T3-ANTIPLT-ASYMPTOMATIC": ["symptom_character", "dyspnea_grade", "presyncope"] + CONSULT_SCREEN,
     "T3-PALPITATIONS": ["symptom_character", "presyncope", "syncope", "dyspnea_grade"],
-    "T3-POST-PCI-MILDER": CHEST_CONTEXT + ["threshold_decreased", "last_episode_timing"],  # Q-14d C
+    "T3-POST-PCI-MILDER": CHEST_CONTEXT + ["threshold_decreased", "last_episode_timing", "onset_weeks_ago"],  # Q-14d C；D-45：先問開始多久（≥2 週 → DV-2 T2）
     "T3-POSTPRANDIAL": ["ongoing_now", "diaphoresis", "exertion_relation", "presyncope"],
     "T3-MECHANICAL": ["ongoing_now", "diaphoresis", "exertion_relation", "presyncope"],
     "T3-COUGH": ["ongoing_now", "diaphoresis", "exertion_relation", "presyncope"],
@@ -75,6 +79,10 @@ def missing_for(state: SlotState, provisional: int, rule_ids: list[str]) -> list
     if "T3-STABLE" in rule_ids:
         explicit = ["rest_symptom", "threshold_decreased", "dyspnea_acute"] if state.chest_symptom_present() else ["dyspnea_acute", "orthopnea_pnd"]
         for slot in explicit:
+            if state.get(slot) is not False and slot not in missing:
+                missing.append(slot)
+    if "T3-STABLE-REST-RECURRENT" in rule_ids:          # D-45：非首次、閾值未降、NTG 未增加皆須明確否認
+        for slot in ("rest_symptom_first_time", "threshold_decreased", "ntg_use_increased"):
             if state.get(slot) is not False and slot not in missing:
                 missing.append(slot)
     return missing

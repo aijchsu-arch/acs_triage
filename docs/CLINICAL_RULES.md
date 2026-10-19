@@ -1,6 +1,6 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.6.0 · 2026-10-18（D-44：DV-5 豁免不接受 `exertion_relation = unclear`；`symptom_character = vague` → Tier 9 實作為規則。D-43：STT 關鍵題門檻 0.9）
+**rules_version**: 0.7.0 · 2026-10-19（D-45：Q-05 裁定——僅激烈運動才喘 → T2、反覆休息時症狀且型態不變 → T3、穩定症狀＋抗血小板中斷 → T3+expedite；T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問新發／開始週數。D-44：DV-5 不接受 unclear、vague → T9）
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 
@@ -113,12 +113,15 @@ T0／T1 不成立，且以下任一：
 - 新發缺血等價症狀、已緩解、`last_episode_timing == over_24h`、`recurrence == false`、`rest_symptom == false`（C2 C）。非缺血型豁免除外（Q-14d C）
 - 新發勞累性缺血等價症狀、`onset_weeks_ago >= 2`、型態穩定、`rest_symptom == false`、`threshold_decreased == false`（B2）(DV-2)
 - 新發 `dyspnea_grade == exertional_daily`、`dyspnea_acute == false`、無缺血等價症狀（B6）
+- 主訴呼吸困難、`dyspnea_grade == exertional_heavy`（僅激烈運動才喘）、`dyspnea_acute == false`、無端坐呼吸、無胸部症狀、且無 ≥6 個月穩定證據（有則為 §5.6 穩定型 T3）（Q-05 S-ACUTE-03#2，D-45）
 - `postural_dizziness == true` 且 `new_medication_recent == true`、無缺血等價症狀、無 presyncope 合併胸部症狀（B10）
 - `edema == true` 且 `dyspnea_grade == exertional_daily`、無缺血等價症狀（B12）
 
 ### 5.6 T3（Routine）
 T0／T1／T2 不成立，且以下任一：
 - **穩定型**（A7、A8、A10）：全部成立 — `cad_history == true` 或已知穩定型態；`pattern_unchanged_duration_months >= 6`；`rest_symptom == false`；無 `dyspnea_acute`、`presyncope`、`syncope`；`threshold_decreased == false`
+- **穩定型（反覆休息時症狀）**（Q-05 S-ACUTE-05#1，D-45）：`cad_history == true` 或已知穩定型態（定案前須問到）；`pattern_unchanged_duration_months >= 6`；`rest_symptom == true` 但 `rest_symptom_first_time == false`；`onset_new != true`；已緩解（`ongoing_now != true`）；**明確** `threshold_decreased == false` 且 `ntg_use_increased == false`；無 `dyspnea_acute`、`presyncope`、`syncope`、端坐呼吸、靜止喘。首次休息時症狀仍為 §5.3 T0
+- 穩定型 ＋ `antiplatelet_interrupted == true` → T3 並附 `expedite`（Q-05 S-STABLE-02#0，D-45；新發症狀＋中斷仍為 §5.4 T1）
 - **行政性來電**（A9）：`consult_topic == appointment_admin`（門診時間、排程等事務）且病人明確否認新發胸悶、喘、暈 (DV-7)
 - `antiplatelet_interrupted == true` 且無症狀 → T3 + `expedite`（C7 C；B4）
 - `palpitations == true`、無缺血等價症狀、無 presyncope／syncope（B5）。**系統不建議居家 ECG**（C8 B）
@@ -150,9 +153,9 @@ T0–T3 不成立，且：
 | 藥物／行政諮詢且否認症狀 | T3 |
 
 ### 5.9 必要 slot 集合（Sufficiency Gate 用）
-- 判 T0：至少一個 §5.3 條件的 slot 有高信心值 **且** 紅旗題（priority=redflag）已問完或已被回答。
-- 判 T1／T2：對應條件的全部 slot 有高信心值，且 `rest_symptom`、`ongoing_now`、`diaphoresis` 已確認。
-- 判 T3：對應條件的全部 slot 有高信心值；穩定型另需 `rest_symptom`、`threshold_decreased`、`dyspnea_acute` 皆為 false。
+- 判 T0：至少一個 §5.3 條件的 slot 有高信心值 **且** 紅旗題（priority=redflag）已問完或已被回答。首次休息時症狀（A5）另需先問 `rest_symptom_first_time`（非首次且型態不變 → §5.6；D-45）。
+- 判 T1／T2：對應條件的全部 slot 有高信心值，且 `rest_symptom`、`ongoing_now`、`diaphoresis` 已確認。T1（閾值數週下降）另需 `onset_new` 已知（新發 → T0；D-45）。
+- 判 T3：對應條件的全部 slot 有高信心值；穩定型另需 `rest_symptom`、`threshold_decreased`、`dyspnea_acute` 皆為 false。PCI 後較輕（DV-4）另需 `onset_weeks_ago` 已知（≥2 週 → DV-2 T2；D-45）。
 - 判 T4：`consult_topic` 已確認且三項否認（胸悶、喘、暈）皆有高信心值。
 - **所有 T1–T4（Q-14b）**：有胸部症狀者，`rest_symptom`、`threshold_decreased`、`ntg_use_increased` 必須已知（三個 T0 觸發因子都排除才能定案）。
 - **第三方來電（Q-14c）**：`patient_reachable` 必須已知。

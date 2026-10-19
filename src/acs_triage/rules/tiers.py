@@ -119,6 +119,11 @@ def t2_rules(s: SlotState) -> list[str]:
     if (s.get("dyspnea_grade") == "exertional_daily" and s.not_true("dyspnea_acute")
             and s.not_true("orthopnea_pnd") and not s.chest_symptom_present()):
         hits.append("T2-DYSPNEA-DAILY")
+    months = s.get("pattern_unchanged_duration_months")
+    if (s.is_true("dyspnea_complaint") and s.get("dyspnea_grade") == "exertional_heavy" and s.not_true("dyspnea_acute")
+            and s.not_true("orthopnea_pnd") and not s.chest_symptom_present()
+            and not (months is not None and months >= _th("stable_pattern_min_months"))):
+        hits.append("T2-DYSPNEA-HEAVY")       # D-45（Q-05）：主訴喘、僅激烈運動才喘、非今日突發、無胸部症狀、無 ≥6 個月穩定證據（有則 §5.6 穩定型 T3，S-INSUF-04#2）
     if (s.is_true("postural_dizziness") and s.is_true("new_medication_recent")
             and not s.chest_symptom_present() and s.not_true("presyncope")):
         hits.append("T2-POSTURAL-NEWMED")
@@ -133,11 +138,25 @@ def _no_escalators(s: SlotState) -> bool:
             and s.get("dyspnea_grade") != "rest")
 
 
+def stable_rest_recurrent(s: SlotState) -> bool:
+    """D-45（Q-05）：型態 ≥6 個月不變、休息時症狀**非首次**且已緩解、無其他升級因子；
+    閾值下降與 NTG 增加由 sufficiency gate 要求明確否認後才定案。"""
+    months = s.get("pattern_unchanged_duration_months")
+    return (months is not None and months >= _th("stable_pattern_min_months")      # 與 T3-STABLE 同：以型態不變為證據，CAD 病史由 gate 問到
+            and s.is_true("rest_symptom") and s.is_false("rest_symptom_first_time")
+            and s.get("onset_new") is not True and s.not_true("ongoing_now")
+            and s.not_true("threshold_decreased") and s.not_true("ntg_use_increased")   # 未知可暫時成立；gate 要求明確否認
+            and s.not_true("dyspnea_acute") and s.not_true("presyncope") and s.not_true("syncope")
+            and s.not_true("orthopnea_pnd") and s.get("dyspnea_grade") != "rest")
+
+
 def t3_rules(s: SlotState) -> list[str]:
     hits: list[str] = []
     months = s.get("pattern_unchanged_duration_months")
     if months is not None and months >= _th("stable_pattern_min_months") and _no_escalators(s):
         hits.append("T3-STABLE")
+    if stable_rest_recurrent(s):
+        hits.append("T3-STABLE-REST-RECURRENT")
     if s.get("consult_topic") == "appointment_admin" and s.no_symptoms():
         hits.append("T3-ADMIN")
     if s.is_true("antiplatelet_interrupted") and s.no_symptoms():
@@ -199,6 +218,8 @@ def pathway_actions_for(s: SlotState, rule_ids: list[str]) -> list[str]:
     acts: list[str] = []
     if "T3-ANTIPLT-ASYMPTOMATIC" in rule_ids:
         acts.append("expedite")
+    elif s.is_true("antiplatelet_interrupted") and any(r.startswith("T3-") for r in rule_ids):
+        acts.append("expedite")               # D-45：穩定症狀＋抗血小板中斷判 T3（S-STABLE-02#0）亦提前門診（設計補充，待確認）
     if "T9-THIRD-PARTY-UNREACHABLE" in rule_ids:
         acts.append("family_relay_safety_net")
     return acts

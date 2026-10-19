@@ -186,6 +186,7 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.4 C3 B"
     hidden_slots:
+      onset_new: false       # D-45：T1-THRESHOLD-WEEKS 定案前必問；false 為唯一與 truth T1 一致的值（true → T0）
       presyncope: false
       diaphoresis: false
       syncope: false
@@ -216,6 +217,7 @@ scenarios:
     truth_hard_stop: false
     rule_ref: "§5.6 (DV-4)"
     hidden_slots:
+      onset_weeks_ago: 1        # D-45：T3-POST-PCI-MILDER 定案前必問；<2 週為唯一與 truth T3 一致的值（≥2 週 → DV-2 T2）
       ntg_use_increased: false
       presyncope: false
       diaphoresis: false

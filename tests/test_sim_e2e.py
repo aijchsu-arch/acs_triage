@@ -14,7 +14,7 @@ def test_case_expansion_counts():
     cases = all_cases()
     assert len(cases) == 119                       # D-35：刪除 S-MID-03#1、新增 S-MID-13#3
     assert sum(1 for c in cases if not c.is_variant) == 38
-    assert sum(1 for c in cases if c.truth_tier is None) == 3
+    assert sum(1 for c in cases if c.truth_tier is None) == 0      # D-45：Q-05 三個變體已裁定
 
 
 def test_clean_hard_stop_safety(clean):
@@ -26,7 +26,7 @@ def test_clean_hard_stop_safety(clean):
     assert m.rf_mismatch == []
 
 
-ESCALATING_FLOOR = 0.965   # D-44 基線 96.53%（500/518）；D-35 為 507/525，差異僅為 vague → T9 後 INSUF 情境的 escalating 題數減少（漏問的 18 題不變）
+ESCALATING_FLOOR = 0.975   # D-45 基線 97.89%（511/522）：定案前必問的題目增加後，漏問只剩 Q-NTG-01 ×11（皆為 T9 題數上限）；D-44 為 500/518
 
 
 def test_clean_no_under_triage_and_exact(clean):

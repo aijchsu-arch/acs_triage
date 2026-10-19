@@ -3,7 +3,7 @@
 # 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
 # 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
 
-rules_version: "0.6.0"   # D-44：DV-5 不接受 unclear；症狀未定性（vague）→ T9（D-43：STT 關鍵題門檻 0.9）
+rules_version: "0.7.0"   # D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9）
 source_doc: docs/CLINICAL_RULES.md
 
 tiers:
@@ -78,8 +78,10 @@ tier_rules:
     - {id: T2-NEW-STABLE-WEEKS, ref: "§5.5 (DV-2)", text: 新發勞累性、≥2 週、型態穩定、無休息、無閾值下降}
     - {id: T2-DYSPNEA-DAILY, ref: "§5.5", text: 日常勞動性呼吸困難、非今日突發、無端坐呼吸、無胸部症狀（含合併水腫）}
     - {id: T2-POSTURAL-NEWMED, ref: "§5.5", text: 新藥後姿勢性頭暈、無胸部症狀、無瀕厥}
+    - {id: T2-DYSPNEA-HEAVY, ref: "§5.5 (Q-05, D-45)", text: 主訴呼吸困難、僅激烈運動才喘、非今日突發、無端坐呼吸、無胸部症狀}
   T3:
     - {id: T3-STABLE, ref: "§5.6", text: 已知穩定型態 ≥6 個月且無任何升級因子}
+    - {id: T3-STABLE-REST-RECURRENT, ref: "§5.6 (Q-05, D-45)", text: 型態 ≥6 個月不變、休息時症狀非首次且已緩解、明確否認閾值下降與 NTG 增加、無其他升級因子（CAD 病史定案前須問到）}
     - {id: T3-ADMIN, ref: "§5.6 (DV-7)", text: 門診排程事務且否認症狀}
     - {id: T3-ANTIPLT-ASYMPTOMATIC, ref: "§5.6 C7 C", text: 抗血小板中斷且無症狀 → T3 + expedite}
     - {id: T3-PALPITATIONS, ref: "§5.6 C8 B", text: 心悸、無胸部症狀、無瀕厥／暈厥；不建議居家 ECG}

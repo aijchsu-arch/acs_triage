@@ -107,9 +107,9 @@ scenarios:
         note: "即使病人說『可能是緊張』仍 Y"
       - override: {cant_finish_sentence: true}
         expect: {tier: 0, hard_stop: true, rf: RF-04}
-      - override: {dyspnea_grade: exertional_heavy, dyspnea_acute: false}
-        expect: {tier: null, hard_stop: false}
-        note: "數週漸進且僅激烈運動 → 可能降級；目標 tier 待 Q-05"
+      - override: {dyspnea_grade: exertional_heavy, dyspnea_acute: false, pattern_unchanged_duration_months: 1}   # D-45：T2-DYSPNEA-HEAVY 定案前必問型態穩定多久；依 note「數週漸進」取 1（<6 個月）
+        expect: {tier: 2, hard_stop: false}
+        note: "數週漸進且僅激烈運動 → T2（Q-05 裁定，D-45）"
 
   - id: S-ACUTE-04
     module: acute
@@ -170,9 +170,9 @@ scenarios:
     boundary_variants:
       - override: {ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}
-      - override: {rest_symptom_first_time: false, pattern_unchanged_duration_months: 12}
-        expect: {tier: null, hard_stop: false}
-        note: "一年來偶有相同休息時症狀且無變化 → T2/T3；待 Q-05"
+      - override: {rest_symptom_first_time: false, pattern_unchanged_duration_months: 12, threshold_decreased: false, antiplatelet_interrupted: false}   # D-45：threshold_decreased（規則必問）與 antiplatelet_interrupted（ND-05 定案必問）補唯一與 truth T3 一致的值
+        expect: {tier: 3, hard_stop: false}
+        note: "一年來偶有相同休息時症狀且無變化 → T3（Q-05 裁定，D-45）"
 
   - id: S-ACUTE-06
     module: acute
@@ -268,8 +268,8 @@ scenarios:
     decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
     boundary_variants:
       - override: {antiplatelet_interrupted: true}
-        expect: {tier: null, hard_stop: false}
-        note: "升級至 T0/T1；待 Q-05 定 T1 規則"
+        expect: {tier: 3, hard_stop: false}
+        note: "穩定症狀＋抗血小板中斷 → T3 + expedite（Q-05 裁定，D-45；新發＋中斷仍 T1）"
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}
 
