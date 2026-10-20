@@ -1,6 +1,6 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.7.0 · 2026-10-19（D-45：Q-05 裁定——僅激烈運動才喘 → T2、反覆休息時症狀且型態不變 → T3、穩定症狀＋抗血小板中斷 → T3+expedite；T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問新發／開始週數。D-44：DV-5 不接受 unclear、vague → T9）
+**rules_version**: 0.7.1 · 2026-10-20（D-46：Q-REST-02 列入 STT 關鍵題 0.9。D-45：Q-05 裁定——僅激烈運動才喘 → T2、反覆休息時症狀且型態不變 → T3、穩定症狀＋抗血小板中斷 → T3+expedite；T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問新發／開始週數。D-44：DV-5 不接受 unclear、vague → T9）
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 

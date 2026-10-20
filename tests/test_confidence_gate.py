@@ -16,7 +16,7 @@ class MidConfidencePatient(ScriptedPatient):
 def test_thresholds_in_rules():
     th = load_clinical_rules()["thresholds"]
     assert th["stt_min_confidence"] == 0.75 and th["stt_min_confidence_critical"] == 0.9
-    assert th["stt_critical_questions"] == ["Q-CHARACTER-01"]
+    assert th["stt_critical_questions"] == ["Q-CHARACTER-01", "Q-REST-02"]   # D-43、D-46
 
 
 def test_critical_questions_reasked_at_0_8_others_not():
@@ -25,7 +25,7 @@ def test_critical_questions_reasked_at_0_8_others_not():
     for c in all_cases():
         r = run_case(c, patient=MidConfidencePatient(c))
         for t in r.turns:
-            critical = qb[t.question_id].priority == "redflag" or t.question_id == "Q-CHARACTER-01"
+            critical = qb[t.question_id].priority == "redflag" or t.question_id in ("Q-CHARACTER-01", "Q-REST-02")
             assert t.repeated == critical, (c.id, t.question_id, t.repeated)
             seen_critical += critical
             seen_other += not critical

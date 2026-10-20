@@ -3,7 +3,7 @@
 # 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
 # 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
 
-rules_version: "0.7.0"   # D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9）
+rules_version: "0.7.1"   # D-46：Q-REST-02 列入 STT 關鍵題（D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9）
 source_doc: docs/CLINICAL_RULES.md
 
 tiers:
@@ -18,7 +18,7 @@ thresholds:
   max_questions: 11        # 8 → 10（D-22）→ 11（Q-15，Clinical Owner 2026-10-14）：Q-14b 後 PCI＋模糊開場之穩定型需 11 題
   stt_min_confidence: 0.75
   stt_min_confidence_critical: 0.9      # D-43：紅旗題（priority=redflag）與下列題目；低於門檻即重問（Clinical Owner 2026-10-18）
-  stt_critical_questions: [Q-CHARACTER-01]   # 翻轉測試：此題聽錯是唯一會讓 HS／T0 掉到 T1–T4 的單點（D-42）
+  stt_critical_questions: [Q-CHARACTER-01, Q-REST-02]   # D-42：Q-CHARACTER-01 聽錯是唯一會讓 HS／T0 掉到 T1–T4 的單點；D-46：Q-REST-02 為 T0→T3 單一開關（D-45 規則）
   rf_model_threshold: 0.5
   stable_pattern_min_months: 6        # §5.6 穩定型
   new_stable_pattern_min_weeks: 2     # DV-2
