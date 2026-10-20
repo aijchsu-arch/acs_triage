@@ -1,4 +1,4 @@
-"""D-43：紅旗題與 Q-CHARACTER-01 的 STT 信心門檻 0.9，其餘 0.75。"""
+"""D-43／D-46：紅旗題、Q-CHARACTER-01 與 Q-REST-02 的 STT 信心門檻 0.9，其餘 0.75。"""
 from acs_triage.loaders import load_clinical_rules, question_by_id
 from sim.cases import all_cases
 from sim.patient import PatientReply, ScriptedPatient

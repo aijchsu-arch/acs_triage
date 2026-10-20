@@ -3,7 +3,7 @@
 # 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
 # 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
 
-rules_version: "0.7.1"   # D-46：Q-REST-02 列入 STT 關鍵題（D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9）
+rules_version: "0.7.1"   # D-46：Q-REST-02 列入 STT 關鍵題（D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9））
 source_doc: docs/CLINICAL_RULES.md
 
 tiers:
