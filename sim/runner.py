@@ -9,6 +9,7 @@ from acs_triage.extract import extract
 from acs_triage.loaders import load_clinical_rules
 from acs_triage.pathway import route
 from acs_triage.prompter import Prompter
+from acs_triage.prompter.confirm import confirm_prompt, resolve_confirm, should_confirm
 from acs_triage.rules import RulesEngine, SlotState
 from acs_triage.schemas import TierDecision
 
@@ -24,6 +25,12 @@ class Turn:
     utterance_zh: str
     stt_confidence: float
     repeated: bool = False
+    # D-50 複誦確認（confirm_prompt_zh 為 None = 沒有複誦）；answer 是確認後採用的值
+    confirm_prompt_zh: str | None = None
+    pre_confirm_answer: Any = None
+    confirm_utterance_zh: str | None = None
+    confirm_answer: Any = None
+    confirm_downgrade_blocked: bool = False    # 確認值較不嚴重 → 保留原值
 
 
 @dataclass
@@ -40,6 +47,11 @@ class RunResult:
     turns: list[Turn] = field(default_factory=list)
     n_questions: int = 0
     n_repeats: int = 0
+    n_confirms: int = 0                        # D-50：複誦確認次數（不算進 n_questions）
+    n_confirm_changed: int = 0                 # 確認後值改變的次數
+    n_confirm_downgrade_blocked: int = 0       # 確認值較不嚴重、因此保留原值的次數（複誦不得降級）
+    pending_test_asked: bool = False           # rules 0.8.0：有症狀暫判 T2–T4、定案前加問了待追蹤檢查
+    pending_test_skipped_at_cap: bool = False  # 該加問但已達題數上限 → 沒問，照原結果定案
     hard_stop_turn: int | None = None          # 觸發 HS 時已問幾題（0 = 開場白即觸發）
     rf_reveal_turn: int | None = None          # 揭露 RF 事實的那一題（與 hard_stop_turn 相同 → latency 0）
     decisive_asked_or_known: int = 0
@@ -62,12 +74,14 @@ class RunResult:
 
 def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: RulesEngine | None = None,
              prompter: Prompter | None = None, audit: AuditLog | None = None,
-             max_questions: int | None = None, stt_min_conf: float | None = None) -> RunResult:
+             max_questions: int | None = None, stt_min_conf: float | None = None,
+             confirm_back: bool | None = None) -> RunResult:
     th = load_clinical_rules()["thresholds"]
     max_q = max_questions if max_questions is not None else th["max_questions"]
     min_conf = stt_min_conf if stt_min_conf is not None else th["stt_min_confidence"]
     crit_conf = th.get("stt_min_confidence_critical", min_conf)          # D-43：關鍵題門檻
     crit_qs = set(th.get("stt_critical_questions", []))
+    confirm_on = confirm_back if confirm_back is not None else th.get("stt_confirm_back", False)   # D-50
     engine = engine or RulesEngine()
     prompter = prompter or Prompter()
     patient = patient or ScriptedPatient(case)
@@ -96,18 +110,26 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
         res.stop_reason = "hard_stop_opening"
     else:
         while True:
+            q = None
             if d.provisional_tier != 9 and d.gate_passed:
-                res.stop_reason = "gate_passed"
-                break
-            if d.provisional_tier == 0 and d.missing and all(
-                    any(qb0[q].slot_id == slot for q in asked) for slot in d.missing):
+                # rules 0.8.0：有症狀暫判 T2–T4 → 定案前加問待追蹤檢查一次（算題數；已達上限就不問、照原結果定案）
+                q = prompter.pending_test_question(state, d, asked)
+                if q is not None and res.n_questions >= max_q:
+                    res.pending_test_skipped_at_cap = True
+                    q = None
+                if q is None:
+                    res.stop_reason = "gate_passed"
+                    break
+                res.pending_test_asked = True
+            if q is None and d.provisional_tier == 0 and d.missing and all(
+                    any(qb0[x].slot_id == slot for x in asked) for slot in d.missing):
                 # D-45：T0 不會被 gate 降級；缺的題都問過（病人答不知道）→ 直接定案，不再拖到題數上限
                 res.stop_reason = "gate_passed_t0_asked"
                 break
-            if res.n_questions >= max_q:
+            if q is None and res.n_questions >= max_q:
                 res.stop_reason = "max_questions"
                 break
-            q = prompter.next_question(state, missing=d.missing, asked=asked)
+            q = q or prompter.next_question(state, missing=d.missing, asked=asked)
             if q is None:
                 res.stop_reason = "no_more_questions"
                 break
@@ -124,11 +146,27 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                 reply.stt_confidence = 1.0
             asked.add(q.id)
             res.n_questions += 1
-            state.set(q.slot_id, reply.value, asked_by=q.id, source=f"turn{res.n_questions}")
-            res.turns.append(Turn(q.id, q.slot_id, reply.value, reply.utterance_zh, reply.stt_confidence, repeated))
             audit.emit(call_id, "stt_segment", {"speaker": "patient", "text": reply.utterance_zh,
                                                 "confidence": reply.stt_confidence})
-            audit.emit(call_id, "slot_update", {"slot": q.slot_id, "value": reply.value, "question_id": q.id})
+            turn = Turn(q.id, q.slot_id, reply.value, reply.utterance_zh, reply.stt_confidence, repeated)
+            if confirm_on and should_confirm(engine, state, q, reply.value, reply.utterance_zh):
+                # D-50 複誦確認（不算題數）；寫入後即 Hard stop 者不複誦，不得因確認延誤送醫；確認後取較嚴重者
+                prompt = confirm_prompt(q, reply.value)
+                c = patient.confirm(q, prompt)
+                heard = c.value if c.stt_confidence >= thr else None    # 確認回答信心偏低 → 視為未確認
+                turn.answer, turn.confirm_downgrade_blocked = resolve_confirm(q, reply.value, heard)
+                turn.pre_confirm_answer, turn.confirm_prompt_zh = reply.value, prompt
+                turn.confirm_utterance_zh, turn.confirm_answer = c.utterance_zh, c.value
+                res.n_confirms += 1
+                res.n_confirm_changed += int(turn.answer != reply.value)
+                res.n_confirm_downgrade_blocked += int(turn.confirm_downgrade_blocked)
+                audit.emit(call_id, "confirm_back", {"question_id": q.id, "slot_id": q.slot_id, "pre_value": reply.value,
+                                                     "prompt_zh": prompt, "reply_text": c.utterance_zh,
+                                                     "reply_value": c.value, "reply_confidence": c.stt_confidence,
+                                                     "value": turn.answer, "downgrade_blocked": turn.confirm_downgrade_blocked})
+            state.set(q.slot_id, turn.answer, asked_by=q.id, source=f"turn{res.n_questions}")
+            res.turns.append(turn)
+            audit.emit(call_id, "slot_update", {"slot": q.slot_id, "value": turn.answer, "question_id": q.id})
             d = engine.decide(state)       # 每句都重跑：紅旗逐句檔
             if d.hard_stop:
                 res.hard_stop_turn = res.n_questions

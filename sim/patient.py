@@ -43,6 +43,8 @@ class PatientReply:
 class PatientSimulator(Protocol):
     def answer(self, q: Question) -> PatientReply: ...
 
+    def confirm(self, q: Question, prompt_zh: str) -> PatientReply: ...   # D-50：客服複誦確認後的回答（值仍是該題的 slot 值）
+
 
 class ScriptedPatient:
     def __init__(self, case: Case, *, seed: int = 0, vague_p: float = 0.0, low_stt_p: float = 0.0) -> None:
@@ -50,6 +52,7 @@ class ScriptedPatient:
         self.rng = random.Random(f"{case.id}:{seed}")
         self.vague_p = vague_p
         self.low_stt_p = low_stt_p
+        self._said: dict[str, Any] = {}       # 每題最後一次回答的值（複誦確認時照說）
 
     def _render(self, q: Question, value: Any) -> str:
         if value is None:
@@ -76,4 +79,11 @@ class ScriptedPatient:
         conf = 1.0
         if self.low_stt_p > 0 and self.rng.random() < self.low_stt_p:
             conf = 0.5
+        self._said[q.id] = value
         return PatientReply(value=value, utterance_zh=self._render(q, value), stt_confidence=conf)
+
+    def confirm(self, q: Question, prompt_zh: str) -> PatientReply:
+        """D-50 複誦確認：腳本病人沒有「被聽錯」這回事，照自己剛才的回答再說一次。
+        不抽亂數，所以 vague／low_stt 噪聲模式之後各題的回答與沒有複誦時完全相同。"""
+        value = self._said.get(q.id)
+        return PatientReply(value=value, utterance_zh=self._render(q, value), stt_confidence=1.0)

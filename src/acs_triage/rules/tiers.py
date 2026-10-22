@@ -101,7 +101,7 @@ def t1_rules(s: SlotState) -> list[str]:
     if s.is_true("threshold_decreased") and s.get("threshold_decrease_timescale") == "weeks_to_month":
         hits.append("T1-THRESHOLD-WEEKS")
     if s.is_true("pending_abnormal_test") and s.no_symptoms():
-        hits.append("T1-PENDING-TEST")
+        hits.append("T1-PENDING-TEST")        # 有症狀者見 provisional_tier 的「至少 T1」下限（rules 0.8.0）
     if s.chest_symptom_present() and s.is_true("onset_new") and s.is_true("antiplatelet_interrupted"):
         hits.append("T1-ANTIPLT-SYMPTOMATIC")
     return hits
@@ -185,7 +185,18 @@ def t4_rules(s: SlotState) -> list[str]:
 
 # ---------------------------------------------------------------- provisional
 def provisional_tier(s: SlotState) -> tuple[int, list[str]]:
-    """回傳 (tier, rule_ids)。不含 hard stop 判斷（由 engine 先做）。"""
+    """回傳 (tier, rule_ids)。不含 hard stop 判斷（由 engine 先做）。
+
+    Clinical Owner 2026-10-22（rules 0.8.0）：異常檢查待追蹤 → 至少 T1，不論有無症狀。無症狀者照舊由 T1-PENDING-TEST 判 T1；
+    有症狀者先照一般規則判（T0 照常優先，所屬規則的 sufficiency 題目照常要問到），結果為 T2–T4 時再提高到 T1，
+    rule_ids 保留原規則並加上 T1-PENDING-TEST。T9 不改（繼續問），其護理師不可得時的備援等級由 tier9_fallback 保證至少 T1。"""
+    tier, rules = _provisional_tier(s)
+    if s.is_true("pending_abnormal_test") and tier in (2, 3, 4):
+        return 1, rules + ["T1-PENDING-TEST"]
+    return tier, rules
+
+
+def _provisional_tier(s: SlotState) -> tuple[int, list[str]]:
     h = t0_rules(s)
     # D-44（§5.8）：症狀未定性（vague）→ Tier 9，兩個例外（Clinical Owner 2026-10-18）：
     #   B. 新發且活動相關 → 視同缺血等價症狀，走一般規則（S-INSUF-06#0 維持 T0）
@@ -214,11 +225,13 @@ def provisional_tier(s: SlotState) -> tuple[int, list[str]]:
     return 9, ["T9-NO-RULE"]
 
 
-def pathway_actions_for(s: SlotState, rule_ids: list[str]) -> list[str]:
+def pathway_actions_for(s: SlotState, rule_ids: list[str], tier: int) -> list[str]:
+    """tier = provisional 等級。提前門診（expedite）只在 T3 附加；被待追蹤檢查下限提高到 T1 時不附（rules 0.8.0）。
+    用 provisional 而非 gate 後的 final：benchmark 比對的是 provisional（D-12），gate 未過暫判 T9 時仍保留 T3 的動作。"""
     acts: list[str] = []
-    if "T3-ANTIPLT-ASYMPTOMATIC" in rule_ids:
+    if tier == 3 and "T3-ANTIPLT-ASYMPTOMATIC" in rule_ids:
         acts.append("expedite")
-    elif s.is_true("antiplatelet_interrupted") and any(r.startswith("T3-") for r in rule_ids):
+    elif tier == 3 and s.is_true("antiplatelet_interrupted") and any(r.startswith("T3-") for r in rule_ids):
         acts.append("expedite")               # D-45：穩定症狀＋抗血小板中斷判 T3（S-STABLE-02#0）亦提前門診（設計補充，待確認）
     if "T9-THIRD-PARTY-UNREACHABLE" in rule_ids:
         acts.append("family_relay_safety_net")

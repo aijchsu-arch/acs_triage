@@ -227,7 +227,7 @@ scenarios:
       ongoing_now: false
       diaphoresis: false
       antiplatelet_interrupted: false
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}
@@ -265,7 +265,7 @@ scenarios:
       syncope: false
       ongoing_now: false
       diaphoresis: false
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {antiplatelet_interrupted: true}
         expect: {tier: 3, hard_stop: false}
@@ -324,7 +324,7 @@ scenarios:
       syncope: false
       ongoing_now: false
       diaphoresis: false
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}

@@ -31,6 +31,11 @@ class Metrics:
     escalating_missed_strict: list[tuple[str, str, int, str]] = field(default_factory=list)  # D-42：推導值不算已知
     questions: list[int] = field(default_factory=list)
     repeats: int = 0
+    confirms: int = 0                      # D-50：複誦確認次數
+    confirm_changed: int = 0               # 確認後值改變的次數
+    confirm_downgrade_blocked: int = 0     # 確認值較不嚴重、保留原值的次數
+    pending_test_asked: int = 0            # rules 0.8.0：有症狀暫判 T2–T4、定案前加問待追蹤檢查的通數
+    pending_test_skipped_at_cap: int = 0   # 該加問但已達題數上限而沒問的通數
     stop_reasons: Counter = field(default_factory=Counter)
     confusion: Counter = field(default_factory=Counter)   # (truth, pred)
     by_module: dict[str, Counter] = field(default_factory=dict)
@@ -79,6 +84,10 @@ class Metrics:
     def mean_questions(self) -> float:
         return sum(self.questions) / len(self.questions) if self.questions else 0.0
 
+    @property
+    def mean_confirms(self) -> float:
+        return self.confirms / self.n_cases if self.n_cases else 0.0
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "n_cases": self.n_cases, "n_scored": self.n_scored,
@@ -97,6 +106,9 @@ class Metrics:
             "decisive_recall": self.decisive_recall,
             "questions_to_decision_mean": self.mean_questions,
             "gate_repeats": self.repeats,
+            "confirm_back": {"n": self.confirms, "per_call": self.mean_confirms, "changed": self.confirm_changed,
+                             "downgrade_blocked": self.confirm_downgrade_blocked},
+            "pending_test_extra": {"asked": self.pending_test_asked, "skipped_at_cap": self.pending_test_skipped_at_cap},
             "stop_reasons": dict(self.stop_reasons),
             "confusion": {f"{t}->{p}": n for (t, p), n in sorted(self.confusion.items())},
             "rf_mismatch": self.rf_mismatch,
@@ -110,6 +122,11 @@ def compute(results: list[RunResult]) -> Metrics:
         m.stop_reasons[r.stop_reason] += 1
         m.questions.append(r.n_questions)
         m.repeats += r.n_repeats
+        m.confirms += r.n_confirms
+        m.confirm_changed += r.n_confirm_changed
+        m.confirm_downgrade_blocked += r.n_confirm_downgrade_blocked
+        m.pending_test_asked += r.pending_test_asked
+        m.pending_test_skipped_at_cap += r.pending_test_skipped_at_cap
         m.decisive_hit += r.decisive_asked_or_known
         m.decisive_total += r.decisive_total
         m.escalating_hit += r.escalating_asked_or_known

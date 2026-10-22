@@ -25,7 +25,7 @@ class RulesEngine:
         evidence = list(rule_ids) + (["T9-GATE"] if not gate_passed else [])
         return TierDecision(provisional_tier=prov, tier=final, gate_passed=gate_passed, hard_stop=False,
                             rf_hits=[], evidence=evidence, missing=missing,
-                            pathway_actions=tiers.pathway_actions_for(state, rule_ids),
+                            pathway_actions=tiers.pathway_actions_for(state, rule_ids, prov),
                             rules_version=rules_version())
 
     # ------------------------------------------------------------- ND-01

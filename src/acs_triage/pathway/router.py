@@ -23,9 +23,10 @@ def tier9_fallback(state: SlotState) -> tuple[int, list[str]]:
     table = load_clinical_rules()["tier9_nurse_unavailable_fallback"]
     cat = _complaint_category(state)
     entry = table[cat]
-    if isinstance(entry, dict):
-        return int(entry["tier"]), [entry["extra_action"]]
-    return int(entry), []
+    tier, actions = (int(entry["tier"]), [entry["extra_action"]]) if isinstance(entry, dict) else (int(entry), [])
+    if state.is_true("pending_abnormal_test"):     # Clinical Owner 2026-10-22（rules 0.8.0）：異常檢查待追蹤 → 至少 T1（含 T9 備援）
+        tier = min(tier, 1)
+    return tier, actions
 
 
 def route(decision: TierDecision, state: SlotState, *, nurse_available: bool = True) -> Pathway:

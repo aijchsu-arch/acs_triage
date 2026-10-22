@@ -34,6 +34,7 @@ class Deviation:
     expected: Any
     got: Any
     utterance_zh: str
+    confirm: bool = False   # D-50：複誦確認的回答（同樣與 sheet 比對，計入偏差與編造率）
 
 
 def make_client() -> Any:
@@ -116,8 +117,8 @@ class LLMPatientSimulator:
             return None
         return data["answer"]
 
-    def answer(self, q: Question) -> PatientReply:
-        self.messages.append({"role": "user", "content": q.script_zh.strip()})
+    def answer(self, q: Question, *, prompt_zh: str | None = None) -> PatientReply:
+        self.messages.append({"role": "user", "content": prompt_zh or q.script_zh.strip()})
         resp = self.client.beta.messages.create(
             model=self.model,
             max_tokens=4000,
@@ -139,9 +140,13 @@ class LLMPatientSimulator:
         utt = data["utterance_zh"]
 
         expected = self.oracle.answer(q).value
-        if _norm(value) != _norm(expected):
+        if _norm(value) != _norm(expected):                # 原題與複誦確認的回答都比對（confirm 欄位區分）
             kind = "fabricated" if expected is None or expected == "unknown" else \
                    "omitted" if value is None or value == "unknown" else "contradicted"
-            self.deviations.append(Deviation(self.case.id, q.id, kind, expected, value, utt))
+            self.deviations.append(Deviation(self.case.id, q.id, kind, expected, value, utt, confirm=prompt_zh is not None))
         return PatientReply(value=value, utterance_zh=utt, stt_confidence=1.0)
+
+    def confirm(self, q: Question, prompt_zh: str) -> PatientReply:
+        """D-50 複誦確認：同一段對話續問；answer 的 schema 與原題相同（填該題的實際值，不是「對／不對」）。"""
+        return self.answer(q, prompt_zh=prompt_zh)
 

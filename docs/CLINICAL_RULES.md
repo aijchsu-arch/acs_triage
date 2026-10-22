@@ -1,6 +1,6 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.7.1 · 2026-10-20（D-46：Q-REST-02 列入 STT 關鍵題 0.9。D-45：Q-05 裁定——僅激烈運動才喘 → T2、反覆休息時症狀且型態不變 → T3、穩定症狀＋抗血小板中斷 → T3+expedite；T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問新發／開始週數。D-44：DV-5 不接受 unclear、vague → T9）
+**rules_version**: 0.8.0 · 2026-10-22（0.8.0 含兩項 Clinical Owner 2026-10-22 裁定：紅旗題與關鍵題有條件複誦確認，取值用固定嚴重度順序（D-50，§5.10）；異常檢查待追蹤 → 至少 T1，不論有無症狀（§5.4、§5.8）。D-46：Q-REST-02 列入 STT 關鍵題 0.9。D-45：Q-05 裁定——僅激烈運動才喘 → T2、反覆休息時症狀且型態不變 → T3、穩定症狀＋抗血小板中斷 → T3+expedite；T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問新發／開始週數。D-44：DV-5 不接受 unclear、vague → T9）
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 
@@ -105,7 +105,7 @@ T0 永遠先於其他等級評估；§5.6 的 T3 carve-out 只在 **T0 條件全
 T0 不成立，且以下任一：
 - 新發缺血等價症狀、已緩解、`last_episode_timing == yesterday_within_24h`、今日無發作（B1 單次；B19 兩天內多次亦同）(DV-1)。若確認為休息時首次發作，§5.3 T0 優先。非缺血型豁免除外（Q-14d C）
 - `threshold_decreased == true` 且 `threshold_decrease_timescale == weeks_to_month`（C3 B；B7）
-- `pending_abnormal_test == true` 且目前無症狀（檢查異常待追蹤未掛號；B9）
+- `pending_abnormal_test == true`（檢查異常待追蹤未掛號；B9）：**不論有無症狀，至少 T1**（Clinical Owner 2026-10-22，rules 0.8.0）。無症狀者直接判 T1（T1-PENDING-TEST）；有症狀者先照一般規則判——Hard stop、T0 照常優先，所屬規則定案前必問的題目照常要問到——結果為 T2–T4 時提高到 T1（evidence 保留原規則並加 T1-PENDING-TEST）；結果為 T9 者照常繼續問，護理師不可得時的預設等級至少 T1（§5.8）。下限沿用原規則的必要 slot，不另加 T1-PENDING-TEST 用來確認「無症狀」的三項（症狀性質、呼吸分級、瀕厥），以免病人對其中一項答不知道就卡到題數上限而變 T9。**加問**（Clinical Owner 2026-10-22／23 跨夜裁定）：有症狀者照一般流程 gate 已通過且暫判 T2–T4、此項仍未知且沒問過 → 定案前加問 Q-PENDINGTEST-01 一次（算進 `max_questions`；已達上限就不問、照原結果定案，評估報告計數）；答「有」依下限提高到 T1，答不知道照原結果定案。Hard stop／T0／T1／T9 不加問（不得延誤送醫）。無症狀來電照舊由 Q-14f 合併篩檢問到。
 - 新發缺血等價症狀 + `antiplatelet_interrupted == true`（ND-05 有症狀分支）(DV-3)
 
 ### 5.5 T2（24–72 h）
@@ -121,7 +121,7 @@ T0／T1 不成立，且以下任一：
 T0／T1／T2 不成立，且以下任一：
 - **穩定型**（A7、A8、A10）：全部成立 — `cad_history == true` 或已知穩定型態；`pattern_unchanged_duration_months >= 6`；`rest_symptom == false`；無 `dyspnea_acute`、`presyncope`、`syncope`；`threshold_decreased == false`
 - **穩定型（反覆休息時症狀）**（Q-05 S-ACUTE-05#1，D-45）：`cad_history == true` 或已知穩定型態（定案前須問到）；`pattern_unchanged_duration_months >= 6`；`rest_symptom == true` 但 `rest_symptom_first_time == false`；`onset_new != true`；已緩解（`ongoing_now != true`）；**明確** `threshold_decreased == false` 且 `ntg_use_increased == false`；無 `dyspnea_acute`、`presyncope`、`syncope`、端坐呼吸、靜止喘。首次休息時症狀仍為 §5.3 T0
-- 任一 T3 條件成立 ＋ `antiplatelet_interrupted == true` → T3 並附 `expedite`（Q-05 S-STABLE-02#0，D-45；程式範圍為所有 T3 規則；新發症狀＋中斷仍為 §5.4 T1）
+- 任一 T3 條件成立 ＋ `antiplatelet_interrupted == true` → T3 並附 `expedite`（Q-05 S-STABLE-02#0，D-45；程式範圍為所有 T3 規則；新發症狀＋中斷仍為 §5.4 T1）。`expedite` 只在 T3 附加；被異常檢查待追蹤的下限提高到 T1 時不附（rules 0.8.0）
 - **行政性來電**（A9）：`consult_topic == appointment_admin`（門診時間、排程等事務）且病人明確否認新發胸悶、喘、暈 (DV-7)
 - `antiplatelet_interrupted == true` 且無症狀 → T3 + `expedite`（C7 C；B4）
 - `palpitations == true`、無缺血等價症狀、無 presyncope／syncope（B5）。**系統不建議居家 ECG**（C8 B）
@@ -152,6 +152,8 @@ T0–T3 不成立，且：
 | 第三方來電、病人不可及 | T1，請家屬轉達 S-SN-A |
 | 藥物／行政諮詢且否認症狀 | T3 |
 
+**異常檢查待追蹤**（`pending_abnormal_test == true`，rules 0.8.0）：上表預設等級至少 T1。
+
 ### 5.9 必要 slot 集合（Sufficiency Gate 用）
 - 判 T0：至少一個 §5.3 條件的 slot 有高信心值 **且** 紅旗題（priority=redflag）已問完或已被回答。首次休息時症狀（A5）另需先問 `rest_symptom_first_time`（非首次且型態不變 → §5.6；D-45）。
 - 判 T1／T2：對應條件的全部 slot 有高信心值，且 `rest_symptom`、`ongoing_now`、`diaphoresis` 已確認。T1（閾值數週下降）另需 `onset_new` 已知（新發 → T0；D-45）。
@@ -161,7 +163,32 @@ T0–T3 不成立，且：
 - **第三方來電（Q-14c）**：`patient_reachable` 必須已知。
 - **勞累型豁免（DV-2、DV-4；Q-14d C）**：`last_episode_timing` 必須已知（答「不記得」算已知），否則不問就永遠豁免。
 - **無症狀諮詢（T3 行政、T3 抗血小板中斷無症狀、T4；Q-14f）**：心悸、姿勢性頭暈、檢查異常待追蹤必須已知；以一題合併篩檢詢問，答「沒有」即三項皆 false。
+- **有症狀、暫判 T2–T4（rules 0.8.0）**：gate 通過後、定案前加問一次檢查異常待追蹤（不要求已知；見 §5.4）。
 - 其他 → 不足。
+
+### 5.10 紅旗題與關鍵題的複誦確認（confirm-back，D-50）
+Clinical Owner 裁定（2026-10-22，方案 1）：「紅旗題和關鍵題的回答，句首沒有明確的『有』或『沒有』，或信心偏低時，複誦一次請病人確認。只在可疑時加問，通話不會變長太多。」依據：D-49 本機 Whisper 合成語音中，所有回答（不限紅旗題）以肯定詞「有／對／會」開頭的 41 句，句首詞被吞掉 17–21 句（約一半）；紅旗＋關鍵題極性翻轉每條件 8–9 句；STT 信心門檻只抓到約四成極性翻轉。開關：`thresholds.stt_confirm_back`。分級判定邏輯不變，只加確認流程；**複誦不得成為降級路徑**（比照 §4 不得降級的精神，見第 3、6 點）。
+
+1. **範圍**：`priority: redflag` 的題，加上 `thresholds.stt_critical_questions`。目前為 5 題是非紅旗題（Q-DIAPH-01、Q-ONGOING-01、Q-SYNCOPE-01、Q-SYNCOPE-02、Q-DYSPNEA-SENTENCE-01）、Q-DYSPNEA-GRADE-01（選擇）、Q-REST-02（是非）、Q-CHARACTER-01（選擇）。
+2. **信心偏低**：照舊走 Confidence Gate（D-43／D-46：這些題門檻 `stt_min_confidence_critical` 0.9），請病人再說一次；再說一次之後的回答再套第 3 點。
+3. **觸發**（`should_confirm`）：
+   - 解讀值已是該題**最嚴重一級**（第 6 點順序表的第一級：是非題「有」、症狀性質的典型三者、呼吸分級「坐著休息也喘」）→ **不複誦**：複誦只可能把它改得較不嚴重（Clinical Owner 2026-10-22）。
+   - 是非題：解讀出的值不明，或值為「沒有」而回答句首沒有明確的否定詞（第 4 點）→ 複誦確認一次。
+   - 選擇題：值不明，或不是最嚴重一級 → 複誦確認一次。
+   - **例外**：把解讀出的值寫入後規則引擎即判 Hard stop → 不複誦，直接走 Hard stop（不得因確認延誤送醫）。
+4. **句首明確的肯定／否定詞**（`acs_triage.prompter.confirm.leading_yes_no`；詞表在 `data/extraction_patterns.yaml` 的 `leading_yes_no`，與 `sim/stt_eval.py` 的極性判定同一來源）：去掉句首標點與語助詞（嗯呃喔哦啊欸唔哈哎唉誒），先遮罩「不舒服、不知道、不確定」等含「不／沒」但非否定的片語，再看開頭——否定詞（沒有、沒、不會、不是、不、沒什麼、還沒）→ 否定；肯定詞（有、會、是、還在、對）→ 肯定；其他 → 不明確。
+   - **輸入必須是繁體。** Whisper 輸出多為簡體，進抽取器與本判斷前一定要先轉繁（D-49：OpenCC `s2twp`，並先在「是」「只」之間切開）。簡體漏網時「没有」等含簡體字的詞比不到詞表 → 判為不明確 → 觸發確認（安全方向）；但以「不」開頭的簡體非否定片語（不确定、不适…）遮罩不到，會被當成否定詞「不」，所以轉繁不能省。
+5. **複誦文字**（`data/scripts_zh.yaml`，DRAFT，措辭待 Q-10 定稿；只用題目原文 `script_zh` 與值的中文組合，不另創臨床措辭）：
+   - 值已知（S-CONFIRM-BACK）：「我跟您確認一下，剛剛問您『{題目原文}』，您的回答是『{值的中文}』，對嗎？」是非題的值中文為「有／沒有」；選擇題用 `confirm_value_labels_zh`（症狀性質、呼吸分級兩個 slot；題目原文列出的選項用題目用語，如「刺痛」「現在坐著休息也會喘」，其餘沿用模擬病人口語；皆為草稿）。
+   - 值不明、是非題（S-CONFIRM-BACK-ASK-YESNO）：「我再跟您確認一次，{題目原文}請您回答『有』還是『沒有』。」
+   - 值不明、選擇題（S-CONFIRM-BACK-ASK）：「我再跟您確認一次，{題目原文}」（以原文再問一次）。
+6. **確認後取值**（Clinical Owner 2026-10-22 裁定：固定嚴重度順序，寫在 `data/clinical_rules.yaml` 的 `confirm_back_severity`，程式只讀表；左邊最嚴重）：
+   - 是非題（範圍內各題）：有 ＞ 沒有。
+   - 呼吸分級：坐著休息也喘（rest）＞ 走路做家事就喘（exertional_daily）＞ 只有激烈運動才喘（exertional_heavy）＞ 沒有（none）。
+   - 症狀性質：典型（被壓住 pressure、悶悶的 tightness、下顎肩膀沉重 jaw_shoulder_heaviness，三者同級）＞ 上腹（epigastric）＞ 刺痛（pain）＞ 說不上來（vague）＞ 其他（other）＞ 沒有（none，否認胸部症狀；排最後）。此 slot 沒有 unknown 選項。
+   - 原值與確認值都已知 → 取較嚴重者；**同級保留原值**；確認值較不嚴重而保留原值者記為 `confirm_downgrade_blocked`。原值不明 → 採確認值。確認回答不明 → 是非題原值「沒有」改為未知（未經確認的紅旗否認不採信），其他情況保留原值。
+7. **計數與紀錄**：複誦不算進 `max_questions`（比照再說一次）；評估報告列複誦總數、平均每通次數、確認後改值次數、確認值較不嚴重而保留原值的次數；audit 記 `confirm_back` 事件（確認前的值、複誦文字、確認回答、採用的值、是否擋下降級）。
+8. **實作補充與窮舉**：(a)（規格未涵蓋，取安全方向，待 Clinical Owner 確認）是非題值為「沒有」但句首是肯定詞（如「有，…」）→ 也複誦；(b)（同上）確認回答本身的 STT 信心低於該題門檻 → 視為確認回答不明，依第 6 點處理（不再追問第二次）；(c) 窮舉（`tests/test_confirm_back.py`）：每次複誦把回答換成該題每個合法值（含不明），共 1,206 種（病人是非題句首被吞掉、其餘照事實清單回答、一次只改一次複誦）。**原值已知時 0 種**最終比不複誦更不急。原值不明、複誦得到較不嚴重答案（等同重問）有 3 種：S-INSUF-04 與 S-INSUF-04#1 呼吸分級不明 → 複誦答「沒有」（推導出沒有今天突發喘等，之後不再問；#1 T0 → T9，S-INSUF-04 同為 T9 但備援 T1 → T3）；S-MID-13#3 Q-REST-02 不明 → 複誦答「不是最近才開始」（不明時以首次視之的 T0-REST-NEW 不再成立，T0 → T9）。獨立驗收的反例 S-INSUF-04#2（「走路做家事就喘」被複誦聽成「只有激烈運動才喘」）依順序表保留原值，維持 T2。
 
 ---
 

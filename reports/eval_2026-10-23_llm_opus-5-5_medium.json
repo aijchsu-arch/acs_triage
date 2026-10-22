@@ -1,0 +1,688 @@
+{
+  "model": "claude-opus-5-5",
+  "model_versions": [
+    "claude-opus-5-5"
+  ],
+  "effort": "medium",
+  "rules_version": "0.8.0",
+  "metrics": {
+    "n_cases": 119,
+    "n_scored": 119,
+    "hard_stop": {
+      "truth": 27,
+      "hit": 27,
+      "miss": [],
+      "miss_rate": 0.0,
+      "false_alarm": [],
+      "latency_max": 0
+    },
+    "exact_rate": 1.0,
+    "under_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "over_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "abstention": {
+      "tp": 12,
+      "fp": [],
+      "fn": [],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "escalating_recall": 0.9761029411764706,
+    "escalating": {
+      "hit": 531,
+      "total": 544,
+      "missed": [
+        [
+          "S-ACUTE-05#1",
+          "Q-PENDINGTEST-01",
+          3,
+          "gate_passed"
+        ],
+        [
+          "S-STABLE-01#2",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-01",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-02",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-02#1",
+          "Q-PENDINGTEST-01",
+          3,
+          "gate_passed"
+        ],
+        [
+          "S-INSUF-03",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-05",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-08",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-MID-17#0",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ]
+      ]
+    },
+    "escalating_recall_strict": 0.9448529411764706,
+    "escalating_missed_strict": [
+      [
+        "S-ACUTE-05#1",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-STABLE-01#2",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-STABLE-03",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-STABLE-03",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-INSUF-01",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-02",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-INSUF-03",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-05",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-08",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-MID-04",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-MID-04",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17#0",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-MID-18",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-18",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-18",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20#0",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ]
+    ],
+    "decisive_recall": 0.9710743801652892,
+    "questions_to_decision_mean": 5.5966386554621845,
+    "gate_repeats": 0,
+    "confirm_back": {
+      "n": 164,
+      "per_call": 1.3781512605042017,
+      "changed": 0,
+      "downgrade_blocked": 0
+    },
+    "pending_test_extra": {
+      "asked": 20,
+      "skipped_at_cap": 2
+    },
+    "stop_reasons": {
+      "gate_passed": 77,
+      "hard_stop": 25,
+      "hard_stop_opening": 2,
+      "max_questions": 12,
+      "gate_passed_t0_asked": 3
+    },
+    "confusion": {
+      "0->0": 71,
+      "1->1": 7,
+      "2->2": 6,
+      "3->3": 19,
+      "4->4": 4,
+      "9->9": 12
+    },
+    "rf_mismatch": []
+  },
+  "scripted_metrics": {
+    "n_cases": 119,
+    "n_scored": 119,
+    "hard_stop": {
+      "truth": 27,
+      "hit": 27,
+      "miss": [],
+      "miss_rate": 0.0,
+      "false_alarm": [],
+      "latency_max": 0
+    },
+    "exact_rate": 1.0,
+    "under_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "over_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "abstention": {
+      "tp": 12,
+      "fp": [],
+      "fn": [],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "escalating_recall": 0.9761029411764706,
+    "escalating": {
+      "hit": 531,
+      "total": 544,
+      "missed": [
+        [
+          "S-ACUTE-05#1",
+          "Q-PENDINGTEST-01",
+          3,
+          "gate_passed"
+        ],
+        [
+          "S-STABLE-01#2",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-01",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-02",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-02#1",
+          "Q-PENDINGTEST-01",
+          3,
+          "gate_passed"
+        ],
+        [
+          "S-INSUF-03",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-05",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-08",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-MID-17#0",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ]
+      ]
+    },
+    "escalating_recall_strict": 0.9448529411764706,
+    "escalating_missed_strict": [
+      [
+        "S-ACUTE-05#1",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-STABLE-01#2",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-STABLE-03",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-STABLE-03",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-INSUF-01",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-02",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-02#1",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-INSUF-03",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-05",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-08",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-MID-04",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-MID-04",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17#0",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-MID-18",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-18",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-18",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20#0",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ]
+    ],
+    "decisive_recall": 0.9710743801652892,
+    "questions_to_decision_mean": 5.5966386554621845,
+    "gate_repeats": 0,
+    "confirm_back": {
+      "n": 110,
+      "per_call": 0.9243697478991597,
+      "changed": 0,
+      "downgrade_blocked": 0
+    },
+    "pending_test_extra": {
+      "asked": 20,
+      "skipped_at_cap": 2
+    },
+    "stop_reasons": {
+      "gate_passed": 77,
+      "hard_stop": 25,
+      "hard_stop_opening": 2,
+      "max_questions": 12,
+      "gate_passed_t0_asked": 3
+    },
+    "confusion": {
+      "0->0": 71,
+      "1->1": 7,
+      "2->2": 6,
+      "3->3": 19,
+      "4->4": 4,
+      "9->9": 12
+    },
+    "rf_mismatch": []
+  },
+  "deviations": [
+    {
+      "case_id": "S-INSUF-04",
+      "question_id": "Q-CONSULT-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "symptom",
+      "utterance_zh": "主要是身體不舒服啦，最近覺得比較喘，想問問看。",
+      "confirm": false
+    },
+    {
+      "case_id": "S-INSUF-06#0",
+      "question_id": "Q-REST-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "沒有，休息的時候不會，都是走路或用力的時候才會，停下來就好了。",
+      "confirm": false
+    }
+  ],
+  "errors": [],
+  "usage": {
+    "input_tokens": 3320,
+    "output_tokens": 49851,
+    "cache_creation_input_tokens": 724133,
+    "cache_read_input_tokens": 1109842,
+    "calls": 830,
+    "est_cost_usd": 5.0749
+  },
+  "wall_seconds": 263.3
+}

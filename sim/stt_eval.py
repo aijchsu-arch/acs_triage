@@ -13,6 +13,7 @@ python -m sim.stt_eval score  --asr <sim/stt_synth_asr.py 的結果 JSON>
 1. 字錯率（正規化後字元層 Levenshtein；正規化 = NFKC、繁轉簡、去標點空白，由 A 段完成）。
 2. 極性翻轉：回答的「否定判定」ref 與 hyp 不同。
 3. 信心值能否抓到錯誤（錯誤 = CER > 0.1 或極性翻轉）與 0.9／0.75 門檻的實際效果。
+（另附）紅旗題與關鍵題複誦確認（D-50）的離線證據：句首判定的觸發率與能攔下哪些翻轉（報告第 6 節）。
 合成語音是樂觀上限，不能代表真實病人（見報告開頭）。純函式與計分邏輯在上半部，有單元測試（tests/test_stt_eval.py）。
 """
 from __future__ import annotations
@@ -27,7 +28,8 @@ from statistics import mean
 from typing import Any, Callable, Iterable, Sequence
 
 from acs_triage.extract import extract
-from acs_triage.loaders import REPO_ROOT, load_clinical_rules, question_by_id
+from acs_triage.loaders import REPO_ROOT, load_clinical_rules, load_extraction_patterns, question_by_id
+from acs_triage.prompter.confirm import leading_yes_no, needs_confirm
 
 DEFAULT_TRANSCRIPTS = REPO_ROOT / "reports" / "eval_2026-10-20_llm_opus-5-5_medium_transcripts.json"
 DEFAULT_UTTERANCES = REPO_ROOT / "reports" / "stt_utterances_2026-10-22.json"
@@ -85,26 +87,28 @@ def cer(ref: str, hyp: str) -> float:
 # ======================================================================== 極性（否定判定）
 # 以簡體為標準字形；輸入（繁／簡）與詞表都先過同一張對照表，所以兩種字形結果一致。
 _T2S = str.maketrans("沒麼會還對確說記適規則動過關係來樣誒", "没么会还对确说记适规则动过关系来样诶")   # 詞表用到的字
+_S2T = {s: t for t, s in _T2S.items()}       # 句首判定交給繁體詞表的 leading_yes_no：先把這些字轉回繁體
 
 
 def _canon(s: str) -> str:
     return s.translate(_T2S)
 
 
-NEG_TOKENS = ["沒有", "沒", "不會", "不是", "不", "沒什麼", "還沒"]            # 任務定義的否定詞集合
-POS_STARTS = ["有", "會", "是", "還在", "對"]                                   # 肯定回答開頭
+# 詞表單一來源：data/extraction_patterns.yaml 的 leading_yes_no（D-50，與 src 的 leading_yes_no 共用）
+_LX = load_extraction_patterns()["leading_yes_no"]
+NEG_TOKENS = list(_LX["negative"])                # 任務定義的否定詞集合
+POS_STARTS = list(_LX["affirmative"])             # 肯定回答開頭
 # 含「不／沒」但不是在否定症狀的片語（沿用 extraction_patterns.yaml 的 non_negation_phrases，再補不確定語氣與連接詞）
-NON_NEGATION = ["不舒服", "不太舒服", "不適", "說不上來", "不知道", "不確定", "不太確定", "不清楚", "不太清楚",
-                "記不清楚", "記不太清楚", "不太對", "不一樣", "不規則", "不正常", "不動", "不過", "不管", "不然", "沒關係"]
-FILLER_CHARS = "嗯呃喔哦啊欸唔哈哎唉誒"
+NON_NEGATION = list(_LX["non_negation_phrases"])
+FILLER_CHARS = _LX["filler_chars"]
 
 _NEG_SORTED = sorted({_canon(t) for t in NEG_TOKENS}, key=len, reverse=True)
 _NEG_RE = re.compile("|".join(map(re.escape, _NEG_SORTED)))
-_POS_SORTED = tuple(sorted({_canon(t) for t in POS_STARTS}, key=len, reverse=True))
 _MASKS = sorted({_canon(t) for t in NON_NEGATION}, key=len, reverse=True)
 
 
 _LEAD_RE = re.compile(rf"^[\W_{FILLER_CHARS}]+")
+_LEAD_LABEL = {True: "pos", False: "neg", None: None}
 
 
 def _prepare(text: str) -> str:
@@ -115,15 +119,10 @@ def _prepare(text: str) -> str:
     return s
 
 
-def _lead(s: str) -> str | None:
-    if _NEG_RE.match(s):
-        return "neg"
-    return "pos" if s.startswith(_POS_SORTED) else None
-
-
 def lead_polarity(text: str) -> str | None:
-    """答案是否以否定詞（'neg'）或肯定詞（'pos'）開頭；都不是 → None。"""
-    return _lead(_prepare(text))
+    """答案是否以否定詞（'neg'）或肯定詞（'pos'）開頭；都不是 → None。
+    判定本身是 src 的 leading_yes_no（繁體詞表）；這裡先把詞表用到的簡體字轉回繁體，維持兩種字形結果一致。"""
+    return _LEAD_LABEL[leading_yes_no(text.translate(_S2T))]
 
 
 def polarity(text: str) -> str:
@@ -133,8 +132,7 @@ def polarity(text: str) -> str:
     如「有，不過沒有冒汗」）；否則整句出現否定詞 → neg；都沒有 → unk。
     不依賴標點切句：Whisper 輸出有時完全沒有標點（實測），按子句判斷會因此誤報翻轉。
     """
-    s = _prepare(text)
-    return _lead(s) or ("neg" if _NEG_RE.search(s) else "unk")
+    return lead_polarity(text) or ("neg" if _NEG_RE.search(_prepare(text)) else "unk")
 
 
 def is_negated(text: str) -> bool:
@@ -407,6 +405,55 @@ def policy_for(rows: list[dict], thr_critical: float, thr_other: float) -> dict[
     return out
 
 
+_POLARITY_VALUE = {"pos": True, "neg": False, "unk": None}
+
+
+def confirm_back_summary(rows: list[dict]) -> dict[str, Any]:
+    """D-50 複誦確認的離線證據。紅旗＋關鍵題中是非題的句子，以 `needs_confirm` 判斷（與 runner 同一條規則）；
+    「解讀出的值」以同一句的極性代替（pos → 有、neg → 沒有、unk → 不明；尚無上線用的抽取器）。
+    寫入即 Hard stop 不複誦的例外需要 slot 狀態，沒有模擬。選擇題轉寫後會被解讀成哪個值無從得知，只列句數，翻轉一律算會複誦（上限）。"""
+    qb, crit = question_by_id(), critical_question_ids()
+    gated_q = lambda r: [q for q in r["q_ids"] if qb[q].priority == "redflag" or q in crit]
+    types = lambda r: {qb[q].answer_type for q in gated_q(r)}
+    gated = [r for r in rows if r["qtype"] in ("redflag", "critical")]
+    yes_no = [r for r in gated if types(r) == {"yes_no"}]
+    choice = [r for r in gated if "choice" in types(r)]
+    q_yes_no = next((qb[q] for q in qb if qb[q].answer_type == "yes_no" and (qb[q].priority == "redflag" or q in crit)), None)
+    unclear = lambda t: needs_confirm(q_yes_no, _POLARITY_VALUE[polarity(t)], t)    # 是非題的觸發只看值與句子，與哪一題無關
+    conds = _conditions(rows)
+
+    def trig(g: list[dict], text_key: str) -> dict[str, Any]:
+        n_t = sum(unclear(r[text_key]) for r in g)
+        out = {"n": len(g), "n_trigger": n_t, "trigger_rate": _ratio(n_t, len(g))}
+        if text_key == "hyp_tw":
+            out["n_added_by_stt"] = sum(unclear(r["hyp_tw"]) and not unclear(r["ref"]) for r in g)    # ref 不觸發 → hyp 觸發
+            out["n_removed_by_stt"] = sum(unclear(r["ref"]) and not unclear(r["hyp_tw"]) for r in g)  # ref 觸發 → hyp 不觸發
+        return out
+
+    ref_rows = list({r["id"]: r for r in yes_no}.values())          # ref 與條件無關：每句一次
+    by_cond = _groups(yes_no, lambda r: r["condition"], conds)
+    qids = sorted({q for r in yes_no for q in gated_q(r)})
+    by_q = {q: {"ref": trig([r for r in ref_rows if q in r["q_ids"]], "ref"),
+                **{c: trig([r for r in g if q in r["q_ids"]], "hyp_tw") for c, g in by_cond.items()}} for q in qids}
+    flips = []
+    for r in gated:
+        if not r["flip"]:
+            continue
+        is_choice = "choice" in types(r)
+        flips.append({k: r[k] for k in ("id", "condition", "voice", "qtype", "q_ids", "flip_kind", "flip_dir", "ref", "hyp_tw")}
+                     | {"answer_type": "choice" if is_choice else "yes_no", "lead_hyp_tw": leading_yes_no(r["hyp_tw"]),
+                        "value_proxy": _POLARITY_VALUE[polarity(r["hyp_tw"])],
+                        "triggered": is_choice or unclear(r["hyp_tw"])})
+    return {"yes_no": {"n_utterances": len(ref_rows), "ref": trig(ref_rows, "ref"),
+                       "by_condition": {c: trig(g, "hyp_tw") for c, g in by_cond.items()}, "by_question": by_q},
+            "choice": {"n_utterances": len({r["id"] for r in choice}), "n_records": len(choice),
+                       "questions": sorted({q for r in choice for q in gated_q(r) if qb[q].answer_type == "choice"})},
+            "flips": {"n": len(flips), "n_triggered": sum(f["triggered"] for f in flips),
+                      "n_yes_no": sum(f["answer_type"] == "yes_no" for f in flips),
+                      "n_yes_no_triggered": sum(f["triggered"] for f in flips if f["answer_type"] == "yes_no"),
+                      "not_triggered": [f for f in flips if not f["triggered"]], "records": flips}}
+
+
 def analyze(rows: list[dict], thr_critical: float, thr_other: float) -> dict[str, Any]:
     """只依 rows 計算所有彙總數字（報告 JSON 內含 rows，因此數字可由 JSON 重現）。"""
     conds = _conditions(rows)
@@ -435,6 +482,7 @@ def analyze(rows: list[dict], thr_critical: float, thr_other: float) -> dict[str
                         "policy_thresholds": {"critical": thr_critical, "other": thr_other},
                         "by_condition": {c: calibration_for(g) for c, g in cal_groups.items()},
                         "policy": {c: policy_for(g, thr_critical, thr_other) for c, g in cal_groups.items()}}
+    s["confirm_back"] = confirm_back_summary(rows)
     return s
 
 
@@ -630,7 +678,46 @@ uv run --offline --no-project --python 3.14 --with mlx-whisper --with opencc-pyt
 ```
 換模型：A 段加 `--model <MLX 格式的路徑或 repo>` 並用新的 `--out`；換真實錄音：`--recordings-dir <含 <id>.wav 的目錄>`（條件改為 rec／rec_prompt）。
 報告 JSON 內含逐筆資料（`rows`），所有彙總數字可由 `rows` 重算（`analyze(rows)`）。""")
+    L.extend(render_confirm_back(s["confirm_back"], conds))
     return "\n".join(L) + "\n"
+
+
+def render_confirm_back(cb: dict[str, Any], conds: list[str]) -> list[str]:
+    """第 6 節：D-50 複誦確認的離線證據（數字全部來自 confirm_back_summary）。"""
+    yn, ch, fl = cb["yes_no"], cb["choice"], cb["flips"]
+    lead_label = {True: "肯定", False: "否定", None: "不明確"}
+    L = ["", "## 6. 複誦確認（D-50）的離線證據\n"]
+    L.append("規則（rules 0.8.0，`docs/CLINICAL_RULES.md` §5.10）：紅旗題與關鍵題的回答，是非題值不明、或值為「沒有」而句首沒有明確否定詞 → 複誦一次；"
+             "值已是最嚴重一級（是非題「有」、典型症狀、坐著也喘）不複誦；選擇題其餘的值都複誦；寫入後即 Hard stop 者不複誦。這裡對繁體化後的轉寫（`hyp_tw`）呼叫與 runner 相同的 "
+             "`acs_triage.prompter.confirm.needs_confirm`；尚無上線用的抽取器，「解讀出的值」以同一句的極性代替（第 2 節：肯定開頭 → 有、否定 → 沒有、無法判定 → 不明）。"
+             "在此代理下，觸發的句子恰為句首不明確（`leading_yes_no` 為 None）的句子。寫入即 Hard stop 不複誦的例外需要當下 slot 狀態，沒有模擬（只會減少觸發）。"
+             "句子依文字去重，觸發率是「每句」而非「每通電話」（每通次數見 Scripted／LLM 病人評估報告的 Confirm-back 列）。"
+             "ref 列 = 原文直接判斷，代表 STT 完美時仍會複誦的比例。\n")
+    L.append(f"**是非題（紅旗＋關鍵題，{yn['n_utterances']} 句）的複誦觸發率**\n")
+    r = yn["ref"]
+    rows = [["ref（原文＝STT 完美）", r["n"], r["n_trigger"], pct(r["trigger_rate"]), "—", "—"]]
+    rows += [[c, v["n"], v["n_trigger"], pct(v["trigger_rate"]), v["n_added_by_stt"], v["n_removed_by_stt"]]
+             for c, v in yn["by_condition"].items()]
+    L.append(table(["條件", "句數", "觸發", "觸發率", "ref 不觸發 → STT 後觸發", "ref 觸發 → STT 後不觸發"], rows))
+    L.append("**依題目**（觸發／句數）\n")
+    L.append(table(["題目", "ref"] + conds,
+                   [[q, f"{v['ref']['n_trigger']}/{v['ref']['n']}"] + [f"{v[c]['n_trigger']}/{v[c]['n']}" if c in v else "—" for c in conds]
+                    for q, v in yn["by_question"].items()]))
+    nt = fl["n"] - fl["n_triggered"]
+    L.append(f"**D-49 紅旗＋關鍵題的極性翻轉 {fl['n']} 筆**：會觸發複誦 {fl['n_triggered']} 筆"
+             f"（是非題 {fl['n_yes_no_triggered']}/{fl['n_yes_no']} 筆；選擇題 {fl['n'] - fl['n_yes_no']} 筆，解讀值不是最嚴重一級就會複誦，這裡一律算會複誦），"
+             f"攔不下 {nt} 筆" + ("：" + "；".join(f"{f['condition']} {'／'.join(f['q_ids'])}「{f['hyp_tw'][:40]}」（句首{lead_label[f['lead_hyp_tw']]}）"
+                                                for f in fl["not_triggered"]) if nt else "") + "。"
+             "觸發不等於一定改正：複誦後病人的回答本身也要被聽對；這裡只說明這些翻轉不會在無人確認下直接寫入。\n")
+    if fl["records"]:
+        L.append(table(["條件", "語音", "題目", "題型", "性質", "hyp 句首", "複誦", "ref → hyp"],
+                       [[f["condition"], f["voice"], "／".join(f["q_ids"]), "選擇題" if f["answer_type"] == "choice" else "是非題",
+                         FLIP_KIND_LABEL[f["flip_kind"]], "—" if f["answer_type"] == "choice" else lead_label[f["lead_hyp_tw"]],
+                         "是" if f["triggered"] else "**否**",
+                         f"{f['ref']} → {f['hyp_tw'][:60]}"]
+                        for f in sorted(fl["records"], key=lambda f: (f["id"], f["condition"]))]))
+    L.append(f"**選擇題**（{'、'.join(ch['questions'])}）：解讀值不是最嚴重一級（典型症狀、坐著也喘）就複誦；離線無法得知轉寫後的解讀值，只列句數：{ch['n_utterances']} 句（{ch['n_records']} 筆轉寫，句 × 條件）。\n")
+    return L
 
 
 def cmd_score(args: argparse.Namespace) -> None:

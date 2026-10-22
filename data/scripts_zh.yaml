@@ -46,3 +46,34 @@ scripts:
   S-FAMILY-RELAY:
     status: DRAFT
     text: "請您現在就聯絡病人本人或在他身邊的人，確認他現在的狀況。如果他胸口還在不舒服、快昏倒、冒冷汗或坐著也喘，請立刻撥打 119。"
+  # D-50 紅旗題／關鍵題複誦確認（措辭待 Q-10 定稿）。{question} = 題目原文 script_zh，{answer} = 值的中文（見下方 confirm_value_labels_zh）
+  S-CONFIRM-BACK:
+    status: DRAFT
+    text: "我跟您確認一下，剛剛問您『{question}』，您的回答是『{answer}』，對嗎？"
+  S-CONFIRM-BACK-ASK-YESNO:        # 是非題、沒聽出答案
+    status: DRAFT
+    text: "我再跟您確認一次，{question}請您回答『有』還是『沒有』。"
+  S-CONFIRM-BACK-ASK:              # 選擇題、沒聽出答案：用題目原文再問一次
+    status: DRAFT
+    text: "我再跟您確認一次，{question}"
+
+# D-50 複誦確認時「值的中文」。DRAFT，待 Q-10 定稿：yes_no 依 Clinical Owner 指示用「有／沒有」；
+# choice：題目 script_zh 列出的選項用題目原本的用語（標 # 題目），題目沒列的沿用模擬病人口語（抄自 sim/patient.py，未經核可）。
+# 只給複誦用；模擬病人（sim/patient.py 的 _ZH_CHOICE）維持自己的標籤，讓 LLM 病人評估與 OpenAI slot 抽取能與既有基線比較。
+confirm_value_labels_zh:
+  status: DRAFT
+  yes_no: {true: 有, false: 沒有}
+  symptom_character:              # Q-CHARACTER-01：「…比較像被壓住、悶悶的、刺痛，還是說不上來？…」
+    pressure: 被壓住              # 題目
+    pain: 刺痛                    # 題目
+    tightness: 悶悶的             # 題目
+    jaw_shoulder_heaviness: 下顎和肩膀沉重
+    epigastric: 上腹悶脹
+    vague: 說不上來               # 題目
+    other: 其他
+    none: 沒有
+  dyspnea_grade:                  # Q-DYSPNEA-GRADE-01：「…是只有做很激烈的運動才會喘、還是平常走路做家事就會喘、還是現在坐著休息也會喘？」
+    exertional_heavy: 只有做很激烈的運動才會喘   # 題目
+    exertional_daily: 平常走路做家事就會喘       # 題目
+    rest: 現在坐著休息也會喘                     # 題目
+    none: 沒有

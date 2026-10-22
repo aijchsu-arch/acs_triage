@@ -2921,6 +2921,651 @@
      }
     }
    }
+  },
+  "confirm_back": {
+   "yes_no": {
+    "n_utterances": 159,
+    "ref": {
+     "n": 159,
+     "n_trigger": 53,
+     "trigger_rate": 0.3333333333333333
+    },
+    "by_condition": {
+     "clean": {
+      "n": 159,
+      "n_trigger": 62,
+      "trigger_rate": 0.389937106918239,
+      "n_added_by_stt": 9,
+      "n_removed_by_stt": 0
+     },
+     "phone": {
+      "n": 159,
+      "n_trigger": 63,
+      "trigger_rate": 0.39622641509433965,
+      "n_added_by_stt": 10,
+      "n_removed_by_stt": 0
+     },
+     "phone_prompt": {
+      "n": 159,
+      "n_trigger": 64,
+      "trigger_rate": 0.4025157232704403,
+      "n_added_by_stt": 11,
+      "n_removed_by_stt": 0
+     }
+    },
+    "by_question": {
+     "Q-DIAPH-01": {
+      "ref": {
+       "n": 28,
+       "n_trigger": 3,
+       "trigger_rate": 0.10714285714285714
+      },
+      "clean": {
+       "n": 28,
+       "n_trigger": 3,
+       "trigger_rate": 0.10714285714285714,
+       "n_added_by_stt": 0,
+       "n_removed_by_stt": 0
+      },
+      "phone": {
+       "n": 28,
+       "n_trigger": 3,
+       "trigger_rate": 0.10714285714285714,
+       "n_added_by_stt": 0,
+       "n_removed_by_stt": 0
+      },
+      "phone_prompt": {
+       "n": 28,
+       "n_trigger": 4,
+       "trigger_rate": 0.14285714285714285,
+       "n_added_by_stt": 1,
+       "n_removed_by_stt": 0
+      }
+     },
+     "Q-DYSPNEA-SENTENCE-01": {
+      "ref": {
+       "n": 13,
+       "n_trigger": 0,
+       "trigger_rate": 0.0
+      },
+      "clean": {
+       "n": 13,
+       "n_trigger": 1,
+       "trigger_rate": 0.07692307692307693,
+       "n_added_by_stt": 1,
+       "n_removed_by_stt": 0
+      },
+      "phone": {
+       "n": 13,
+       "n_trigger": 1,
+       "trigger_rate": 0.07692307692307693,
+       "n_added_by_stt": 1,
+       "n_removed_by_stt": 0
+      },
+      "phone_prompt": {
+       "n": 13,
+       "n_trigger": 1,
+       "trigger_rate": 0.07692307692307693,
+       "n_added_by_stt": 1,
+       "n_removed_by_stt": 0
+      }
+     },
+     "Q-ONGOING-01": {
+      "ref": {
+       "n": 57,
+       "n_trigger": 47,
+       "trigger_rate": 0.8245614035087719
+      },
+      "clean": {
+       "n": 57,
+       "n_trigger": 51,
+       "trigger_rate": 0.8947368421052632,
+       "n_added_by_stt": 4,
+       "n_removed_by_stt": 0
+      },
+      "phone": {
+       "n": 57,
+       "n_trigger": 53,
+       "trigger_rate": 0.9298245614035088,
+       "n_added_by_stt": 6,
+       "n_removed_by_stt": 0
+      },
+      "phone_prompt": {
+       "n": 57,
+       "n_trigger": 52,
+       "trigger_rate": 0.9122807017543859,
+       "n_added_by_stt": 5,
+       "n_removed_by_stt": 0
+      }
+     },
+     "Q-REST-02": {
+      "ref": {
+       "n": 7,
+       "n_trigger": 1,
+       "trigger_rate": 0.14285714285714285
+      },
+      "clean": {
+       "n": 7,
+       "n_trigger": 4,
+       "trigger_rate": 0.5714285714285714,
+       "n_added_by_stt": 3,
+       "n_removed_by_stt": 0
+      },
+      "phone": {
+       "n": 7,
+       "n_trigger": 3,
+       "trigger_rate": 0.42857142857142855,
+       "n_added_by_stt": 2,
+       "n_removed_by_stt": 0
+      },
+      "phone_prompt": {
+       "n": 7,
+       "n_trigger": 4,
+       "trigger_rate": 0.5714285714285714,
+       "n_added_by_stt": 3,
+       "n_removed_by_stt": 0
+      }
+     },
+     "Q-SYNCOPE-01": {
+      "ref": {
+       "n": 50,
+       "n_trigger": 2,
+       "trigger_rate": 0.04
+      },
+      "clean": {
+       "n": 50,
+       "n_trigger": 3,
+       "trigger_rate": 0.06,
+       "n_added_by_stt": 1,
+       "n_removed_by_stt": 0
+      },
+      "phone": {
+       "n": 50,
+       "n_trigger": 3,
+       "trigger_rate": 0.06,
+       "n_added_by_stt": 1,
+       "n_removed_by_stt": 0
+      },
+      "phone_prompt": {
+       "n": 50,
+       "n_trigger": 3,
+       "trigger_rate": 0.06,
+       "n_added_by_stt": 1,
+       "n_removed_by_stt": 0
+      }
+     },
+     "Q-SYNCOPE-02": {
+      "ref": {
+       "n": 4,
+       "n_trigger": 0,
+       "trigger_rate": 0.0
+      },
+      "clean": {
+       "n": 4,
+       "n_trigger": 0,
+       "trigger_rate": 0.0,
+       "n_added_by_stt": 0,
+       "n_removed_by_stt": 0
+      },
+      "phone": {
+       "n": 4,
+       "n_trigger": 0,
+       "trigger_rate": 0.0,
+       "n_added_by_stt": 0,
+       "n_removed_by_stt": 0
+      },
+      "phone_prompt": {
+       "n": 4,
+       "n_trigger": 0,
+       "trigger_rate": 0.0,
+       "n_added_by_stt": 0,
+       "n_removed_by_stt": 0
+      }
+     }
+    }
+   },
+   "choice": {
+    "n_utterances": 109,
+    "n_records": 327,
+    "questions": [
+     "Q-CHARACTER-01",
+     "Q-DYSPNEA-GRADE-01"
+    ]
+   },
+   "flips": {
+    "n": 25,
+    "n_triggered": 25,
+    "n_yes_no": 23,
+    "n_yes_no_triggered": 23,
+    "not_triggered": [],
+    "records": [
+     {
+      "id": "u0020",
+      "condition": "clean",
+      "voice": "Grandma (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，現在胸口還是悶悶的，還沒好。",
+      "hyp_tw": "喲,現在胸口還是能悶著,還沒好。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0020",
+      "condition": "phone",
+      "voice": "Grandma (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，現在胸口還是悶悶的，還沒好。",
+      "hyp_tw": "現在胸口還是能懵著,還沒好。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0020",
+      "condition": "phone_prompt",
+      "voice": "Grandma (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，現在胸口還是悶悶的，還沒好。",
+      "hyp_tw": "喲,現在胸口還是能懵著,還沒好。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0021",
+      "condition": "clean",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，現在胸口還是悶悶的，還沒退。",
+      "hyp_tw": "現在胸口還是悶悶的還沒對",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0066",
+      "condition": "clean",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-REST-02"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "對，休息的時候會悶是最近才開始的，以前不會這樣。",
+      "hyp_tw": "因為休息的時候會仍是對勁才開始的以前不會這樣",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0066",
+      "condition": "phone",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-REST-02"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "對，休息的時候會悶是最近才開始的，以前不會這樣。",
+      "hyp_tw": "休息的時候會仍是對勁才開始的以前不會這樣",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0066",
+      "condition": "phone_prompt",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-REST-02"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "對，休息的時候會悶是最近才開始的，以前不會這樣。",
+      "hyp_tw": "因為休息的時候會仍是對勁才開始的,以前不會這樣。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0102",
+      "condition": "clean",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-REST-02"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "對，休息的時候會悶是最近才有的，以前都沒有過。",
+      "hyp_tw": "因為休息的時候會仍是對近才有的,以前都沒有過。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0102",
+      "condition": "phone",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-REST-02"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "對，休息的時候會悶是最近才有的，以前都沒有過。",
+      "hyp_tw": "因為休息的時候會仍是最近才有的以前都沒有過",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0102",
+      "condition": "phone_prompt",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-REST-02"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "對，休息的時候會悶是最近才有的，以前都沒有過。",
+      "hyp_tw": "因為休息的時候會仍是最近才有的,以前都沒有過。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0272",
+      "condition": "clean",
+      "voice": "Grandma (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，他剛剛跟我說現在還是覺得胸口怪怪的，還沒好。",
+      "hyp_tw": "他剛剛跟我說現在還是覺得胸口怪怪的還沒好",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0272",
+      "condition": "phone",
+      "voice": "Grandma (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，他剛剛跟我說現在還是覺得胸口怪怪的，還沒好。",
+      "hyp_tw": "他剛剛跟我說現在還是覺得胸口怪怪的還沒好",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0272",
+      "condition": "phone_prompt",
+      "voice": "Grandma (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，他剛剛跟我說現在還是覺得胸口怪怪的，還沒好。",
+      "hyp_tw": "他剛剛跟我說現在還是覺得胸口怪怪的,還沒好。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0338",
+      "condition": "clean",
+      "voice": "Grandma (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，現在胸口還是有那種被壓住的感覺，還沒退。",
+      "hyp_tw": "呦,現在胸口還是有那種被壓住的感覺,還沒退。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0338",
+      "condition": "phone",
+      "voice": "Grandma (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，現在胸口還是有那種被壓住的感覺，還沒退。",
+      "hyp_tw": "現在胸口還是有那種被壓住的感覺還沒睡",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0338",
+      "condition": "phone_prompt",
+      "voice": "Grandma (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "有，現在胸口還是有那種被壓住的感覺，還沒退。",
+      "hyp_tw": "現在胸口還是有那種被壓住的感覺,還沒睡。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0384",
+      "condition": "clean",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-REST-02"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "對，是最近才開始的，以前休息的時候都不會這樣。",
+      "hyp_tw": "因為,是最近才開始的,以前休息的時候都不會這樣。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0384",
+      "condition": "phone_prompt",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-REST-02"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "對，是最近才開始的，以前休息的時候都不會這樣。",
+      "hyp_tw": "因為,是最近才開始的,以前休息的時候都不會這樣。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0435",
+      "condition": "clean",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-DYSPNEA-SENTENCE-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "會欸，我現在講話會喘，一句話常常講不完要停下來換氣。",
+      "hyp_tw": "我現在講話會喘,一句話常常講不完要停下來換句。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0435",
+      "condition": "phone",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-DYSPNEA-SENTENCE-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "會欸，我現在講話會喘，一句話常常講不完要停下來換氣。",
+      "hyp_tw": "我現在講話會傳,一句話常常講不完要停下來換句。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0435",
+      "condition": "phone_prompt",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-DYSPNEA-SENTENCE-01"
+      ],
+      "flip_kind": "lead_lost",
+      "flip_dir": "neg_gained",
+      "ref": "會欸，我現在講話會喘，一句話常常講不完要停下來換氣。",
+      "hyp_tw": "我現在講話會傳,一句話常常講不完要停下來換句。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": false,
+      "triggered": true
+     },
+     {
+      "id": "u0486",
+      "condition": "phone",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "inner",
+      "flip_dir": "neg_lost",
+      "ref": "現在沒有在痛，現在沒咳就還好。",
+      "hyp_tw": "現在的有贊通現在的可就還好",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": null,
+      "triggered": true
+     },
+     {
+      "id": "u0486",
+      "condition": "phone_prompt",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "redflag",
+      "q_ids": [
+       "Q-ONGOING-01"
+      ],
+      "flip_kind": "inner",
+      "flip_dir": "neg_lost",
+      "ref": "現在沒有在痛，現在沒咳就還好。",
+      "hyp_tw": "現在的有贊通,現在的科技還好。",
+      "answer_type": "yes_no",
+      "lead_hyp_tw": null,
+      "value_proxy": null,
+      "triggered": true
+     },
+     {
+      "id": "u0507",
+      "condition": "phone",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-CHARACTER-01"
+      ],
+      "flip_kind": "inner",
+      "flip_dir": "neg_lost",
+      "ref": "他說也講不上來是哪一種，就是怪怪的；至於確切在哪個位置，我就不清楚了。",
+      "hyp_tw": "他說也講讀上來是哪一種,就是怪怪的,至於確切在哪個位置,我就讀清楚了。",
+      "answer_type": "choice",
+      "lead_hyp_tw": null,
+      "value_proxy": null,
+      "triggered": true
+     },
+     {
+      "id": "u0507",
+      "condition": "phone_prompt",
+      "voice": "Grandpa (中文（台灣）)",
+      "qtype": "critical",
+      "q_ids": [
+       "Q-CHARACTER-01"
+      ],
+      "flip_kind": "inner",
+      "flip_dir": "neg_lost",
+      "ref": "他說也講不上來是哪一種，就是怪怪的；至於確切在哪個位置，我就不清楚了。",
+      "hyp_tw": "他說也講讀上來是哪一種,就是怪怪的,至於確切在哪個位置,我就讀清楚了。",
+      "answer_type": "choice",
+      "lead_hyp_tw": null,
+      "value_proxy": null,
+      "triggered": true
+     }
+    ]
+   }
   }
  },
  "rows": [

@@ -10,6 +10,16 @@ non_negation_phrases: [不舒服, 不太舒服, 不適, 說不上來, 不知道,
 negation_tokens: [從來沒有, 從來沒, 從沒, 還沒有, 還沒, 也沒有, 也沒, 沒有, 沒, 不會, 不太會, 不, 無, 未]
 clause_splitters: "[，。；、！？,.;!?\\n ]"
 
+# D-50：紅旗題與關鍵題「句首明確的肯定／否定詞」（src/acs_triage/prompter/confirm.py: leading_yes_no）。
+# 與 sim/stt_eval.py 的極性判定共用（D-49 定義，單一來源）；不給抽取器用。詞表一律繁體——輸入必須先轉繁（D-49）。
+leading_yes_no:
+  affirmative: [有, 會, 是, 還在, 對]
+  negative: [沒有, 沒, 不會, 不是, 不, 沒什麼, 還沒]
+  filler_chars: "嗯呃喔哦啊欸唔哈哎唉誒"          # 句首語助詞，與標點一起去掉
+  # 含「不／沒」但不是否定的片語，判斷前先遮罩（non_negation_phrases 再補不確定語氣與連接詞）
+  non_negation_phrases: [不舒服, 不太舒服, 不適, 說不上來, 不知道, 不確定, 不太確定, 不清楚, 不太清楚,
+                         記不清楚, 記不太清楚, 不太對, 不一樣, 不規則, 不正常, 不動, 不過, 不管, 不然, 沒關係]
+
 slots:
   # ---------------- 症狀性質（依序取第一個命中） ----------------
   symptom_character:

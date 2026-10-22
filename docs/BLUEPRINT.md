@@ -130,6 +130,7 @@
   4. 已有高信心 slot 值的題跳過。
 - 每次只推**一題**到畫面，附「為什麼問這題」一行（給客服，不給病人）。
 - 上限：`MAX_QUESTIONS`（預設 11，見 D-22、D-29）。到上限仍不足 → Tier 9。
+- 紅旗題與關鍵題的回答可疑時複誦確認一次（不算題數、不得降級），規則見 `CLINICAL_RULES.md §5.10`（D-50）。
 
 ### 3.6 Sufficiency Gate
 - 判斷「現有 slot 是否足以安全指定 0–4」。
@@ -172,7 +173,7 @@
 
 ### 3.11 Audit Log
 - 每一筆：`AuditEvent {ts, call_id, kind, payload, model_version, rules_version}`。
-- kind：`stt_segment`, `gate_uncertain`, `redflag_hit`, `question_shown`, `slot_update`, `sufficiency`, `tier_decision`, `ecg_result`, `pathway_shown`, `agent_action`。
+- kind：`stt_segment`, `gate_uncertain`, `confirm_back`, `redflag_hit`, `question_shown`, `slot_update`, `sufficiency`, `tier_decision`, `ecg_result`, `pathway_shown`, `agent_action`。
 - 不可刪改（append-only）。研究用的 shadow 比對、法規稽核都靠它。
 
 ---

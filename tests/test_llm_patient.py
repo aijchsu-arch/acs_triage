@@ -16,16 +16,22 @@ _BY_SCRIPT = {q.script_zh.strip(): q for q in questions()}
 class FakeClient:
     """依 hidden sheet 照實回答（answer_fn 可換成會出錯的病人）。記錄每次請求供檢查。"""
 
-    def __init__(self, case, answer_fn=None):
+    def __init__(self, case, answer_fn=None, confirm_fn=None):
         self.oracle = ScriptedPatient(case)
         self.answer_fn = answer_fn
+        self.confirm_fn = confirm_fn            # D-50：複誦確認時改用的回答（None = 照原題規則）
         self.requests = []
         self.beta = SimpleNamespace(messages=SimpleNamespace(create=self._create))
 
     def _create(self, **kw):
         self.requests.append({**kw, "messages": list(kw["messages"])})
-        q = _BY_SCRIPT[kw["messages"][-1]["content"]]
-        v = self.answer_fn(q) if self.answer_fn else self.oracle.answer(q).value
+        content = kw["messages"][-1]["content"]
+        # 原題 = 題目原文；D-50 複誦確認 = 內含題目原文的句子（取最長的那題）
+        q = _BY_SCRIPT.get(content) or _BY_SCRIPT[max((s for s in _BY_SCRIPT if s in content), key=len)]
+        if self.confirm_fn and content not in _BY_SCRIPT:
+            v = self.confirm_fn(q)
+        else:
+            v = self.answer_fn(q) if self.answer_fn else self.oracle.answer(q).value
         schema_ans = kw["output_config"]["format"]["schema"]["properties"]["answer"]
         dont_know = v is None or (v == "unknown" and "unknown" not in schema_ans.get("enum", []))
         if not dont_know and "enum" in schema_ans:
@@ -116,3 +122,44 @@ def test_key_handling_policy():
         src = Path(REPO_ROOT / f).read_text(encoding="utf-8")
         assert "ANTHROPIC_API_KEY" not in src
         assert 'api_key=os.environ[KEY_ENV]' in src or f.endswith("run_llm_eval.py")
+
+
+def test_confirm_back_is_next_user_turn_with_same_answer_schema():
+    """D-50：複誦確認是同一段對話的下一則 user 訊息，內含題目原文；answer 的 schema 與原題相同（填實際值，不是「對／不對」）。
+    假 client 的回答句（如「False。」）句首不是「有／沒有」→ 範圍內的是非題都會被複誦；照實回答時結果與偏差都不受影響。"""
+    n_confirm = 0
+    for case in all_cases()[:30]:
+        r, p, fc = _run(case)
+        assert p.deviations == [] and r.n_confirm_changed == 0, case.id
+        for prev, req in zip(fc.requests, fc.requests[1:]):
+            content = req["messages"][-1]["content"]
+            if content in _BY_SCRIPT:
+                continue
+            q = _BY_SCRIPT[prev["messages"][-1]["content"]]
+            assert q.script_zh.strip() in content
+            assert req["output_config"]["format"]["schema"] == answer_schema(q)
+            n_confirm += 1
+        assert r.n_confirms == sum(1 for req in fc.requests if req["messages"][-1]["content"] not in _BY_SCRIPT)
+    assert n_confirm > 20
+
+
+def test_confirm_reply_deviation_counted_and_reported():
+    """複誦回答也與事實清單比對：被「請您回答『有』還是『沒有』」逼出的答案記為編造（confirm=True），報告另列並標「（複誦）」。"""
+    from sim.metrics import compute
+    from sim.run_llm_eval import render_compare
+    found = None
+    for case in all_cases():
+        fc = FakeClient(case, confirm_fn=lambda q: True if q.answer_type == "yes_no" else None)
+        p = LLMPatientSimulator(case, client=fc)
+        r = run_case(case, patient=p)
+        if any(d.confirm and d.kind == "fabricated" for d in p.deviations):
+            found = (case, r, p)
+            break
+    assert found
+    case, r, p = found
+    assert p.deviations and all(d.confirm for d in p.deviations)          # 原題照實回答，偏差只來自複誦
+    s = run_case(case, patient=ScriptedPatient(case))
+    md = render_compare([r], compute([r]), {case.id: s}, compute([s]), [p], [])
+    assert f"其中複誦確認（D-50）的回答 {r.n_confirms} 次：偏差 {len(p.deviations)}" in md
+    assert f"| {case.id} | {p.deviations[0].question_id}（複誦） |" in md
+    assert f"總回答數：{len(r.turns) + r.n_confirms}；" in md

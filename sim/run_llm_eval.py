@@ -63,9 +63,11 @@ def usage_summary(patients: list[LLMPatientSimulator], model: str) -> dict:
 def render_compare(llm_res: list[RunResult], m_llm: Metrics, scripted: dict[str, RunResult], m_s: Metrics,
                    patients: list[LLMPatientSimulator], errors: list[tuple[str, str]]) -> str:
     devs = [d for p in patients for d in p.deviations]
-    n_turns = sum(len(r.turns) for r in llm_res)
-    oracle_unknown = sum(1 for r in llm_res for t in r.turns
+    n_confirms = sum(r.n_confirms for r in llm_res)                    # D-50：複誦確認的回答也與 sheet 比對
+    n_turns = sum(len(r.turns) for r in llm_res) + n_confirms
+    oracle_unknown = sum((1 + (t.confirm_prompt_zh is not None)) for r in llm_res for t in r.turns
                          if scripted_turn_unknown(r.case_id, t.question_id, patients))
+    conf_devs = [d for d in devs if d.confirm]
     by_kind = Counter(d.kind for d in devs)
     dev_cases = {d.case_id for d in devs}
     L: list[str] = []
@@ -91,6 +93,8 @@ def render_compare(llm_res: list[RunResult], m_llm: Metrics, scripted: dict[str,
     L.append(f"- 總回答數：{n_turns}；偏差 {len(devs)}（{_fmt_pct(len(devs) / n_turns) if n_turns else '—'}），分布 {dict(by_kind)}")
     L.append(f"- **編造率**（sheet 無此事實卻給出答案）：{by_kind['fabricated']}/{oracle_unknown}"
              f"（{_fmt_pct(by_kind['fabricated'] / oracle_unknown) if oracle_unknown else '—'}）")
+    L.append(f"- 其中複誦確認（D-50）的回答 {n_confirms} 次：偏差 {len(conf_devs)}，"
+             f"分布 {dict(Counter(d.kind for d in conf_devs))}（題目欄標「（複誦）」）")
     L.append(f"- 有偏差的 case：{len(dev_cases)}")
     L.append("")
     if devs:
@@ -98,7 +102,7 @@ def render_compare(llm_res: list[RunResult], m_llm: Metrics, scripted: dict[str,
         L.append("|---|---|---|---|---|---|")
         for d in devs:
             utt = d.utterance_zh.replace("|", "\\|").replace("\n", " ")
-            L.append(f"| {d.case_id} | {d.question_id} | {d.kind} | {d.expected} | {d.got} | {utt} |")
+            L.append(f"| {d.case_id} | {d.question_id}{'（複誦）' if d.confirm else ''} | {d.kind} | {d.expected} | {d.got} | {utt} |")
         L.append("")
     L.append("## 最終結果與 Scripted 不同的 case")
     L.append("")
@@ -128,6 +132,21 @@ def scripted_turn_unknown(case_id: str, qid: str, patients: list[LLMPatientSimul
     p = next(p for p in patients if p.case.id == case_id)
     v = p.oracle.answer(question_by_id()[qid]).value
     return v is None or v == "unknown"
+
+
+def transcripts_json(llm_res: list[RunResult], cases: list[Case]) -> list[dict]:
+    """逐字稿（供人工抽查與 sim.openai_eval／extractor_e2e／openai_slots／stt_eval 重放）。turns 一題一筆（格式向下相容）；
+    value 是同一筆 utterance_zh 那句話的值（有複誦時 = 確認前的值）。複誦確認（D-50）的複誦句、複誦回答與其值、
+    確認後採用的值放在該筆的 confirm 欄位。"""
+    return [{"case_id": r.case_id, "opening_zh": next(c.opening_zh for c in cases if c.id == r.case_id),
+             "final": _key(r), "stop": r.stop_reason,
+             "turns": [{"q": t.question_id, "value": t.answer if t.confirm_prompt_zh is None else t.pre_confirm_answer,
+                        "utterance_zh": t.utterance_zh}
+                       | ({"confirm": {"prompt_zh": t.confirm_prompt_zh, "utterance_zh": t.confirm_utterance_zh,
+                                       "value": t.confirm_answer, "adopted_value": t.answer,
+                                       "downgrade_blocked": t.confirm_downgrade_blocked}}
+                          if t.confirm_prompt_zh is not None else {}) for t in r.turns]}
+            for r in llm_res]
 
 
 def main() -> None:
@@ -176,10 +195,7 @@ def main() -> None:
          "errors": errors, "usage": usage_summary(patients, args.model),
          "wall_seconds": round(elapsed, 1)}, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     (outdir / f"{stem}_transcripts.json").write_text(json.dumps(
-        [{"case_id": r.case_id, "opening_zh": next(c.opening_zh for c in cases if c.id == r.case_id),
-          "final": _key(r), "stop": r.stop_reason,
-          "turns": [{"q": t.question_id, "value": t.answer, "utterance_zh": t.utterance_zh} for t in r.turns]}
-         for r in llm_res], ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+        transcripts_json(llm_res, cases), ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     print(json.dumps({"n": len(llm_res), "errors": len(errors), "hard_stop_miss": m_llm.hard_stop_miss,
                       "under": m_llm.under_triage, "over": m_llm.over_triage, "deviations": len(devs)},
                      ensure_ascii=False))

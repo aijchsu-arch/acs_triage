@@ -397,3 +397,32 @@ def test_error_label_includes_polarity_flip_even_when_cer_is_small():
     # 字錯少、沒有翻轉 → 不是錯誤
     row = _row(u, hyp="有，現在胸口還是悶悶的，還沒壞。")
     assert 0 < row["cer"] <= se.CER_ERROR_THRESHOLD and not row["flip"] and not row["error"]
+
+
+# ---------------------------------------------------------------- D-50 複誦確認的離線證據（第 6 節）
+def test_confirm_back_summary_inversion_not_caught_choice_counted():
+    utts = se.build_utterances(_transcripts(), question_by_id(), {"Q-CHARACTER-01", "Q-REST-02"})
+    s = se.analyze(se.make_rows(_asr_doc(utts), utts), 0.9, 0.75)
+    cb = s["confirm_back"]
+    # 是非題（紅旗＋關鍵）：「沒有冒冷汗。」「有，冒冷汗。」句首都明確 → 原文不觸發
+    assert cb["yes_no"]["n_utterances"] == 2 and cb["yes_no"]["ref"]["n_trigger"] == 0
+    assert cb["yes_no"]["by_condition"]["phone"]["n_trigger"] == 0
+    # phone 的明確互換（有 → 沒有）句首仍明確 → 攔不下
+    assert (cb["flips"]["n"], cb["flips"]["n_triggered"]) == (1, 0)
+    assert cb["flips"]["not_triggered"][0]["lead_hyp_tw"] is False
+    # 選擇題 Q-CHARACTER-01 一律複誦：1 句、2 筆（clean＋phone）
+    assert (cb["choice"]["n_utterances"], cb["choice"]["n_records"], cb["choice"]["questions"]) == (1, 2, ["Q-CHARACTER-01"])
+    md = se.render_md(s, {"model": "fake", "language": "zh", "source": "test", "sessions": []}, "stt_whisper_x")
+    assert "## 6. 複誦確認（D-50）的離線證據" in md and md.index("## 5. 重現") < md.index("## 6. 複誦確認")
+    assert "攔不下 1 筆" in md
+
+
+def test_confirm_back_summary_catches_swallowed_yes():
+    u = _utt("u0001", "有，現在胸口還是悶悶的，還沒好。", q="Q-ONGOING-01", slot="ongoing_now")
+    rows = se.make_rows({"meta": {}, "results": [_rec(u, "phone", "現在胸口還是悶悶的，還沒好。", [0.99] * 40)]}, [u])
+    cb = se.confirm_back_summary(rows)
+    assert cb["yes_no"]["ref"]["n_trigger"] == 0
+    ph = cb["yes_no"]["by_condition"]["phone"]
+    assert (ph["n_trigger"], ph["n_added_by_stt"], ph["n_removed_by_stt"]) == (1, 1, 0)
+    assert cb["yes_no"]["by_question"]["Q-ONGOING-01"]["phone"]["n_trigger"] == 1
+    assert (cb["flips"]["n"], cb["flips"]["n_triggered"], cb["flips"]["not_triggered"]) == (1, 1, [])

@@ -346,7 +346,7 @@ questions:
     priority: refine
     answer_type: yes_no
     script_zh: "最近有沒有做過心臟檢查被說異常、醫師叫您回診但還沒回去的？"
-    why_zh: "檢查異常待追蹤且無症狀 → T1（B9）"
+    why_zh: "檢查異常待追蹤且無症狀 → T1（B9）；有症狀者為下限：一般規則判 T2–T4 時提高到 T1，暫判 T2–T4 定案前加問（D-51）"
   - id: Q-PCI-RECENT-01
     slot_id: recent_pci_months
     priority: refine

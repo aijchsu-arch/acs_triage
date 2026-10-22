@@ -56,6 +56,8 @@ def missing_for(state: SlotState, provisional: int, rule_ids: list[str]) -> list
         return []  # Tier 9 不需 gate；由 Prompter 決定是否還有可問之題
     required: list[str] = []
     for rid in rule_ids:
+        if rid == "T1-PENDING-TEST" and not state.no_symptoms():
+            continue    # rules 0.8.0：有症狀者是「至少 T1」下限，沿用原規則的必要 slot；這三項是用來確認「無症狀」的
         for slot in RULE_REQUIREMENTS.get(rid, []):
             if slot not in required:
                 required.append(slot)

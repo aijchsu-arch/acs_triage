@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from ..loaders import question_by_id, questions
 from ..rules.state import SlotState
-from ..schemas import Question
+from ..schemas import Question, TierDecision
 
 # 題目相關性：哪些 slot 的題目只在特定情境下才問
 _CHEST_ONLY = {"ongoing_now", "presyncope", "diaphoresis", "episode_duration_min", "last_episode_timing",
@@ -88,3 +88,13 @@ class Prompter:
         # 4. refine
         ref = candidates(self._by_priority["refine"])
         return ref[0] if ref else None
+
+    def pending_test_question(self, state: SlotState, decision: TierDecision, asked: set[str]) -> Question | None:
+        """rules 0.8.0（Clinical Owner 2026-10-22）：有症狀、gate 已通過且暫判 T2–T4、「檢查異常待追蹤」仍未知且沒問過 →
+        定案前加問一次（答「有」依 tiers.provisional_tier 的下限提高到 T1；答不知道照原結果定案）。
+        Hard stop／T0／T1／T9 不加問（不得延誤送醫）；無症狀來電由 Q-14f 合併篩檢問到，不在此列。題數上限由呼叫端判斷。"""
+        q = question_by_id()["Q-PENDINGTEST-01"]
+        if (not decision.hard_stop and decision.gate_passed and decision.provisional_tier in (2, 3, 4)
+                and not state.no_symptoms() and not state.known(q.slot_id) and q.id not in asked):
+            return q
+        return None

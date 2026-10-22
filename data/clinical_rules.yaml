@@ -3,7 +3,7 @@
 # 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
 # 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
 
-rules_version: "0.7.1"   # D-46：Q-REST-02 列入 STT 關鍵題（D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9））
+rules_version: "0.8.0"   # 0.8.0 含兩項 Clinical Owner 2026-10-22 裁定：D-50 紅旗題與關鍵題有條件複誦確認（嚴重度順序取值）；異常檢查待追蹤 → 至少 T1，不論有無症狀（D-46：Q-REST-02 列入 STT 關鍵題（D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9）））
 source_doc: docs/CLINICAL_RULES.md
 
 tiers:
@@ -19,10 +19,19 @@ thresholds:
   stt_min_confidence: 0.75
   stt_min_confidence_critical: 0.9      # D-43：紅旗題（priority=redflag）與下列題目；低於門檻即重問（Clinical Owner 2026-10-18）
   stt_critical_questions: [Q-CHARACTER-01, Q-REST-02]   # D-42：Q-CHARACTER-01 聽錯是唯一會讓 HS／T0 掉到 T1–T4 的單點；D-46：Q-REST-02 為 T0→T3 單一開關（D-45 規則）
+  stt_confirm_back: true   # D-50：紅旗題與上列題目的回答可疑時複誦確認一次（不算題數）；值已是最嚴重一級或寫入即 Hard stop 者不複誦；確認後依 confirm_back_severity 取較嚴重者（Clinical Owner 2026-10-22，方案 1；CLINICAL_RULES §5.10）
   rf_model_threshold: 0.5
   stable_pattern_min_months: 6        # §5.6 穩定型
   new_stable_pattern_min_weeks: 2     # DV-2
   callback_max_minutes: 30            # Tier 9 回撥
+
+# D-50 複誦確認的嚴重度順序（Clinical Owner 2026-10-22 裁定，rules 0.8.0；CLINICAL_RULES §5.10）。
+# 每個 slot 由最嚴重排到最不嚴重；同一個 [] 內同級。yes_no 適用範圍內所有是非題。
+# 用途：(1) 解讀值已在第一級 → 不複誦；(2) 原值與確認值都已知 → 取較嚴重者，同級保留原值。
+confirm_back_severity:
+  yes_no: [[true], [false]]
+  dyspnea_grade: [[rest], [exertional_daily], [exertional_heavy], [none]]
+  symptom_character: [[pressure, tightness, jaw_shoulder_heaviness], [epigastric], [pain], [vague], [other], [none]]   # none（否認胸部症狀）排最後；此 slot 無 unknown
 
 # 「缺血等價症狀」= symptom_character ∈ ischemic_characters
 ischemic_characters: [pressure, tightness, pain, jaw_shoulder_heaviness, epigastric]
@@ -71,7 +80,7 @@ tier_rules:
   T1:
     - {id: T1-NEW-YESTERDAY, ref: "§5.4 (DV-1)", text: 新發胸部症狀、最後一次在昨天（<24h）、今日無發作；非缺血型豁免除外（Q-14d C）}
     - {id: T1-THRESHOLD-WEEKS, ref: "§5.4 C3 B", text: 活動閾值於數週～一個月緩慢下降}
-    - {id: T1-PENDING-TEST, ref: "§5.4", text: 檢查異常待追蹤未掛號且無症狀}
+    - {id: T1-PENDING-TEST, ref: "§5.4 (rules 0.8.0)", text: 檢查異常待追蹤未掛號 → 至少 T1，不論有無症狀：無症狀直接 T1；有症狀者 Hard stop／T0 照常優先、T2–T4 提高到 T1（沿用原規則必要 slot）、T9 照常繼續問且備援至少 T1；有症狀暫判 T2–T4 且此項未知 → 定案前加問一次（Prompter.pending_test_question，算題數，達上限不問）}
     - {id: T1-ANTIPLT-SYMPTOMATIC, ref: "§5.4 (DV-3)", text: 新發胸部症狀合併抗血小板中斷}
   T2:
     - {id: T2-NEW-OVER24H, ref: "§5.5 C2 C", text: 新發胸部症狀、已緩解 ≥24h、無再發、無休息症狀；非缺血型豁免除外（Q-14d C）}
@@ -83,7 +92,7 @@ tier_rules:
     - {id: T3-STABLE, ref: "§5.6", text: 已知穩定型態 ≥6 個月且無任何升級因子}
     - {id: T3-STABLE-REST-RECURRENT, ref: "§5.6 (Q-05, D-45)", text: 型態 ≥6 個月不變、休息時症狀非首次且已緩解、明確否認閾值下降與 NTG 增加、無其他升級因子（CAD 病史定案前須問到）}
     - {id: T3-ADMIN, ref: "§5.6 (DV-7)", text: 門診排程事務且否認症狀}
-    - {id: T3-ANTIPLT-ASYMPTOMATIC, ref: "§5.6 C7 C", text: 抗血小板中斷且無症狀 → T3 + expedite}
+    - {id: T3-ANTIPLT-ASYMPTOMATIC, ref: "§5.6 C7 C", text: 抗血小板中斷且無症狀 → T3 + expedite（expedite 只在 T3 附加，被待追蹤檢查下限提高到 T1 時不附，rules 0.8.0）}
     - {id: T3-PALPITATIONS, ref: "§5.6 C8 B", text: 心悸、無胸部症狀、無瀕厥／暈厥；不建議居家 ECG}
     - {id: T3-POST-PCI-MILDER, ref: "§5.6 (DV-4)", text: PCI 後輕症較術前輕、純勞累、無休息、無閾值下降}
     - {id: T3-POSTPRANDIAL, ref: "§5.6 (DV-5)", text: 上腹不適（epigastric）、餐後、打嗝後完全緩解、非活動相關、無冒汗（Q-14e）}
@@ -98,6 +107,7 @@ tier_rules:
     - {id: T9-GATE, ref: "§5.9", text: provisional 已定但 sufficiency gate 未過}
 
 # ---------------- §5.8 Tier 9 且護理師不可得之預設（C6 D） ----------------
+# rules 0.8.0（Clinical Owner 2026-10-22）：pending_abnormal_test 為 true 時，下列預設等級至少 T1（pathway/router.py tier9_fallback）
 tier9_nurse_unavailable_fallback:
   chest_or_equivalent: 1
   dyspnea_rest_excluded: 1
