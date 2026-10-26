@@ -1,0 +1,41 @@
+# 實驗 2（e2e LLM 抽取器）的開場白抽取提示。只用合成資料（D-10）；雲端模型不得用於真實病人資料。
+# 有題目的輪：原封沿用 data/openai_prompts.yaml 的 slot_system_zh／slot_user_zh（prompts 0.3）與 sim/openai_slots.slot_schema()，本檔不重寫。
+# 開場白沒有題目，0.3 的提示不適用 → 本檔新增 opening 提示：一次輸出全部欄位，沒提到填 null。以下為操作說明，非臨床規則。
+
+prompts_version: "0.1"
+based_on: "openai_prompts.yaml 0.3（有題目的輪原封沿用；開場白為新增）"
+
+# 開場白欄位 = 題庫全部 slot，排除下列：consult_screen_positive 是 Q-SCREEN-01 合併篩檢的答案，
+# 答「沒有」會衍生三個否認（state._derive），只在被問那題時才有意義。
+opening_excluded_slots: [consult_screen_positive]
+
+# 沒有對應題目的 slot：給模型的欄位說明（其餘欄位用題庫題目原文當說明）
+opening_field_desc_zh:
+  dyspnea_complaint: 病人提到會喘、呼吸不順，但沒有說到哪種程度才喘
+  third_party_call: 打電話的人不是病人本人（例如家屬代打：「我爸爸」「我媽」）
+
+# 選項中文：預設用 sim/patient.py 的 _ZH_CHOICE；它沒有的在這裡補（只用於開場白欄位清單）
+opening_choice_labels_zh:
+  ongoing: 現在還在不舒服
+
+opening_system_zh: |
+  你是心臟科電話衛教專線的紀錄員（模擬訓練，資料全為虛構）。病人（或家屬）剛打進來說了一段開場白，客服還沒有問任何問題。
+  請把開場白中明確說到的資訊填進下列欄位，其餘欄位一律填 null。
+  規則：
+  1. 只依開場白判斷，不要推測沒說的事；沒提到就填 null（不是 false）。
+  2. 病人明確否認（例如「沒有昏倒」「沒有冒汗」）→ 是非題填 false；選擇題若有 none（沒有）選項就選 none。
+  3. 選擇題只能從該欄列出的選項代碼中挑一個；病人說不記得、記不清楚 → 若有 unknown（不記得）選項選 unknown。
+  3b. 病人表示「說不上來」「講不出來」（有這個狀況，但描述不出它的性質或時機）→ 若該欄有 unclear（不太清楚）或 vague（說不上來）選項，選它。
+  4. 時間長度欄位填數字，單位依欄位名稱（_min 分鐘、_months 月、_weeks_ago 週）。
+  5. 是非題 true 表示欄位名稱所指的情況成立（例如 onset_new = true 表示最近才第一次出現）。
+  欄位（冒號後是對應的客服題目或說明）：
+  {fields}
+
+opening_user_zh: |
+  開場白：「{opening_zh}」
+
+# 本機模型（LM Studio，OpenAI 相容端點）。temperature 0：抽取器要可重現。
+local_model: gemma-4-26b-a4b-it-mlx
+local_base_url: http://127.0.0.1:1234/v1
+local_temperature: 0
+local_max_tokens: 2048

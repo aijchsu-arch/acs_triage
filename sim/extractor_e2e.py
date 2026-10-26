@@ -9,11 +9,13 @@ python -m sim.extractor_e2e [--extractor keyword] [--transcripts ...] [--out rep
 - 預設把該句抽到的**所有** slot 都寫入（比照上線行為，BLUEPRINT §3.4「病人自發說出的資訊也要填 slot」）；
   `--asked-only` 則只寫被問那題（同 M2 runner 的結構化答案），兩者差異為抽取器改寫其他 slot 的影響。
 - 防呆：抽取狀態在真紅旗那句之前就誤觸發 Hard stop 的 case 列為 premature（不算命中）。
-- 抽取器可換（extract_fn）；現有 keyword = src/acs_triage/extract。不打 API。
+- 抽取器可換：extract_fn(句子, 被問的題目)，開場白的題目為 None；keyword = src/acs_triage/extract（不看題目）。不打 API。
+  LLM 抽取器與「逐字稿／電話轉寫」兩種文字條件見 `sim/e2e_llm.py`（texts 指定送進抽取器的文字；結構化狀態一律用逐字稿原文）。
 """
 from __future__ import annotations
 
 import argparse
+import inspect
 import json
 from collections import Counter
 from datetime import date
@@ -24,6 +26,7 @@ from acs_triage.extract import extract
 from acs_triage.loaders import REPO_ROOT, question_by_id
 from acs_triage.pathway import route
 from acs_triage.rules import RulesEngine, SlotState
+from acs_triage.schemas import Question
 
 from .cases import all_cases
 from .metrics import compute
@@ -32,11 +35,25 @@ from .openai_slots import grade
 from .run_eval import _fmt_pct, render_md
 from .runner import RunResult, Turn
 
-EXTRACTORS: dict[str, Callable[[str], dict[str, Any]]] = {"keyword": extract}
+ExtractFn = Callable[[str, "Question | None"], dict[str, Any]]
 
 
-def replay(transcripts: list[dict], extract_fn: Callable[[str], dict[str, Any]], *,
-           asked_only: bool = False) -> tuple[list[RunResult], list[dict], list[str]]:
+def keyword(text: str, question: Question | None = None) -> dict[str, Any]:
+    """現行關鍵詞抽取器：不看題目。"""
+    return extract(text)
+
+
+EXTRACTORS: dict[str, ExtractFn] = {"keyword": keyword}
+
+
+def replay(transcripts: list[dict], extract_fn: ExtractFn, *, asked_only: bool = False,
+           texts: dict[tuple[str, int], str] | None = None) -> tuple[list[RunResult], list[dict], list[str]]:
+    """texts：{(case_id, 第幾句): 送進抽取器的文字}（0 = 開場白），未列者用逐字稿原文。
+    舊的單參數 extract_fn(句子)（例如直接傳 extract）仍可用：不給題目。"""
+    texts = texts or {}
+    if len(inspect.signature(extract_fn).parameters) < 2:
+        one_arg = extract_fn
+        extract_fn = lambda text, q: one_arg(text)          # noqa: E731
     cases = {c.id: c for c in all_cases()}
     qb = question_by_id()
     engine = RulesEngine()
@@ -45,7 +62,7 @@ def replay(transcripts: list[dict], extract_fn: Callable[[str], dict[str, Any]],
     premature: list[str] = []
     for t in transcripts:
         case = cases[t["case_id"]]
-        ext = SlotState(extract_fn(t["opening_zh"]))        # 抽取狀態（決策用）
+        ext = SlotState(extract_fn(texts.get((case.id, 0), t["opening_zh"]), None))   # 抽取狀態（決策用）
         truth = SlotState(extract(t["opening_zh"]))         # 結構化狀態（只用來標記真實紅旗揭露的那句）
         for k in case.reset_slots:
             ext.set(k, None, source="reset_for_variant")
@@ -70,7 +87,7 @@ def replay(transcripts: list[dict], extract_fn: Callable[[str], dict[str, Any]],
                 dt = engine.decide(truth)
                 if dt.hard_stop and res.rf_reveal_turn is None:
                     res.rf_reveal_turn = i
-                found = extract_fn(turn["utterance_zh"])
+                found = extract_fn(texts.get((case.id, i), turn["utterance_zh"]), q)
                 got = found.get(q.slot_id)
                 if asked_only:
                     if got is not None:

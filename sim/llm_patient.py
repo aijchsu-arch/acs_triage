@@ -56,7 +56,8 @@ def _render_value(v: Any) -> str:
     return str(v)
 
 
-def build_system(case: Case) -> str:
+def render_sheet(case: Case) -> str:
+    """事實清單（每個已知 slot 一行）；persona vague 時只留紅旗題的事實。sim.synth_annotate 的參考標註也用這份文字。"""
     cfg = _prompt_cfg()
     by_slot: dict[str, Question] = {}
     for q in questions():
@@ -73,7 +74,11 @@ def build_system(case: Case) -> str:
         else:
             lines.append(cfg["sheet_line_zh"].format(slot_id=slot_id, script_zh=q.script_zh.strip(),
                                                      value=_render_value(v)))
-    return cfg["system_zh"].format(opening_zh=case.opening_zh, sheet="\n".join(lines))
+    return "\n".join(lines)
+
+
+def build_system(case: Case) -> str:
+    return _prompt_cfg()["system_zh"].format(opening_zh=case.opening_zh, sheet=render_sheet(case))
 
 
 def answer_schema(q: Question) -> dict[str, Any]:

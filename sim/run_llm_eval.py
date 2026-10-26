@@ -1,6 +1,7 @@
 """M2b 評估入口：LLM 扮演病人跑全部 case，與 ScriptedPatient（clean）比對。
 
 python -m sim.run_llm_eval [--model claude-opus-5-5] [--effort medium] [--workers 8] [--limit N] [--out reports/]
+                           [--scenarios data/synth/scenarios_synth_v1.yaml]   # 改讀合成情境檔（實驗 1）；不給時行為不變
 
 產出 reports/eval_<date>_llm_<model>_<effort>[_limitN][_rN].md／.json，以及同名 _transcripts.json（逐題問答，供人工抽查）；
 同日同設定重跑自動加 _r2、_r3，不覆蓋。
@@ -24,6 +25,7 @@ from acs_triage.loaders import REPO_ROOT, rules_version
 from .cases import Case, all_cases
 from .llm_patient import DEFAULT_EFFORT, DEFAULT_MODEL, KEY_ENV, LLMPatientSimulator, _prompt_cfg, make_client
 from .metrics import Metrics, compute
+from .patient import ScriptedPatient
 from .run_eval import _fmt_pct, render_md, run_all
 from .runner import RunResult, run_case
 
@@ -39,6 +41,12 @@ def _run_one(case: Case, client, model: str, effort: str) -> tuple[RunResult | N
 def run_llm(cases: list[Case], *, client, model: str, effort: str, workers: int):
     with ThreadPoolExecutor(max_workers=workers) as ex:
         return list(ex.map(lambda c: _run_one(c, client, model, effort), cases))
+
+
+SYNTH_NOTE = ("> **注意——不適用：本次情境檔沒有 truth。** 下列表格與「核心安全指標」「混淆矩陣」「依模組」中以 truth 計算的欄位"
+              "（Hard-stop miss／false alarm、Under／Over-triage、Tier exact、Abstention、混淆矩陣）一律不適用——顯示 0 或 0.0% "
+              "**不代表沒有低估**。與 LLM 參考標註的比較見 `reports/synth_eval_<日期>.md`（sim.synth_eval）。"
+              "不依賴 truth、可以讀的：Escalating／Decisive recall、題數、病人模型偏差、與 Scripted 不同的 case、Token 用量。")
 
 
 def _key(r: RunResult) -> str:
@@ -156,13 +164,20 @@ def main() -> None:
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--limit", type=int, default=None, help="只跑前 N 個 case（冒煙測試）")
     ap.add_argument("--out", default=str(REPO_ROOT / "reports"))
+    ap.add_argument("--scenarios", default=None,
+                    help="改讀合成情境檔（sim.synth_gen 格式，例如 data/synth/scenarios_synth_v1.yaml；無 truth）；預設為兩份既有情境檔")
     args = ap.parse_args()
     if not os.environ.get(KEY_ENV):
         print(f"{KEY_ENV}: MISSING")
         sys.exit(2)
     print(f"{KEY_ENV}: OK")
 
-    cases = all_cases()[: args.limit] if args.limit else all_cases()
+    if args.scenarios:
+        from .synth_gen import load_synth_cases
+        source = load_synth_cases(Path(args.scenarios))
+    else:
+        source = all_cases()
+    cases = source[: args.limit] if args.limit else source
     t0 = time.monotonic()
     out = run_llm(cases, client=make_client(), model=args.model, effort=args.effort, workers=args.workers)
     elapsed = time.monotonic() - t0
@@ -170,7 +185,10 @@ def main() -> None:
     patients = [p for r, p, _ in out if r is not None]
     errors = [(p.case.id, err) for _, p, err in out if err]
     m_llm = compute(llm_res)
-    s_res, _ = run_all("clean", seed=0)
+    if args.scenarios:      # 合成情境檔：Scripted 對照跑同一批 case
+        s_res = [run_case(c, patient=ScriptedPatient(c)) for c in cases]
+    else:
+        s_res, _ = run_all("clean", seed=0)
     scripted = {r.case_id: r for r in s_res}
     m_s = compute([scripted[r.case_id] for r in llm_res])
 
@@ -178,12 +196,16 @@ def main() -> None:
     label = (f"LLMPatientSimulator（{args.model}，effort={args.effort}，回應 model_version={', '.join(versions)}，"
              f"prompt_version={_prompt_cfg()['prompt_version']}）")
     label += f"；成功 {len(llm_res)}／{len(cases)} case（失敗的 case 不計入任何指標，見「執行錯誤」）"
+    if args.scenarios:
+        label += f"；情境檔 {args.scenarios}（無 truth，下列 truth 指標不適用；與參考標註的比較見 sim.synth_eval）"
     md = render_md("llm", 0, llm_res, m_llm, patient_label=label)
     md = md.replace("\n## 核心安全指標", "\n" + render_compare(llm_res, m_llm, scripted, m_s, patients, errors)
                     + "\n## 核心安全指標（LLM 病人）", 1)
+    if args.scenarios:
+        md = md.replace("\n## M2b：", "\n" + SYNTH_NOTE + "\n\n## M2b：", 1)
     outdir = Path(args.out)
     outdir.mkdir(parents=True, exist_ok=True)
-    tag = f"_{args.model.removeprefix('claude-')}_{args.effort}"
+    tag = (f"_{Path(args.scenarios).stem}" if args.scenarios else "") + f"_{args.model.removeprefix('claude-')}_{args.effort}"
     stem = f"eval_{date.today().isoformat()}_llm{tag}{'_limit' + str(args.limit) if args.limit else ''}"
     if (outdir / f"{stem}.md").exists():          # 同日同設定重跑：加 _r2、_r3…，不覆蓋舊報告
         stem = next(f"{stem}_r{i}" for i in range(2, 1000) if not (outdir / f"{stem}_r{i}.md").exists())
