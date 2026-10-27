@@ -1,0 +1,14 @@
+{
+ "prompts_version": "2.0-dev21",
+ "prompt_file_sha256": "1e3ce7887dbb1152e23b914e5e9557bcb9dd19d9c322b0a1cf811ddb60f17d27",
+ "rendered_sha256": "7357783d6e1318dd669038ec907f9bc62d23659b2ace74ae075052a81c400518",
+ "files": {
+  "data/extractor_prompts_v2.yaml": "1e3ce7887dbb1152e23b914e5e9557bcb9dd19d9c322b0a1cf811ddb60f17d27",
+  "sim/llm_extract_v2.py": "26143627d3bbb754c2534ede08a4402a111b3fa8bf061f85c204573bb74580c5",
+  "sim/runner.py": "4e8023b2ed661520f0cab65c5353c11400d569bdb97b8664d8cbcd5768671fcf",
+  "sim/closed_loop.py": "6acca795aa4df3a4cad61c360e339b2d446cf1348bbc04a9dbdfca65050bbd49",
+  "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3"
+ },
+ "frozen_at": null,
+ "note": "未凍結：依獨立驗收，要等 Clinical Owner 裁定模糊說法（reports/extractor_v2_ambiguous_2026-10-27.*；第 12 項已以例句寫進提示）後才凍結。凍結：`python -m sim.closed_loop freeze`（寫到固定位置 reports/extractor_v2_freeze.json、只能寫一次），之後才跑保留集。"
+}

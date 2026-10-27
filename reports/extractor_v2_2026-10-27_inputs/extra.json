@@ -1,0 +1,107 @@
+{
+ "stage_b_status": {
+  "summary": "**階段 B：開發集閉環已完成（指揮官 2026-10-27 核准，上限 US$15，實際 US$7.03）；保留集未執行、未凍結。** 先以 2.0-dev15 跑 gpt 與 Gemma 各 119 例，發現 under-triage（見下），依指示只在開發集做一次修正（2.0-dev16，程式；送出的提示全文不變），再重跑兩個 arm（病人前綴快取讓重跑只需 84 次新的 Opus 呼叫）。之後依五輪獨立驗收再修寫入規則與保留集防護（2.0-dev17–dev21），只用快取重算、0 次 API，數字不變。§4.1 列修正前與最終版。",
+  "estimate_table": [
+   [
+    "保留集 150 例，第一個 arm（gpt）Opus 病人",
+    "≈5.9",
+    "開發集第一個 arm 實際 US$3.42 × 保留集／開發集結構化值閉環的費用比 1.73（US$8.77／US$5.07）"
+   ],
+   [
+    "保留集，第二個 arm（Gemma）Opus 病人",
+    "≈3.3",
+    "開發集第二個 arm 實際 US$1.91（289 次新呼叫，627 次重用）× 1.73"
+   ],
+   [
+    "保留集 gpt 抽取",
+    "≈1.1",
+    "開發集第一輪實際 US$0.84 × 1.35（150／119 例 × 每例呼叫數 7.46／6.97）"
+   ],
+   [
+    "保留集 structured arm（對照）",
+    "0",
+    "只用 10-26 逐字稿當快取"
+   ],
+   [
+    "合計（只跑一次、不再修正）",
+    "≈10.3（估 8–14）",
+    "整體上限 US$25 已用 US$9.70，剩 US$15.3；只跑 Gemma 約 US$6"
+   ]
+  ],
+  "notes": [
+   "修正前（2.0-dev15）的問題：回答句順口提到的「現在沒有，胸口目前不會悶」「我不會喘」被抽成 symptom_character＝none，蓋掉開場白的性質 → Prompter 視為沒有胸部症狀，冒汗、休息時發作等題不再問。gpt：S-STABLE-01#0、S-STABLE-02#1、S-STABLE-04#0、S-STABLE-04#1 由 T0 判成 T3（under），S-MID-14#1 漏掉 RF-06；Gemma：S-STABLE-01#0 under，S-MID-10#0 漏掉 RF-01。",
+   "修正（2.0-dev16→dev21）：回答句順口提到的紅旗欄位否認（含 symptom_character＝none）不採用；順口值補未知的 slot——D-50 範圍（紅旗題＋stt_critical_questions）的未知 slot 只收「寫入後變成 Hard stop」或最嚴重一級，其他較不嚴重的值：該題沒問過就先不收但暫存，直接問到仍未知時以暫存值複誦一次；問過而目前未知就立刻對該題複誦一次（以順口值當解讀值）；這兩種複誦在目前已是 Hard stop、或寫入該值（連同同一句的其他值）後會變 Hard stop 時都不做，直接寫入並走 Hard stop（D-50 不延誤送醫）；已知值只在紅旗是非題「有」、confirm_back_severity 較嚴重、或寫入後變成 Hard stop 時覆蓋，其他不同保留已知值並記為 conflict（§4.1c）。dev17–dev21 都只用快取重算，數字與 dev16 逐例相同。",
+   "「留未知讓系統追問」在閉環救回的開場白漏判（重放中是 Hard-stop miss；gpt 與 Gemma 結果相同）：S-INSUF-07#0 家屬說「胸口不太舒服」→ 第 3 題 Q-CHARACTER-01 答「講不太上來、怪怪的」（vague）→ 第 4 題 Q-ONGOING-01「還在」→ RF-03（結構化值第 1 題）；S-MID-13#0「胸口脹脹的」→ 第 2 題 Q-CHARACTER-01 答「上腹悶悶脹脹」（epigastric）→ 第 4 題 Q-DIAPH-01「有冒冷汗」→ RF-06（結構化值第 3 題）；S-MID-13#1 同一開場白 → Q-CHARACTER-01 → 第 3 題 Q-ONGOING-01「還有一點不舒服」→ RF-03（結構化值第 1 題）；S-MID-14#1（只有 Gemma 開場白沒歸類「胸口肌肉按下去會痛」）→ 第 2 題 Q-CHARACTER-01 答「會痛」（pain）→ 第 5 題 Q-DIAPH-01 → RF-06（結構化值第 4 題；gpt 開場白已抽 pain，第 4 題）。代價是 Hard stop 晚 1–3 題；另 S-MID-05#0（開場白「沒有胸悶」、變體把性質設回未知）兩個 arm 都比結構化值晚 1 題（第 4 vs 3 題）。逐例題次見 §4.1b。",
+   "重放裡算 premature 的 S-MID-10#0，閉環中兩個抽取器都在第 5 題（與結構化值相同）以 RF-01 觸發。",
+   "其餘與結構化值不同的 case（2.0-dev16）：gpt over 2（S-MID-08、S-MID-13 由 T3 判成 T0：前者開場白沒抽到「走路才悶」、Q-TIMING-01 答不記得；後者 Q-EXERTION-01 回答「是休息的時候…吃飽坐著」被抽成 rest_symptom＝true，屬模糊說法第 14 項）、T9 1（S-MID-15#0 題數上限）；Gemma over 3（S-MID-08；S-MID-17、S-MID-20 由 T4 判成 T3：開場白 consult_topic 歸成門診事務）、T9 6（S-STABLE-01、S-MID-02、S-MID-13、S-MID-15#0、S-MID-16、S-MID-19，都是問到 11 題上限；其中 4 例是 Q-ANTIPLT-01「沒有，都有照時間吃」被 Gemma 抽成「有」→ 句首規則改成未知 → gate 一直缺這題，另 2 例是 Q-TIMING-01「記不太清楚」沒抽成 unknown、或題數不夠）。",
+   "繼續保留集的步驟（Clinical Owner 裁定模糊說法、必要時改提示之後）：`sim.closed_loop freeze`（固定位置、只寫一次）→ `run --set holdout --arm structured`→ `--arm gpt` → `--arm gemma`。三個 arm 都要求凍結紀錄存在、全部凍結檔（提示、抽取器、runner、closed_loop、stt_synth_asr）與提示全文 sha256 相符、不得 --limit；前置檢查（金鑰、opencc、LM Studio 連線與模型已載入、輸入檔、凍結 hash）全部通過後才登記到 reports/extractor_v2_holdout_runs.json，同一 arm 已登記或 --out 已有輸出就拒跑。"
+  ]
+ },
+ "costs": {
+  "實際花費合計（依 repo PRICES 估算，以帳單為準）": "**US$9.70**（整體上限 US$25；階段 A US$2.54、階段 B 試跑 US$0.13、開發集閉環 US$7.03）",
+  "階段 A gpt-6.1-sol 重放": "US$2.54＝全量 1,235 次 US$2.373＋3 例試跑 US$0.094＋探針重呼叫 US$0.069；dev16 重算另呼叫探針 US$0.017（算在閉環這段）",
+  "階段 B 3 例試跑": "US$0.130（Opus 13 次 US$0.081＋gpt 抽取 US$0.049）",
+  "開發集閉環（指揮官核准上限 US$15）": "US$7.03＝Opus 病人 US$5.98（dev15：gpt arm 502 次新呼叫 US$3.42、Gemma arm 289 次 US$1.91；dev16 重跑 84 次 US$0.66）＋gpt 抽取 US$1.03（dev15 US$0.84、dev16 US$0.19）＋階段 A 重算的探針 US$0.017",
+  "Gemma（本機，不計費）": "階段 A 正式重放（一次一句）1,250 次、03:14–03:50；閉環 dev15 04:12–04:23、dev16 04:28–04:30（4 路並行，新呼叫延遲中位數 2.97 秒）；模型 00:59 載入、03:54 卸載，04:03 為閉環重新載入、跑完 `lms unload --all`，伺服器維持開著、沒有載入模型",
+  "gpt 牆鐘時間": "階段 A 03:04–03:15（8 路）；閉環 dev15 04:03–04:12、dev16 04:27–04:28（8 路）",
+  "本輪（獨立驗收修正）": "US$0（五輪修正都只用快取重算：開發集閉環 0 次 API／LM Studio；階段 A 重放 0 次新呼叫）"
+ },
+ "files_changed": [
+  [
+   "sim/runner.py",
+   "新增 extractor／to_traditional 選項（預設 None，行為不變）：開場白與病人每句話（含再說一次、複誦回答）交給抽取器，抽出的值決定 slot、紅旗、gate、下一題與 D-50 複誦；順口提到的值補未知的 slot（D-50 範圍：會 Hard stop 或最嚴重一級才收，否則沒問過先暫存、直接問到仍未知時以暫存值複誦，問過就立刻複誦；目前已是或寫入後會變 Hard stop 時都不複誦、直接寫入），已知值只在紅旗是非題「有」、confirm_back_severity 較嚴重或寫入後變成 Hard stop 時覆蓋，其他記為 conflict；結構化值留在 Turn.structured_answer"
+  ],
+  [
+   "sim/extractor_e2e.py",
+   "replay() 加可選的 writer（自訂寫入方式），預設行為不變（keyword 重放輸出逐位相同）"
+  ],
+  [
+   "sim/e2e_llm.py",
+   "run_cell()／hs_trigger_diag() 把 writer 傳下去，預設行為不變"
+  ],
+  [
+   "data/extractor_prompts_v2.yaml（新）",
+   "抽取器 v2 提示（開場白、回答句、複誦回答三種）與程式保護用詞表"
+  ],
+  [
+   "sim/llm_extract_v2.py（新）",
+   "抽取器 v2：schema、解析、極性保護、快取／預算／以原始輸出重算，與階段 A 重放 CLI"
+  ],
+  [
+   "sim/closed_loop.py（新）",
+   "閉環模擬 CLI：病人對話前綴快取（鍵含病人模型、effort、prompt_version）、structured 自我檢查、premature 判定、conflict 紀錄；保留集防護：固定位置的凍結紀錄（全部凍結檔＋提示全文 sha256＋時間）、三個 arm 都要凍結、不得 --limit、固定位置的執行登記（同一 arm 只跑一次）；可用階段 A 抽取快取當種子；所有前置檢查（金鑰、opencc、LM Studio、輸入檔、凍結 hash）先於登記"
+  ],
+  [
+   "sim/extractor_v2_report.py（新）",
+   "組本報告與模糊說法裁定表（.md／.xlsx）；輸入全部在 reports/extractor_v2_2026-10-27_inputs/，可只靠 repo 逐位重產"
+  ],
+  [
+   "tests/test_extractor_v2.py（新）、tests/test_closed_loop.py（新）",
+   "不打 API 的單元測試（假 client）"
+  ],
+  [
+   "reports/extractor_v2_2026-10-27.{md,json}、reports/extractor_v2_ambiguous_2026-10-27.{md,xlsx}（新）",
+   "本報告與模糊說法裁定表"
+  ],
+  [
+   "reports/extractor_v2_2026-10-27_inputs/（新）",
+   "報告的輸入：階段 A 重放輸出、開發集閉環各 arm 的指標與逐例摘要（含試跑）、模糊說法、迭代紀錄、結論、目前 hash 與其他人工整理的欄位"
+  ]
+ ],
+ "repro": [
+  "# 送進抽取器前要能轉繁：專案 .venv 沒有 opencc，以 PYTHONPATH 指向本機 uv 快取裡的 opencc-python-reimplemented 0.1.7（D-49 ASR 環境同一版，不下載）",
+  "export OPENCC_PATH=$(dirname $(find ~/.cache/uv/archive-v0 -maxdepth 2 -name 'opencc_python_reimplemented-*.dist-info' | head -1))",
+  "# 階段 A：開發集重放（gpt 需 ACS_OPENAI_API_KEY；Gemma 需 lms load gemma-4-26b-a4b-it-mlx -c 8192）",
+  "zsh -ic 'cd ~/Documents/GitHub/acs_triage && PYTHONPATH=$OPENCC_PATH uv run python -m sim.llm_extract_v2 replay --extractors gpt,gemma --conditions ref,phone --budget 6 --cache-dir <scratch> --out <scratch>'",
+  "# 階段 B：結構化值對照（免費、自我檢查）與閉環（Opus 需 ACS_PATIENT_LLM_KEY）",
+  "uv run python -m sim.closed_loop run --set dev --arm structured --cache-dir <scratch> --out <scratch>",
+  "zsh -ic 'cd ~/Documents/GitHub/acs_triage && PYTHONPATH=$OPENCC_PATH uv run python -m sim.closed_loop run --set dev --arm gpt --opus-budget 4 --gpt-budget 2.5 --seed-extract <scratch>/v2_cache_gpt.json --cache-dir <scratch>/devrun --out <scratch>/devrun'   # 再 --arm gemma --seed-extract <scratch>/v2_cache_gemma.json",
+  "zsh -ic 'cd ~/Documents/GitHub/acs_triage && PYTHONPATH=$OPENCC_PATH uv run python -m sim.closed_loop run --set dev --arm gpt --limit 3 --opus-budget 1 --gpt-budget 1 --cache-dir <scratch> --out <scratch>'",
+  "# 報告與裁定表（只用 repo 內的輸入，逐位重產）",
+  "uv run python -m sim.extractor_v2_report"
+ ],
+ "observations_41c": [
+  "選擇題（如 dyspnea_grade）用暫存值複誦時，若複誦回答聽不清，依 D-50「選擇題保留原值」會採用順口值；驗收者第三種注入情境 4/578 組比「該題未知」不急（T9 備援 T1→T2／T3），結果等於真實值與全部收下，與直接回答時的 D-50 規則一致。"
+ ],
+ "date": "2026-10-27"
+}

@@ -1,0 +1,2850 @@
+{
+ "meta": {
+  "set": "dev",
+  "arm": "gemma",
+  "limit": null,
+  "started_at": "2026-10-27T04:12:18",
+  "finished_at": "2026-10-27T04:23:14",
+  "wall_s": 655.7,
+  "rules_version": "0.8.0",
+  "patient": {
+   "model": "claude-opus-5-5",
+   "effort": "medium",
+   "prompt_version": "0.3"
+  },
+  "extractor": {
+   "extractor": "gemma-4-26b-a4b-it-mlx",
+   "temperature": 0,
+   "prompts_version": "2.0-dev15",
+   "prompt_file_sha256": "cab5c5a7d1911192c0627889283dfda0268816774c74bc21d25590b1d145e805",
+   "rendered_sha256": "7357783d6e1318dd669038ec907f9bc62d23659b2ace74ae075052a81c400518",
+   "code_sha256": "bc96e2b9b56f6e8e0923dddb8aea7decb9919807267ebb140a807116ef83ac55"
+  },
+  "prompts_version": "2.0-dev15",
+  "file_sha256": {
+   "data/extractor_prompts_v2.yaml": "cab5c5a7d1911192c0627889283dfda0268816774c74bc21d25590b1d145e805",
+   "sim/llm_extract_v2.py": "bc96e2b9b56f6e8e0923dddb8aea7decb9919807267ebb140a807116ef83ac55",
+   "sim/runner.py": "5b7821ff4239da73c71223d02cda48cb338a81f7bb540d0982031eb69d16b7c7",
+   "sim/closed_loop.py": "5ede85c3feea1ff77a09dde8eac4fb823e69727e39b3cd9389dcad6f9fb9778b"
+  },
+  "freeze": null,
+  "n_seed_entries": 830,
+  "n_seed_extract": {
+   "v2_cache_gemma.json": 1112
+  },
+  "structured_source": "eval_2026-10-23_llm_opus-5-5_medium_transcripts.json"
+ },
+ "patient_usage": {
+  "live_calls": 289,
+  "cached_calls": 627,
+  "sources": {
+   "live_reused": 216,
+   "seed": 411,
+   "live": 289
+  },
+  "opus_cost_usd": 1.9086
+ },
+ "extractor_usage": {
+  "calls_used": 766,
+  "new_calls": 568,
+  "reused_seed": 198,
+  "reused_earlier_run": 0,
+  "cost_this_run_usd": 0.0,
+  "cost_total_usd": 0.0,
+  "failed": 0,
+  "tw_changed": 0,
+  "latency_new_calls": {
+   "n": 568,
+   "median_s": 2.968,
+   "p95_s": 5.508,
+   "mean_s": 3.299
+  },
+  "guards": {
+   "ongoing_mention_without_present_marker": 6,
+   "asked_value_from_mentions": 3,
+   "denial_without_negated_evidence": 6,
+   "choice_listed_unclassified": 1,
+   "asked_stance_vs_leading_word": 2
+  },
+  "unclassified": [
+   {
+    "q": "Q-SCREEN-01",
+    "text": "這些我不太清楚耶,心跳跟頭暈我沒特別注意,檢查的事我也不確定。",
+    "slot": "consult_topic",
+    "phrase": "這些我不太清楚耶,心跳跟頭暈我沒特別注意,檢查的事我也不確定。"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "對,他說不上來是哪種感覺,就是胸口怪怪的。",
+    "slot": "symptom_character",
+    "phrase": "胸口怪怪的"
+   },
+   {
+    "q": "Q-POSTURAL-01",
+    "text": "頭暈這個我不太確定耶,站起來或坐著躺著會不會暈,我沒有特別注意。",
+    "slot": "symptom_character",
+    "phrase": "不太確定"
+   },
+   {
+    "q": "Q-REST-01",
+    "text": "這個我不太確定欸,沒注意休息的時候有沒有發作過。",
+    "slot": "symptom_character",
+    "phrase": "沒注意休息的時候有沒有發作過"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太清楚耶,我不確定。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太清楚耶,我不確定。"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "這個我也說不準耶,沒特別比較過,不太確定是不是比較輕的活動就會不舒服。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我也說不準耶,沒特別比較過,不太確定是不是比較輕的活動就會不舒服。"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "這個我不太清楚耶,沒有特別注意是不是比較輕的活動就會不舒服。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我不太清楚耶,沒有特別注意是不是比較輕的活動就會不舒服。"
+   },
+   {
+    "q": "Q-POSTURAL-01",
+    "text": "頭暈的話我不太確定,站起來會不會暈這個我沒注意過。",
+    "slot": "symptom_character",
+    "phrase": "頭暈"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+    "slot": "symptom_character",
+    "phrase": "胸口肌肉按下去會痛,深呼吸也痛"
+   },
+   {
+    "q": "Q-DIAPH-01",
+    "text": "冒冷汗喔......這個我倒是沒什麼注意,不太確定有沒有欸。",
+    "slot": "symptom_character",
+    "phrase": "不太確定有沒有欸"
+   },
+   {
+    "q": "Q-EXERTION-01",
+    "text": "這個我也說不太清楚耶,好像跟走路或休息沒有很明顯的關係。",
+    "slot": "exertion_relation",
+    "phrase": "好像跟走路或休息沒有很明顯的關係。"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太清楚耶,我不記得有沒有這種情況。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太清楚耶,我不記得有沒有這種情況。"
+   },
+   {
+    "q": "Q-POSTURAL-01",
+    "text": "這個我不太清楚耶,沒特別注意頭暈是不是站起來才會,坐著躺著會不會也說不上來。",
+    "slot": "symptom_character",
+    "phrase": "說不上來"
+   },
+   {
+    "q": "Q-PALP-01",
+    "text": "心跳有沒有突然很快或亂跳,這個我沒特別注意耶,不太清楚。",
+    "slot": "symptom_character",
+    "phrase": "不太清楚"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "不好意思,喘的部分我真的不清楚,我只知道快走上坡胸口會悶,有沒有喘我講不出來。",
+    "slot": "dyspnea_grade",
+    "phrase": "喘的部分我真的不清楚,我只知道快走上坡胸口會悶,有沒有喘我講不出來"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "我不會喘耶,就只是胸口那邊脹脹悶悶的而已。",
+    "slot": "symptom_character",
+    "phrase": "脹脹悶悶的"
+   },
+   {
+    "q": "Q-PCI-01",
+    "text": "這個我不太清楚耶,我不確定有沒有放過支架。",
+    "slot": "symptom_character",
+    "phrase": "這個我不太清楚耶,我不確定有沒有放過支架。"
+   },
+   {
+    "q": "Q-REPRO-01",
+    "text": "按胸口、深呼吸或轉身會不會痛,這個我沒注意過,不太清楚耶。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我沒注意過,不太清楚耶。"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "就說不上來耶,不是壓住也不是刺痛,就是胸口怪怪的那種感覺。",
+    "slot": "symptom_character",
+    "phrase": "就是胸口怪怪的那種感覺"
+   },
+   {
+    "q": "Q-ONSET-01",
+    "text": "這個我就不太確定了,說不上來以前有沒有過一樣的感覺。",
+    "slot": "symptom_character",
+    "phrase": "說不上來以前有沒有過一樣的感覺"
+   },
+   {
+    "q": "Q-SCREEN-01",
+    "text": "這個我不太確定耶,心跳或檢查的事我一時也說不上來。",
+    "slot": "consult_topic",
+    "phrase": "這個我不太確定耶,心跳或檢查的事我一時也說不上來。"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "嗯...說不上來耶,不是壓住也不是刺痛,就是怪怪的,位置我也講不太清楚。",
+    "slot": "symptom_character",
+    "phrase": "就是怪怪的"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "這個我不太清楚耶,他沒跟我說是不是比以前更容易不舒服,我現在也沒辦法問他。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我不太清楚耶,他沒跟我說是不是比以前更容易不舒服,我現在也沒辦法問他。"
+   },
+   {
+    "q": "Q-POSTURAL-01",
+    "text": "頭暈這個我不太清楚耶,沒有特別注意站起來或坐著躺著會不會暈。",
+    "slot": "symptom_character",
+    "phrase": "不太清楚"
+   },
+   {
+    "q": "Q-PALP-01",
+    "text": "心跳有沒有突然很快或亂跳,我不太清楚,沒有特別注意到。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "我不太清楚,沒有特別注意到。"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "這個我不太清楚耶,跟活動有沒有關係我也說不上來。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我不太清楚耶"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘的部分我真的不清楚耶,沒有特別注意過,我只知道快走上坡胸口會悶悶的。",
+    "slot": "dyspnea_grade",
+    "phrase": "我只知道快走上坡胸口會悶悶的"
+   },
+   {
+    "q": null,
+    "text": "走路時有時會胸悶,不知道嚴不嚴重。",
+    "slot": "exertion_relation",
+    "phrase": "走路時有時會胸悶"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "這個我不太確定耶,他沒跟我講過跟以前比有沒有變。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我不太確定耶,他沒跟我講過跟以前比有沒有變。"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "這個我就不太確定耶,說不上來是不是比較輕的活動就會不舒服。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我就不太確定耶,說不上來是不是比較輕的活動就會不舒服。"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太確定耶,我記不太清楚有沒有這種事。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太確定耶,我記不太清楚有沒有這種事。"
+   },
+   {
+    "q": "Q-DYSPNEA-SENTENCE-01",
+    "text": "不會啦,講話還好,一句話講得完,就是走路的時候比較喘。",
+    "slot": "symptom_character",
+    "phrase": "就是走路的時候比較喘。"
+   },
+   {
+    "q": "Q-REST-01",
+    "text": "這個我不太清楚耶,沒特別注意休息的時候有沒有發作過。",
+    "slot": "symptom_character",
+    "phrase": "沒特別注意休息的時候有沒有發作過"
+   },
+   {
+    "q": "Q-POSTURAL-01",
+    "text": "頭暈喔......這個我不太確定耶,我沒特別注意是站起來才暈還是坐著躺著也會。",
+    "slot": "symptom_character",
+    "phrase": "頭暈喔"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喔,我不會喘耶,走路做家事都還好,主要就是胸口偶爾怪怪的而已。",
+    "slot": "symptom_character",
+    "phrase": "胸口偶爾怪怪的而已"
+   },
+   {
+    "q": null,
+    "text": "過去一年都是走很快約十分鐘才會有固定的胸口緊感,停下來就好,最近完全相同。",
+    "slot": "symptom_character",
+    "phrase": "胸口緊感"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,最近胸口有時候怪怪的,想問要不要提早看醫生。",
+    "slot": "symptom_character",
+    "phrase": "怪怪的"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太清楚耶,我沒什麼印象。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太清楚耶,我沒什麼印象。"
+   },
+   {
+    "q": "Q-DRUGTIME-01",
+    "text": "跟吃藥時間有沒有關係我不清楚耶,沒注意過。跟走路用力有沒有關係,我也不太確定。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "我也不太確定"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喔,我其實不會喘耶,走路做家事都還好,就是胸口偶爾怪怪的而已。",
+    "slot": "symptom_character",
+    "phrase": "胸口偶爾怪怪的而已"
+   },
+   {
+    "q": "Q-ONSET-01",
+    "text": "這個我不太確定欸,記不太清楚以前有沒有過一樣的感覺。",
+    "slot": "symptom_character",
+    "phrase": "記不太清楚以前有沒有過一樣的感覺"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "比較像是上腹那邊悶悶脹脹的,就是胃那個位置,不太像被壓住或刺痛。",
+    "slot": "symptom_character",
+    "phrase": "悶悶脹脹的"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "這個我不太確定耶,最近太忙了,沒特別注意有沒有變。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "最近太忙了,沒特別注意有沒有變。"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太清楚耶,印象中沒特別聽說,但我不確定。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太清楚耶,印象中沒特別聽說,但我不確定。"
+   },
+   {
+    "q": "Q-PALP-01",
+    "text": "心跳有沒有突然很快或不規則,我不太確定耶;不過不會覺得快要昏倒。",
+    "slot": "symptom_character",
+    "phrase": "心跳有沒有突然很快或不規則"
+   },
+   {
+    "q": "Q-ONSET-01",
+    "text": "這個我不太確定耶,我也說不上來以前有沒有過一樣的感覺。",
+    "slot": "symptom_character",
+    "phrase": "說不上來"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "嗯...這個我也不太確定,沒有特別去比較過。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我也不太確定,沒有特別去比較過。"
+   },
+   {
+    "q": "Q-ONSET-01",
+    "text": "這個我也說不太準耶,不太確定以前有沒有過一樣的感覺。",
+    "slot": "symptom_character",
+    "phrase": "說不太準"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太清楚耶,我一時想不起來有沒有這種情況。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太清楚耶,我一時想不起來有沒有這種情況。"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太清楚耶,不確定有沒有。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太清楚耶,不確定有沒有。"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,剛剛吃太飽胸口脹脹的,打嗝之後就好了,現在完全沒事,想確認要不要去急診。",
+    "slot": "symptom_character",
+    "phrase": "胸口脹脹的"
+   },
+   {
+    "q": "Q-ONSET-01",
+    "text": "這個我不太確定耶,以前有沒有過一樣的感覺我記不太清楚。",
+    "slot": "symptom_character",
+    "phrase": "以前有沒有過一樣的感覺"
+   },
+   {
+    "q": "Q-ONSET-01",
+    "text": "這個我不太確定耶,記不太清楚是什麼時候開始的。",
+    "slot": "symptom_character",
+    "phrase": "不太確定耶,記不太清楚是什麼時候開始的"
+   },
+   {
+    "q": "Q-POSTURAL-01",
+    "text": "頭暈的部分我不太清楚耶,這個我說不上來。",
+    "slot": "symptom_character",
+    "phrase": "這個我說不上來"
+   },
+   {
+    "q": "Q-PALP-01",
+    "text": "心跳有沒有突然很快或亂跳,這個我不太清楚,沒特別注意到。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我不太清楚,沒特別注意到。"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "真的不好意思,這個我真的不清楚,沒辦法跟你說是哪一種。",
+    "slot": "dyspnea_grade",
+    "phrase": "這個我真的不清楚,沒辦法跟你說是哪一種。"
+   },
+   {
+    "q": "Q-EXERTION-01",
+    "text": "這個我不太確定耶,是走路用力才會、還是休息也會,我說不上來。",
+    "slot": "exertion_relation",
+    "phrase": "這個我不太確定耶,是走路用力才會、還是休息也會,我說不上來。"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "比較像上腹那邊脹脹悶悶的,就是吃太飽那種脹,不是被壓住或刺痛。",
+    "slot": "symptom_character",
+    "phrase": "脹脹悶悶的,就是吃太飽那種脹"
+   },
+   {
+    "q": "Q-REST-01",
+    "text": "這個我不太記得欸,不確定休息的時候有沒有發作過。",
+    "slot": "symptom_character",
+    "phrase": "不確定休息的時候有沒有發作過"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "嗯...這個我說不太準,沒特別注意有沒有變比較容易不舒服。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我說不太準,沒特別注意有沒有變比較輕的活動就會不舒服"
+   },
+   {
+    "q": "Q-ONGOING-01",
+    "text": "還在,他現在胸口還是不太舒服。",
+    "slot": "symptom_character",
+    "phrase": "不太舒服"
+   },
+   {
+    "q": "Q-ONSET-01",
+    "text": "這個我不太確定耶,記不清楚以前有沒有過一樣的感覺。",
+    "slot": "symptom_character",
+    "phrase": "記不清楚以前有沒有過一樣的感覺"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "對,他就說說不上來,只說胸口怪怪的。",
+    "slot": "symptom_character",
+    "phrase": "胸口怪怪的"
+   },
+   {
+    "q": "Q-POSTURAL-01",
+    "text": "頭暈的部分我沒特別注意耶,不太清楚是不是站起來才會。",
+    "slot": "symptom_character",
+    "phrase": "不太清楚是不是站起來才會"
+   },
+   {
+    "q": "Q-POSTURAL-01",
+    "text": "頭暈的部分我不太清楚耶,沒有特別注意是不是站起來才會。",
+    "slot": "symptom_character",
+    "phrase": "頭暈的部分我不太清楚耶"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太確定耶,一時想不起來有沒有這種情況。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太確定耶,一時想不起來有沒有這種情況。"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,剛剛吃太飽胸口脹脹的,打嗝也沒有比較好,悶了一陣子才慢慢退,現在沒事了,想確認要不要去急診。",
+    "slot": "symptom_character",
+    "phrase": "胸口脹脹的"
+   },
+   {
+    "q": "Q-POSTURAL-01",
+    "text": "頭暈這個我不太清楚耶,沒特別注意到有沒有。",
+    "slot": "symptom_character",
+    "phrase": "不太清楚"
+   },
+   {
+    "q": "Q-REST-02",
+    "text": "歹勢,這個我真的不確定,沒辦法說有還是沒有。",
+    "slot": "symptom_character",
+    "phrase": "這個我真的不確定,沒辦法說有還是沒有。"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "這個我沒有特別比較過,不太確定是不是比較輕的活動就會不舒服。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我沒有特別比較過,不太確定是不是比較輕的活動就會不舒服。"
+   },
+   {
+    "q": "Q-REST-01",
+    "text": "嗯...休息的時候有沒有發作過,我不太確定耶,記不清楚。",
+    "slot": "symptom_character",
+    "phrase": "不太確定耶,記不清楚"
+   },
+   {
+    "q": "Q-SCREEN-01",
+    "text": "嗯...這個我不太確定耶,心跳、頭暈或檢查報告的事我一時說不上來。",
+    "slot": "consult_topic",
+    "phrase": "心跳、頭暈或檢查報告的事我一時說不上來。"
+   },
+   {
+    "q": "Q-DIAPH-01",
+    "text": "抱歉,這個我真的不確定,沒辦法跟你說有還是沒有。",
+    "slot": "symptom_character",
+    "phrase": "沒辦法跟你說有還是沒有"
+   },
+   {
+    "q": null,
+    "text": "最近吃藥後偶爾覺得胸口不太舒服,想知道是不是藥物造成。",
+    "slot": "symptom_character",
+    "phrase": "不太舒服"
+   },
+   {
+    "q": "Q-ONSET-01",
+    "text": "這個我不太確定耶,以前有沒有過一樣的感覺,我記不太清楚。",
+    "slot": "symptom_character",
+    "phrase": "不太確定耶"
+   },
+   {
+    "q": "Q-SCREEN-01",
+    "text": "這些我都不太清楚欸,心跳、頭暈有沒有,還有檢查的結果,我都沒有特別注意。",
+    "slot": "consult_topic",
+    "phrase": "這些我都不太清楚欸,心跳、頭暈有沒有,還有檢查的結果,我都沒有特別注意。"
+   },
+   {
+    "q": "Q-DRUGTIME-01",
+    "text": "這個我就不太確定耶,沒有特別注意是不是吃藥後固定時間,跟走路用力有沒有關係我也說不上來。",
+    "slot": "symptom_character",
+    "phrase": "我也說不上來"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "這個我說不上來耶,有沒有比以前更容易不舒服,我不太確定。",
+    "slot": "threshold_decrease_timescale",
+    "phrase": "這個我說不上來耶,有沒有比以前更容易不舒服,我不太確定。"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太確定耶,我不記得有沒有這樣的事。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太確定耶,我不記得有沒有這樣的事。"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "對,就是說不上來,只是覺得怪怪的。",
+    "slot": "symptom_character",
+    "phrase": "只是覺得怪怪的"
+   },
+   {
+    "q": "Q-ONGOING-01",
+    "text": "這個我不太確定耶,我沒辦法說得很準。",
+    "slot": "symptom_character",
+    "phrase": "我沒辦法說得很準"
+   },
+   {
+    "q": "Q-ONGOING-01",
+    "text": "不好意思,這個我真的不確定,沒辦法說有還是沒有。",
+    "slot": "symptom_character",
+    "phrase": "這個我真的不確定,沒辦法說有還是沒有。"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太清楚耶,我記不太起來有沒有這樣。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太清楚耶,我記不太起來有沒有這樣。"
+   },
+   {
+    "q": "Q-DIAPH-01",
+    "text": "不好意思,這個我真的不確定,沒有特別注意有沒有冒冷汗,沒辦法跟您說有還是沒有。",
+    "slot": "symptom_character",
+    "phrase": "沒有特別注意有沒有冒冷汗"
+   },
+   {
+    "q": "Q-REST-02",
+    "text": "不好意思,這個我真的不確定,沒辦法跟您說有還是沒有。",
+    "slot": "symptom_character",
+    "phrase": "這個我真的不確定,沒辦法跟您說有還是沒有"
+   },
+   {
+    "q": "Q-REST-02",
+    "text": "這個我不太確定耶,我說不上來是不是最近才開始的。",
+    "slot": "symptom_character",
+    "phrase": "說不上來"
+   },
+   {
+    "q": "Q-PALP-01",
+    "text": "心跳有沒有很快或不規則,我自己是沒特別注意,這個我不太清楚耶。",
+    "slot": "symptom_character",
+    "phrase": "沒特別注意"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "他說也講不太上來,就是胸口怪怪的,不太舒服。",
+    "slot": "symptom_character",
+    "phrase": "胸口怪怪的,不太舒服"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "對,就是說不上來,胸口怪怪的那種感覺。",
+    "slot": "symptom_character",
+    "phrase": "胸口怪怪的那種感覺"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "歹勢,這個我真的不太確定,沒注意到是什麼情況下會喘。",
+    "slot": "dyspnea_grade",
+    "phrase": "這個我真的不太確定,沒注意到是什麼情況下會喘。"
+   },
+   {
+    "q": "Q-PENDINGTEST-01",
+    "text": "這個我不太清楚耶,我記不起來有沒有這樣的事。",
+    "slot": "symptom_vs_pre_pci",
+    "phrase": "這個我不太清楚耶,我記不起來有沒有這樣的事。"
+   },
+   {
+    "q": "Q-DYSPNEA-ACUTE-01",
+    "text": "這個我也不太確定耶,沒特別注意是突然還是慢慢變的。",
+    "slot": "dyspnea_grade",
+    "phrase": "這個我也不太確定耶,沒特別注意是突然還是慢慢變的。"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘的話其實都還好,激烈運動、走路做家事或坐著休息都不會喘,主要就是胸口有時候怪怪的而已。",
+    "slot": "symptom_character",
+    "phrase": "胸口有時候怪怪的而已"
+   }
+  ]
+ },
+ "cases": [
+  {
+   "case_id": "S-ACUTE-01",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-01#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-01#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-01#2",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 10,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-02",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-02#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-02#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-03",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-03#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-03#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-04"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 2
+  },
+  {
+   "case_id": "S-ACUTE-03#2",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-04",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-04#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-05",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-05#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-05#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-06",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop_opening",
+   "n_q": 0,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 0
+  },
+  {
+   "case_id": "S-ACUTE-06#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop_opening",
+   "n_q": 0,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 0
+  },
+  {
+   "case_id": "S-STABLE-01",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-01#0",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-01#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-01#2",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-02",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-02#0",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-02#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-03",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-03#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "ongoing_now",
+     "diaphoresis",
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 7,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-04",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-04#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-04#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-01",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-01#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-01#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-02",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-02#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-02#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-03",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-03#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-03#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "rest_symptom_first_time"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-04",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-04#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-INSUF-04#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "dyspnea_grade"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-04#2",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-05",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-05#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-05#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 10,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-06",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-06#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 10,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-06#1",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-07",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 5,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-07#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 4
+  },
+  {
+   "case_id": "S-INSUF-07#1",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 5,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-08",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-08#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-08#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-01",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-01#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-01#1",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-01#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 3
+  },
+  {
+   "case_id": "S-MID-02",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-02#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 8,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-02#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 8,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-02#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-03",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-03#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-04",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-04#0",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 10,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-05",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-05#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 4
+  },
+  {
+   "case_id": "S-MID-05#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-06",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-06#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-06#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 2,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-06#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-07",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-07#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-07#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-07#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-08",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-08#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-08#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-08#2",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 10,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-09",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-09#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-10",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-10#0",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 9,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-10#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-05"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-11",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-11#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-11#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-04"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 2
+  },
+  {
+   "case_id": "S-MID-12",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-12#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 2,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-12#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-13",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "antiplatelet_interrupted"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-13#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 4
+  },
+  {
+   "case_id": "S-MID-13#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 3
+  },
+  {
+   "case_id": "S-MID-13#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-13#3",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "rest_symptom_first_time"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 8,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-14",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-14#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-14#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 5,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 5
+  },
+  {
+   "case_id": "S-MID-15",
+   "error": null,
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-15#0",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "antiplatelet_interrupted"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-16",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-16#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-16#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 3
+  },
+  {
+   "case_id": "S-MID-17",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-17#0",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-17#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 4,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 4
+  },
+  {
+   "case_id": "S-MID-18",
+   "error": null,
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-18#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-19",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "ntg_use_increased",
+     "antiplatelet_interrupted"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-19#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-19#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-19#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-19#3",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 4
+  },
+  {
+   "case_id": "S-MID-20",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-20#0",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-20#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  }
+ ],
+ "metrics": {
+  "n": 119,
+  "errors": [],
+  "hs_truth": 27,
+  "hs_hit": 26,
+  "hs_sensitivity": 0.9629629629629629,
+  "hs_miss": [
+   "S-MID-10#0"
+  ],
+  "premature": [],
+  "hs_unsupported": [],
+  "false_hs": [],
+  "under": [
+   [
+    "S-STABLE-01#0",
+    0,
+    3
+   ]
+  ],
+  "over": [
+   [
+    "S-MID-08",
+    3,
+    0
+   ],
+   [
+    "S-MID-17",
+    4,
+    3
+   ],
+   [
+    "S-MID-20",
+    4,
+    3
+   ]
+  ],
+  "exact": 0.9159663865546218,
+  "abstain_fp": [
+   [
+    "S-MID-02",
+    2
+   ],
+   [
+    "S-MID-10#0",
+    0
+   ],
+   [
+    "S-MID-13",
+    3
+   ],
+   [
+    "S-MID-15#0",
+    1
+   ],
+   [
+    "S-MID-16",
+    3
+   ],
+   [
+    "S-MID-19",
+    1
+   ]
+  ],
+  "abstain_fn": [],
+  "t9": 18,
+  "mean_questions": 6.050420168067227,
+  "confirms": 196,
+  "confirms_per_call": 1.6470588235294117,
+  "confirm_changed": 0,
+  "escalating_recall": 0.9356617647058824,
+  "stop_reasons": {
+   "gate_passed": 56,
+   "hard_stop": 24,
+   "gate_passed_t0_asked": 18,
+   "hard_stop_opening": 2,
+   "max_questions": 17,
+   "no_more_questions": 2
+  },
+  "finals": {
+   "S-ACUTE-01": "T0",
+   "S-ACUTE-01#0": "HS",
+   "S-ACUTE-01#1": "T0",
+   "S-ACUTE-01#2": "T3",
+   "S-ACUTE-02": "T0",
+   "S-ACUTE-02#0": "HS",
+   "S-ACUTE-02#1": "HS",
+   "S-ACUTE-03": "T0",
+   "S-ACUTE-03#0": "HS",
+   "S-ACUTE-03#1": "HS",
+   "S-ACUTE-03#2": "T2",
+   "S-ACUTE-04": "T0",
+   "S-ACUTE-04#0": "HS",
+   "S-ACUTE-05": "T0",
+   "S-ACUTE-05#0": "HS",
+   "S-ACUTE-05#1": "T3",
+   "S-ACUTE-06": "HS",
+   "S-ACUTE-06#0": "HS",
+   "S-STABLE-01": "T3",
+   "S-STABLE-01#0": "T3",
+   "S-STABLE-01#1": "T0",
+   "S-STABLE-01#2": "T9",
+   "S-STABLE-02": "T3",
+   "S-STABLE-02#0": "T3",
+   "S-STABLE-02#1": "T0",
+   "S-STABLE-03": "T3",
+   "S-STABLE-03#0": "T0",
+   "S-STABLE-04": "T3",
+   "S-STABLE-04#0": "T0",
+   "S-STABLE-04#1": "T0",
+   "S-INSUF-01": "T9",
+   "S-INSUF-01#0": "T0",
+   "S-INSUF-01#1": "T3",
+   "S-INSUF-02": "T9",
+   "S-INSUF-02#0": "T0",
+   "S-INSUF-02#1": "T3",
+   "S-INSUF-03": "T9",
+   "S-INSUF-03#0": "T0",
+   "S-INSUF-03#1": "T0",
+   "S-INSUF-04": "T9",
+   "S-INSUF-04#0": "HS",
+   "S-INSUF-04#1": "T0",
+   "S-INSUF-04#2": "T3",
+   "S-INSUF-05": "T9",
+   "S-INSUF-05#0": "T0",
+   "S-INSUF-05#1": "T3",
+   "S-INSUF-06": "T9",
+   "S-INSUF-06#0": "T0",
+   "S-INSUF-06#1": "T9",
+   "S-INSUF-07": "T9",
+   "S-INSUF-07#0": "HS",
+   "S-INSUF-07#1": "T9",
+   "S-INSUF-08": "T9",
+   "S-INSUF-08#0": "T0",
+   "S-INSUF-08#1": "T3",
+   "S-MID-01": "T1",
+   "S-MID-01#0": "T0",
+   "S-MID-01#1": "T2",
+   "S-MID-01#2": "HS",
+   "S-MID-02": "T9",
+   "S-MID-02#0": "T0",
+   "S-MID-02#1": "T0",
+   "S-MID-02#2": "T0",
+   "S-MID-03": "T0",
+   "S-MID-03#0": "HS",
+   "S-MID-04": "T3",
+   "S-MID-04#0": "T1",
+   "S-MID-05": "T3",
+   "S-MID-05#0": "HS",
+   "S-MID-05#1": "T0",
+   "S-MID-06": "T2",
+   "S-MID-06#0": "HS",
+   "S-MID-06#1": "T0",
+   "S-MID-06#2": "T0",
+   "S-MID-07": "T1",
+   "S-MID-07#0": "T0",
+   "S-MID-07#1": "T0",
+   "S-MID-07#2": "T0",
+   "S-MID-08": "T0",
+   "S-MID-08#0": "T0",
+   "S-MID-08#1": "T0",
+   "S-MID-08#2": "T1",
+   "S-MID-09": "T1",
+   "S-MID-09#0": "T0",
+   "S-MID-10": "T2",
+   "S-MID-10#0": "T9",
+   "S-MID-10#1": "HS",
+   "S-MID-11": "T0",
+   "S-MID-11#0": "HS",
+   "S-MID-11#1": "HS",
+   "S-MID-12": "T2",
+   "S-MID-12#0": "T0",
+   "S-MID-12#1": "HS",
+   "S-MID-13": "T9",
+   "S-MID-13#0": "HS",
+   "S-MID-13#1": "HS",
+   "S-MID-13#2": "T0",
+   "S-MID-13#3": "T0",
+   "S-MID-14": "T3",
+   "S-MID-14#0": "T0",
+   "S-MID-14#1": "HS",
+   "S-MID-15": "T4",
+   "S-MID-15#0": "T9",
+   "S-MID-16": "T9",
+   "S-MID-16#0": "T0",
+   "S-MID-16#1": "HS",
+   "S-MID-17": "T3",
+   "S-MID-17#0": "T9",
+   "S-MID-17#1": "HS",
+   "S-MID-18": "T4",
+   "S-MID-18#0": "T0",
+   "S-MID-19": "T9",
+   "S-MID-19#0": "T0",
+   "S-MID-19#1": "T0",
+   "S-MID-19#2": "HS",
+   "S-MID-19#3": "HS",
+   "S-MID-20": "T3",
+   "S-MID-20#0": "T3",
+   "S-MID-20#1": "T0"
+  }
+ },
+ "extraction": {
+  "asked": {
+   "correct": 690,
+   "unknown_equiv": 21,
+   "speechless": 5,
+   "missed": 4
+  },
+  "confirm_reply": {
+   "correct": 193,
+   "speechless": 3
+  },
+  "rf_yes_missed": []
+ }
+}

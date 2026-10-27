@@ -1,0 +1,23 @@
+# 抽取器 v2 模糊說法裁定表 — 2026-10-27
+
+> 只用開發集（119 例開發情境的 Opus 逐字稿與開發集閉環）；保留集未執行、未收集。v2 對這些說法不自行歸類（留未知、系統追問）。
+> 「提示裡是否已寫入例句」為「是」者，裁定結果若不同，提示要先改再凍結（保留集只能跑一次）。最後兩列是 Prompter 的設計缺口與順口值寫入規則的設計取捨。
+
+| 編號 | 說法原文（欄位） | 開發集出處 case 與原句 | 目前處理方式 | 可能的歸類選項 | 提示裡是否已寫入例句 | Clinical Owner 裁定 |
+|---|---|---|---|---|---|---|
+| 1 | 胸口脹脹的（symptom_character） | S-MID-13（S-MID-13、#0–#3 共用）（開場白）：「我有冠心症，剛剛吃太飽胸口脹脹的，打嗝之後就好了，現在完全沒事，想確認要不要去急診。」 | gpt、Gemma 皆不填，列入 unclassified | tightness／epigastric／vague／other／維持未知、追問 | 是：兩份提示都把「脹脹的」列為「不填、寫進 unclassified」的例子 |  |
+| 2 | 悶悶脹脹的（symptom_character） | S-MID-13#3（Q-DIAPH-01 回答）：「沒有冒冷汗，就只是悶悶脹脹的而已。」 | gpt、Gemma 皆抽成 tightness（依「悶」） | tightness／epigastric／維持未知 | 部分：提示有「有『悶』→ tightness」的字眼規則，「脹脹的」列為不填 |  |
+| 3 | 肚子上面悶脹（symptom_character） | S-MID-13#3（Q-DYSPNEA-GRADE-01 回答）：「我不會喘耶，走路做家事都還好，就只是那時候肚子上面悶脹而已。」 | gpt、Gemma 皆抽成 epigastric（對應選項「上腹悶脹」） | epigastric（＝上腹）／tightness／維持未知 | 否（選項說明寫「上腹悶脹」） |  |
+| 4 | 胸口不太舒服（沒有描述性質）（symptom_character） | S-INSUF-06（開場白）：「最近吃藥後偶爾覺得胸口不太舒服，想知道是不是藥物造成。」<br>S-INSUF-07（開場白）：「我爸爸有心臟病，這兩天說胸口不太舒服，但他現在不在我旁邊。」 | gpt、Gemma 皆不填（gpt 列入 unclassified） | vague（視為胸部症狀，先問胸部紅旗題）／維持未知、追問 Q-CHARACTER-01 | 是：「不舒服」列為不填的例子 |  |
+| 5 | 胸口怪怪的（沒說「說不上來」）（symptom_character） | S-INSUF-01（開場白）：「我有冠心症，最近胸口有時候怪怪的，想問要不要提早看醫生。」<br>S-INSUF-07#0（Q-ONGOING-01 回答）：「有，他剛剛跟我說現在還是覺得胸口怪怪的，還沒好。」 | gpt、Gemma 皆不填（列入 unclassified） | vague（等同說不上來，D-40）／維持未知 | 是：「怪怪的」列為不填的例子 |  |
+| 6 | 胸口緊感／緊緊的（symptom_character） | S-STABLE-04（開場白）：「過去一年都是走很快約十分鐘才會有固定的胸口緊感，停下來就好，最近完全相同。」<br>S-STABLE-04#1（Q-DYSPNEA-GRADE-01 回答）：「我其實不太會喘耶，就是走快的時候胸口會緊緊的而已。」 | 開場白 gpt、Gemma 皆不填（列入 unclassified） | tightness（緊＝悶）／維持未知 | 是：「緊緊的」列為不填的例子 |  |
+| 7 | 心絞痛（以診斷名稱描述症狀）（symptom_character） | S-MID-03（開場白）：「我的心絞痛以前一個月含一次舌下片，這兩個禮拜變成一個禮拜兩三次，都是走路時發作，停下來含一顆就好，休息時沒有。」 | gpt、Gemma 皆抽成 pain | pain／其他缺血性質（需追問）／維持未知 | 間接：提示有「有『痛』→ pain」的字眼規則 |  |
+| 8 | 胸口肌肉按下去會痛、深呼吸也痛（symptom_character） | S-MID-14（開場白）：「我有冠心症，昨天搬重物後今天胸口肌肉按下去會痛，深呼吸也痛，走路不會更痛。」 | gpt 抽成 pain；Gemma 不填（列入 unclassified） | pain（胸部症狀，可與冒汗湊成 RF-06）／other／維持未知 | 間接：同上 |  |
+| 9 | 下巴跟左肩那邊沉沉的／沉沉重重（symptom_character） | S-ACUTE-04#0（Q-ONGOING-01 回答）：「嗯，現在還是有，下巴跟左肩那邊還是覺得沉沉的。」<br>S-MID-18#0（Q-CHARACTER-01 回答）：「嗯…比較像是下巴跟肩膀那邊沉沉重重的感覺。」 | gpt、Gemma 皆抽成 jaw_shoulder_heaviness | jaw_shoulder_heaviness／維持未知 | 間接：選項說明寫「下顎、肩膀或手臂沉重」 |  |
+| 10 | 晚上躺下會覺得比較喘、要墊高枕頭（dyspnea_grade／rest_symptom） | S-MID-11（開場白）：「我有冠心症，這兩個禮拜晚上躺下會覺得比較喘要墊高枕頭，白天走路還可以，胸口不會痛。」 | gpt 只填 orthopnea_pnd＝true（其餘列 unclassified）；Gemma 填 orthopnea_pnd＝true、rest_symptom＝true、symptom_character＝none；兩者都不再抽成 dyspnea_grade＝rest | 只記 orthopnea_pnd／另記 rest_symptom＝true／也影響 dyspnea_grade（哪一級） | 否 |  |
+| 11 | 最近沒有任何不舒服／他沒有不舒服（概括否認）（各紅旗 slot） | S-MID-20（開場白）：「我有冠心症，想問下次回診要不要空腹抽血，最近沒有任何不舒服。」<br>S-MID-17（開場白）：「我爸有冠心症，今天忘記吃早上的藥，現在補吃可以嗎？他沒有不舒服。」 | 只寫有否定詞證據的欄位（gpt：ongoing_now＝false）；沒點名的紅旗不寫、照問 | 各紅旗皆視為否認、省略紅旗題／只記 symptom_character＝none／不採用、紅旗照問 | 是：開場白規則 7「只說『沒有不舒服』，沒說到的症狀一樣填 null」 |  |
+| 12 | 不太會喘（委婉否認）（dyspnea_grade） | S-STABLE-02#0（Q-DYSPNEA-GRADE-01 回答（開發集共 19 句））：「我其實不太會喘耶，就是很用力運動的時候胸口有點悶而已。」 | gpt、Gemma 皆抽成 none（v2 提示以開發集句子為例） | none／exertional_heavy／未知 | 是：回答句提示例句「我其實不太會喘」→ answered、none（未經裁定，凍結前須確認） |  |
+| 13 | 剛才胸口一陣壓迫感（沒說現在還在不在）（last_episode_timing／ongoing_now） | S-ACUTE-06（開場白）：「剛才胸口一陣壓迫感，站起來時差點昏倒。」 | gpt：today；Gemma 抽成 ongoing → 程式丟棄（片段沒有「還在」等字眼）→ 未知 | 只記 last_episode_timing＝today、不推定仍在發作／ongoing／未知 | 否（程式規則：順口說「現在還在」要有「還在、還是…」字眼） |  |
+| 14 | 剛剛就是吃飽坐著的時候（飯後坐著發作）（rest_symptom） | S-MID-13（開發集閉環 Q-EXERTION-01 回答（gpt arm））：「不是走路用力的時候，是休息的時候出現的，剛剛就是吃飽坐著的時候。」 | gpt 抽成 rest_symptom＝true（順口提到）→ 走 T0-REST-NEW，閉環判 T0（truth T3） | rest_symptom＝true（休息時發作）／false（飯後坐著不算）／未知 | 否 |  |
+| 15（設計缺口） | （設計缺口，非說法）symptom_character 未知或被否認時，Prompter 把來電當成沒有胸部症狀（symptom_character／Prompter） | S-INSUF-07#0、S-MID-13#0、S-MID-13#1（開發集閉環）：「開場白性質留未知 → 胸部紅旗題要等 Q-DYSPNEA-GRADE-01、Q-CHARACTER-01 問完才問（Hard stop 晚 1–3 題）；2.0-dev15 時「現在不會悶了」被抽成 none → 胸部紅旗題不再問（under-triage，已在抽取端擋住）」 | 未修改（src/acs_triage/prompter/ 與規則不在本任務可改範圍）；抽取端：回答句順口的紅旗否認不採用 | 提到胸口不適但性質未知時也視為胸部症狀、先問紅旗題／Q-CHARACTER-01 提前／維持現狀 | — |  |
+| 16（設計取捨） | （設計取捨，非說法）病人直接回答某題為較不急的值後，又在別句順口說出較急的值（例如先答不是新發作，後來說其實最近才開始）（順口值寫入規則（sim/runner.py）） | 開發集真實對話（閉環 gpt＋Gemma）：這類升級方向的 conflict 0 次；實際 4 次 conflict 都是降級方向（S-MID-06#2 dyspnea_complaint、S-ACUTE-05 threshold_decreased、S-MID-11 rest_symptom 與 dyspnea_complaint，皆已知 True、順口 False）。<br>驗收者窮舉合成狀態（第四輪 r4）：已知值衝突 669 組；另 33 組是性質未知、該題還沒問過所以不收（2.0-dev20 起改為暫存，直接問到仍未知時以它 D-50 複誦）。已知值衝突主要是 dyspnea_acute、orthopnea_pnd、rest_symptom、ntg_use_increased、threshold_decreased、onset_new、last_episode_timing、exertion_relation。 | 保留直接回答的值、只記 conflict，不升級（紅旗是非題「有」、confirm_back_severity 較嚴重、寫入後變成 Hard stop 這三種仍會覆蓋） | 維持現狀／矛盾時對該題再問一次（需新增問句，屬 Prompter／題庫變更）／寫入後升到 T0 就採用（偏急，可能增加急診轉介） | —（程式規則，不在提示裡） |  |

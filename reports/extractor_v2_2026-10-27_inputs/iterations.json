@@ -1,0 +1,107 @@
+[
+ {
+  "version": "2.0-dev1",
+  "change": "初版：回答句與開場白共用一份提示；每句輸出 asked（evidence→是非題 stance yes/no/unclear）＋稀疏 mentions＋unclassified；程式極性保護（mentions 的 true 若片段含否定詞→丟；D-50 範圍內被問那題 stance 與句首明確肯定／否定詞相反→未知）。",
+  "eval": "Gemma 7 句開發集冒煙：「現在沒有了」等 4 句極性全對；開場白稀疏格式漏抽（S-MID-11 漏 orthopnea_pnd、symptom_character none，onset_weeks_ago 輸出亂碼）。"
+ },
+ {
+  "version": "2.0-dev2",
+  "change": "開場白改為逐欄填寫（稠密）；symptom_character 只在用了選項字眼時才填，其他形容寫 unclassified；unclassified 與值同欄時不寫值（程式）。",
+  "eval": "Gemma 開場白 40 句：幾乎全填 null（symptom_character 漏 35、cad_history 漏 13）；unclassified 被濫用（「像被壓住」「今天第一次」也放進去）。"
+ },
+ {
+  "version": "2.0-dev3",
+  "change": "unclassified 只限選擇題欄位，並說明對得上選項就直接填。",
+  "eval": "同上，開場白仍幾乎全 null。"
+ },
+ {
+  "version": "2.0-dev4",
+  "change": "開場白改用獨立提示（以 v1 開場白提示 0.1 為底＋規則 6 沒把握就不填），扁平 schema；回答句另一份提示。",
+  "eval": "開場白 40 句：symptom_character 漏 25；出現憑空否認（沒提到喘卻填 dyspnea_grade none 等）。"
+ },
+ {
+  "version": "2.0-dev5",
+  "change": "症狀性質改成明列字眼（壓→pressure、悶→tightness、痛→pain、下顎肩膀手臂沉重、上腹悶脹、說不上來→vague、明確說胸口沒有不舒服→none；脹脹的、緊緊的、怪怪的、不舒服→不填）。",
+  "eval": "開場白 symptom_character 漏 9；但憑空否認變多（dyspnea_grade none 15 句）、「胸口不太舒服」被抽成 none。"
+ },
+ {
+  "version": "2.0-dev6",
+  "change": "開場白加規則 7（沒提到不是否認）與 evidence 清單；程式：紅旗 slot＋symptom_character 的否認若沒有含否定詞的原句片段→丟棄。",
+  "eval": "憑空否認消失；symptom_character 漏 21。"
+ },
+ {
+  "version": "2.0-dev7",
+  "change": "開場白 schema 改成先寫 evidence 再填欄位；極性保護擴及肯定方向（紅旗 slot 的 true／非 none 值，片段含否定詞→丟棄；last_episode_timing＝ongoing 也算）。",
+  "eval": "開場白 symptom_character 漏 14（其中 8 句是刻意留未知的說法）。全量重放 ref（Gemma）：Hard-stop miss 7/27、premature 0、假 Hard stop 1、abstention FP 29、紅旗題抽錯 6（皆 dyspnea none→未知）。"
+ },
+ {
+  "version": "2.0-dev8",
+  "change": "回答句：說不上來指的是位置／時間時不影響症狀感覺；mentions 要寫順帶描述的症狀感覺（以開發集句子「有，現在胸口還是悶悶的」為例），不得從題目推論 ongoing_now／rest_symptom_first_time。程式：asked 沒填、mentions 卻寫了被問那題 → 採用。",
+  "eval": "回答句含症狀字眼時 mentions 有 symptom_character 60/62；但 Q-DYSPNEA-GRADE-01「不太會喘」被填 null 增為 16–19 句。"
+ },
+ {
+  "version": "2.0-dev9",
+  "change": "選擇題／時間題的 asked 改成先判斷 status（answered／dont_know／cannot_classify）再填 value（value 不給 null），並以開發集句子舉例。",
+  "eval": "Q-DYSPNEA-GRADE-01 正確 87/91（多抽 none 3：「有沒有喘我不知道」）；Q-PATTERN-01 單位錯 4（兩年→2）。"
+ },
+ {
+  "version": "2.0-dev10",
+  "change": "時間單位換算例（兩年＝24）；dont_know 例句；程式：回答句順口說的 ongoing_now＝true／last_episode_timing＝ongoing 片段要有「現在、還在…」字眼；asked 選擇題的紅旗否認也要有否定詞；遮罩「有沒有、會不會、是不是」。",
+  "eval": "Q-DYSPNEA-GRADE-01 90/91、Q-CHARACTER-01 17/18（另 1 句說不上來）、Q-PATTERN-01 19/20。"
+ },
+ {
+  "version": "2.0-dev11",
+  "change": "複誦回答改用專屬 schema：agreement（同不同意複誦的答案）＋restated（病人有沒有重新回答原題）；程式由兩者決定值（是非題只說「不是」→ 相反；選擇題只說「不是」→ 未知）；從複誦句反查客服說的答案（scripts_zh 的值中文）。",
+  "eval": "（全量重放 dev10 時 Gemma 複誦回答 110/164、探針 9/15：「對，現在沒有了」被讀成「有」51 句。）dev11：Gemma 仍把 restated 讀成「有沒有重新回答」（yes），探針與開發集多半仍錯。"
+ },
+ {
+  "version": "2.0-dev12",
+  "change": "restated 改名 reply_answer、選項改中文（「有（情況成立）」「沒有（情況不成立）」「沒有重新回答」）；程式：選擇題複誦回答的否認也要有否定詞。",
+  "eval": "Gemma 複誦回答 159/164（多抽 none 4：「我不太清楚」）、探針 15/15。全量重放（4 路並行）：ref Hard-stop miss 5（premature 1）、假 Hard stop 0；phone 6、假 Hard stop 2（開場白 last_episode_timing＝ongoing）。"
+ },
+ {
+  "version": "2.0-dev13",
+  "change": "程式：開場白也套「現在還在」字眼規則；句首規則擴大到所有「只問一件事」的是非題（題目一個問號、不是「…還是…」）；轉繁檢查改成不把 NFKC 的全形→半形標點算成簡轉繁。",
+  "eval": "Gemma ref 假 Hard stop 1（「現在比較輕一點的活動就會悶」被當成此刻）；symptom_character 的否定詞保護誤丟「現在不會悶了」這類句子的性質。"
+ },
+ {
+  "version": "2.0-dev14",
+  "change": "程式：symptom_character 的性質值不套肯定方向保護（只保留 none 要有否定詞）；dyspnea_grade 只對 rest 套；「此刻仍在」字眼不含單獨的「現在」；可用原始輸出重算（送出的提示全文 sha256 相同才可）。",
+  "eval": "正式重放（gpt 8 路、Gemma 一次一句）。"
+ },
+ {
+  "version": "2.0-dev15",
+  "change": "程式：紅旗欄位的否認若片段同時表示不確定（不清楚、沒注意、他沒跟我講…）→ 丟棄。送出的提示全文與 dev13／dev14 相同（rendered sha256 不變），以原始輸出重算。",
+  "eval": "最終：見 §3。Gemma 複誦回答 164/164；gpt 163＋1。"
+ },
+ {
+  "version": "2.0-dev16",
+  "change": "開發集閉環後的唯一一次修正（程式，送出的提示全文不變）：回答句順口提到的紅旗欄位否認（含 symptom_character＝none）一律不採用；sim/runner.py 順口提到的值不得把已知的值改得較不急（是非題 有→沒有、→none、symptom_character／dyspnea_grade 依 confirm_back_severity）。",
+  "eval": "dev15 閉環：病人回答 Q-ONGOING-01「現在沒有，胸口目前不會悶」被抽成 symptom_character＝none、蓋掉開場白的 tightness → 胸部紅旗題不再問：gpt under 4（S-STABLE-01#0、S-STABLE-02#1、S-STABLE-04#0、#1，T0→T3）＋HS miss S-MID-14#1；Gemma under 1（S-STABLE-01#0）＋HS miss S-MID-10#0（「我不會喘」被抽成 symptom_character＝none）。dev16：兩者 HS 27/27、under 0（見 §4.1）；階段 A 重放以原始輸出重算，數字幾乎不變。"
+ },
+ {
+  "version": "2.0-dev17",
+  "change": "依獨立驗收修正（程式；送出的提示全文不變）：順口提到的值只補未知的 slot（含問過但答不知道的，修正「問過就永遠擋住」）；已知值只在紅旗是非題「有」或 confirm_back_severity 較嚴重時覆蓋，其他不同保留已知值並記為 conflict（取代 dev16 的「較不急」判斷，該判斷對 reproducible_mechanical 等方向相反、也沒涵蓋 last_episode_timing 等）。",
+  "eval": "開發集閉環只用快取重算（0 次 API）：兩個 arm 逐例最終結果、題序、值、複誦、Hard stop 題次都與 dev16 相同；conflict gpt 1、Gemma 3；Gemma S-MID-13#3 結束時 symptom_character 由 epigastric 變 tightness（順口提到的較嚴重值，結果不變）。階段 A 重放數字不變。"
+ },
+ {
+  "version": "2.0-dev18",
+  "change": "第三輪驗收修正（程式；送出的提示全文不變）：(1) 已知值的第三種可覆蓋情況——寫入後規則引擎由非 Hard stop 變成 Hard stop（涵蓋 last_episode_timing＝ongoing 推導 RF-03 等）；(2) D-50 範圍（紅旗題＋stt_critical_questions：含 rest_symptom_first_time、symptom_character、dyspnea_grade）的未知 slot，順口值只收最嚴重一級，較不嚴重的不採用、照常直接問並依 D-50 複誦（記為 d50_not_most_severe）；(3) 閉環 CLI 的前置檢查（金鑰、opencc、LM Studio 連線與模型已載入、輸入檔、凍結 hash）全部移到登記保留集 arm 之前。",
+  "eval": "開發集閉環只用快取重算（0 次 API）：兩個 arm 逐例與 dev16／dev17 相同，結束時 slot 與 dev17 相同；d50_not_most_severe 0 次、因「寫入後 Hard stop」而覆蓋 0 次；conflict 仍為 gpt 1、Gemma 3。階段 A 重放數字不變。驗收者窮舉（595 狀態、49,510 組單一順口值）：被擋下的 Hard stop 升級 0 組（原 15 組）。"
+ },
+ {
+  "version": "2.0-dev19",
+  "change": "第四輪驗收修正（程式；送出的提示全文不變）：D-50 範圍 slot 未知時的順口值改三條——(i) 寫入後由非 Hard stop 變成 Hard stop → 收；(ii) 最嚴重一級 → 收；(iii) 其他較不嚴重的值：該題沒問過 → 不收、照常直接問並依 D-50 複誦；該題問過而目前未知 → 立刻對該題做一次 D-50 複誦（以順口值當解讀值、既有複誦模板與 resolve 規則；不算題數、計入複誦次數；每個 slot 一次）。修正 dev18 的「Q-CHARACTER-01 問過但抽不出、之後順口說上腹悶脹／會痛／說不上來被拒收 → 胸部紅旗永遠不成立」。",
+  "eval": "開發集閉環只用快取重算（0 次 API）：兩個 arm 逐例與 dev16／dev18 相同；順口值觸發的複誦 0 次、d50_not_most_severe 0 次；conflict 仍為 gpt 1、Gemma 3。階段 A 重放不變。驗收者 stuck_character_test 6 組全部 Hard stop；enum_r4（1,281 狀態、102,936 組）被擋 Hard stop 升級 0。"
+ },
+ {
+  "version": "2.0-dev20",
+  "change": "最終驗收修正（程式；送出的提示全文不變）：D-50 範圍 slot 在「該題還沒問過」時被拒收的較不嚴重順口值改為暫存（同一 slot 留較嚴重者）；之後直接問到、答案仍未知時，以暫存值當解讀值做一次 D-50 複誦（取代一般的未知複誦，不多問一次）；順口值觸發的複誦也計入 n_confirm_changed（以解讀值為基準）。",
+  "eval": "開發集閉環只用快取重算（0 次 API）：兩個 arm 逐例與 dev16／dev19 相同；暫存與順口值觸發的複誦 0 次。階段 A 重放不變。驗收者 d50_injection（578 組注入）：比「沒有順口值」或「全部收下」更不急的組合 0（原本 3 組：S-INSUF-01／02／06 順口說「說不上來」，現改為經複誦定案）；極端壓力測試每通每個 slot 最多複誦一次、題數 ≤ 11。"
+ },
+ {
+  "version": "2.0-dev21",
+  "change": "第六輪驗收修正（程式；送出的提示全文不變）：D-50 範圍 slot 的兩種順口值複誦——問過而目前未知時由順口值觸發的立刻複誦、暫存值在直接問到仍未知時的複誦——在「目前已是 Hard stop，或寫入該值（連同同一句順口提到或被問那題的其他值）後會變 Hard stop」時都不做，直接寫入並走 Hard stop（D-50「寫入後即 Hard stop 者不複誦，不得延誤送醫」；條件比照 should_confirm）。",
+  "eval": "開發集閉環只用快取重算（0 次 API）：兩個 arm 逐例與 dev16／dev20 相同；順口值與暫存值觸發的複誦 0 次。階段 A 重放不變。驗收者 stash_hs_delay 兩個情境（暫存 pain 後，Q-CHARACTER-01 的回答說昏倒；Q-CHARACTER-01 答未知後，同一句說昏倒與痛）由「先複誦再 Hard stop」改為不複誦、直接 Hard stop，已納入 pytest；另加「痛」單獨不會 Hard stop、與同一句的冒汗／快暈倒／還在合起來才會的組合（另一個值是順口提到或被問那題的回答各 3 組），同樣不複誦。"
+ }
+]

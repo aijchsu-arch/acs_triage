@@ -1,0 +1,2580 @@
+{
+ "meta": {
+  "set": "dev",
+  "arm": "gpt",
+  "limit": null,
+  "started_at": "2026-10-27T04:09:09",
+  "finished_at": "2026-10-27T04:11:53",
+  "wall_s": 164.3,
+  "rules_version": "0.8.0",
+  "patient": {
+   "model": "claude-opus-5-5",
+   "effort": "medium",
+   "prompt_version": "0.3"
+  },
+  "extractor": {
+   "extractor": "gpt-6.1-sol",
+   "effort": "medium",
+   "prompts_version": "2.0-dev15",
+   "prompt_file_sha256": "cab5c5a7d1911192c0627889283dfda0268816774c74bc21d25590b1d145e805",
+   "rendered_sha256": "7357783d6e1318dd669038ec907f9bc62d23659b2ace74ae075052a81c400518",
+   "code_sha256": "bc96e2b9b56f6e8e0923dddb8aea7decb9919807267ebb140a807116ef83ac55"
+  },
+  "prompts_version": "2.0-dev15",
+  "file_sha256": {
+   "data/extractor_prompts_v2.yaml": "cab5c5a7d1911192c0627889283dfda0268816774c74bc21d25590b1d145e805",
+   "sim/llm_extract_v2.py": "bc96e2b9b56f6e8e0923dddb8aea7decb9919807267ebb140a807116ef83ac55",
+   "sim/runner.py": "5b7821ff4239da73c71223d02cda48cb338a81f7bb540d0982031eb69d16b7c7",
+   "sim/closed_loop.py": "5ede85c3feea1ff77a09dde8eac4fb823e69727e39b3cd9389dcad6f9fb9778b"
+  },
+  "freeze": null,
+  "n_seed_entries": 830,
+  "n_seed_extract": {
+   "v2_cache_gpt.json": 0
+  },
+  "structured_source": "eval_2026-10-23_llm_opus-5-5_medium_transcripts.json"
+ },
+ "patient_usage": {
+  "live_calls": 213,
+  "cached_calls": 639,
+  "sources": {
+   "live_reused": 302,
+   "seed": 337,
+   "live": 213
+  },
+  "opus_cost_usd": 1.562
+ },
+ "extractor_usage": {
+  "calls_used": 725,
+  "new_calls": 228,
+  "reused_seed": 184,
+  "reused_earlier_run": 313,
+  "cost_this_run_usd": 0.337,
+  "cost_total_usd": 0.8745,
+  "failed": 0,
+  "tw_changed": 0,
+  "latency_new_calls": {
+   "n": 228,
+   "median_s": 2.544,
+   "p95_s": 5.8,
+   "mean_s": 2.983
+  },
+  "guards": {
+   "denial_without_negated_evidence": 4
+  },
+  "unclassified": [
+   {
+    "q": null,
+    "text": "原本只有爬很多樓梯才會不舒服,這兩天走平地也會胸悶。",
+    "slot": "exertion_relation",
+    "phrase": "原本只有爬很多樓梯才會不舒服,這兩天走平地也會胸悶"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘的話是沒有啦,我不太會喘,就是快走的時候胸口會悶而已。",
+    "slot": "exertion_relation",
+    "phrase": "就是快走的時候胸口會悶而已"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,這兩個禮拜晚上躺下會覺得比較喘要墊高枕頭,白天走路還可以,胸口不會痛。",
+    "slot": "dyspnea_grade",
+    "phrase": "晚上躺下會覺得比較喘要墊高枕頭,白天走路還可以"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,這兩個禮拜晚上躺下會覺得比較喘要墊高枕頭,白天走路還可以,胸口不會痛。",
+    "slot": "symptom_character",
+    "phrase": "胸口不會痛"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "對,我沒有喘,就是走路的時候胸口會悶悶的而已。",
+    "slot": "exertion_relation",
+    "phrase": "就是走路的時候胸口會悶悶的而已"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+    "slot": "exertion_relation",
+    "phrase": "走路不會更痛"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "對,我沒有喘的問題,就只是走快的時候胸口會悶而已。",
+    "slot": "exertion_relation",
+    "phrase": "就只是走快的時候胸口會悶而已"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "不好意思,喘的部分我真的不清楚,我只知道快走上坡的時候胸口會悶。",
+    "slot": "exertion_relation",
+    "phrase": "快走上坡的時候胸口會悶"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "不好意思,喘的部分我真的不清楚,我只知道快走上坡胸口會悶,有沒有喘我講不出來。",
+    "slot": "exertion_relation",
+    "phrase": "快走上坡胸口會悶"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "沒有,跟以前一樣,還是要很用力運動才會有點悶,沒有變得比較容易。",
+    "slot": "exertion_relation",
+    "phrase": "還是要很用力運動才會有點悶"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "我其實不會喘啦,就是走路的時候胸口會悶悶的而已。",
+    "slot": "exertion_relation",
+    "phrase": "就是走路的時候胸口會悶悶的而已"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,最近感冒咳嗽,咳的時候胸口會痛,不咳就不會,走路沒有悶。",
+    "slot": "exertion_relation",
+    "phrase": "走路沒有悶"
+   },
+   {
+    "q": "Q-TIMING-01",
+    "text": "這個我不清楚耶,他只說這兩天不太舒服,最後一次是什麼時候好的我不知道,現在也沒辦法問他。",
+    "slot": "symptom_character",
+    "phrase": "不太舒服"
+   },
+   {
+    "q": null,
+    "text": "今天忽然喘得很明顯,和平常差很多,但胸口沒有痛。",
+    "slot": "symptom_character",
+    "phrase": "胸口沒有痛"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "其實胸口沒有什麼不舒服耶,沒有壓住或刺痛的感覺,就是運動的時候會喘而已。",
+    "slot": "dyspnea_grade",
+    "phrase": "就是運動的時候會喘而已"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,昨天打完流感疫苗手臂痠,其他都沒有不舒服。",
+    "slot": "consult_topic",
+    "phrase": "昨天打完流感疫苗手臂痠,其他都沒有不舒服"
+   },
+   {
+    "q": "Q-THRESHOLD-01",
+    "text": "沒有耶,跟以前一樣,還是要快走上坡才會悶,走平路不會。",
+    "slot": "exertion_relation",
+    "phrase": "還是要快走上坡才會悶,走平路不會"
+   },
+   {
+    "q": null,
+    "text": "上個月放支架,傷口沒問題,最近走路會有一點悶,比放支架前輕很多,但以前是完全沒有。",
+    "slot": "exertion_relation",
+    "phrase": "最近走路會有一點悶"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,今天只是想確認下次例行門診時間,目前沒有新的胸悶、喘或暈。",
+    "slot": "symptom_character",
+    "phrase": "目前沒有新的胸悶、喘或暈"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,今天只是想確認下次例行門診時間,目前沒有新的胸悶、喘或暈。",
+    "slot": "dyspnea_grade",
+    "phrase": "目前沒有新的胸悶、喘或暈"
+   },
+   {
+    "q": "Q-PATTERN-01",
+    "text": "這個我不太確定耶,他只說這兩天不太舒服,有沒有變嚴重、維持多久我不清楚。",
+    "slot": "symptom_character",
+    "phrase": "不太舒服"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘的話是沒有,我都不太會喘,就是很用力運動的時候胸口會有點悶而已。",
+    "slot": "exertion_relation",
+    "phrase": "就是很用力運動的時候胸口會有點悶而已"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘的部分我真的不清楚耶,沒有特別注意過,我只知道快走上坡胸口會悶悶的。",
+    "slot": "exertion_relation",
+    "phrase": "我只知道快走上坡胸口會悶悶的"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘的話是沒有,就是走路的時候胸口會有點悶而已,不會喘。",
+    "slot": "exertion_relation",
+    "phrase": "走路的時候胸口會有點悶而已"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "他只跟我說胸口不太舒服,到底是壓住、悶悶的還是刺痛,還有確切位置在哪,我也不清楚。",
+    "slot": "symptom_character",
+    "phrase": "胸口不太舒服"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喔,我其實不會喘耶,走路做家事都還好,就是胸口偶爾怪怪的而已。",
+    "slot": "symptom_character",
+    "phrase": "胸口偶爾怪怪的"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘喔?這個我不太確定耶,我主要是快走上坡胸口會悶,喘的部分我沒特別注意。",
+    "slot": "exertion_relation",
+    "phrase": "我主要是快走上坡胸口會悶"
+   },
+   {
+    "q": null,
+    "text": "我爸爸有心臟病,這兩天說胸口不太舒服,但他現在不在我旁邊。",
+    "slot": "symptom_character",
+    "phrase": "胸口不太舒服"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喔,我不會喘耶,走路做家事都還好,主要就是胸口偶爾怪怪的而已。",
+    "slot": "symptom_character",
+    "phrase": "胸口偶爾怪怪的而已"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,快走上坡時偶爾會胸悶,以前就有過,不記得多久了。",
+    "slot": "exertion_relation",
+    "phrase": "快走上坡時偶爾會胸悶"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,快走上坡時偶爾胸悶,這個情況兩年來都一樣,最近沒有任何變化。",
+    "slot": "exertion_relation",
+    "phrase": "快走上坡時偶爾胸悶"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,剛剛吃太飽胸口脹脹的,打嗝之後就好了,現在完全沒事,想確認要不要去急診。",
+    "slot": "symptom_character",
+    "phrase": "胸口脹脹的"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘的話其實都沒有耶,不管是運動還是走路做家事都不會喘,我主要是胸口緊緊的。",
+    "slot": "symptom_character",
+    "phrase": "我主要是胸口緊緊的"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "我不太會喘欸,就是走路的時候胸口會悶悶的,但不會喘。",
+    "slot": "exertion_relation",
+    "phrase": "走路的時候胸口會悶悶的"
+   },
+   {
+    "q": "Q-CHARACTER-01",
+    "text": "不好意思,我真的不知道,他只說胸口不太舒服,是什麼感覺、在哪個位置都沒講,我也沒問清楚。",
+    "slot": "symptom_character",
+    "phrase": "胸口不太舒服"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "我其實不太會喘耶,就是走路的時候胸口會悶而已。",
+    "slot": "exertion_relation",
+    "phrase": "就是走路的時候胸口會悶而已"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "我其實不太會喘耶,主要是快走上坡的時候胸口會悶悶的而已。",
+    "slot": "exertion_relation",
+    "phrase": "主要是快走上坡的時候胸口會悶悶的而已"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "對,沒有在喘,就只是走路的時候會有點悶。",
+    "slot": "exertion_relation",
+    "phrase": "就只是走路的時候會有點悶"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘的話其實都還好,激烈運動、走路做家事或坐著休息都不會喘,主要就是胸口有時候怪怪的而已。",
+    "slot": "symptom_character",
+    "phrase": "胸口有時候怪怪的"
+   },
+   {
+    "q": "Q-ONSET-01",
+    "text": "這個我不太清楚耶,他只說這兩天胸口不太舒服,以前有沒有過一樣的感覺我不知道。",
+    "slot": "symptom_character",
+    "phrase": "胸口不太舒服"
+   },
+   {
+    "q": null,
+    "text": "最近吃藥後偶爾覺得胸口不太舒服,想知道是不是藥物造成。",
+    "slot": "symptom_character",
+    "phrase": "胸口不太舒服"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "對,我不會喘,就只是走路的時候胸口有點悶而已。",
+    "slot": "exertion_relation",
+    "phrase": "就只是走路的時候胸口有點悶而已"
+   },
+   {
+    "q": "Q-REST-01",
+    "text": "沒有耶,休息的時候不會,都是走路或用力的時候才會怪怪的,停下來就好了。",
+    "slot": "symptom_character",
+    "phrase": "怪怪的"
+   },
+   {
+    "q": null,
+    "text": "我有冠心症,最近胸口有時候怪怪的,想問要不要提早看醫生。",
+    "slot": "symptom_character",
+    "phrase": "最近胸口有時候怪怪的"
+   },
+   {
+    "q": null,
+    "text": "走路時有時會胸悶,不知道嚴不嚴重。",
+    "slot": "exertion_relation",
+    "phrase": "走路時有時會胸悶"
+   },
+   {
+    "q": "Q-ONGOING-01",
+    "text": "還在,他現在胸口還是不太舒服。",
+    "slot": "symptom_character",
+    "phrase": "胸口還是不太舒服"
+   },
+   {
+    "q": null,
+    "text": "過去一年都是走很快約十分鐘才會有固定的胸口緊感,停下來就好,最近完全相同。",
+    "slot": "symptom_character",
+    "phrase": "胸口緊感"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "我其實不會喘耶,主要是走很快的時候胸口會悶悶的,喘倒是沒有。",
+    "slot": "exertion_relation",
+    "phrase": "主要是走很快的時候胸口會悶悶的"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘的話是沒有欸,就是走路的時候胸口有點悶而已,不會喘。",
+    "slot": "exertion_relation",
+    "phrase": "就是走路的時候胸口有點悶而已"
+   },
+   {
+    "q": "Q-THRESH-TIME-01",
+    "text": "應該是這幾天的事,這幾天才比較明顯,走沒多遠就會悶。",
+    "slot": "exertion_relation",
+    "phrase": "走沒多遠就會悶"
+   },
+   {
+    "q": "Q-ONGOING-01",
+    "text": "嗯...現在還是有一點不舒服,還沒有完全好。",
+    "slot": "symptom_character",
+    "phrase": "不舒服"
+   },
+   {
+    "q": "Q-DYSPNEA-GRADE-01",
+    "text": "喘喔?我其實沒有在喘耶,主要就是快走上坡的時候會胸悶而已。",
+    "slot": "exertion_relation",
+    "phrase": "主要就是快走上坡的時候會胸悶而已"
+   }
+  ]
+ },
+ "cases": [
+  {
+   "case_id": "S-ACUTE-01",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-01#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-01#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-01#2",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 10,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-02",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-02#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-02#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-03",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-03#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-03#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-04"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 2
+  },
+  {
+   "case_id": "S-ACUTE-03#2",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-04",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-04#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-05",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-05#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-ACUTE-05#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-ACUTE-06",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop_opening",
+   "n_q": 0,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 0
+  },
+  {
+   "case_id": "S-ACUTE-06#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop_opening",
+   "n_q": 0,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 0
+  },
+  {
+   "case_id": "S-STABLE-01",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-01#0",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-01#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-01#2",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-02",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-02#0",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-02#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-03",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-03#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "ongoing_now",
+     "diaphoresis"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 8,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-04",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-04#0",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-STABLE-04#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-01",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-01#0",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-01#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-02",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-02#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-02#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-03",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-03#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-03#1",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-04",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-04#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-INSUF-04#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "dyspnea_grade"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-04#2",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-05",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-05#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-05#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 10,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-06",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-06#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-06#1",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-07",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-07#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 4
+  },
+  {
+   "case_id": "S-INSUF-07#1",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 5,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-08",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-08#0",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-INSUF-08#1",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-01",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-01#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-01#1",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-01#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 3
+  },
+  {
+   "case_id": "S-MID-02",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-02#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-02#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-02#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-03",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-03#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-04",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-04#0",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 10,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-05",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-05#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 4
+  },
+  {
+   "case_id": "S-MID-05#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-06",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-06#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-06#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 2,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-06#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-07",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-07#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-07#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-07#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-08",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-08#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-08#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-08#2",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 9,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-09",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-09#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-10",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-10#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 5
+  },
+  {
+   "case_id": "S-MID-10#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-05"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-11",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-11#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-11#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-04"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 2
+  },
+  {
+   "case_id": "S-MID-12",
+   "error": null,
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-12#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 2,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-12#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-13",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "rest_symptom_first_time"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 6,
+   "n_confirms": 3,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-13#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 4
+  },
+  {
+   "case_id": "S-MID-13#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 3,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 3
+  },
+  {
+   "case_id": "S-MID-13#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-13#3",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "rest_symptom_first_time"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "gate_passed_t0_asked",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-14",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-14#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-14#1",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "no_more_questions",
+   "n_q": 8,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-15",
+   "error": null,
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-15#0",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "antiplatelet_interrupted"
+    ]
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-16",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 10,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-16#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-16#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 2,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 2
+  },
+  {
+   "case_id": "S-MID-17",
+   "error": null,
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-17#0",
+   "error": null,
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "max_questions",
+   "n_q": 11,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-17#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 4,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 4
+  },
+  {
+   "case_id": "S-MID-18",
+   "error": null,
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-18#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-19",
+   "error": null,
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-19#0",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-19#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-19#2",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1
+  },
+  {
+   "case_id": "S-MID-19#3",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 3,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 3
+  },
+  {
+   "case_id": "S-MID-20",
+   "error": null,
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-20#0",
+   "error": null,
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 6,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  },
+  {
+   "case_id": "S-MID-20#1",
+   "error": null,
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 7,
+   "n_confirms": 1,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null
+  }
+ ],
+ "metrics": {
+  "n": 119,
+  "errors": [],
+  "hs_truth": 27,
+  "hs_hit": 26,
+  "hs_sensitivity": 0.9629629629629629,
+  "hs_miss": [
+   "S-MID-14#1"
+  ],
+  "premature": [],
+  "hs_unsupported": [],
+  "false_hs": [],
+  "under": [
+   [
+    "S-STABLE-01#0",
+    0,
+    3
+   ],
+   [
+    "S-STABLE-02#1",
+    0,
+    3
+   ],
+   [
+    "S-STABLE-04#0",
+    0,
+    3
+   ],
+   [
+    "S-STABLE-04#1",
+    0,
+    3
+   ]
+  ],
+  "over": [
+   [
+    "S-MID-08",
+    3,
+    0
+   ],
+   [
+    "S-MID-13",
+    3,
+    0
+   ]
+  ],
+  "exact": 0.8991596638655462,
+  "abstain_fp": [
+   [
+    "S-INSUF-01#0",
+    0
+   ],
+   [
+    "S-INSUF-03#1",
+    0
+   ],
+   [
+    "S-INSUF-08#0",
+    0
+   ],
+   [
+    "S-MID-14",
+    3
+   ],
+   [
+    "S-MID-14#1",
+    0
+   ],
+   [
+    "S-MID-15#0",
+    1
+   ]
+  ],
+  "abstain_fn": [],
+  "t9": 18,
+  "mean_questions": 5.605042016806722,
+  "confirms": 185,
+  "confirms_per_call": 1.5546218487394958,
+  "confirm_changed": 0,
+  "escalating_recall": 0.8786764705882353,
+  "stop_reasons": {
+   "gate_passed": 67,
+   "hard_stop": 24,
+   "gate_passed_t0_asked": 8,
+   "hard_stop_opening": 2,
+   "max_questions": 9,
+   "no_more_questions": 9
+  },
+  "finals": {
+   "S-ACUTE-01": "T0",
+   "S-ACUTE-01#0": "HS",
+   "S-ACUTE-01#1": "T0",
+   "S-ACUTE-01#2": "T3",
+   "S-ACUTE-02": "T0",
+   "S-ACUTE-02#0": "HS",
+   "S-ACUTE-02#1": "HS",
+   "S-ACUTE-03": "T0",
+   "S-ACUTE-03#0": "HS",
+   "S-ACUTE-03#1": "HS",
+   "S-ACUTE-03#2": "T2",
+   "S-ACUTE-04": "T0",
+   "S-ACUTE-04#0": "HS",
+   "S-ACUTE-05": "T0",
+   "S-ACUTE-05#0": "HS",
+   "S-ACUTE-05#1": "T3",
+   "S-ACUTE-06": "HS",
+   "S-ACUTE-06#0": "HS",
+   "S-STABLE-01": "T3",
+   "S-STABLE-01#0": "T3",
+   "S-STABLE-01#1": "T0",
+   "S-STABLE-01#2": "T9",
+   "S-STABLE-02": "T3",
+   "S-STABLE-02#0": "T3",
+   "S-STABLE-02#1": "T3",
+   "S-STABLE-03": "T3",
+   "S-STABLE-03#0": "T0",
+   "S-STABLE-04": "T3",
+   "S-STABLE-04#0": "T3",
+   "S-STABLE-04#1": "T3",
+   "S-INSUF-01": "T9",
+   "S-INSUF-01#0": "T9",
+   "S-INSUF-01#1": "T3",
+   "S-INSUF-02": "T9",
+   "S-INSUF-02#0": "T0",
+   "S-INSUF-02#1": "T3",
+   "S-INSUF-03": "T9",
+   "S-INSUF-03#0": "T0",
+   "S-INSUF-03#1": "T9",
+   "S-INSUF-04": "T9",
+   "S-INSUF-04#0": "HS",
+   "S-INSUF-04#1": "T0",
+   "S-INSUF-04#2": "T3",
+   "S-INSUF-05": "T9",
+   "S-INSUF-05#0": "T0",
+   "S-INSUF-05#1": "T3",
+   "S-INSUF-06": "T9",
+   "S-INSUF-06#0": "T0",
+   "S-INSUF-06#1": "T9",
+   "S-INSUF-07": "T9",
+   "S-INSUF-07#0": "HS",
+   "S-INSUF-07#1": "T9",
+   "S-INSUF-08": "T9",
+   "S-INSUF-08#0": "T9",
+   "S-INSUF-08#1": "T3",
+   "S-MID-01": "T1",
+   "S-MID-01#0": "T0",
+   "S-MID-01#1": "T2",
+   "S-MID-01#2": "HS",
+   "S-MID-02": "T2",
+   "S-MID-02#0": "T0",
+   "S-MID-02#1": "T0",
+   "S-MID-02#2": "T0",
+   "S-MID-03": "T0",
+   "S-MID-03#0": "HS",
+   "S-MID-04": "T3",
+   "S-MID-04#0": "T1",
+   "S-MID-05": "T3",
+   "S-MID-05#0": "HS",
+   "S-MID-05#1": "T0",
+   "S-MID-06": "T2",
+   "S-MID-06#0": "HS",
+   "S-MID-06#1": "T0",
+   "S-MID-06#2": "T0",
+   "S-MID-07": "T1",
+   "S-MID-07#0": "T0",
+   "S-MID-07#1": "T0",
+   "S-MID-07#2": "T0",
+   "S-MID-08": "T0",
+   "S-MID-08#0": "T0",
+   "S-MID-08#1": "T0",
+   "S-MID-08#2": "T1",
+   "S-MID-09": "T1",
+   "S-MID-09#0": "T0",
+   "S-MID-10": "T2",
+   "S-MID-10#0": "HS",
+   "S-MID-10#1": "HS",
+   "S-MID-11": "T0",
+   "S-MID-11#0": "HS",
+   "S-MID-11#1": "HS",
+   "S-MID-12": "T2",
+   "S-MID-12#0": "T0",
+   "S-MID-12#1": "HS",
+   "S-MID-13": "T0",
+   "S-MID-13#0": "HS",
+   "S-MID-13#1": "HS",
+   "S-MID-13#2": "T0",
+   "S-MID-13#3": "T0",
+   "S-MID-14": "T9",
+   "S-MID-14#0": "T0",
+   "S-MID-14#1": "T9",
+   "S-MID-15": "T4",
+   "S-MID-15#0": "T9",
+   "S-MID-16": "T3",
+   "S-MID-16#0": "T0",
+   "S-MID-16#1": "HS",
+   "S-MID-17": "T4",
+   "S-MID-17#0": "T9",
+   "S-MID-17#1": "HS",
+   "S-MID-18": "T4",
+   "S-MID-18#0": "T0",
+   "S-MID-19": "T1",
+   "S-MID-19#0": "T0",
+   "S-MID-19#1": "T0",
+   "S-MID-19#2": "HS",
+   "S-MID-19#3": "HS",
+   "S-MID-20": "T4",
+   "S-MID-20#0": "T3",
+   "S-MID-20#1": "T0"
+  }
+ },
+ "extraction": {
+  "asked": {
+   "correct": 652,
+   "unknown_equiv": 8,
+   "speechless": 4,
+   "missed": 3
+  },
+  "confirm_reply": {
+   "correct": 184,
+   "speechless": 1
+  },
+  "rf_yes_missed": []
+ }
+}

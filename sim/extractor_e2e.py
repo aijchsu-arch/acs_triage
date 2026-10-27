@@ -47,9 +47,12 @@ EXTRACTORS: dict[str, ExtractFn] = {"keyword": keyword}
 
 
 def replay(transcripts: list[dict], extract_fn: ExtractFn, *, asked_only: bool = False,
-           texts: dict[tuple[str, int], str] | None = None) -> tuple[list[RunResult], list[dict], list[str]]:
+           texts: dict[tuple[str, int], str] | None = None,
+           writer: Callable[[SlotState, dict[str, Any], Question, str], None] | None = None,
+           ) -> tuple[list[RunResult], list[dict], list[str]]:
     """texts：{(case_id, 第幾句): 送進抽取器的文字}（0 = 開場白），未列者用逐字稿原文。
-    舊的單參數 extract_fn(句子)（例如直接傳 extract）仍可用：不給題目。"""
+    舊的單參數 extract_fn(句子)（例如直接傳 extract）仍可用：不給題目。
+    writer(抽取狀態, 該句抽到的 slot, 題目, source)：自訂寫入方式（抽取器 v2，sim/llm_extract_v2.py）；None = 原本行為。"""
     texts = texts or {}
     if len(inspect.signature(extract_fn).parameters) < 2:
         one_arg = extract_fn
@@ -89,7 +92,9 @@ def replay(transcripts: list[dict], extract_fn: ExtractFn, *, asked_only: bool =
                     res.rf_reveal_turn = i
                 found = extract_fn(texts.get((case.id, i), turn["utterance_zh"]), q)
                 got = found.get(q.slot_id)
-                if asked_only:
+                if writer is not None:
+                    writer(ext, found, q, f"turn{i}")
+                elif asked_only:
                     if got is not None:
                         ext.set(q.slot_id, got, asked_by=q.id, source=f"turn{i}")
                 else:

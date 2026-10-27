@@ -193,7 +193,8 @@ def abstain_diag(transcripts: list[dict], results: list, fn: ExtractFn, texts: d
     return out
 
 
-def hs_trigger_diag(transcripts: list[dict], results: list, fn: ExtractFn, texts: dict[Key, str]) -> list[dict]:
+def hs_trigger_diag(transcripts: list[dict], results: list, fn: ExtractFn, texts: dict[Key, str],
+                    writer: Callable | None = None) -> list[dict]:
     """假 Hard stop 與 premature：照重放的寫入方式逐句重算，找出第一次觸發 Hard stop 的那句與寫入的值
     （開場白觸發 → 列出與結構化開場白不同的欄位；回答觸發 → 被問那題的正確值與抽到的值）。"""
     cases = {c.id: c for c in all_cases()}
@@ -223,7 +224,10 @@ def hs_trigger_diag(transcripts: list[dict], results: list, fn: ExtractFn, texts
                 q = qb[x["q"]]
                 text = texts.get((r.case_id, i), x["utterance_zh"])
                 got = fn(text, q)
-                ext.update(got, source=f"turn{i}", skip_none=True)
+                if writer is not None:
+                    writer(ext, got, q, f"turn{i}")
+                else:
+                    ext.update(got, source=f"turn{i}", skip_none=True)
                 d = engine.decide(ext)
                 if d.hard_stop:
                     row.update(turn=i, rf=d.rf_hits, text=text, q=q.id, wrote=got, truth={q.slot_id: x["value"]})
@@ -232,15 +236,16 @@ def hs_trigger_diag(transcripts: list[dict], results: list, fn: ExtractFn, texts
     return out
 
 
-def run_cell(transcripts: list[dict], fn: ExtractFn, texts: dict[Key, str], *, asked_only: bool = False) -> dict[str, Any]:
-    results, slot_rows, premature = replay(transcripts, fn, asked_only=asked_only, texts=texts)
+def run_cell(transcripts: list[dict], fn: ExtractFn, texts: dict[Key, str], *, asked_only: bool = False,
+             writer: Callable | None = None) -> dict[str, Any]:
+    results, slot_rows, premature = replay(transcripts, fn, asked_only=asked_only, texts=texts, writer=writer)
     m = compute(results)
     rows = full_rows(transcripts, fn, texts)
     return {"metrics": m.to_dict(), "_m": m, "premature": premature,
             "replay_slot_grades": dict(Counter(r["grade"] for r in slot_rows)), "replay_turns": len(slot_rows),
             "slot_by_priority": priority_table(rows), "rf_yes_missed": rf_yes_missed(rows),
             "opening": opening_diffs(transcripts, fn, texts), "abstain_diag": abstain_diag(transcripts, results, fn, texts),
-            "hs_trigger": hs_trigger_diag(transcripts, results, fn, texts),
+            "hs_trigger": hs_trigger_diag(transcripts, results, fn, texts, writer),
             "finals": {r.case_id: {"truth": r.truth_tier, "truth_hs": r.truth_hard_stop, "tier": r.final.tier,
                                    "hs": r.final.hard_stop, "stop": r.stop_reason} for r in results},
             "rows": rows}

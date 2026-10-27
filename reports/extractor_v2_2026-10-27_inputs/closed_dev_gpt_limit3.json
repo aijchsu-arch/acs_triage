@@ -1,0 +1,390 @@
+{
+ "meta": {
+  "set": "dev",
+  "arm": "gpt",
+  "limit": 3,
+  "started_at": "2026-10-27T02:47:04",
+  "finished_at": "2026-10-27T02:47:56",
+  "wall_s": 52.2,
+  "rules_version": "0.8.0",
+  "patient": {
+   "model": "claude-opus-5-5",
+   "effort": "medium",
+   "prompt_version": "0.3"
+  },
+  "extractor": {
+   "extractor": "gpt-6.1-sol",
+   "effort": "medium",
+   "prompts_version": "2.0-dev13",
+   "prompt_file_sha256": "b4232c01b707efe3f3d9f3da6d6dae654d993070ec9f28f58d1d976eb3be1567",
+   "rendered_sha256": "7357783d6e1318dd669038ec907f9bc62d23659b2ace74ae075052a81c400518",
+   "code_sha256": "dd0c265d12a17adc7139b2ebb72e134f39dac1b598a3ccd716e08efa8c86e8f6"
+  },
+  "prompts_version": "2.0-dev13",
+  "file_sha256": {
+   "data/extractor_prompts_v2.yaml": "b4232c01b707efe3f3d9f3da6d6dae654d993070ec9f28f58d1d976eb3be1567",
+   "sim/llm_extract_v2.py": "dd0c265d12a17adc7139b2ebb72e134f39dac1b598a3ccd716e08efa8c86e8f6",
+   "sim/runner.py": "5b7821ff4239da73c71223d02cda48cb338a81f7bb540d0982031eb69d16b7c7",
+   "sim/closed_loop.py": "65317d8ee59ba90a340e062d413349a03bdd2af861b98aca507a463d9b163859"
+  },
+  "freeze": null,
+  "n_seed_entries": 830,
+  "structured_source": "eval_2026-10-23_llm_opus-5-5_medium_transcripts.json"
+ },
+ "patient_usage": {
+  "live_calls": 13,
+  "cached_calls": 1,
+  "sources": {
+   "live": 13,
+   "seed": 1
+  },
+  "opus_cost_usd": 0.081
+ },
+ "extractor_usage": {
+  "calls": 15,
+  "cost_total_usd": 0.0489,
+  "failed": 0,
+  "tw_changed": 0,
+  "latency": {
+   "n": 15,
+   "median_s": 2.756,
+   "p95_s": 14.307,
+   "mean_s": 3.832
+  },
+  "guards": {},
+  "unclassified": []
+ },
+ "cases": [
+  {
+   "case_id": "S-ACUTE-01",
+   "error": null,
+   "wall_s": 41.59,
+   "patient": {
+    "live": 6,
+    "cached": 0,
+    "sources": {
+     "live": 6
+    },
+    "cost": 0.0334032,
+    "deviations": []
+   },
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 4,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null,
+   "opening_extracted": {
+    "onset_new": true,
+    "symptom_character": "pressure",
+    "exertion_relation": "exertion_only",
+    "last_episode_timing": "today",
+    "consult_topic": "symptom"
+   },
+   "final_slots": {
+    "onset_new": true,
+    "symptom_character": "pressure",
+    "exertion_relation": "exertion_only",
+    "last_episode_timing": "today",
+    "consult_topic": "symptom",
+    "ongoing_now": false,
+    "dyspnea_grade": "none",
+    "dyspnea_acute": false,
+    "orthopnea_pnd": false,
+    "cant_finish_sentence": false,
+    "dyspnea_complaint": false,
+    "presyncope": false,
+    "diaphoresis": false
+   },
+   "turns": [
+    {
+     "q": "Q-ONGOING-01",
+     "utt": "現在沒有了，休息一下就好了，現在胸口沒有不舒服。",
+     "value": false,
+     "structured": false,
+     "pre_confirm": false,
+     "extracted": {
+      "symptom_character": "none",
+      "ongoing_now": false
+     },
+     "confirm_prompt": "我跟您確認一下，剛剛問您『請問您現在這個當下，胸口的不舒服還在嗎？』，您的回答是『沒有』，對嗎？",
+     "confirm_utt": "對，現在沒有了，胸口已經不會不舒服了。",
+     "confirm_value": false,
+     "confirm_structured": false
+    },
+    {
+     "q": "Q-DYSPNEA-GRADE-01",
+     "utt": "我沒有會喘耶，就只是那次胸口被壓住而已，呼吸還好。",
+     "value": "none",
+     "structured": "none",
+     "pre_confirm": "none",
+     "extracted": {
+      "symptom_character": "pressure",
+      "dyspnea_grade": "none"
+     },
+     "confirm_prompt": "我跟您確認一下，剛剛問您『請問您的喘，是只有做很激烈的運動才會喘、還是平常走路做家事就會喘、還是現在坐著休息也會喘？』，您的回答是『沒有』，對嗎？",
+     "confirm_utt": "對，我都沒有會喘，呼吸都還好。",
+     "confirm_value": "none",
+     "confirm_structured": "none"
+    },
+    {
+     "q": "Q-SYNCOPE-01",
+     "utt": "沒有耶，不會想昏倒，眼前也沒有發黑。",
+     "value": false,
+     "structured": false,
+     "pre_confirm": null,
+     "extracted": {
+      "presyncope": false
+     },
+     "confirm_prompt": null,
+     "confirm_utt": null,
+     "confirm_value": null,
+     "confirm_structured": null
+    },
+    {
+     "q": "Q-DIAPH-01",
+     "utt": "沒有，那時候沒有冒冷汗。",
+     "value": false,
+     "structured": false,
+     "pre_confirm": null,
+     "extracted": {
+      "diaphoresis": false
+     },
+     "confirm_prompt": null,
+     "confirm_utt": null,
+     "confirm_value": null,
+     "confirm_structured": null
+    }
+   ]
+  },
+  {
+   "case_id": "S-ACUTE-01#0",
+   "error": null,
+   "wall_s": 14.78,
+   "patient": {
+    "live": 0,
+    "cached": 1,
+    "sources": {
+     "seed": 1
+    },
+    "cost": 0.0,
+    "deviations": []
+   },
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "hs_supported": true,
+   "stop": "hard_stop",
+   "n_q": 1,
+   "n_confirms": 0,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": 1,
+   "opening_extracted": {
+    "onset_new": true,
+    "symptom_character": "pressure",
+    "exertion_relation": "exertion_only",
+    "last_episode_timing": "today",
+    "consult_topic": "symptom"
+   },
+   "final_slots": {
+    "onset_new": true,
+    "symptom_character": "pressure",
+    "exertion_relation": "exertion_only",
+    "last_episode_timing": "today",
+    "consult_topic": "symptom",
+    "ongoing_now": true
+   },
+   "turns": [
+    {
+     "q": "Q-ONGOING-01",
+     "utt": "嗯，現在胸口還是有那種被壓住的感覺，還沒完全退掉。",
+     "value": true,
+     "structured": true,
+     "pre_confirm": null,
+     "extracted": {
+      "symptom_character": "pressure",
+      "ongoing_now": true
+     },
+     "confirm_prompt": null,
+     "confirm_utt": null,
+     "confirm_value": null,
+     "confirm_structured": null
+    }
+   ]
+  },
+  {
+   "case_id": "S-ACUTE-01#1",
+   "error": null,
+   "wall_s": 52.19,
+   "patient": {
+    "live": 7,
+    "cached": 0,
+    "sources": {
+     "live": 7
+    },
+    "cost": 0.0475692,
+    "deviations": []
+   },
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "hs_supported": null,
+   "stop": "gate_passed",
+   "n_q": 5,
+   "n_confirms": 2,
+   "n_confirm_changed": 0,
+   "hard_stop_turn": null,
+   "opening_extracted": {
+    "onset_new": true,
+    "symptom_character": "pressure",
+    "exertion_relation": "exertion_only",
+    "consult_topic": "symptom"
+   },
+   "final_slots": {
+    "onset_new": true,
+    "symptom_character": "pressure",
+    "exertion_relation": "exertion_only",
+    "consult_topic": "symptom",
+    "rest_symptom": null,
+    "rest_symptom_first_time": null,
+    "ongoing_now": false,
+    "presyncope": false,
+    "dyspnea_grade": "none",
+    "dyspnea_acute": false,
+    "orthopnea_pnd": false,
+    "cant_finish_sentence": false,
+    "dyspnea_complaint": false,
+    "diaphoresis": false,
+    "last_episode_timing": "today"
+   },
+   "turns": [
+    {
+     "q": "Q-ONGOING-01",
+     "utt": "現在沒有了，休息一下之後就好了。",
+     "value": false,
+     "structured": false,
+     "pre_confirm": false,
+     "extracted": {
+      "ongoing_now": false
+     },
+     "confirm_prompt": "我跟您確認一下，剛剛問您『請問您現在這個當下，胸口的不舒服還在嗎？』，您的回答是『沒有』，對嗎？",
+     "confirm_utt": "對，現在胸口已經沒有不舒服了。",
+     "confirm_value": false,
+     "confirm_structured": false
+    },
+    {
+     "q": "Q-SYNCOPE-01",
+     "utt": "沒有耶，不會覺得快昏倒，眼前也沒有發黑。",
+     "value": false,
+     "structured": false,
+     "pre_confirm": null,
+     "extracted": {
+      "presyncope": false
+     },
+     "confirm_prompt": null,
+     "confirm_utt": null,
+     "confirm_value": null,
+     "confirm_structured": null
+    },
+    {
+     "q": "Q-DYSPNEA-GRADE-01",
+     "utt": "我其實不太會喘耶，平常走路做家事都還好，主要是胸口悶壓那種感覺。",
+     "value": "none",
+     "structured": "none",
+     "pre_confirm": "none",
+     "extracted": {
+      "symptom_character": "pressure",
+      "dyspnea_grade": "none"
+     },
+     "confirm_prompt": "我跟您確認一下，剛剛問您『請問您的喘，是只有做很激烈的運動才會喘、還是平常走路做家事就會喘、還是現在坐著休息也會喘？』，您的回答是『沒有』，對嗎？",
+     "confirm_utt": "對，我沒有喘的問題。",
+     "confirm_value": "none",
+     "confirm_structured": "none"
+    },
+    {
+     "q": "Q-DIAPH-01",
+     "utt": "沒有，沒有冒冷汗。",
+     "value": false,
+     "structured": false,
+     "pre_confirm": null,
+     "extracted": {
+      "diaphoresis": false
+     },
+     "confirm_prompt": null,
+     "confirm_utt": null,
+     "confirm_value": null,
+     "confirm_structured": null
+    },
+    {
+     "q": "Q-TIMING-01",
+     "utt": "就今天啊，今天快走那次休息一下就好了。",
+     "value": "today",
+     "structured": "today",
+     "pre_confirm": null,
+     "extracted": {
+      "exertion_relation": "exertion_only",
+      "last_episode_timing": "today"
+     },
+     "confirm_prompt": null,
+     "confirm_utt": null,
+     "confirm_value": null,
+     "confirm_structured": null
+    }
+   ]
+  }
+ ],
+ "metrics": {
+  "n": 3,
+  "errors": [],
+  "hs_truth": 1,
+  "hs_hit": 1,
+  "hs_sensitivity": 1.0,
+  "hs_miss": [],
+  "premature": [],
+  "hs_unsupported": [],
+  "false_hs": [],
+  "under": [],
+  "over": [],
+  "exact": 1.0,
+  "abstain_fp": [],
+  "abstain_fn": [],
+  "t9": 0,
+  "mean_questions": 3.3333333333333335,
+  "confirms": 4,
+  "confirms_per_call": 1.3333333333333333,
+  "confirm_changed": 0,
+  "escalating_recall": 1.0,
+  "stop_reasons": {
+   "gate_passed": 2,
+   "hard_stop": 1
+  },
+  "finals": {
+   "S-ACUTE-01": "T0",
+   "S-ACUTE-01#0": "HS",
+   "S-ACUTE-01#1": "T0"
+  }
+ },
+ "extraction": {
+  "asked": {
+   "correct": 10
+  },
+  "confirm_reply": {
+   "correct": 4
+  },
+  "rf_yes_missed": []
+ }
+}

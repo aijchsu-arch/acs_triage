@@ -1,0 +1,159 @@
+# 抽取器 v2（D-52 第 3 項）：開場白、回答句、複誦回答都用同一份提示，每句都抽全部 slot（BLUEPRINT §3.4）。
+# 只用合成資料（D-10）；雲端模型不得用於真實病人資料。以下為操作說明，非臨床規則；臨床歸類有疑義者一律留未知、交 Clinical Owner 裁定。
+# 只依開發集（119 例開發情境的逐字稿與 Whisper 轉寫）調整；保留集 data/synth/ 不得用來調整（D-52）。
+# v1（data/openai_prompts.yaml slot 0.3 ＋ data/extractor_prompts.yaml 0.1）維持不變，sim.e2e_llm 照舊可重現。
+
+prompts_version: "2.0-dev21"
+based_on: "openai_prompts.yaml 0.3（slot 規則 1–4）＋ extractor_prompts.yaml 0.1（開場白規則 1–5）"
+
+# 不放進 mentions 的 slot：consult_screen_positive 是 Q-SCREEN-01 合併篩檢的答案，答「沒有」會衍生三個否認（state._derive），
+# 只在被問那題時才有意義（同 v1 opening_excluded_slots）。
+mention_excluded_slots: [consult_screen_positive]
+
+# 極性保護（程式，非臨床規則）只用於紅旗題的 slot 與 symptom_character：開場白與 mentions 的
+# (1) 否認（false／none）沒有含否定詞的原句片段 → 丟棄；(2) 肯定（是非題 true、dyspnea_grade＝rest、last_episode_timing＝ongoing）
+#     的原句片段含否定詞 → 丟棄（symptom_character 的性質值不套：「現在不會悶了」仍說明性質是悶）。
+# 丟棄 = 未知，系統照常問該題；被問那題不套這條（由句首判斷與 D-50 複誦處理）。
+# 被問那題（是非題、只問一件事：題目一個問號且不是「…還是…」）：stance 與句首明確的肯定／否定詞相反 → 未知。
+polarity_guard_slots: [ongoing_now, presyncope, syncope, dyspnea_grade, cant_finish_sentence, diaphoresis, symptom_character,
+                      last_episode_timing]
+# 判斷「片段含否定詞」前另外遮罩的片語（含「不／沒」但不是否認：描述症狀存在，或是疑問句「有沒有」）
+extra_non_negation_masks: [講不完, 說不完, 講不下去, 說不下去, 喘不過氣, 受不了, 停不下來, 還沒好, 沒有好, 沒好, 還沒退, 沒停,
+                           有沒有, 會不會, 是不是]
+# (4) 回答句（有被問的題目）順口提到的上列欄位的否認一律不採用（紅旗題一律直接問、照 D-50 複誦；開發集閉環發現
+#     「現在不會悶了」「我不會喘」被抽成 symptom_character＝none，胸部紅旗題因此不問）。開場白的否認照 (1) 採用。
+#     另外 sim/runner.py：順口提到的值補未知的 slot；D-50 範圍（紅旗題＋stt_critical_questions）的未知 slot 只收「寫入後變成
+#     Hard stop」或最嚴重一級，其他較不嚴重的值：該題沒問過 → 不收但暫存，直接問到仍未知時以暫存值 D-50 複誦一次；
+#     問過而目前未知 → 立刻對該題 D-50 複誦一次（每個 slot 一次）；
+#     上面兩種複誦在「目前已是 Hard stop，或寫入該值（連同同一句的其他值）後會變 Hard stop」時都不做：直接寫入並走 Hard stop
+#     （D-50 不得因確認延誤送醫）；
+#     已知值只在紅旗是非題「有」、confirm_back_severity 較嚴重、或寫入後由非 Hard stop 變成 Hard stop 時才被覆蓋，
+#     其他不同一律保留已知值並記為 conflict。
+# (1) 的否認若片段同時表示不確定（下列字眼）→ 也丟棄：例如「喘的情況我不清楚，他沒跟我講」不是否認。
+uncertainty_markers: [不知道, 不清楚, 不確定, 不太確定, 不太清楚, 沒注意, 沒有注意, 沒特別注意, 沒有特別注意, 沒留意, 說不準, 講不準,
+                      不記得, 記不得, 記不清楚, 忘記了, 沒跟我講, 沒跟我說, 沒辦法跟你說, 沒辦法說]
+# (3) 開場白或回答句順口提到「現在還在不舒服」（ongoing_now＝true 或 last_episode_timing＝ongoing，會直接觸發 RF-03）時，
+#     片段要有表示「此刻仍在」的字眼才採用（單獨的「現在」不算：「現在比較輕的活動就會悶」是「這陣子」），否則丟棄
+#     （未知；Q-ONGOING-01 照常問）。被問那題（Q-ONGOING-01）不套這條。
+present_markers: [還在, 還是, 到現在, 目前, 一直, 持續, 還沒好, 沒有好, 沒好, 還沒退, 這個當下, 現在還, 現在也, 現在仍, 現在胸口, 現在一直]
+
+# 選擇題不讓抽取器輸出的選項：symptom_character 的 other 不在 chest_symptom_characters，抽成 other 等於判定「不是胸部症狀」，
+# 屬臨床歸類；v2 一律留未知讓系統追問（D-52 第 3 項，Clinical Owner 2026-10-27 同意的方向）。
+excluded_choices:
+  symptom_character: [other]
+
+# 沒有對應題目的 slot：欄位說明（其餘欄位用題庫題目原文當說明）
+field_desc_zh:
+  dyspnea_complaint: 病人提到會喘、呼吸不順，但沒有說到哪種程度才喘
+  third_party_call: 打電話的人不是病人本人（例如家屬代打：「我爸爸」「我媽」）
+
+# 選項中文（只給抽取器看）：題目原文列出的選項用題目用語；其餘沿用 sim/patient.py 的 _ZH_CHOICE。
+choice_labels_zh:
+  symptom_character:
+    pressure: 被壓住、壓迫
+    tightness: 悶、悶悶的
+    pain: 痛、刺痛
+    jaw_shoulder_heaviness: 下顎、肩膀或手臂沉重
+    epigastric: 上腹悶脹
+    vague: 病人自己說「說不上來」「講不出來」
+    none: 胸口沒有不舒服
+  dyspnea_grade:
+    none: 沒有喘
+    exertional_heavy: 只有做很激烈的運動才會喘
+    exertional_daily: 平常走路做家事就會喘
+    rest: 現在坐著休息也會喘
+  last_episode_timing:
+    ongoing: 現在還在不舒服
+
+# 回答句與複誦回答的提示（有被問的題目）。
+answer_system_zh: |
+  你是心臟科電話衛教專線的紀錄員（模擬訓練，資料全為虛構）。客服剛問了一題，病人（或家屬）回答了一句。
+  客服的話只用來理解病人在回答什麼，不是病人說的。請把病人這句話裡「明確說到」的資訊整理成結構化欄位。
+
+  一般規則：
+  1. 只依病人這句話判斷，不要推測沒說的事。沒說到的欄位不要寫。
+  2. 選擇題有把握才歸類：病人的用語要和選項括號裡的說法對得上才選；需要靠臨床判斷才能歸類的，不要選，把病人原話寫進 unclassified，客服會再追問。
+     symptom_character（症狀的感覺）看病人用的字眼：有「壓」（被壓住、壓迫）→ pressure；有「悶」（胸悶、悶悶的）→ tightness；
+     有「痛」→ pain；下顎、肩膀或手臂沉重 → jaw_shoulder_heaviness；上腹悶脹 → epigastric；病人自己說說不上來 → vague；
+     明確說胸口沒有不舒服 → none。其他形容（例如「脹脹的」「緊緊的」「刺刺的」「怪怪的」「不舒服」「不太對勁」）一律不填，寫進 unclassified。
+     病人自己說症狀的感覺「說不上來」「講不上來」→ vague（即使同時說了「怪怪的」）；說不上來的若是位置或時間，不影響症狀感覺的判斷
+     （例如「比較像被壓住的感覺，位置我說不太上來」→ pressure）。
+  3. 病人明確否認（例如「沒有昏倒」「不會冒汗」）→ 是非題是 false；選擇題要有 none（沒有）選項才寫 none。
+  4. 是非題 true 表示欄位所指的情況成立（例如 ongoing_now=true 表示現在還在不舒服；presyncope=true 表示有快昏倒的感覺）；
+     題目是二選一的問法時，true 代表題目中的第一個選項（例如 onset_new=true 表示「最近才第一次出現」）。
+  5. 選擇題只能用該欄列出的選項代碼；病人說不記得、記不清楚 → 若有 unknown（不記得）選項就選 unknown。
+     病人表示「說不上來」「講不出來」（有這個狀況，但描述不出它的性質或時機）→ 若該欄有 unclear（不太清楚）或 vague 選項，選它。
+     病人說不知道、沒注意 → 不寫。
+  6. 時間長度寫數字，單位依欄位名稱（_min 分鐘、_months 月、_weeks_ago 週），一定要換算（例如 _months：兩年＝24、半年＝6）。
+
+  被問的那一題（asked）：
+  - evidence：從病人這句話逐字抄出回答這一題的片段；沒有回答這題就填空字串。
+  - 是非題：先抄 evidence，再依 evidence 的意思判斷 stance：yes＝題目問的情況成立，no＝不成立，unclear＝沒回答、不知道或聽不出來。
+    「沒有」「不會」「現在沒有了」「已經好了」「都有按時吃」這類說法是 no，不是 yes。
+  - 選擇題：先抄 evidence，再判斷 status：answered＝病人有回答且用語對得上某個選項（value 填那個代碼）；dont_know＝沒回答、不知道；
+    cannot_classify＝病人有描述但用語對不上任何選項（依規則 2，例如「脹脹的」）。status 不是 answered 時 value 隨便填一個（會被忽略）。
+    例如問喘的程度時回答「我其實不太會喘」「喘的話倒是沒有」→ answered、none；回答「有沒有喘我不知道」→ dont_know；
+    問感覺時回答「比較像被壓住」→ answered、pressure。
+  - 時間題：status＝answered（value 填數字）或 dont_know。
+
+  mentions：病人順口提到、但不是這題問的其他欄位，每個欄位一筆：slot、evidence（逐字抄的片段）、
+  value（是非題寫 true 或 false，選擇題寫選項代碼，時間寫數字）。被問那一題的欄位不要寫進 mentions；沒有就留空陣列。
+  - 回答時順帶描述的症狀感覺也要寫：例如回答「現在還在嗎」時說「有，現在胸口還是悶悶的」→ mentions 要有 symptom_character＝tightness。
+  - 只寫病人直接說出的事，不要從題目或語氣推論：例如「最近有悶過」不代表「現在還在」（ongoing_now），也不代表「第一次」（rest_symptom_first_time）。
+
+  unclassified（只用於選擇題欄位）：病人有描述、但用語不是選項括號裡的說法、你沒把握歸到哪個選項的，寫該欄位與病人原話。
+  用語和選項說法對得上的（例如「被壓住」「胸口悶悶的」），直接填值，不要寫進 unclassified。沒有就留空陣列。
+
+  客服複誦確認時（例如「我跟您確認一下，剛剛問您『…』，您的回答是『X』，對嗎？」或「…請您回答『有』還是『沒有』」），asked 改填：
+  - evidence：病人表示確認或更正、或重新回答的片段（逐字抄）。
+  - agreement：病人同不同意客服複誦的答案 X：「對」「是」「沒錯」＝agree；「不是」「不對」＝disagree；沒表示或客服沒有說 X＝unclear。
+  - reply_answer：不看「對／不是」，只看病人這句話自己有沒有重新回答原本那一題。
+    是非題：「有（情況成立）」＝原題問的情況成立（例如還在不舒服、有冒汗）；「沒有（情況不成立）」＝不成立（例如現在沒有了、沒有冒汗）；
+    「沒有重新回答」＝只說了對或不是。選擇題：「重新回答了」並在 value 填代碼；「沒有重新回答」（value 隨便填一個）。
+    例如複誦「您的回答是『沒有』，對嗎？」→「對，現在沒有不舒服了」＝agree、沒有（情況不成立）；
+    「不是，有啊，還在悶」＝disagree、有（情況成立）；「對。」＝agree、沒有重新回答。
+
+  欄位清單（冒號後是對應的客服題目或說明）：
+  {fields}
+
+# 開場白的提示（沒有題目）：以 v1 開場白提示（extractor_prompts.yaml 0.1）為底，加上規則 6（沒把握就不填、交 unclassified）。
+opening_system_zh: |
+  你是心臟科電話衛教專線的紀錄員（模擬訓練，資料全為虛構）。病人（或家屬）剛打進來說了一段開場白，客服還沒有問任何問題。
+  請把開場白中明確說到的資訊填進下列欄位，其餘欄位一律填 null。
+  規則：
+  1. 只依開場白判斷，不要推測沒說的事；沒提到就填 null（不是 false）。
+  2. 病人明確否認（例如「沒有昏倒」「沒有冒汗」）→ 是非題填 false；選擇題若有 none（沒有）選項就選 none。
+  3. 選擇題只能從該欄列出的選項代碼中挑一個；病人說不記得、記不清楚 → 若有 unknown（不記得）選項選 unknown。
+  3b. 病人表示「說不上來」「講不出來」（有這個狀況，但描述不出它的性質或時機）→ 若該欄有 unclear（不太清楚）或 vague 選項，選它。
+  4. 時間長度欄位填數字，單位依欄位名稱（_min 分鐘、_months 月、_weeks_ago 週）。
+  5. 是非題 true 表示欄位名稱所指的情況成立（例如 onset_new = true 表示最近才第一次出現）。
+  6. 選擇題有把握才填：病人的用語要和選項括號裡的說法對得上才選；需要臨床判斷才能歸類的，該欄填 null，並把病人原話寫進 unclassified（客服會再追問）。
+     symptom_character 看病人用的字眼：有「壓」（被壓住、壓迫）→ pressure；有「悶」（胸悶、悶悶的）→ tightness；有「痛」→ pain；
+     下顎、肩膀或手臂沉重 → jaw_shoulder_heaviness；上腹悶脹 → epigastric；病人自己說說不上來 → vague；明確說胸口沒有不舒服 → none。
+     其他形容（例如「脹脹的」「緊緊的」「刺刺的」「怪怪的」「不舒服」）填 null、寫進 unclassified。
+     unclassified 只放選擇題欄位；沒有就留空陣列。
+  7. 沒有提到的症狀不是否認：例如病人只說胸口悶、沒提到喘，dyspnea_grade 填 null，不是 none；只說「沒有不舒服」，沒說到的症狀一樣填 null。
+  8. 先寫 evidence：把開場白提到的每一件事逐一列出（slot 與病人原話的片段，逐字抄）；否認的事，片段要包含病人否認的那幾個字。
+     再依 evidence 逐欄填值：evidence 有列的欄位照原話填，沒列的欄位填 null。
+  欄位（冒號後是對應的客服題目或說明）：
+  {fields}
+
+opening_user_zh: |
+  開場白：「{text}」
+
+answer_user_zh: |
+  被問的那一題：{slot_id}（{answer_type}）{choices}
+  客服：{question_zh}
+  病人：「{text}」
+
+confirm_user_zh: |
+  被問的那一題：{slot_id}（{answer_type}）{choices}
+  （客服先前問過：{question_zh}）
+  客服（複誦確認）：{confirm_prompt}
+  病人：「{text}」
+
+# 本機模型（LM Studio，OpenAI 相容端點），同 v1。temperature 0：抽取器要可重現。
+local_model: gemma-4-26b-a4b-it-mlx
+local_base_url: http://127.0.0.1:1234/v1
+local_temperature: 0
+local_max_tokens: 2048
