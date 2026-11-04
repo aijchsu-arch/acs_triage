@@ -99,6 +99,14 @@ def confirm_prompt(q: Question, value: Any) -> str:
     return scripts["scripts"]["S-CONFIRM-BACK"]["text"].format(question=question, answer=answer)
 
 
+def reask_prompt(q: Question) -> str:
+    """D-54（裁定 #16）順口值矛盾再問：沿用 D-50 值不明的句型。只問一件事的是非題才加「請您回答有還是沒有」；
+    二選一問法（含「還是」）或一題兩個問句（例如端坐呼吸、心悸）答有／沒有會指向不明，用選擇題句型。"""
+    single = q.answer_type == "yes_no" and q.script_zh.count("？") == 1 and "還是" not in q.script_zh
+    sid = "S-CONFIRM-BACK-ASK-YESNO" if single else "S-CONFIRM-BACK-ASK"
+    return load_scripts()["scripts"][sid]["text"].format(question=q.script_zh.strip())
+
+
 def should_confirm(engine: RulesEngine, state: SlotState, q: Question, value: Any, utterance_zh: str) -> bool:
     """呼叫端用的總判斷：範圍內、回答可疑（needs_confirm），且寫入後不是 Hard stop（不得因確認延誤送醫）。"""
     return (in_scope(q) and needs_confirm(q, value, utterance_zh)

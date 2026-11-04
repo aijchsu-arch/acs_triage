@@ -29,6 +29,10 @@ def rules_version() -> str:
     return str(load_clinical_rules()["rules_version"])
 
 
+def bank_version() -> str:
+    return str(load_question_bank()["bank_version"])
+
+
 def doc_rules_version() -> str:
     """從 docs/CLINICAL_RULES.md 頂部讀 rules_version，供一致性測試。"""
     text = (DOCS_DIR / "CLINICAL_RULES.md").read_text(encoding="utf-8")

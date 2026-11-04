@@ -20,7 +20,7 @@ from dataclasses import asdict
 from datetime import date
 from pathlib import Path
 
-from acs_triage.loaders import REPO_ROOT, rules_version
+from acs_triage.loaders import REPO_ROOT, bank_version, rules_version
 
 from .cases import Case, all_cases
 from .llm_patient import DEFAULT_EFFORT, DEFAULT_MODEL, KEY_ENV, LLMPatientSimulator, _prompt_cfg, make_client
@@ -142,6 +142,13 @@ def scripted_turn_unknown(case_id: str, qid: str, patients: list[LLMPatientSimul
     return v is None or v == "unknown"
 
 
+def transcript_meta(scenario_files: list[Path], source: list[Case], limit: int | None) -> dict:
+    """報告要寫的版本與範圍：sim.closed_loop.check_structured_version 用它判斷逐字稿是不是現行規則與問診流程、完整一份（D-54）。"""
+    from .closed_loop import file_hashes, scenario_hashes
+    return {"rules_version": rules_version(), "bank_version": bank_version(), "file_sha256": file_hashes(),
+            "scenario_sha256": scenario_hashes(scenario_files), "limit": limit, "case_ids_in_set": [c.id for c in source]}
+
+
 def transcripts_json(llm_res: list[RunResult], cases: list[Case]) -> list[dict]:
     """逐字稿（供人工抽查與 sim.openai_eval／extractor_e2e／openai_slots／stt_eval 重放）。turns 一題一筆（格式向下相容）；
     value 是同一筆 utterance_zh 那句話的值（有複誦時 = 確認前的值）。複誦確認（D-50）的複誦句、複誦回答與其值、
@@ -172,6 +179,7 @@ def main() -> None:
         sys.exit(2)
     print(f"{KEY_ENV}: OK")
 
+    from .closed_loop import DEV_SCENARIO_FILES
     if args.scenarios:
         from .synth_gen import load_synth_cases
         source = load_synth_cases(Path(args.scenarios))
@@ -212,7 +220,8 @@ def main() -> None:
     (outdir / f"{stem}.md").write_text(md, encoding="utf-8")
     devs = [asdict(d) for p in patients for d in p.deviations]
     (outdir / f"{stem}.json").write_text(json.dumps(
-        {"model": args.model, "model_versions": versions, "effort": args.effort, "rules_version": rules_version(),
+        {"model": args.model, "model_versions": versions, "effort": args.effort,
+         **transcript_meta([Path(args.scenarios)] if args.scenarios else DEV_SCENARIO_FILES, source, args.limit),
          "metrics": m_llm.to_dict(), "scripted_metrics": m_s.to_dict(), "deviations": devs,
          "errors": errors, "usage": usage_summary(patients, args.model),
          "wall_seconds": round(elapsed, 1)}, ensure_ascii=False, indent=2, default=str), encoding="utf-8")

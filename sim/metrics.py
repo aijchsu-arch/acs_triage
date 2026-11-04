@@ -36,6 +36,8 @@ class Metrics:
     confirm_downgrade_blocked: int = 0     # 確認值較不嚴重、保留原值的次數
     pending_test_asked: int = 0            # rules 0.8.0：有症狀暫判 T2–T4、定案前加問待追蹤檢查的通數
     pending_test_skipped_at_cap: int = 0   # 該加問但已達題數上限而沒問的通數
+    reasks: int = 0                        # D-54：順口值矛盾再問次數（不算題數）
+    reask_downgrades: int = 0              # 再問的值讓分級變得較不急的次數（Clinical Owner 2026-11-02：D-50 範圍外以再問為準，要能數出來）
     stop_reasons: Counter = field(default_factory=Counter)
     confusion: Counter = field(default_factory=Counter)   # (truth, pred)
     by_module: dict[str, Counter] = field(default_factory=dict)
@@ -109,6 +111,7 @@ class Metrics:
             "confirm_back": {"n": self.confirms, "per_call": self.mean_confirms, "changed": self.confirm_changed,
                              "downgrade_blocked": self.confirm_downgrade_blocked},
             "pending_test_extra": {"asked": self.pending_test_asked, "skipped_at_cap": self.pending_test_skipped_at_cap},
+            "mention_reask": {"n": self.reasks, "downgrades": self.reask_downgrades},
             "stop_reasons": dict(self.stop_reasons),
             "confusion": {f"{t}->{p}": n for (t, p), n in sorted(self.confusion.items())},
             "rf_mismatch": self.rf_mismatch,
@@ -127,6 +130,8 @@ def compute(results: list[RunResult]) -> Metrics:
         m.confirm_downgrade_blocked += r.n_confirm_downgrade_blocked
         m.pending_test_asked += r.pending_test_asked
         m.pending_test_skipped_at_cap += r.pending_test_skipped_at_cap
+        m.reasks += len(r.reasks)
+        m.reask_downgrades += len(r.reask_downgrades)
         m.decisive_hit += r.decisive_asked_or_known
         m.decisive_total += r.decisive_total
         m.escalating_hit += r.escalating_asked_or_known

@@ -1,0 +1,214 @@
+{
+ "note": "10-27 的 16 項已在 2026-11-02 裁定（D-54），本表不再列。下列是 11-03 開發集付費閉環與重放裡，**v2 已經抽錯或需要再問** 的說法（不是「留未知、讓系統追問」）。只用開發集（11-03 _r2 逐字稿的閉環、10-20 逐字稿的重放），沒有看任何保留集抽取結果。「v2 處理」是 2.0-dev24 的實際輸出，不代表已採用；以下都屬臨床歸類，本輪未改規則、題庫、提示或抽取程式。",
+ "items": [
+  {
+   "phrase": "我其實不太會喘",
+   "slot": "dyspnea_grade",
+   "where": "閉環 Q-DYSPNEA-GRADE-01 回答（gpt 20 句、Gemma 25 句含此說法）",
+   "keyword": "（無值）",
+   "v2": "依裁定 #12 抽成 exertional_heavy（gpt 11/20、Gemma 17/25）。複誦回覆「不是喔，我是不會喘」：gpt 9/11 讀成 none，D-50 取較嚴重仍留 heavy；Gemma 17/18 讀成不明，保留原值",
+   "question": "事實沒有喘的病人因此加問呼吸題、到 12 題上限落 T9（備援 T1）：S-INSUF-01#1、S-INSUF-05#1（兩個 arm）、S-INSUF-02#1（Gemma）。只改 D-50 規則讓明確否認降回 none，修不到 Gemma（還要改複誦解讀）；或重新考慮 #12？",
+   "sources": [
+    {
+     "case": "S-INSUF-01#1",
+     "where": "閉環 Q-DYSPNEA-GRADE-01",
+     "sentence": "我其實不太會喘耶，走路、做家事都還好，休息的時候也不會。"
+    },
+    {
+     "case": "S-INSUF-05#1",
+     "where": "閉環 Q-DYSPNEA-GRADE-01",
+     "sentence": "我其實不太會喘耶，就是走路的時候有時候胸口會悶悶的而已。"
+    }
+   ],
+   "options": "維持（偏急）／複誦明確否認可降回 none，並改複誦解讀／#12 改回 none",
+   "in_prompt": "是：開場白規則 7 例句「我其實不太會喘」→ exertional_heavy（裁定 #12）"
+  },
+  {
+   "phrase": "坐著休息的時候就不會悶／休息完就好了",
+   "slot": "rest_symptom",
+   "where": "閉環 Q-ONGOING-01 回答（順口）",
+   "keyword": "（無值）",
+   "v2": "Gemma 抽成 rest_symptom＝true（把休息緩解當成休息時發作）；gpt 未見",
+   "question": "S-INSUF-05 由 T9 變 T0（T0-REST-NEW）；S-MID-08 的「坐著休息的時候都還好」也被抽成 rest 有、沒改回；S-ACUTE-01#2 等 6 例由再問改回。要不要加反例「休息後緩解 ≠ 休息時發作」？",
+   "sources": [
+    {
+     "case": "S-INSUF-05",
+     "where": "閉環 Q-ONGOING-01",
+     "sentence": "現在沒有了，坐著休息的時候就不會悶。"
+    },
+    {
+     "case": "S-ACUTE-01#2",
+     "where": "閉環 Q-ONGOING-01",
+     "sentence": "現在沒有了，休息完就好了，現在胸口不會不舒服。"
+    },
+    {
+     "case": "S-MID-08",
+     "where": "閉環 Q-ONGOING-01",
+     "sentence": "現在沒有，坐著休息的時候都還好，沒有在悶。"
+    }
+   ],
+   "options": "加反例／維持",
+   "in_prompt": "部分：有正例「剛剛就是吃飽坐著的時候 → rest_symptom」（裁定），沒有反例"
+  },
+  {
+   "phrase": "以前只有運動才胸悶，今晚躺著看電視時也發作了",
+   "slot": "episode_frequency_increased",
+   "where": "S-ACUTE-05 開場白（#0、#1 共用）",
+   "keyword": "（無值；rest_symptom＝true）",
+   "v2": "Gemma 抽成 episode_frequency_increased＝true；gpt 未見",
+   "question": "S-ACUTE-05#1 由 T3 變 T0（T0-FREQ-INCREASED）。「這次休息時也發作」不是「次數變多」，要不要加反例？",
+   "sources": [
+    {
+     "case": "S-ACUTE-05#1",
+     "where": "開場白",
+     "sentence": "以前只有運動才胸悶，今晚躺著看電視時也發作了。"
+    }
+   ],
+   "options": "加反例／維持",
+   "in_prompt": "否：只有「發作變頻繁」正例"
+  },
+  {
+   "phrase": "昨天打完流感疫苗手臂痠",
+   "slot": "consult_topic",
+   "where": "S-MID-18 開場白",
+   "keyword": "minor_noncardiac",
+   "v2": "gpt 抽成 symptom（dev21 留 null）",
+   "question": "S-MID-18 由 T4 變 T9（沒有 T4 路徑、7 題後沒有可問的題）。輕微非心臟不適要不要加 minor_noncardiac 例句？",
+   "sources": [
+    {
+     "case": "S-MID-18",
+     "where": "開場白",
+     "sentence": "我有冠心症，昨天打完流感疫苗手臂痠，其他都沒有不舒服。"
+    }
+   ],
+   "options": "minor_noncardiac 例句／維持",
+   "in_prompt": "否"
+  },
+  {
+   "phrase": "走路比平常喘一點",
+   "slot": "dyspnea_grade",
+   "where": "S-MID-12 開場白",
+   "keyword": "exertional_daily",
+   "v2": "Gemma 抽成 exertional_heavy（dev21 抽對）；gpt 抽對",
+   "question": "S-MID-12 由 T2 變 T9：改走 T2-DYSPNEA-HEAVY，它的 sufficiency 要知道 pattern（≥6 個月改 T3，D-45），Q-PATTERN-01 答不知道、無題可問。是否受 #12 例句影響：未能確定。要不要加「走路就喘 → exertional_daily」例句？",
+   "sources": [
+    {
+     "case": "S-MID-12",
+     "where": "開場白",
+     "sentence": "我有冠心症，這幾天腳有點腫，走路比平常喘一點，坐著不喘，胸口不會悶。"
+    }
+   ],
+   "options": "加例句／維持",
+   "in_prompt": "否"
+  },
+  {
+   "phrase": "今天忘記吃早上的藥",
+   "slot": "antiplatelet_interrupted",
+   "where": "S-MID-17 開場白",
+   "keyword": "（無值）",
+   "v2": "Gemma 抽成 true（10-27 相同）",
+   "question": "S-MID-17 T4 → T3（抗血小板中斷無症狀）。沒說是哪種藥時要不要留 null？",
+   "sources": [
+    {
+     "case": "S-MID-17",
+     "where": "開場白",
+     "sentence": "我爸有冠心症，今天忘記吃早上的藥，現在補吃可以嗎？他沒有不舒服。"
+    }
+   ],
+   "options": "留 null 追問／維持",
+   "in_prompt": "否"
+  },
+  {
+   "phrase": "想問下次回診要不要空腹抽血",
+   "slot": "consult_topic",
+   "where": "S-MID-20 開場白",
+   "keyword": "education_question",
+   "v2": "Gemma 抽成 appointment_admin（10-27 相同）",
+   "question": "S-MID-20 T4 → T3（行政）。檢查前準備算衛教還是行政？",
+   "sources": [
+    {
+     "case": "S-MID-20",
+     "where": "開場白",
+     "sentence": "我有冠心症，想問下次回診要不要空腹抽血，最近沒有任何不舒服。"
+    }
+   ],
+   "options": "education_question 例句／appointment_admin",
+   "in_prompt": "否"
+  },
+  {
+   "phrase": "前天開始…昨天含了一次舌下片…今天還沒發作",
+   "slot": "last_episode_timing",
+   "where": "S-MID-19 開場白",
+   "keyword": "yesterday_within_24h",
+   "v2": "Gemma 抽成 today（10-27 重放也抽錯）",
+   "question": "S-MID-19 由 T1 變 T0（T0-NEW-TODAY）。「今天還沒發作」要不要加反例？",
+   "sources": [
+    {
+     "case": "S-MID-19",
+     "where": "開場白",
+     "sentence": "我有冠心症，前天開始走路會胸悶，昨天含了一次舌下片有效，今天還沒發作，休息時沒有。"
+    }
+   ],
+   "options": "加反例／維持",
+   "in_prompt": "否"
+  },
+  {
+   "phrase": "最近走路會有一點悶",
+   "slot": "exertion_relation",
+   "where": "S-MID-08 開場白（#0–#2 共用）",
+   "keyword": "exertion_only",
+   "v2": "gpt 不填（null）、Gemma 抽成 unclear",
+   "question": "DV-4（PCI 後較輕）要 exertion_only，沒抽到就不適用 → T0-NEW-TODAY：S-MID-08（兩個 arm，10-27 起），S-MID-08#2（Gemma，另見下一項）。T0 定案前不會問 Q-EXERTION-01。要加「走路會悶 → exertion_only」例句，或 T0-NEW-TODAY 遇到 DV-4 候選時先問活動題？",
+   "sources": [
+    {
+     "case": "S-MID-08",
+     "where": "開場白",
+     "sentence": "上個月放支架，傷口沒問題，最近走路會有一點悶，比放支架前輕很多，但以前是完全沒有。"
+    }
+   ],
+   "options": "加例句／T0-NEW-TODAY 遇 DV-4 候選先問 Q-EXERTION-01／維持",
+   "in_prompt": "否"
+  },
+  {
+   "phrase": "比放支架前輕很多，但以前是完全沒有",
+   "slot": "threshold_decreased",
+   "where": "S-MID-08 開場白（#0–#2 共用）",
+   "keyword": "（無值）",
+   "v2": "Gemma 抽成 threshold_decreased＝true（4 例都是；事實 false）；gpt 不填",
+   "question": "S-MID-08、#0、#1 由 #16 再問改回；S-MID-08#2 沒有後續矛盾、未改回 → T0-THRESHOLD-DAYS（加上 exertion unclear → T0，truth T1）。「比以前輕、以前沒有」不是閾值下降，要不要加反例？",
+   "sources": [
+    {
+     "case": "S-MID-08#2",
+     "where": "開場白",
+     "sentence": "上個月放支架，傷口沒問題，最近走路會有一點悶，比放支架前輕很多，但以前是完全沒有。"
+    }
+   ],
+   "options": "加反例／維持",
+   "in_prompt": "否"
+  }
+ ],
+ "gap": {
+  "phrase": "已知限制 6 項（含 L1）",
+  "slot": "流程",
+  "sources": [
+   {
+    "sentence": "#14 與 D-35 的張力；關鍵字開場白「沒有不舒服」→ none；third_party_call 缺「我姊姊」「我奶奶」；chest_discomfort_mentioned 誤觸（如胸部X光）；reask_downgrades 不重跑路徑；L1 回覆已會 Hard stop 仍先複誦"
+   }
+  ],
+  "current": "逐項的現象、方向、出處見報告 §1「已知限制（本輪驗收發現，待 Clinical Owner 確認是否處理）」與 D-54（同一份）",
+  "options": "逐項決定是否處理",
+  "in_prompt": "不適用（流程與關鍵字）"
+ },
+ "tradeoff": {
+  "phrase": "12 題上限與 H3",
+  "slot": "流程",
+  "sources": [
+   {
+    "sentence": "Scripted 隨機格 60,000 組中，全資訊 T0 卻掉級的有 1,511 組，全部停在 12 題上限（沒問到 REST 730、NTG 438、THRESHOLD 343）；本次付費閉環 T3 → T9 的 3 例（gpt 2 例、Gemma 3 例）也是第 1 項加上上限造成的"
+   }
+  ],
+  "current": "順序 D、活動題提前（Clinical Owner 2026-11-03 裁定）之後的結果",
+  "options": "提高上限／再調排序／維持",
+  "in_prompt": "不適用（流程）"
+ }
+}

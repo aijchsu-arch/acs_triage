@@ -5,8 +5,8 @@
 # priority: redflag（先問，可觸發 Hard stop）> decisive（決定 acute vs chronic）> refine
 # 不得在程式碼中寫死任何問題文字。
 
-bank_version: "0.4"
-rules_version_required: "0.4.0"
+bank_version: "0.5"
+rules_version_required: "0.9.0"
 
 slots:
   - id: ongoing_now
@@ -103,6 +103,13 @@ slots:
   - id: symptom_vs_pre_pci
     type: choice
     choices: [milder, same, worse]
+  # ---- rules 0.9.0（D-54，Clinical Owner 2026-11-02） ----
+  - id: episode_frequency_increased
+    type: yes_no
+    note: 既有型態下發作變頻繁（裁定 #7）；比照 ntg_use_increased，true → T0（T0-FREQ-INCREASED）
+  - id: chest_discomfort_mentioned
+    type: yes_no
+    note: 由 extractor 設定（提到胸口不適但性質未知，裁定 #15），無對應題目；symptom_character 未知時視為胸部症狀，已知（含 none）以已知值為準
 
 questions:
   # ---------- redflag：先問 ----------
@@ -164,6 +171,13 @@ questions:
     answer_type: yes_no
     script_zh: "跟以前比，是不是比較輕的活動就會不舒服？例如以前要爬樓梯才會，現在走平路也會？"
     why_zh: "活動閾值下降 → T0"
+  - id: Q-FREQ-01
+    slot_id: episode_frequency_increased
+    priority: decisive
+    answer_type: yes_no
+    status: DRAFT            # 措辭待 Clinical Owner 審（同上，DRAFT 字樣不放在句子裡）
+    script_zh: "最近發作的次數有比以前多嗎？"
+    why_zh: "DRAFT。既有型態下發作變頻繁 → T0（裁定 #7，D-54；比照 Q-NTG-01、DV-6）"
   - id: Q-REST-01
     slot_id: rest_symptom
     priority: decisive

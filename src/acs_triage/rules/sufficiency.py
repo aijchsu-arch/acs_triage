@@ -10,7 +10,7 @@ CHEST_REDFLAG = ["ongoing_now", "presyncope", "diaphoresis"]
 DYSPNEA_REDFLAG = ["dyspnea_grade", "cant_finish_sentence"]
 CHEST_CONTEXT = ["rest_symptom", "ongoing_now", "diaphoresis", "presyncope"]
 DYSPNEA_CONTEXT = ["dyspnea_grade", "cant_finish_sentence", "orthopnea_pnd", "dyspnea_acute"]
-T0_TRIGGERS_CHEST = ["rest_symptom", "threshold_decreased", "ntg_use_increased"]        # Q-14b
+T0_TRIGGERS_CHEST = ["rest_symptom", "threshold_decreased", "ntg_use_increased", "episode_frequency_increased"]   # Q-14b；D-54
 CONSULT_SCREEN = ["palpitations", "postural_dizziness", "pending_abnormal_test"]          # Q-14f
 
 RULE_REQUIREMENTS: dict[str, list[str]] = {
@@ -22,6 +22,7 @@ RULE_REQUIREMENTS: dict[str, list[str]] = {
     "T0-REST-NEW": CHEST_REDFLAG + ["rest_symptom_first_time"],   # D-45：先問是否首次；非首次且型態不變 → §5.6 T3-STABLE-REST-RECURRENT
     "T0-DYSPNEA-ACUTE": DYSPNEA_REDFLAG,
     "T0-NTG-INCREASED": CHEST_REDFLAG,
+    "T0-FREQ-INCREASED": CHEST_REDFLAG,
     "T0-ORTHOPNEA": DYSPNEA_REDFLAG,
     # T1
     "T1-NEW-YESTERDAY": CHEST_CONTEXT + ["last_episode_timing"],
@@ -37,7 +38,7 @@ RULE_REQUIREMENTS: dict[str, list[str]] = {
     # T3
     "T3-STABLE": [],  # 動態：見 missing_for
     "T3-STABLE-REST-RECURRENT": CHEST_CONTEXT + ["rest_symptom_first_time", "threshold_decreased", "ntg_use_increased",
-                                                 "dyspnea_acute", "onset_new", "pattern_unchanged_duration_months",
+                                                 "episode_frequency_increased", "dyspnea_acute", "onset_new", "pattern_unchanged_duration_months",
                                                  "cad_history"],   # D-45（Q-05）
     "T3-ADMIN": ["consult_topic", "symptom_character", "dyspnea_grade", "presyncope"] + CONSULT_SCREEN,
     "T3-ANTIPLT-ASYMPTOMATIC": ["symptom_character", "dyspnea_grade", "presyncope"] + CONSULT_SCREEN,
@@ -69,6 +70,9 @@ def missing_for(state: SlotState, provisional: int, rule_ids: list[str]) -> list
     # Q-14b：胸部症狀要定在 T1–T4 前，三個 T0 觸發因子必須已知
     if provisional in (1, 2, 3, 4) and state.chest_symptom_present():
         required += [s for s in T0_TRIGGERS_CHEST if s not in required]
+    # D-54（H3，Clinical Owner 2026-11-03）：有呼吸症狀 → 呼吸的 T0 因子（今日突發、端坐呼吸／PND）必須已知才能定案 T1–T4
+    if provisional in (1, 2, 3, 4) and state.dyspnea_present():
+        required += [s for s in ("orthopnea_pnd", "dyspnea_acute") if s not in required]
     # Q-14c：第三方來電必須確認病人本人可及
     if state.is_true("third_party_call") and "patient_reachable" not in required:
         required.append("patient_reachable")
@@ -84,7 +88,7 @@ def missing_for(state: SlotState, provisional: int, rule_ids: list[str]) -> list
             if state.get(slot) is not False and slot not in missing:
                 missing.append(slot)
     if "T3-STABLE-REST-RECURRENT" in rule_ids:          # D-45：非首次、閾值未降、NTG 未增加皆須明確否認
-        for slot in ("rest_symptom_first_time", "threshold_decreased", "ntg_use_increased"):
+        for slot in ("rest_symptom_first_time", "threshold_decreased", "ntg_use_increased", "episode_frequency_increased"):
             if state.get(slot) is not False and slot not in missing:
                 missing.append(slot)
     return missing

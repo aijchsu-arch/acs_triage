@@ -93,7 +93,10 @@ class SlotState:
         return self.get(slot_id) is False
 
     def chest_symptom_present(self) -> bool:
-        return self.get("symptom_character") in set(self.rules["chest_symptom_characters"])
+        character = self.get("symptom_character")
+        if character is None:                  # D-54（裁定 #15）：提到胸口不適但性質未知 → 也視為胸部症狀；性質已知（含 none）以已知值為準
+            return self.is_true("chest_discomfort_mentioned")
+        return character in set(self.rules["chest_symptom_characters"])
 
     def ischemic(self) -> bool:
         return self.get("symptom_character") in set(self.rules["ischemic_characters"])
@@ -114,7 +117,8 @@ class SlotState:
         return (not self.chest_symptom_present() and not self.dyspnea_present()
                 and self.not_true("palpitations") and self.not_true("presyncope")
                 and self.not_true("syncope") and self.not_true("postural_dizziness")
-                and self.not_true("ongoing_now") and self.not_true("ntg_use_increased"))
+                and self.not_true("ongoing_now") and self.not_true("ntg_use_increased")
+                and self.not_true("episode_frequency_increased"))
 
     def symptoms_denied(self) -> bool:
         """三項否認皆已確認（final gate 用）。"""

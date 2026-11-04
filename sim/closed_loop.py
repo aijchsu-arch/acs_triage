@@ -32,7 +32,7 @@ from pathlib import Path
 from statistics import mean, median
 from typing import Any
 
-from acs_triage.loaders import DATA_DIR, REPO_ROOT, question_by_id, rules_version
+from acs_triage.loaders import DATA_DIR, REPO_ROOT, bank_version, question_by_id, rules_version
 from acs_triage.rules import RulesEngine, SlotState
 
 from .cases import Case, all_cases
@@ -40,12 +40,29 @@ from .llm_patient import DEFAULT_EFFORT, DEFAULT_MODEL, KEY_ENV, LLMPatientSimul
 from .patient import PatientReply
 from .runner import RunResult, run_case
 
-DEV_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-10-23_llm_opus-5-5_medium_transcripts.json"
+DEV_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-03_llm_opus-5-5_medium_r2_transcripts.json"
 HOLDOUT_SCENARIOS = DATA_DIR / "synth" / "scenarios_synth_v1.yaml"
-HOLDOUT_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-10-26_llm_scenarios_synth_v1_opus-5-5_medium_transcripts.json"
+HOLDOUT_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-03_llm_scenarios_synth_v1_opus-5-5_medium_r2_transcripts.json"
 HOLDOUT_REFERENCE = DATA_DIR / "synth" / "reference_synth_v1.json"
+def _synth_files(folder: Path) -> list[str]:
+    """保留集目錄裡的檔案（只計 hash）：只取檔案，略過 .DS_Store 等隱藏檔與子目錄。"""
+    return sorted(p.relative_to(REPO_ROOT).as_posix() for p in folder.iterdir() if p.is_file() and not p.name.startswith("."))
+
+
 # 凍結範圍：提示、抽取器、閉環 runner、閉環指標（premature 定義）與簡轉繁（to_tw）。保留集的三個 arm 都要比對全部 sha256。
-FROZEN_FILES = ["data/extractor_prompts_v2.yaml", "sim/llm_extract_v2.py", "sim/runner.py", "sim/closed_loop.py", "sim/stt_synth_asr.py"]
+FROZEN_FILES = ["data/extractor_prompts_v2.yaml", "sim/llm_extract_v2.py", "sim/runner.py", "sim/closed_loop.py", "sim/stt_synth_asr.py",
+                # D-54：規則、問診流程、關鍵字、模擬病人、保留集與它的計分一改，保留集結果就不是凍結版的結果（data/synth 只計 hash）
+                "data/clinical_rules.yaml", "data/question_bank_seed.yaml", "data/extraction_patterns.yaml", "data/scripts_zh.yaml", "data/llm_patient.yaml",
+                "sim/cases.py", "sim/patient.py", "sim/llm_patient.py", "sim/metrics.py", "sim/synth_eval.py", "sim/synth_gen.py",
+                "sim/llm_extract.py", "src/acs_triage/decision/openai_adapter.py",          # 閉環抽取器的 Gemma／gpt client
+                "src/acs_triage/loaders.py", "src/acs_triage/schemas.py",
+                *sorted(p.relative_to(REPO_ROOT).as_posix() for d in ("rules", "prompter", "extract", "pathway")
+                        for p in (REPO_ROOT / "src" / "acs_triage" / d).glob("*.py")),
+                *_synth_files(DATA_DIR / "synth")]
+# 逐字稿版本檢查不比的檔：只影響抽取器或報表，不影響問句序列與病人回答；sim/closed_loop.py 本身也要排除（付費評估後要改 DEV_STRUCTURED 指向新稿）
+NOT_IN_TRANSCRIPT_CHECK = {"data/extractor_prompts_v2.yaml", "sim/llm_extract_v2.py", "sim/closed_loop.py", "sim/stt_synth_asr.py", "sim/metrics.py", "sim/synth_eval.py",
+                           "sim/llm_extract.py", "src/acs_triage/decision/openai_adapter.py"}
+DEV_SCENARIO_FILES = [DATA_DIR / "scenarios_v0.2.yaml", DATA_DIR / "scenarios_midband_v0.1.yaml"]
 # 固定位置（不隨 --out 改變）：凍結紀錄只能寫一次；保留集每個 arm 開跑前先登記，已登記就拒跑。
 FREEZE_PATH = REPO_ROOT / "reports" / "extractor_v2_freeze.json"
 HOLDOUT_REGISTRY = REPO_ROOT / "reports" / "extractor_v2_holdout_runs.json"
@@ -233,6 +250,7 @@ def check_holdout_allowed(arm: str, limit: int | None, out_dir: Path) -> dict[st
     freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
     now = freeze_record()
     bad = [f for f in FROZEN_FILES if freeze.get("files", {}).get(f) != now["files"][f]]
+    bad += sorted(set(freeze.get("files", {})) - set(now["files"]))          # 凍結時有、現在沒有（刪檔）也算改動
     bad += [k for k in ("prompt_file_sha256", "rendered_sha256") if freeze.get(k) != now[k]]
     if bad:
         raise SystemExit(f"凍結後有改動：{bad}（保留集只能用凍結版跑）")
@@ -240,6 +258,42 @@ def check_holdout_allowed(arm: str, limit: int | None, out_dir: Path) -> dict[st
     if any(r["arm"] == arm for r in runs) or list(out_dir.glob(f"closed_holdout_{arm}*.json")):
         raise SystemExit(f"保留集 {arm} arm 已經跑過（{HOLDOUT_REGISTRY} 或 {out_dir}）：每個 arm 只跑一次")
     return freeze
+
+
+def scenario_hashes(files: list[Path]) -> dict[str, str]:
+    """情境檔只計 hash（保留集不讀內容）；repo 內用相對路徑，repo 外（--scenarios 指到別處）用絕對路徑。"""
+    def key(f: Path) -> str:
+        f = f.resolve()
+        return f.relative_to(REPO_ROOT).as_posix() if f.is_relative_to(REPO_ROOT) else f.as_posix()
+    return {key(f): hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
+
+
+def check_structured_version(path: Path, set_name: str = "dev") -> None:
+    """逐字稿（病人快取的種子）必須是現行規則、問診流程與規定評估設定跑出來的完整一份（同名報告去掉 _transcripts）。任一不符就拒跑：
+    rules_version、bank_version、影響問句序列或病人回答的檔案 hash（同版改 Prompter 也算舊稿）、情境檔 hash；病人模型與 effort 為
+    DEFAULT_MODEL／DEFAULT_EFFORT；errors 為空；不是 --limit 跑的；case id 完整覆蓋該集合。舊逐字稿會偏離問句序列、配對比較失效，
+    保留集還會白白用掉一次性的 arm，所以在登記之前檢查。"""
+    report = path.with_name(path.name.replace("_transcripts.json", ".json"))
+    meta = json.loads(report.read_text(encoding="utf-8")) if report.exists() else {}
+    now, got = file_hashes(), meta.get("file_sha256") or {}
+    stale = [k for k, v in (("rules_version", rules_version()), ("bank_version", bank_version())) if meta.get(k) != v]
+    stale += [f for f in FROZEN_FILES if f not in NOT_IN_TRANSCRIPT_CHECK and got.get(f) != now[f]]
+    stale += sorted((set(got) - set(now)) - NOT_IN_TRANSCRIPT_CHECK)
+    stale += [k for k, v in (("model", DEFAULT_MODEL), ("effort", DEFAULT_EFFORT)) if meta.get(k) != v]
+    if meta.get("errors") != []:
+        stale.append("errors")
+    if meta.get("limit") is not None or "_limit" in path.name:
+        stale.append("limit")
+    files = DEV_SCENARIO_FILES if set_name == "dev" else [HOLDOUT_SCENARIOS]
+    if meta.get("scenario_sha256") != scenario_hashes(files):
+        stale.append("scenario_sha256")
+    ids = [t["case_id"] for t in json.loads(path.read_text(encoding="utf-8"))] if path.exists() else []
+    expected = [c.id for c in all_cases()] if set_name == "dev" else meta.get("case_ids_in_set") or []
+    if not ids or len(ids) != len(set(ids)) or set(ids) != set(expected):
+        stale.append("case_ids")
+    if stale:
+        raise SystemExit(f"{path.name}：逐字稿版本與現行不符（{stale[:5]}；共 {len(stale)} 項）。先跑 sim.run_llm_eval（完整、規定設定），"
+                         "再把 DEV_STRUCTURED／HOLDOUT_STRUCTURED 改指新逐字稿")
 
 
 def check_lmstudio(base_url: str, model: str) -> None:
@@ -299,6 +353,9 @@ def seed_extractor(ex: Any, path: Path, meta: dict[str, Any]) -> int:
 def hs_supported(case: Case, state: SlotState) -> bool:
     """觸發 Hard stop 時已知的 slot（推導值除外）換回病人真正知道的事實（不知道 → 未知），是否仍為 Hard stop。"""
     facts = {k: case.slots.get(k) for k in state.as_dict() if not state.is_derived(k) and case.slots.get(k) is not None}
+    if state.get("symptom_character") is None and state.is_true("chest_discomfort_mentioned"):
+        # D-54（裁定 #15）：旗標來自開場白原話，不在事實清單；是否真有胸部症狀看事實清單的性質
+        facts.setdefault("symptom_character", case.slots.get("symptom_character"))
     return _ENGINE.decide(SlotState(facts)).hard_stop
 
 
@@ -331,12 +388,17 @@ def case_record(o: dict[str, Any]) -> dict[str, Any]:
                hs_supported=sup, stop=r.stop_reason, n_q=r.n_questions, n_confirms=r.n_confirms,
                n_confirm_changed=r.n_confirm_changed, hard_stop_turn=r.hard_stop_turn,
                opening_extracted=r.opening_extracted, final_slots=r.final_slots, mention_conflicts=r.mention_conflicts,
-               mention_confirms=r.mention_confirms,
+               mention_confirms=r.mention_confirms, reasks=r.reasks, reask_downgrades=r.reask_downgrades,
                turns=[{"q": t.question_id, "utt": t.utterance_zh, "value": t.answer, "structured": t.structured_answer,
                        "pre_confirm": t.pre_confirm_answer, "extracted": t.extracted, "confirm_prompt": t.confirm_prompt_zh,
                        "confirm_utt": t.confirm_utterance_zh, "confirm_value": t.confirm_answer,
                        "confirm_structured": t.confirm_structured} for t in r.turns])
     return rec
+
+
+def all_reasks(outs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """全部再問（含改值）供人工看；reask_downgrades 只放回值、不重跑路徑，見 runner。"""
+    return [c for o in outs if o["result"] is not None for c in o["result"].reasks]
 
 
 def adjusted(o: dict[str, Any], truth_hs: bool) -> RunResult:
@@ -362,6 +424,7 @@ def dev_metrics(outs: list[dict[str, Any]]) -> dict[str, Any]:
             "false_hs": m.hard_stop_false_alarm, "under": m.under_triage, "over": m.over_triage, "exact": m.exact_rate,
             "abstain_fp": m.abstain_fp, "abstain_fn": m.abstain_fn, "t9": t9, "mean_questions": m.mean_questions,
             "confirms": m.confirms, "confirms_per_call": m.mean_confirms, "confirm_changed": m.confirm_changed,
+            "reasks": m.reasks, "reask_downgrades": m.reask_downgrades,
             "escalating_recall": m.escalating_recall, "stop_reasons": dict(m.stop_reasons),
             "finals": {r.case_id: f"{'HS' if r.final.hard_stop else 'T' + str(r.final.tier)}" for r in res}}
 
@@ -376,6 +439,7 @@ def holdout_rows(outs: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         out = _outcome(r.final, r.final_state, r.n_questions, r.stop_reason)
         out["hs_supported"] = hs_supported(o["case"], r.final_state) if r.final.hard_stop else None
         out["n_confirms"] = r.n_confirms
+        out["reasks"], out["reask_downgrades"] = len(r.reasks), len(r.reask_downgrades)
         rows[o["case"].id] = out
     return rows
 
@@ -407,6 +471,8 @@ def holdout_metrics(rows: dict[str, dict[str, Any]], cases: list[Case]) -> dict[
         m["false_hs"] = [r["id"] for r in tb if r[rk] is not None and not r[rk]["hs"] and r["sys"]["hs"]]
         m["hs_unsupported"] = [r["id"] for r in tb if r["sys"]["hs"] and r["sys"]["hs_supported"] is False]
         m["confirms"] = sum(r["sys"]["n_confirms"] for r in tb if r[rk] is not None)
+        m["reasks"] = sum(r["sys"]["reasks"] for r in tb if r[rk] is not None)
+        m["reask_downgrades"] = sum(r["sys"]["reask_downgrades"] for r in tb if r[rk] is not None)
         res[rk] = m
     return res
 
@@ -456,6 +522,7 @@ def run_main(argv: list[str]) -> None:
     missing = [str(f) for f in [*inputs, *map(Path, args.seed_extract)] if not Path(f).exists()]
     if missing:
         raise SystemExit(f"輸入檔不存在：{missing}")
+    check_structured_version(DEV_STRUCTURED if args.set == "dev" else HOLDOUT_STRUCTURED, args.set)
     cache = PatientCache(DEFAULT_MODEL, DEFAULT_EFFORT, _prompt_cfg()["prompt_version"])
     cpath = cache_dir / f"patient_cache_{args.set}.json"
     cache.load(cpath)
@@ -517,6 +584,7 @@ def run_main(argv: list[str]) -> None:
     rep["extraction"] = extraction_stats(recs) if args.arm != "structured" else None
     rep["mention_conflicts"] = [c for o in outs if o["result"] is not None for c in o["result"].mention_conflicts]
     rep["mention_confirms"] = [c for o in outs if o["result"] is not None for c in o["result"].mention_confirms]
+    rep["reasks"] = all_reasks(outs)
     if args.arm == "structured":
         fin = {t["case_id"]: t["final"] for t in structured}
         rep["self_check"] = {"reproduced": sum(1 for o in outs if o["result"] is not None and
@@ -527,7 +595,7 @@ def run_main(argv: list[str]) -> None:
         register_holdout_run(args.arm, finished_at=finished, output=str(out_dir / f"{stem}.json"))
     summ = rep["metrics"] if args.set == "dev" else rep["metrics"]["ref_agree"]
     print(json.dumps({k: summ.get(k) for k in ("hs_sensitivity", "hs_miss", "premature", "false_hs", "under", "t9", "mean_questions",
-                                                "confirms", "exact")}, ensure_ascii=False, default=str))
+                                                "confirms", "reasks", "reask_downgrades", "exact")}, ensure_ascii=False, default=str))
     print(json.dumps({"patient": rep["patient_usage"], "extractor_cost": (rep["extractor_usage"] or {}).get("cost_total_usd"),
                       "mention_conflicts": len(rep["mention_conflicts"]),
                       "errors": [r["case_id"] for r in recs if r["error"]], "self_check": rep.get("self_check")}, ensure_ascii=False))

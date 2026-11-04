@@ -41,7 +41,7 @@ def test_nd02_ecg_only_upgrades(engine):
     d = decide_slots(engine, {"symptom_character": "tightness", "pattern_unchanged_duration_months": 24,
                               "rest_symptom": False, "threshold_decreased": False, "dyspnea_acute": False,
                               "ongoing_now": False, "presyncope": False, "diaphoresis": False,
-                              "ntg_use_increased": False})
+                              "ntg_use_increased": False, "episode_frequency_increased": False})
     assert d.tier == 3
     up = RulesEngine.apply_ecg(d, ECGResult(device_id="x", quality_ok=True, ai_findings=["ST elevation"], ecg_tier_suggestion=0))
     assert up.tier == 0 and up.provisional_tier == 0

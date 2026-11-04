@@ -192,6 +192,9 @@ def render(d: dict[str, Any], conclusions: str) -> str:
         if not r or "mention_conflicts" not in r:
             continue
         cfs = r["mention_conflicts"]
+        if "reasks" in r["metrics"]:                 # D-54 之後的閉環才有
+            L.append(f"- {LABEL[a]}：順口值矛盾再問 {r['metrics']['reasks']} 次；因再問而最終較不急 {r['metrics']['reask_downgrades']} 次"
+                     "（只把再問前的值放回最後狀態重算、不重跑對話，路徑分岔造成的差異記不到；明細見閉環 JSON 的 reasks）")
         L.append(f"- {LABEL[a]}：順口值觸發的複誦 {len(r.get('mention_confirms', []))} 次；沒採用 {len(cfs)} 次（{dict(Counter(c.get('kind', 'conflict') for c in cfs)) or '—'}）" + ("" if not cfs else "：" + "；".join(
             f"{c['case_id']} 第 {c['turn']} 題 {c['question_id']}（{c.get('kind', 'conflict')}）：{c['slot']} 已知 {c['known']}、順口 {c['mention']}「{c['utterance_zh']}」" for c in cfs)))
     L += [x for t in d.get("observations_41c", []) for x in ("", f"觀察：{t}")]
@@ -341,7 +344,7 @@ def main() -> None:
     extra.pop("date", None)
     if pilot:
         extra["pilot"] = pilot
-    d = {"date": day, "rules_version": rules_version(), "limitations": LIMITS, "freeze": _j(pick(args.freeze, "status.json")),
+    d = {"date": day, "rules_version": next((r["meta"]["rules_version"] for r in closed.values()), rules_version()), "limitations": LIMITS, "freeze": _j(pick(args.freeze, "status.json")),
          "stage_a": {"meta": rep["meta"], "v1": {k: v1_cell(v1, k) for k in ("gpt/ref", "gpt/phone", "gemma/ref", "gemma/phone")},
                      "v2": {k: v2_cell(rep, k) for k in rep["cells"]}, "confirm": {e: {kk: c[kk] for kk in ("dev_grades", "probe_ok", "probe_n", "probe_rows")}
                                                                                   for e, c in rep["confirm"].items()},

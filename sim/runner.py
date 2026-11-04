@@ -7,9 +7,9 @@ from typing import Any
 from acs_triage.audit import AuditLog
 from acs_triage.extract import extract
 from acs_triage.loaders import load_clinical_rules
-from acs_triage.pathway import route
+from acs_triage.pathway import route, tier9_fallback
 from acs_triage.prompter import Prompter
-from acs_triage.prompter.confirm import confirm_prompt, resolve_confirm, should_confirm
+from acs_triage.prompter.confirm import confirm_prompt, in_scope, reask_prompt, resolve_confirm, severity, should_confirm
 from acs_triage.rules import RulesEngine, SlotState
 from acs_triage.schemas import TierDecision
 
@@ -71,6 +71,9 @@ class RunResult:
     opening_extracted: dict[str, Any] | None = None              # 閉環：開場白抽取結果
     mention_conflicts: list[dict[str, Any]] = field(default_factory=list)   # 閉環：沒採用的順口值（conflict／d50_not_most_severe）
     mention_confirms: list[dict[str, Any]] = field(default_factory=list)    # 閉環：因順口值對已問過的 D-50 題複誦（計入 n_confirms）
+    reasks: list[dict[str, Any]] = field(default_factory=list)              # D-54：順口值矛盾再問（不算題數）
+    # 通話結束時把再問前的值放回最後狀態重算，因再問而較不急者。只放回值、不重跑對話，路徑分岔造成的差異記不到（例如 S-MID-04#0），要看 reasks 全部明細
+    reask_downgrades: list[dict[str, Any]] = field(default_factory=list)
 
     @property
     def hard_stop_latency(self) -> int | None:
@@ -118,6 +121,14 @@ def _mention_may_override(slot: str, new: Any, old: Any) -> bool:
     return new in rank and old in rank and rank[new] < rank[old]
 
 
+def _urgency(state: SlotState) -> int:
+    """數字越小越急：Hard stop = -1；T0–T4；Tier 9 依 C6 D 預設等級（同 sim.decisive.urgency，但保留 slot 來源）。"""
+    d = RulesEngine().decide(state)
+    if d.hard_stop:
+        return -1
+    return tier9_fallback(state)[0] if d.provisional_tier == 9 else d.provisional_tier
+
+
 def _write_mentions(state: SlotState, found: dict[str, Any], asked_slot: str, source: str) -> list[dict[str, Any]]:
     """閉環：病人順口提到的其他 slot（BLUEPRINT §3.4）。
     - 未知的 slot（含問過但答不知道的）補上。D-50 範圍（紅旗題＋stt_critical_questions）的 slot：寫入後由非 Hard stop
@@ -125,7 +136,7 @@ def _write_mentions(state: SlotState, found: dict[str, Any], asked_slot: str, so
       （由 run_case 暫存；之後直接問到而答案仍未知時，以暫存值當解讀值複誦一次）；該題問過而目前未知 → kind＝d50_confirm
       （由 run_case 立刻對該題複誦一次）。
     - 已知值只在三種情況被覆蓋：紅旗是非題「有」、confirm_back_severity 較嚴重、寫入後規則引擎由非 Hard stop 變成 Hard stop；
-      其他不同一律保留已知值，記為 kind＝conflict。"""
+      其他不同一律保留已知值，記為 kind＝conflict（由 run_case 對該題再問一次，D-54）。"""
     top = _d50_top_values()
     notes = []
     for k, v in found.items():
@@ -136,6 +147,8 @@ def _write_mentions(state: SlotState, found: dict[str, Any], asked_slot: str, so
             if k in top and v not in top[k] and not _hard_stop_after(state, k, v):
                 sv = state._values.get(k)
                 asked_q = sv.asked_by_question_id if sv is not None else None
+                if k == "symptom_character" and v in load_clinical_rules()["chest_symptom_characters"]:
+                    state.set("chest_discomfort_mentioned", True, source=source)     # D-54（裁定 #15）：性質先不收，但提過胸部症狀
                 notes.append({"kind": "d50_confirm" if asked_q else "d50_not_most_severe", "slot": k, "known": None, "mention": v}
                              | ({"question_id": asked_q} if asked_q else {}))
                 continue
@@ -147,6 +160,13 @@ def _write_mentions(state: SlotState, found: dict[str, Any], asked_slot: str, so
         else:
             notes.append({"kind": "conflict", "slot": k, "known": old, "mention": v})
     return notes
+
+
+def _reply_mentions(state: SlotState, found: dict[str, Any], q: Any, utterance_zh: str, res: RunResult, source: str) -> None:
+    """D-54（H2）：複誦與再問的回答裡順口提到的其他 slot 也照一般回答寫入（_write_mentions）；只記 conflict，不再遞迴複誦或再問。"""
+    for cf in _write_mentions(state, found, q.slot_id, source=source):
+        res.mention_conflicts.append({"case_id": res.case_id, "turn": res.n_questions, "question_id": q.id, **cf,
+                                      "utterance_zh": utterance_zh, "from_reply": True})
 
 
 def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: RulesEngine | None = None,
@@ -186,6 +206,7 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                     decisive_total=len(case.decisive_questions), opening_extracted=opening_found)
     asked: set[str] = set()
     mention_confirmed: set[str] = set()      # 閉環：已因順口值做過 D-50 複誦的 slot（每個 slot 一次）
+    d50_confirmed: set[str] = set()          # 直接問時已做過 D-50 複誦的 slot（矛盾再問不再加問）
     stashed: dict[str, Any] = {}             # 閉環：D-50 slot 在該題還沒問過時被拒收的順口值（留較嚴重者）
     from acs_triage.loaders import question_by_id as _qbi
     qb0 = _qbi()
@@ -197,16 +218,23 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
     else:
         while True:
             q = None
-            if d.provisional_tier != 9 and d.gate_passed:
+            if res.n_questions < max_q:
+                q = prompter.character_followup_question(state, d, asked)     # D-54（裁定 #15）
+            if q is None and d.provisional_tier != 9 and d.gate_passed:
                 # rules 0.8.0：有症狀暫判 T2–T4 → 定案前加問待追蹤檢查一次（算題數；已達上限就不問、照原結果定案）
                 q = prompter.pending_test_question(state, d, asked)
                 if q is not None and res.n_questions >= max_q:
                     res.pending_test_skipped_at_cap = True
                     q = None
-                if q is None:
+                # D-54（裁定 #4、#5）：開場白 vague 的再問只在還有題數時才問，排在待追蹤檢查之後算題數
+                recheck = prompter.vague_recheck_question(state, d, asked)
+                if recheck is not None and max_q - res.n_questions > (q is not None):
+                    q = recheck
+                elif q is None:
                     res.stop_reason = "gate_passed"
                     break
-                res.pending_test_asked = True
+                else:
+                    res.pending_test_asked = True
             if q is None and d.provisional_tier == 0 and d.missing and all(
                     any(qb0[x].slot_id == slot for x in asked) for slot in d.missing):
                 # D-45：T0 不會被 gate 降級；缺的題都問過（病人答不知道）→ 直接定案，不再拖到題數上限
@@ -235,6 +263,7 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
             audit.emit(call_id, "stt_segment", {"speaker": "patient", "text": reply.utterance_zh,
                                                 "confidence": reply.stt_confidence})
             value, utt = reply.value, reply.utterance_zh
+            reply_mentions: list[tuple[dict[str, Any], Any, str, str]] = []   # D-54（N1）：再問、順口複誦回覆裡的順口值，直接回答寫入後才寫
             if extractor is not None:
                 # 閉環：抽取器讀病人原句（繁體）；順口提到的其他 slot 先寫入，讓複誦的「寫入後即 Hard stop」判斷也看得到
                 utt = tw(reply.utterance_zh)
@@ -260,7 +289,9 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                         thr2 = crit_conf if (q2.priority == "redflag" or q2.id in crit_qs) else min_conf
                         prompt2 = confirm_prompt(q2, cf["mention"])
                         c2 = patient.confirm(q2, prompt2)
-                        c2_value = extractor(tw(c2.utterance_zh), q2, confirm_prompt=prompt2).get(q2.slot_id)
+                        found2 = extractor(tw(c2.utterance_zh), q2, confirm_prompt=prompt2)
+                        c2_value = found2.get(q2.slot_id)
+                        reply_mentions.append((found2, q2, c2.utterance_zh, f"turn{res.n_questions}_confirm_mention"))   # D-54（H2、N1）
                         heard2 = c2_value if c2.stt_confidence >= thr2 else None
                         value2, blocked2 = resolve_confirm(q2, cf["mention"], heard2)
                         state.set(q2.slot_id, value2, asked_by=q2.id, source=f"turn{res.n_questions}_mention_confirm")
@@ -285,6 +316,35 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                             stashed[cf["slot"]] = cf["mention"]
                     if cf["kind"] == "d50_confirm":
                         cf = {**cf, "kind": "d50_not_most_severe"}       # 同一題已因順口值複誦過一次（或複誦關閉）→ 不採用
+                    if cf["kind"] == "conflict" and confirm_on and not {cf["slot"]} & (mention_confirmed | d50_confirmed):
+                        # D-54（裁定 #16）：矛盾 → 對該題再問一次（不算題數；每個欄位一次；已 Hard stop 或這句寫入後 Hard stop 不問）
+                        q2 = next((x for x in qb0.values() if x.slot_id == cf["slot"]), None)
+                        trial = state.copy()
+                        if value is not None:
+                            trial.set(q.slot_id, value, asked_by=q.id, source="confirm_trial")
+                        # D-50 範圍內：已是最嚴重一級或與順口值同級 → 再問不可能改值，不問
+                        moot = q2 is not None and in_scope(q2) and (severity(q2, cf["known"]) == 0
+                                                                    or severity(q2, cf["known"]) == severity(q2, cf["mention"]))
+                        if q2 is not None and not moot and not engine.decide(trial).hard_stop:
+                            mention_confirmed.add(cf["slot"])
+                            cf = {**cf, "reasked": True}
+                            thr2 = crit_conf if (q2.priority == "redflag" or q2.id in crit_qs) else min_conf
+                            prompt2 = reask_prompt(q2)
+                            c2 = patient.confirm(q2, prompt2)
+                            found2 = extractor(tw(c2.utterance_zh), q2, confirm_prompt=prompt2)
+                            c2_value = found2.get(q2.slot_id)
+                            reply_mentions.append((found2, q2, c2.utterance_zh, f"turn{res.n_questions}_reask_mention"))   # D-54（H2、N1）
+                            heard2 = c2_value if c2.stt_confidence >= thr2 and c2_value != "unknown" else None    # H1：「不記得」也是不明
+                            # D-50 範圍內維持取較嚴重者（既有裁定，再問不覆蓋）；範圍外以再問的答案為準，答案不明保留原值
+                            value2 = (resolve_confirm(q2, cf["known"], heard2)[0] if in_scope(q2)
+                                      else (cf["known"] if heard2 is None else heard2))
+                            state.set(q2.slot_id, value2, asked_by=q2.id, source=f"turn{res.n_questions}_reask")
+                            asked.add(q2.id)
+                            rec = {"case_id": case.id, "turn": res.n_questions, "during_question_id": q.id, "question_id": q2.id,
+                                   "slot": q2.slot_id, "known": cf["known"], "mention": cf["mention"], "utterance_zh": reply.utterance_zh,
+                                   "prompt_zh": prompt2, "reply_zh": c2.utterance_zh, "reply_value": c2_value, "value": value2}
+                            res.reasks.append(rec)
+                            audit.emit(call_id, "mention_reask", rec)
                     res.mention_conflicts.append({"case_id": case.id, "turn": res.n_questions, "question_id": q.id, **cf,
                                                   "utterance_zh": reply.utterance_zh})
             turn = Turn(q.id, q.slot_id, value, reply.utterance_zh, reply.stt_confidence, repeated)
@@ -304,7 +364,12 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                 basis = value if stash_basis is None else stash_basis
                 prompt = confirm_prompt(q, basis)
                 c = patient.confirm(q, prompt)
-                c_value = c.value if extractor is None else extractor(tw(c.utterance_zh), q, confirm_prompt=prompt).get(q.slot_id)
+                if extractor is None:
+                    c_value = c.value
+                else:
+                    found_c = extractor(tw(c.utterance_zh), q, confirm_prompt=prompt)
+                    c_value = found_c.get(q.slot_id)
+                    _reply_mentions(state, found_c, q, c.utterance_zh, res, f"turn{res.n_questions}_confirm_mention")   # D-54（H2）
                 heard = c_value if c.stt_confidence >= thr else None    # 確認回答信心偏低 → 視為未確認
                 turn.answer, turn.confirm_downgrade_blocked = resolve_confirm(q, basis, heard)
                 turn.pre_confirm_answer, turn.confirm_prompt_zh = value, prompt
@@ -317,6 +382,7 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                                                  "mention": stash_basis, "utterance_zh": reply.utterance_zh, "prompt_zh": prompt,
                                                  "reply_zh": c.utterance_zh, "reply_value": c_value, "reply_structured": c.value,
                                                  "value": turn.answer})
+                d50_confirmed.add(q.slot_id)
                 res.n_confirms += 1
                 res.n_confirm_changed += int(turn.answer != basis)
                 res.n_confirm_downgrade_blocked += int(turn.confirm_downgrade_blocked)
@@ -324,9 +390,18 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                                                      "prompt_zh": prompt, "reply_text": c.utterance_zh,
                                                      "reply_value": c_value, "reply_confidence": c.stt_confidence,
                                                      "value": turn.answer, "downgrade_blocked": turn.confirm_downgrade_blocked})
-            state.set(q.slot_id, turn.answer, asked_by=q.id, source=f"turn{res.n_questions}")
+            adopted = turn.answer
+            if q.id == "Q-CHARACTER-01":
+                # D-54：開場白或順口提到的性質再問一次 → 依 confirm_back_severity 取較嚴重者（答不知道、沒有 → 保留原來的）
+                prior = state.get(q.slot_id) if state.known(q.slot_id) else stashed.get(q.slot_id)
+                if prior is not None:
+                    adopted = resolve_confirm(q, prior, turn.answer)[0]
+            state.set(q.slot_id, adopted, asked_by=q.id, source=f"turn{res.n_questions}")
+            for found2, q2, utt2, src2 in reply_mentions:
+                # D-54（N1）：寫在直接回答之後，紅旗「有」照 _write_mentions 的規則覆蓋同題的「沒有」，其他矛盾只記 conflict
+                _reply_mentions(state, found2, q2, utt2, res, src2)
             res.turns.append(turn)
-            audit.emit(call_id, "slot_update", {"slot": q.slot_id, "value": turn.answer, "question_id": q.id})
+            audit.emit(call_id, "slot_update", {"slot": q.slot_id, "value": adopted, "question_id": q.id})
             d = engine.decide(state)       # 每句都重跑：紅旗逐句檔
             if d.hard_stop:
                 res.hard_stop_turn = res.n_questions
@@ -334,6 +409,13 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
                 res.stop_reason = "hard_stop"
                 audit.emit(call_id, "redflag_hit", {"rf": d.rf_hits, "turn": res.n_questions})
                 break
+    # D-54（裁定 #16）：把再問前的值放回去重算（反事實），最終因再問而較不急才算 reask_downgrade
+    for rec in res.reasks:
+        trial = state.copy()
+        trial.set(rec["slot"], rec["known"], asked_by=rec["question_id"], source="reask_counterfactual")
+        if _urgency(state) > _urgency(trial):
+            res.reask_downgrades.append(rec)
+            audit.emit(call_id, "reask_downgrade", rec)
     res.final = d
     res.final_slots = state.as_dict()
     res.final_state = state.copy()

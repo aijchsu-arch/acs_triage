@@ -152,7 +152,7 @@ def test_unclassified_and_conflicting_mentions_are_not_written():
                                    mentions=[("symptom_character", "胸口脹脹的", "tightness"), ("nausea", "想吐", "true"),
                                              ("nausea", "不想吐", "false")],
                                    unclassified=[("symptom_character", "胸口脹脹的")]), "沒有，胸口脹脹的。", q)
-    assert slots == {"diaphoresis": False}
+    assert slots == {"diaphoresis": False, "chest_discomfort_mentioned": True}          # D-54（裁定 #15）：性質不寫，但記下提過胸口不適
     assert diag["unclassified"] == [{"slot": "symptom_character", "phrase": "胸口脹脹的"}]
 
 

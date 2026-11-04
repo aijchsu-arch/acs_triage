@@ -72,7 +72,7 @@ class RuleExtractor:
         for slot_id in ["presyncope", "syncope", "ongoing_now", "diaphoresis", "cant_finish_sentence",
                         "dyspnea_acute", "orthopnea_pnd", "edema", "onset_new", "rest_symptom",
                         "rest_symptom_first_time", "threshold_decreased", "ntg_use_increased",
-                        "recurrence", "cad_history", "pci_history", "antiplatelet_interrupted",
+                        "episode_frequency_increased", "recurrence", "cad_history", "pci_history", "antiplatelet_interrupted",
                         "third_party_call", "patient_reachable", "palpitations", "postural_dizziness",
                         "new_medication_recent", "reproducible_mechanical", "cough_related",
                         "postprandial_relieved", "pending_abnormal_test", "drug_time_correlation"]:
@@ -121,6 +121,8 @@ class RuleExtractor:
             char = "none"
         if char is not None:
             out["symptom_character"] = char
+        elif self._find_positive(text, masked, sc["chest_mention_patterns"]):
+            out["chest_discomfort_mentioned"] = True       # D-54（裁定 #15）
         chest_present = char not in (None, "none")
 
         # --- dyspnea_grade ---
@@ -234,7 +236,7 @@ class RuleExtractor:
             out.get(k) is True for k in ("palpitations", "presyncope", "syncope", "orthopnea_pnd",
                                          "postural_dizziness", "edema", "reproducible_mechanical",
                                          "cough_related", "postprandial_relieved", "dyspnea_acute",
-                                         "ntg_use_increased", "ongoing_now"))
+                                         "ntg_use_increased", "episode_frequency_increased", "ongoing_now"))
         if symptomatic:
             out["consult_topic"] = "symptom"
         else:

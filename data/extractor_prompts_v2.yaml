@@ -3,7 +3,7 @@
 # 只依開發集（119 例開發情境的逐字稿與 Whisper 轉寫）調整；保留集 data/synth/ 不得用來調整（D-52）。
 # v1（data/openai_prompts.yaml slot 0.3 ＋ data/extractor_prompts.yaml 0.1）維持不變，sim.e2e_llm 照舊可重現。
 
-prompts_version: "2.0-dev21"
+prompts_version: "2.0-dev24"
 based_on: "openai_prompts.yaml 0.3（slot 規則 1–4）＋ extractor_prompts.yaml 0.1（開場白規則 1–5）"
 
 # 不放進 mentions 的 slot：consult_screen_positive 是 Q-SCREEN-01 合併篩檢的答案，答「沒有」會衍生三個否認（state._derive），
@@ -16,7 +16,7 @@ mention_excluded_slots: [consult_screen_positive]
 # 丟棄 = 未知，系統照常問該題；被問那題不套這條（由句首判斷與 D-50 複誦處理）。
 # 被問那題（是非題、只問一件事：題目一個問號且不是「…還是…」）：stance 與句首明確的肯定／否定詞相反 → 未知。
 polarity_guard_slots: [ongoing_now, presyncope, syncope, dyspnea_grade, cant_finish_sentence, diaphoresis, symptom_character,
-                      last_episode_timing]
+                      last_episode_timing, chest_discomfort_mentioned]
 # 判斷「片段含否定詞」前另外遮罩的片語（含「不／沒」但不是否認：描述症狀存在，或是疑問句「有沒有」）
 extra_non_negation_masks: [講不完, 說不完, 講不下去, 說不下去, 喘不過氣, 受不了, 停不下來, 還沒好, 沒有好, 沒好, 還沒退, 沒停,
                            有沒有, 會不會, 是不是]
@@ -28,7 +28,7 @@ extra_non_negation_masks: [講不完, 說不完, 講不下去, 說不下去, 喘
 #     上面兩種複誦在「目前已是 Hard stop，或寫入該值（連同同一句的其他值）後會變 Hard stop」時都不做：直接寫入並走 Hard stop
 #     （D-50 不得因確認延誤送醫）；
 #     已知值只在紅旗是非題「有」、confirm_back_severity 較嚴重、或寫入後由非 Hard stop 變成 Hard stop 時才被覆蓋，
-#     其他不同一律保留已知值並記為 conflict。
+#     其他不同一律保留已知值並記為 conflict，對該題再問一次（D-54）。
 # (1) 的否認若片段同時表示不確定（下列字眼）→ 也丟棄：例如「喘的情況我不清楚，他沒跟我講」不是否認。
 uncertainty_markers: [不知道, 不清楚, 不確定, 不太確定, 不太清楚, 沒注意, 沒有注意, 沒特別注意, 沒有特別注意, 沒留意, 說不準, 講不準,
                       不記得, 記不得, 記不清楚, 忘記了, 沒跟我講, 沒跟我說, 沒辦法跟你說, 沒辦法說]
@@ -46,6 +46,7 @@ excluded_choices:
 field_desc_zh:
   dyspnea_complaint: 病人提到會喘、呼吸不順，但沒有說到哪種程度才喘
   third_party_call: 打電話的人不是病人本人（例如家屬代打：「我爸爸」「我媽」）
+  chest_discomfort_mentioned: 病人提到胸口有不舒服或異樣的感覺，但形容對不上 symptom_character 的選項（例如「胸口脹脹的」）；否認胸口不舒服時不要寫
 
 # 選項中文（只給抽取器看）：題目原文列出的選項用題目用語；其餘沿用 sim/patient.py 的 _ZH_CHOICE。
 choice_labels_zh:
@@ -55,7 +56,7 @@ choice_labels_zh:
     pain: 痛、刺痛
     jaw_shoulder_heaviness: 下顎、肩膀或手臂沉重
     epigastric: 上腹悶脹
-    vague: 病人自己說「說不上來」「講不出來」
+    vague: 病人自己說「說不上來」「講不出來」，或提到胸口但只說「胸口不太舒服」「胸口怪怪的」
     none: 胸口沒有不舒服
   dyspnea_grade:
     none: 沒有喘
@@ -66,6 +67,7 @@ choice_labels_zh:
     ongoing: 現在還在不舒服
 
 # 回答句與複誦回答的提示（有被問的題目）。
+# 「發作變頻繁」的例句是 Clinical Owner 裁定 #7（D-54）的說法，不是開發集原句（本段 mentions 與開場白規則 9 同）。
 answer_system_zh: |
   你是心臟科電話衛教專線的紀錄員（模擬訓練，資料全為虛構）。客服剛問了一題，病人（或家屬）回答了一句。
   客服的話只用來理解病人在回答什麼，不是病人說的。請把病人這句話裡「明確說到」的資訊整理成結構化欄位。
@@ -73,9 +75,11 @@ answer_system_zh: |
   一般規則：
   1. 只依病人這句話判斷，不要推測沒說的事。沒說到的欄位不要寫。
   2. 選擇題有把握才歸類：病人的用語要和選項括號裡的說法對得上才選；需要靠臨床判斷才能歸類的，不要選，把病人原話寫進 unclassified，客服會再追問。
-     symptom_character（症狀的感覺）看病人用的字眼：有「壓」（被壓住、壓迫）→ pressure；有「悶」（胸悶、悶悶的）→ tightness；
-     有「痛」→ pain；下顎、肩膀或手臂沉重 → jaw_shoulder_heaviness；上腹悶脹 → epigastric；病人自己說說不上來 → vague；
-     明確說胸口沒有不舒服 → none。其他形容（例如「脹脹的」「緊緊的」「刺刺的」「怪怪的」「不舒服」「不太對勁」）一律不填，寫進 unclassified。
+     symptom_character（症狀的感覺）看病人用的字眼：有「壓」（被壓住、壓迫）→ pressure；有「悶」（胸悶、悶悶的、悶悶脹脹的）或胸口「緊」（胸口緊感、胸口會緊緊的）→ tightness；
+     有「痛」（含「心絞痛」「胸口肌肉按下去會痛」）→ pain；下顎、肩膀或手臂沉重（下巴跟左肩那邊沉沉的）→ jaw_shoulder_heaviness；上腹悶脹（肚子上面悶脹）→ epigastric；
+     病人自己說說不上來，或提到胸口但只說「胸口不太舒服」「胸口怪怪的」→ vague（一定要有提到胸口；單獨的「不舒服」不算）；
+     明確說胸口沒有不舒服 → none。其他形容（例如「脹脹的」「刺刺的」「不舒服」「不太對勁」）一律不填，寫進 unclassified；
+     其中有提到胸口的（例如「胸口脹脹的」）另外寫 chest_discomfort_mentioned＝true。
      病人自己說症狀的感覺「說不上來」「講不上來」→ vague（即使同時說了「怪怪的」）；說不上來的若是位置或時間，不影響症狀感覺的判斷
      （例如「比較像被壓住的感覺，位置我說不太上來」→ pressure）。
   3. 病人明確否認（例如「沒有昏倒」「不會冒汗」）→ 是非題是 false；選擇題要有 none（沒有）選項才寫 none。
@@ -92,13 +96,16 @@ answer_system_zh: |
     「沒有」「不會」「現在沒有了」「已經好了」「都有按時吃」這類說法是 no，不是 yes。
   - 選擇題：先抄 evidence，再判斷 status：answered＝病人有回答且用語對得上某個選項（value 填那個代碼）；dont_know＝沒回答、不知道；
     cannot_classify＝病人有描述但用語對不上任何選項（依規則 2，例如「脹脹的」）。status 不是 answered 時 value 隨便填一個（會被忽略）。
-    例如問喘的程度時回答「我其實不太會喘」「喘的話倒是沒有」→ answered、none；回答「有沒有喘我不知道」→ dont_know；
+    例如問喘的程度時回答「我不會喘」「喘的話倒是沒有」→ answered、none；回答「我其實不太會喘」→ answered、exertional_heavy（委婉的否認不算沒有）；回答「有沒有喘我不知道」→ dont_know；
     問感覺時回答「比較像被壓住」→ answered、pressure。
   - 時間題：status＝answered（value 填數字）或 dont_know。
 
   mentions：病人順口提到、但不是這題問的其他欄位，每個欄位一筆：slot、evidence（逐字抄的片段）、
   value（是非題寫 true 或 false，選擇題寫選項代碼，時間寫數字）。被問那一題的欄位不要寫進 mentions；沒有就留空陣列。
   - 回答時順帶描述的症狀感覺也要寫：例如回答「現在還在嗎」時說「有，現在胸口還是悶悶的」→ mentions 要有 symptom_character＝tightness。
+  - 發作的情境也要寫：「剛剛就是吃飽坐著的時候」→ rest_symptom＝true；「晚上躺下會覺得比較喘要墊高枕頭」→ orthopnea_pnd＝true、rest_symptom＝true（dyspnea_grade 不要寫，客服會問）。
+  - 說發作變頻繁 → episode_frequency_increased＝true；舌下含片用量變多是 ntg_use_increased。
+  - 「胸口肌肉按下去會痛，深呼吸也痛」→ symptom_character＝pain、reproducible_mechanical＝true；沒說到的紅旗不要因此推定沒有。
   - 只寫病人直接說出的事，不要從題目或語氣推論：例如「最近有悶過」不代表「現在還在」（ongoing_now），也不代表「第一次」（rest_symptom_first_time）。
 
   unclassified（只用於選擇題欄位）：病人有描述、但用語不是選項括號裡的說法、你沒把握歸到哪個選項的，寫該欄位與病人原話。
@@ -130,11 +137,19 @@ opening_system_zh: |
   6. 選擇題有把握才填：病人的用語要和選項括號裡的說法對得上才選；需要臨床判斷才能歸類的，該欄填 null，並把病人原話寫進 unclassified（客服會再追問）。
      symptom_character 看病人用的字眼：有「壓」（被壓住、壓迫）→ pressure；有「悶」（胸悶、悶悶的）→ tightness；有「痛」→ pain；
      下顎、肩膀或手臂沉重 → jaw_shoulder_heaviness；上腹悶脹 → epigastric；病人自己說說不上來 → vague；明確說胸口沒有不舒服 → none。
-     其他形容（例如「脹脹的」「緊緊的」「刺刺的」「怪怪的」「不舒服」）填 null、寫進 unclassified。
+     有「緊」（胸口緊感、胸口會緊緊的）→ tightness；下巴跟左肩那邊沉沉的 → jaw_shoulder_heaviness；肚子上面悶脹 → epigastric。
+     提到胸口但只說「胸口不太舒服」「胸口怪怪的」→ vague（一定要有提到胸口；單獨的「不舒服」不算）。
+     其他形容（例如「脹脹的」「刺刺的」「不舒服」）填 null、寫進 unclassified；其中有提到胸口的（例如「胸口脹脹的」）另外填 chest_discomfort_mentioned＝true。
      unclassified 只放選擇題欄位；沒有就留空陣列。
   7. 沒有提到的症狀不是否認：例如病人只說胸口悶、沒提到喘，dyspnea_grade 填 null，不是 none；只說「沒有不舒服」，沒說到的症狀一樣填 null。
+     「我其實不太會喘」→ dyspnea_grade＝exertional_heavy（委婉的否認不算沒有）；「我不會喘」→ none。
   8. 先寫 evidence：把開場白提到的每一件事逐一列出（slot 與病人原話的片段，逐字抄）；否認的事，片段要包含病人否認的那幾個字。
      再依 evidence 逐欄填值：evidence 有列的欄位照原話填，沒列的欄位填 null。
+  9. 「心絞痛」→ symptom_character＝pain；同時說發作變頻繁 → episode_frequency_increased＝true。舌下含片用量變多填 ntg_use_increased＝true
+     （例如「我的心絞痛以前一個月含一次舌下片，這兩個禮拜變成一個禮拜兩三次」→ pain、ntg_use_increased＝true）。
+  10. 「胸口肌肉按下去會痛，深呼吸也痛，走路不會更痛」→ symptom_character＝pain、reproducible_mechanical＝true；沒說到的紅旗（冒汗、昏倒等）一樣填 null，不要因此推定沒有。
+  11. 「晚上躺下會覺得比較喘要墊高枕頭」→ orthopnea_pnd＝true、rest_symptom＝true；dyspnea_grade 填 null（不推定坐著休息也喘，客服會問）。
+  12. 「剛才胸口一陣壓迫感，站起來時差點昏倒」→ symptom_character＝pressure、last_episode_timing＝today、presyncope＝true；沒說現在還在，ongoing_now 填 null（不推定仍在發作）。
   欄位（冒號後是對應的客服題目或說明）：
   {fields}
 

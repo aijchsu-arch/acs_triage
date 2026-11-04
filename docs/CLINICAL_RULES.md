@@ -1,6 +1,6 @@
 # 臨床規則（Clinical Rules）
 
-**rules_version**: 0.8.0 · 2026-10-22（0.8.0 含兩項 Clinical Owner 2026-10-22 裁定：紅旗題與關鍵題有條件複誦確認，取值用固定嚴重度順序（D-50，§5.10）；異常檢查待追蹤 → 至少 T1，不論有無症狀（§5.4、§5.8）。D-46：Q-REST-02 列入 STT 關鍵題 0.9。D-45：Q-05 裁定——僅激烈運動才喘 → T2、反覆休息時症狀且型態不變 → T3、穩定症狀＋抗血小板中斷 → T3+expedite；T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問新發／開始週數。D-44：DV-5 不接受 unclear、vague → T9）
+**rules_version**: 0.9.0 · 2026-11-02（0.9.0 為 Clinical Owner 2026-11-02 裁定，D-54：既有型態下發作變頻繁 → T0（§5.3）；開場白概括否認照原流程逐題問（§5.11）；提到胸口不適但性質未知視為胸部症狀、開場白 vague 再問一次性質（§5.12）；順口值矛盾再問（§5.13）；題數上限 12（§5.14）。Clinical Owner 2026-11-03 追加（rules 仍 0.9.0）：有呼吸症狀者 T1–T4 定案前端坐呼吸／PND 與今日突發喘必須已知（H3，§5.9）；性質未知或 vague 合併呼吸症狀時的問題順序 D 與活動題提前（§5.12-2）。0.8.0 含兩項 Clinical Owner 2026-10-22 裁定：紅旗題與關鍵題有條件複誦確認，取值用固定嚴重度順序（D-50，§5.10）；異常檢查待追蹤 → 至少 T1，不論有無症狀（§5.4、§5.8）。D-46：Q-REST-02 列入 STT 關鍵題 0.9。D-45：Q-05 裁定——僅激烈運動才喘 → T2、反覆休息時症狀且型態不變 → T3、穩定症狀＋抗血小板中斷 → T3+expedite；T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問新發／開始週數。D-44：DV-5 不接受 unclear、vague → T9）
 **Clinical Owner**: Joseph（心臟內科）
 **治理**：本文件與 `data/clinical_rules.yaml` 的任何變更，PR 必須由 Clinical Owner 核可，並 bump `rules_version`。Claude Code **不得**自行新增、刪除或改寫任何紅旗、閾值或等級定義；可以改措辭以外的事只有在 Clinical Owner 明確指示下進行。
 
@@ -83,9 +83,10 @@
 T0 永遠先於其他等級評估；§5.6 的 T3 carve-out 只在 **T0 條件全部不成立**時才生效。
 
 ### 5.1 Slot 清單
-與 `data/question_bank_seed.yaml` 一致。v0.3.0 變更：`orthopnea_pnd_edema` 拆為 `orthopnea_pnd` 與 `edema`；新增 `last_episode_timing`、`recurrence`、`onset_weeks_ago`、`threshold_decrease_timescale`、`palpitations`、`postural_dizziness`、`new_medication_recent`、`reproducible_mechanical`、`cough_related`、`postprandial_relieved`、`pending_abnormal_test`、`consult_topic`、`recent_pci_months`、`symptom_vs_pre_pci`。
+與 `data/question_bank_seed.yaml` 一致。v0.3.0 變更：`orthopnea_pnd_edema` 拆為 `orthopnea_pnd` 與 `edema`；新增 `last_episode_timing`、`recurrence`、`onset_weeks_ago`、`threshold_decrease_timescale`、`palpitations`、`postural_dizziness`、`new_medication_recent`、`reproducible_mechanical`、`cough_related`、`postprandial_relieved`、`pending_abnormal_test`、`consult_topic`、`recent_pci_months`、`symptom_vs_pre_pci`。v0.9.0 新增：`episode_frequency_increased`、`chest_discomfort_mentioned`。
 
 「缺血等價症狀」= `symptom_character ∈ {pressure, tightness, pain, jaw_shoulder_heaviness, epigastric}`。
+「胸部症狀存在」= `symptom_character ∈ {上列, vague}`；`symptom_character` 未知而 `chest_discomfort_mentioned == true` 時也算（§5.12）；已知（含 `none`）以已知值為準。
 
 ### 5.2 Hard stop
 任一 RF 命中（§3）→ `tier=0, hard_stop=True`。
@@ -96,10 +97,11 @@ T0 永遠先於其他等級評估；§5.6 的 T3 carve-out 只在 **T0 條件全
   - **時序與豁免（Q-14d C）**：非缺血型豁免（§5.6 刺痛可重現、刺痛咳嗽、上腹餐後）不論時序一律適用、不進 T0；勞累型豁免（DV-2 新發穩定 ≥2 週、DV-4 PCI 後較輕）**只在時序不明時**適用——病人明確說今天或仍在發作 → T0。
 - `threshold_decreased == true` 且 `threshold_decrease_timescale ∈ {days, unknown}`（C3 B；A2）
 - `rest_symptom == true` 且 `rest_symptom_first_time == true`（新發休息時症狀；A5）
-  - **`rest_symptom` 餐後判定（D-35）**：吃飽後胸口不適，**快速緩解**（如打嗝後就好）不算 `rest_symptom`（可適用 §5.6 DV-5 carve-out）；**沒有快速緩解** → `rest_symptom = true`，依本條判定（首次 → T0）。
+  - **`rest_symptom` 餐後判定（D-35）**：吃飽後胸口不適，**快速緩解**（如打嗝後就好）不算 `rest_symptom`（可適用 §5.6 DV-5 carve-out）；**沒有快速緩解** → `rest_symptom = true`，依本條判定（首次 → T0）。Clinical Owner 2026-11-02 裁定 #14：病人說「剛剛就是吃飽坐著的時候」→ `rest_symptom = true`（抽取器提示；閉環 S-MID-13 因此判 T0、對照 T3，已接受為偏急）。
 - `dyspnea_acute == true`（今日突發且與基線明顯不同；A3）
 - `ntg_use_increased == true`（NTG 用量明顯增加，即使仍為勞累性；C4 A；B3）。指**既有型態下**用量增加；新發病人首次使用不算（B19）(DV-6)
 - `orthopnea_pnd == true`（端坐呼吸／PND；C1 B；B11）
+- `episode_frequency_increased == true`（既有型態下發作次數變多；T0-FREQ-INCREASED，Clinical Owner 2026-11-02 裁定 #7，比照 `ntg_use_increased`）。範圍同 DV-6：指既有型態；程式與 `ntg_use_increased` 一樣不以 `onset_new` 排除，新發病人答「有」也判 T0（偏急方向，Clinical Owner 2026-11-02 裁定）
 
 ### 5.4 T1（Same-day）
 T0 不成立，且以下任一：
@@ -120,7 +122,7 @@ T0／T1 不成立，且以下任一：
 ### 5.6 T3（Routine）
 T0／T1／T2 不成立，且以下任一：
 - **穩定型**（A7、A8、A10）：全部成立 — `cad_history == true` 或已知穩定型態；`pattern_unchanged_duration_months >= 6`；`rest_symptom == false`；無 `dyspnea_acute`、`presyncope`、`syncope`；`threshold_decreased == false`
-- **穩定型（反覆休息時症狀）**（Q-05 S-ACUTE-05#1，D-45）：`cad_history == true` 或已知穩定型態（定案前須問到）；`pattern_unchanged_duration_months >= 6`；`rest_symptom == true` 但 `rest_symptom_first_time == false`；`onset_new != true`；已緩解（`ongoing_now != true`）；**明確** `threshold_decreased == false` 且 `ntg_use_increased == false`；無 `dyspnea_acute`、`presyncope`、`syncope`、端坐呼吸、靜止喘。首次休息時症狀仍為 §5.3 T0
+- **穩定型（反覆休息時症狀）**（Q-05 S-ACUTE-05#1，D-45）：`cad_history == true` 或已知穩定型態（定案前須問到）；`pattern_unchanged_duration_months >= 6`；`rest_symptom == true` 但 `rest_symptom_first_time == false`；`onset_new != true`；已緩解（`ongoing_now != true`）；**明確** `threshold_decreased == false`、`ntg_use_increased == false` 且 `episode_frequency_increased == false`（rules 0.9.0）；無 `dyspnea_acute`、`presyncope`、`syncope`、端坐呼吸、靜止喘。首次休息時症狀仍為 §5.3 T0
 - 任一 T3 條件成立 ＋ `antiplatelet_interrupted == true` → T3 並附 `expedite`（Q-05 S-STABLE-02#0，D-45；程式範圍為所有 T3 規則；新發症狀＋中斷仍為 §5.4 T1）。`expedite` 只在 T3 附加；被異常檢查待追蹤的下限提高到 T1 時不附（rules 0.8.0）
 - **行政性來電**（A9）：`consult_topic == appointment_admin`（門診時間、排程等事務）且病人明確否認新發胸悶、喘、暈 (DV-7)
 - `antiplatelet_interrupted == true` 且無症狀 → T3 + `expedite`（C7 C；B4）
@@ -138,7 +140,7 @@ T0–T3 不成立，且：
 ### 5.8 Tier 9（資訊不足）
 以下任一：
 - 無法判定 `onset_new` 與 `pattern_unchanged`（既不知新發也不知穩定）
-- `symptom_character` 未定性（「怪怪的」「不太舒服」「說不上來」）——D-44 實作為 `T9-VAGUE-CHARACTER`：T0-NEW-TODAY 以缺血等價症狀為前提、vague 不成立；不依賴症狀性質的 T0 觸發因子（§5.3 其餘各條）仍優先升 T0；紅旗判定不變（vague 仍算胸部症狀）。**例外**（Clinical Owner 2026-10-18）：(A) 穩定型（§5.6 全部條件）成立且 `onset_new` 不為 true → 可定案 T3；(B) `onset_new == true` 且 `exertion_relation == exertion_only` → 視同缺血等價症狀，走一般規則
+- `symptom_character` 未定性（「怪怪的」「不太舒服」「說不上來」；性質只來自開場白或順口提到者，還有題數時再問一次，見 §5.12）——D-44 實作為 `T9-VAGUE-CHARACTER`：T0-NEW-TODAY 以缺血等價症狀為前提、vague 不成立；不依賴症狀性質的 T0 觸發因子（§5.3 其餘各條）仍優先升 T0；紅旗判定不變（vague 仍算胸部症狀）。**例外**（Clinical Owner 2026-10-18）：(A) 穩定型（§5.6 全部條件）成立且 `onset_new` 不為 true → 可定案 T3；(B) `onset_new == true` 且 `exertion_relation == exertion_only` → 視同缺血等價症狀，走一般規則
 - `third_party_call == true` 且 `patient_reachable == false`
 - 呼吸困難但 `dyspnea_grade` 與 `dyspnea_acute` 皆未知
 - 問題數達 `MAX_QUESTIONS` 仍未滿足 §5.3–§5.7 任一
@@ -159,7 +161,8 @@ T0–T3 不成立，且：
 - 判 T1／T2：對應條件的全部 slot 有高信心值，且 `rest_symptom`、`ongoing_now`、`diaphoresis` 已確認。T1（閾值數週下降）另需 `onset_new` 已知（新發 → T0；D-45）。
 - 判 T3：對應條件的全部 slot 有高信心值；穩定型另需 `rest_symptom`、`threshold_decreased`、`dyspnea_acute` 皆為 false。PCI 後較輕（DV-4）另需 `onset_weeks_ago` 已知（≥2 週 → DV-2 T2；D-45）。
 - 判 T4：`consult_topic` 已確認且三項否認（胸悶、喘、暈）皆有高信心值。
-- **所有 T1–T4（Q-14b）**：有胸部症狀者，`rest_symptom`、`threshold_decreased`、`ntg_use_increased` 必須已知（三個 T0 觸發因子都排除才能定案）。
+- **所有 T1–T4（Q-14b）**：有胸部症狀者，`rest_symptom`、`threshold_decreased`、`ntg_use_increased`、`episode_frequency_increased`（rules 0.9.0）必須已知（T0 觸發因子都排除才能定案）。
+- **有呼吸症狀者的 T1–T4（Clinical Owner 2026-11-03，D-54 H3）**：`dyspnea_present` 為真時，`orthopnea_pnd`、`dyspnea_acute`（呼吸的 T0 因子）必須已知。
 - **第三方來電（Q-14c）**：`patient_reachable` 必須已知。
 - **勞累型豁免（DV-2、DV-4；Q-14d C）**：`last_episode_timing` 必須已知（答「不記得」算已知），否則不問就永遠豁免。
 - **無症狀諮詢（T3 行政、T3 抗血小板中斷無症狀、T4；Q-14f）**：心悸、姿勢性頭暈、檢查異常待追蹤必須已知；以一題合併篩檢詢問，答「沒有」即三項皆 false。
@@ -189,6 +192,25 @@ Clinical Owner 裁定（2026-10-22，方案 1）：「紅旗題和關鍵題的�
    - 原值與確認值都已知 → 取較嚴重者；**同級保留原值**；確認值較不嚴重而保留原值者記為 `confirm_downgrade_blocked`。原值不明 → 採確認值。確認回答不明 → 是非題原值「沒有」改為未知（未經確認的紅旗否認不採信），其他情況保留原值。
 7. **計數與紀錄**：複誦不算進 `max_questions`（比照再說一次）；評估報告列複誦總數、平均每通次數、確認後改值次數、確認值較不嚴重而保留原值的次數；audit 記 `confirm_back` 事件（確認前的值、複誦文字、確認回答、採用的值、是否擋下降級）。
 8. **實作補充與窮舉**：(a)（規格未涵蓋，取安全方向，待 Clinical Owner 確認）是非題值為「沒有」但句首是肯定詞（如「有，…」）→ 也複誦；(b)（同上）確認回答本身的 STT 信心低於該題門檻 → 視為確認回答不明，依第 6 點處理（不再追問第二次）；(c) 窮舉（`tests/test_confirm_back.py`）：每次複誦把回答換成該題每個合法值（含不明），共 1,206 種（病人是非題句首被吞掉、其餘照事實清單回答、一次只改一次複誦）。**原值已知時 0 種**最終比不複誦更不急。原值不明、複誦得到較不嚴重答案（等同重問）有 3 種：S-INSUF-04 與 S-INSUF-04#1 呼吸分級不明 → 複誦答「沒有」（推導出沒有今天突發喘等，之後不再問；#1 T0 → T9，S-INSUF-04 同為 T9 但備援 T1 → T3）；S-MID-13#3 Q-REST-02 不明 → 複誦答「不是最近才開始」（不明時以首次視之的 T0-REST-NEW 不再成立，T0 → T9）。獨立驗收的反例 S-INSUF-04#2（「走路做家事就喘」被複誦聽成「只有激烈運動才喘」）依順序表保留原值，維持 T2。
+
+### 5.11 開場白概括否認（Clinical Owner 2026-11-02 裁定 #11，D-54）
+開場白說「沒有不舒服／沒有任何不舒服／目前沒有症狀」→ 照原流程逐題問，紅旗題不省略；抽取器也不因此推定其他症狀否認。曾試做「一題合併確認」後放棄（依據見 D-54）。
+
+### 5.12 提到胸口不適但性質未知；開場白 vague 再問（Clinical Owner 2026-11-02 裁定 #4、#5、#15，D-54）
+1. `chest_discomfort_mentioned`（抽取器與關鍵字路徑都能設；順口提到胸部症狀性質、但依 §5.10 暫不寫入時也設）：`symptom_character` 未知時視為胸部症狀，RF-01／RF-03／RF-06 因此可及早觸發；性質已知（含 none）以已知值為準。
+   問過性質仍未知 → 比照 §5.8 vague（T9，例外 A、B 同），唯一不同是新發今天保留 T0-NEW-TODAY（規格未涵蓋，取較急方向，待 Clinical Owner 確認）。
+2. **問題順序**：`symptom_character` 未知或 vague 而視為胸部症狀時，胸部紅旗題（現在還在、快昏倒、冒冷汗）排在呼吸分級之前；性質已知者沿用題庫順序。性質未知（只提過胸口）者胸部紅旗題問完後接著問 Q-CHARACTER-01。胸部症狀（含 vague、只提過胸口）合併呼吸症狀時，紅旗題問完先問 Q-DYSPNEA-ACUTE-01、Q-ORTHO-01（H3），呼吸的 T0 因子不被題數上限擠掉；性質未知或 vague 者接著問新發 Q-ONSET-01，確定不是新發 → 接著問 4 個胸部 T0 因子 Q-REST-01、Q-NTG-01、Q-THRESHOLD-01、Q-FREQ-01（新發今天這條不可能成立，性質題延後），之後才是 gate 缺項與決定題（順序 D）。vague 合併呼吸症狀、新發已確定、活動關係未知 → 決定題先問 Q-EXERTION-01（D-44 例外 B 由它決定）。以上為 Clinical Owner 2026-11-03 裁定（D-54）。
+3. **開場白或順口的性質再問一次**：gate 必問題優先，再問只在還有題數時才問——資訊還不足（T9）時排在時序題 Q-TIMING-01 之後；有呼吸症狀時提前到決定題最前面（排在第 2 點的順序 D 之後；呼吸類決定題會用掉題數，排後面就問不到性質）；gate 已通過時，先留題數給待追蹤檢查（§5.4），有剩才問。依 §5.10-6 取較嚴重者（答「悶」改 tightness；答沒有、其他或不知道 → 保留原值）。直接回答的 vague（D-40）不再問。Hard stop／T0 不加問（不得延誤送醫）；只提過胸口、性質未知而 T0 只靠 T0-NEW-TODAY 者，不論 gate 過了沒，紅旗題問完就問性質（性質決定這條成不成立；T0 最多晚一題定案），問不出來維持 T0。實測（開發集開場白含「胸口不太舒服／怪怪的」9 例 × 5 性質 × 5 時序 × 6 組其他事實，1,350 組，真實性質為缺血等價症狀，對照開場白就說出性質）：問到性質 1,110 組（順序 D 後；H3 後為 1,200）；T0 掉到 T9 0 組；T1 → T9（備援 T1，急迫度相同）90 組、T2／T3 → T9（較急）135 組，都是到題數上限或性質問到前已判 T9；與順序 D 前逐組急迫度相同。
+
+### 5.13 順口值矛盾再問（Clinical Owner 2026-11-02 裁定 #16，D-54）
+閉環（有抽取器）才會發生：順口值與已知值衝突、原本只記 conflict → 對該題再問一次原題，句型沿用 §5.10-5（值不明的兩種句型；題目是二選一問法時不加「請您回答有還是沒有」），不算題數。
+1. 每個欄位最多一次，與直接問時的 §5.10 複誦合計最多一次額外確認；已 Hard stop、或這句寫入後即 Hard stop → 不問；該欄位沒有問句 → 只記 conflict；§5.10 範圍內已是最嚴重一級或與順口值同級 → 再問不可能改值，不問。
+2. **取值**：§5.10 範圍外的欄位以再問的答案為準，答案不明（含答「不記得」unknown、信心偏低）保留原值。§5.10 範圍內的欄位維持「取較嚴重者」（§5.10-6），再問不覆蓋。
+3. **紀錄**：通話結束時把再問前的值放回最後狀態重算，最終結果因再問而較不急者記 `reask_downgrade`（`RunResult.reask_downgrades`、audit `reask_downgrade`、評估報告與閉環報告「順口值矛盾再問」列）。只放回值、不重跑對話，所以路徑分岔造成的差異記不到（例如 S-MID-04#0 的 T0→T1）；全部再問與改值明細在閉環 JSON 的 `reasks`，須人工看。
+4. **回覆裡的其他欄位**：再問與 §5.10 複誦（含順口值觸發的複誦）的回覆裡順口提到的其他欄位，照一般回答寫入（紅旗「有」可因此 Hard stop）；只記 conflict，不再遞迴複誦或再問。這些順口值在該回合的直接回答寫入之後才寫，紅旗「有」照規則覆蓋同題直接回答的「沒有」（D-54 第五輪 N1）。
+
+### 5.14 題數上限（Clinical Owner 2026-11-02，D-54）
+`max_questions` = 12，所有問題都計入（含 Q-FREQ-01、開場白 vague 的再問）；只有再說一次（D-43）、§5.10 複誦、§5.13 矛盾再問不計。Q-FREQ-01 與 Q-NTG-01 分開問。超過上限照常走 T9（§5.8）。有呼吸症狀時 §5.9 H3 的兩題也計入，vague／只提過胸口合併呼吸症狀者較常到上限（D-54 驗證）。
 
 ---
 
@@ -280,7 +302,7 @@ Safety net 腳本：
 | DV-4 | PCI 後新輕症、較術前輕、純勞累、無休息、無閾值下降 → T3；任一不成立 → 不適用 | B8=3 |
 | DV-5 | B13 carve-out 的條件（上腹不適〔Q-14e 增列〕、吃飽後、打嗝完全緩解、非活動相關、無冒汗）缺一即不適用，回到一般規則 | B13=3 |
 
-| DV-6 | `ntg_use_increased` 指既有型態下用量增加；新發病人首次使用 NTG（即使有效）不觸發 C4 A 的 T0，仍依 DV-1 時序判定 | B19=1 與 C4 A 並存 |
+| DV-6 | `ntg_use_increased` 指既有型態下用量增加；新發病人首次使用 NTG（即使有效）不觸發 C4 A 的 T0，仍依 DV-1 時序判定。`episode_frequency_increased` 範圍相同（既有型態下發作次數變多；Clinical Owner 2026-11-02 裁定 #7） | B19=1 與 C4 A 並存 |
 | DV-7 | 無症狀諮詢的分流：門診時間／排程事務 → T3（走例行門診流程）；衛教性問題（回診前空腹、飲食、運動）、藥物處理、輕微非心臟問題 → T4 | A9=3 vs B20=4 |
 
 ### 9.2 待確認

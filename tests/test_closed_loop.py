@@ -263,6 +263,7 @@ def _guard_env(tmp_path, monkeypatch):
     monkeypatch.setattr(cl, "FREEZE_PATH", tmp_path / "freeze.json")
     monkeypatch.setattr(cl, "HOLDOUT_REGISTRY", tmp_path / "runs.json")
     monkeypatch.setattr(cl, "load_set", boom)
+    monkeypatch.setattr(cl, "check_structured_version", lambda *a: None)     # D-54：版本檢查另有測試（test_d54）
     return cl
 
 
@@ -585,6 +586,12 @@ def test_asked_unknown_rest_first_time_then_denial_mention_forces_confirm():
         def pending_test_question(self, state, decision, asked):
             return None
 
+        def character_followup_question(self, state, decision, asked):
+            return None
+
+        def vague_recheck_question(self, state, decision, asked):
+            return None
+
     case = CASES["S-STABLE-01#0"]
     for reply_value, expect in ((None, None), (False, False)):
         prompts = []
@@ -660,7 +667,7 @@ def test_d50_injection_never_less_urgent_than_no_mention_or_accept_all(mode, mon
                 worse_none.append((case.id, slot, v))
             if ua > ub:
                 worse_accept.append((case.id, slot, v))
-            assert a.n_questions <= 11
+            assert a.n_questions <= 12
     assert n > 500 and worse_none == [] and worse_accept == []
 
 
@@ -691,7 +698,7 @@ def test_mention_confirms_count_in_confirm_changed_and_no_loops():
             return {q.slot_id: None, **{s: v for s, v in low.items() if s != q.slot_id}}
         r = run_case(case, extractor=storm)
         slots = [m["slot"] for m in r.mention_confirms]
-        assert len(slots) == len(set(slots)) and r.n_questions <= 11
+        assert len(slots) == len(set(slots)) and r.n_questions <= 12
     # n_confirm_changed：Q-CHARACTER-01 問過抽不出 → 順口「會痛」→ 複誦回答「不是，被壓住」→ 採 pressure（≠ 解讀值 pain）
     case = CASES["S-MID-13#0"]
     seen = []

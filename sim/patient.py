@@ -85,5 +85,5 @@ class ScriptedPatient:
     def confirm(self, q: Question, prompt_zh: str) -> PatientReply:
         """D-50 複誦確認：腳本病人沒有「被聽錯」這回事，照自己剛才的回答再說一次。
         不抽亂數，所以 vague／low_stt 噪聲模式之後各題的回答與沒有複誦時完全相同。"""
-        value = self._said.get(q.id)
+        value = self._said.get(q.id, self.case.slots.get(q.slot_id))     # D-54：矛盾再問的題目可能沒直接問過 → 照事實回答
         return PatientReply(value=value, utterance_zh=self._render(q, value), stt_confidence=1.0)

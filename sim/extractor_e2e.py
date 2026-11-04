@@ -5,7 +5,7 @@ python -m sim.extractor_e2e [--extractor keyword] [--transcripts ...] [--out rep
 - 重放 M2b Opus 病人逐字稿：開場白與每一句回答都交給抽取器，抽出的 slot 值進規則引擎（而非 D-32 的結構化值）。
 - 對話序列固定（照逐字稿），但決策依抽取後的狀態；抽取狀態一觸發 Hard stop 即停（同真實 runner）。
 - rf_reveal_turn 以結構化（真實事實）狀態計算，hard_stop_turn 以抽取狀態計算 → latency = 抽取器晚了幾句才抓到。
-- 近似：真實 runner 可能因抽取狀態不足而多問到 11 題；本重放不補問，所以 Tier 9（轉護理師）可能偏多、under 偏少。
+- 近似：真實 runner 可能因抽取狀態不足而多問到題數上限；本重放不補問，所以 Tier 9（轉護理師）可能偏多、under 偏少。
 - 預設把該句抽到的**所有** slot 都寫入（比照上線行為，BLUEPRINT §3.4「病人自發說出的資訊也要填 slot」）；
   `--asked-only` 則只寫被問那題（同 M2 runner 的結構化答案），兩者差異為抽取器改寫其他 slot 的影響。
 - 防呆：抽取狀態在真紅旗那句之前就誤觸發 Hard stop 的 case 列為 premature（不算命中）。

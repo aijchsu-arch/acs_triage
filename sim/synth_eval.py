@@ -34,6 +34,7 @@ from xml.sax.saxutils import escape
 from acs_triage.extract import extract
 from acs_triage.loaders import REPO_ROOT, question_by_id, rules_version
 from acs_triage.pathway import tier9_fallback
+from acs_triage.prompter.confirm import resolve_confirm
 from acs_triage.rules import RulesEngine, SlotState
 
 from .cases import Case
@@ -115,6 +116,8 @@ def replay(case: Case, transcript: dict[str, Any]) -> dict[str, Any]:
         state.set(k, None, source="reset_for_variant")
     for i, t in enumerate(transcript["turns"], 1):
         v = t["confirm"]["adopted_value"] if "confirm" in t else t["value"]
+        if t["q"] == "Q-CHARACTER-01" and state.known("symptom_character"):
+            v = resolve_confirm(qb[t["q"]], state.get("symptom_character"), v)[0]      # D-54：同 runner，開場白的 vague 再問取較嚴重者
         state.set(qb[t["q"]].slot_id, v, asked_by=t["q"], source=f"turn{i}")
     d = _ENGINE.decide(state)
     key = f"{d.tier}{'Y' if d.hard_stop else ''}"

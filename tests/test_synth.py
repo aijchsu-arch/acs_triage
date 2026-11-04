@@ -45,7 +45,7 @@ def _write_synth(tmp_path, cases=CASES):
 def test_slot_schema_is_strict_and_follows_slot_defs():
     s = sg.slot_schema()
     assert s["additionalProperties"] is False and sorted(s["required"]) == sorted(s["properties"])
-    assert set(s["properties"]) == set(slot_defs()) - {"consult_screen_positive"}
+    assert set(s["properties"]) == set(slot_defs()) - {"consult_screen_positive", "chest_discomfort_mentioned"}
     for sid, prop in s["properties"].items():
         t = slot_defs()[sid]["type"]
         if t == "choice":

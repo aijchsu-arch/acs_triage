@@ -78,6 +78,8 @@ def t0_rules(s: SlotState) -> list[str]:
         hits.append("T0-DYSPNEA-ACUTE")
     if s.is_true("ntg_use_increased"):
         hits.append("T0-NTG-INCREASED")
+    if s.is_true("episode_frequency_increased"):
+        hits.append("T0-FREQ-INCREASED")      # D-54（裁定 #7）：比照 T0-NTG-INCREASED
     if s.is_true("orthopnea_pnd"):
         hits.append("T0-ORTHOPNEA")
     return hits
@@ -134,6 +136,7 @@ def t2_rules(s: SlotState) -> list[str]:
 def _no_escalators(s: SlotState) -> bool:
     return (s.not_true("rest_symptom") and s.not_true("threshold_decreased") and s.not_true("dyspnea_acute")
             and s.not_true("presyncope") and s.not_true("syncope") and s.not_true("ntg_use_increased")
+            and s.not_true("episode_frequency_increased")
             and s.not_true("orthopnea_pnd") and s.not_true("ongoing_now")
             and s.get("dyspnea_grade") != "rest")
 
@@ -146,6 +149,7 @@ def stable_rest_recurrent(s: SlotState) -> bool:
             and s.is_true("rest_symptom") and s.is_false("rest_symptom_first_time")
             and s.get("onset_new") is not True and s.not_true("ongoing_now")
             and s.not_true("threshold_decreased") and s.not_true("ntg_use_increased")   # 未知可暫時成立；gate 要求明確否認
+            and s.not_true("episode_frequency_increased")
             and s.not_true("dyspnea_acute") and s.not_true("presyncope") and s.not_true("syncope")
             and s.not_true("orthopnea_pnd") and s.get("dyspnea_grade") != "rest")
 
@@ -202,9 +206,11 @@ def _provisional_tier(s: SlotState) -> tuple[int, list[str]]:
     #   B. 新發且活動相關 → 視同缺血等價症狀，走一般規則（S-INSUF-06#0 維持 T0）
     #   A. 有明確穩定型態證據（T3-STABLE 成立）→ 可定案 T3（S-INSUF-01#1 維持 T3）
     # 其餘：T0-NEW-TODAY 以缺血等價症狀為前提、vague 不成立；不依賴症狀性質的 T0 觸發因子仍升 T0；紅旗不變。
+    # D-54（裁定 #15）：提過胸口不適但性質未知，比照 vague；唯一不同是保留 T0-NEW-TODAY（規格未涵蓋，取較急方向，待 Clinical Owner 確認）
     vague_ischemic_like = s.is_true("onset_new") and s.get("exertion_relation") == "exertion_only"
-    if s.get("symptom_character") == "vague" and not vague_ischemic_like:
-        h = [x for x in h if x != "T0-NEW-TODAY"]
+    character_unknown = s.get("symptom_character") is None and s.chest_symptom_present()
+    if (s.get("symptom_character") == "vague" or character_unknown) and not vague_ischemic_like:
+        h = [x for x in h if x != "T0-NEW-TODAY" or character_unknown]
         if h:
             return 0, h
         h = t9_explicit(s)

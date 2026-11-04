@@ -1,0 +1,78 @@
+{
+ "date": "2026-11-03",
+ "costs": {
+  "合計（依 repo PRICES 估算，以帳單為準）": "**US$38.04**＝有效 US$23.64＋作廢 US$14.39",
+  "Anthropic（Opus 5.5 病人）有效": "US$19.18＝開發集 eval _r2 US$5.27＋保留集 eval _r2 US$9.11＋閉環 gpt arm US$2.88（409 次新呼叫）＋閉環 Gemma arm US$1.92（246 次新呼叫）",
+  "Anthropic 作廢（N1 修正前，不帶 _r2，hash 不符）": "US$14.39＝開發集 US$5.27＋保留集 US$9.12",
+  "OpenAI（gpt-6.1-sol 抽取）": "US$4.46＝閉環 US$1.98＋階段 A 重放 US$2.48（1,250 次，失敗 0）",
+  "Gemma（本機，不計費）": "閉環 2026-11-03 23:25–11-04 00:01；重放 11-04 00:02–00:44（一次一句，1,250 次、失敗 2：LM Studio finish_reason=length）",
+  "閉環前兩次失敗": "gpt 第一次缺 opencc、Gemma 兩次未載入模型（協調者紀錄 status.txt；日誌已被後來的執行覆蓋，費用以協調者紀錄為準）"
+ },
+ "files_changed": [
+  [
+   "data/extractor_prompts_v2.yaml",
+   "2.0-dev21 → 2.0-dev24：D-54 裁定例句、新欄位、說明移到 YAML 註解"
+  ],
+  [
+   "sim/llm_extract_v2.py",
+   "chest_discomfort_mentioned 解析與 unclassified 胸口後備"
+  ],
+  [
+   "sim/runner.py",
+   "#16 矛盾再問、reask_downgrades 反事實、回覆的順口值寫入（H2、N1）、上限 12 全部計入"
+  ],
+  [
+   "src/acs_triage/rules/、src/acs_triage/prompter/",
+   "T0-FREQ-INCREASED、H3 gate、順序 D、活動題提前、vague 再問、旗標視為胸部症狀"
+  ],
+  [
+   "sim/closed_loop.py、sim/run_llm_eval.py",
+   "FROZEN_FILES 擴充、逐字稿版本與設定檢查、情境 hash；DEV_STRUCTURED／HOLDOUT_STRUCTURED 改指 11-03 _r2（協調者）"
+  ],
+  [
+   "data/clinical_rules.yaml、data/question_bank_seed.yaml",
+   "rules 0.9.0、題庫 0.5、max_questions 12、Q-FREQ-01（DRAFT）"
+  ],
+  [
+   "reports/extractor_v2_2026-11-03_inputs/",
+   "本報告輸入（重放合併、閉環輸出複本、凍結狀態、迭代、待確認說法、結論、費用）"
+  ]
+ ],
+ "repro": [
+  "PYTHONPATH=<本機 opencc>:src:. python -m sim.closed_loop run --set dev --arm structured|gpt|gemma --cache-dir <scratch>/closed1103/cache --out <scratch>/closed1103/out",
+  "python -m sim.llm_extract_v2 replay（gpt、Gemma 各一次，協調者在 scratchpad/replay1103 執行；輸出 v2_replay_gpt.json、v2_replay_gemma.json，合併成本目錄的 stage_a_replay.json）",
+  "python -m sim.extractor_v2_report --inputs reports/extractor_v2_2026-11-03_inputs --out reports",
+  "裁定表 md：上一步產生 reports/extractor_v2_ambiguous_2026-11-03.md 後，在開頭加上 reports/extractor_v2_2026-11-03_inputs/ambiguous_md_fix.md（cat fix md > tmp && mv tmp md）"
+ ],
+ "stage_b_status": {
+  "summary": "**階段 B：開發集閉環 2026-11-03 重跑完成（2.0-dev24、rules 0.9.0，種子為 11-03 _r2 逐字稿）；保留集閉環未執行、未凍結。** 結構化值 arm 自我檢查 119/119。",
+  "estimate_table": [
+   [
+    "保留集 gpt arm Opus 病人",
+    "≈5.0",
+    "開發集 gpt arm 實際 US$2.88 × 保留集／開發集結構化值 eval 費用比 1.73（US$9.11／US$5.27）"
+   ],
+   [
+    "保留集 Gemma arm Opus 病人",
+    "≈3.3",
+    "開發集 Gemma arm 實際 US$1.92 × 1.73"
+   ],
+   [
+    "保留集 gpt 抽取",
+    "≈2.7",
+    "開發集實際 US$1.98 × 1.35（同 10-27 的例數與呼叫數比）"
+   ],
+   [
+    "合計（只跑一次）",
+    "≈11（估 8–14）",
+    "凍結後執行"
+   ]
+  ],
+  "notes": [
+   "Opus 病人評估（結構化值，付費）：開發集 _r2 HS 27/27、under 0、over 0、exact 100%，與 Scripted 相同。保留集三層（sim.synth_eval，參考一致子集 130 例）：(a) HS 51/51、under 14；(b) HS 49/51、under 26、平均 5.88 題；(c) 以 _r2 逐字稿重放，HS 49/51、under 25、exact 98/130（10-26 為 26、97）。"
+  ]
+ },
+ "observations_41c": [
+  "Gemma 會把「休息後就好了」「坐著休息的時候就不會悶」順口抽成 rest_symptom＝有。有後續矛盾的 6 例由 #16 再問改回；沒有矛盾的 S-INSUF-05 落 T0。"
+ ]
+}

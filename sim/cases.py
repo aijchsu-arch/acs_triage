@@ -41,7 +41,9 @@ class Case:
 
 
 def _complete(slots: dict[str, Any]) -> dict[str, Any]:
-    """Sheet 補全：合併篩檢題（Q-14f）的答案由三個底層事實推得。"""
+    """Sheet 補全：合併篩檢題（Q-14f）的答案由三個底層事實推得；D-54：新欄位 episode_frequency_increased 情境檔沒寫 → 沒有
+    （舊情境都是在這個欄位存在前寫的；不補的話模擬病人答不知道，gate 卡住變 T9）。"""
+    slots.setdefault("episode_frequency_increased", False)
     if slots.get("consult_screen_positive") is None:
         vals = [slots.get(k) for k in ("palpitations", "postural_dizziness", "pending_abnormal_test")]
         if any(v is True for v in vals):

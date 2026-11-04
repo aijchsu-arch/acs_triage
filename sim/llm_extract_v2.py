@@ -291,6 +291,8 @@ def parse(obj: dict[str, Any], text: str, q: Question | None, confirm_prompt: st
         if not ok:
             diag["dropped"].append({**m, "why": "bad_value"})
             continue
+        if slot == "chest_discomfort_mentioned" and v is not True:      # D-54：旗標只表示「有提到」，false 不寫（否則之後的順口 true 會變成 conflict）
+            continue
         if slot in unsure:                                    # 模型自己把這欄列為沒把握歸類 → 不寫，讓系統追問
             diag["guards"].append({"slot": slot, "guard": "choice_listed_unclassified", "value": v})
             continue
@@ -316,6 +318,9 @@ def parse(obj: dict[str, Any], text: str, q: Question | None, confirm_prompt: st
     for slot in conflict:                                     # 同一句對同一欄給了兩種值 → 不寫
         diag["dropped"].append({"slot": slot, "why": "conflicting_mentions"})
         del slots[slot]
+    if any(u["slot"] == "symptom_character" and any(w in u["phrase"] for w in ("胸口", "胸部")) and not negated(u["phrase"])
+           for u in diag["unclassified"]):
+        slots.setdefault("chest_discomfort_mentioned", True)    # D-54（裁定 #15）：模型沒寫旗標也不漏；性質已知時規則以性質為準
     if q is not None and confirm_prompt is not None:
         a = obj["asked"]
         has_x, x = confirmed_value(q, confirm_prompt)

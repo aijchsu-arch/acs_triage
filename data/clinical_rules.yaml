@@ -3,7 +3,7 @@
 # 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
 # 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
 
-rules_version: "0.8.0"   # 0.8.0 含兩項 Clinical Owner 2026-10-22 裁定：D-50 紅旗題與關鍵題有條件複誦確認（嚴重度順序取值）；異常檢查待追蹤 → 至少 T1，不論有無症狀（D-46：Q-REST-02 列入 STT 關鍵題（D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9）））
+rules_version: "0.9.0"   # 0.9.0（Clinical Owner 2026-11-02，D-54）：T0-FREQ-INCREASED（發作變頻繁）、提到胸口不適但性質未知視為胸部症狀、順口值矛盾再問、題數上限 12；0.8.0 含兩項 Clinical Owner 2026-10-22 裁定：D-50 紅旗題與關鍵題有條件複誦確認（嚴重度順序取值）；異常檢查待追蹤 → 至少 T1，不論有無症狀（D-46：Q-REST-02 列入 STT 關鍵題（D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9）））
 source_doc: docs/CLINICAL_RULES.md
 
 tiers:
@@ -15,7 +15,7 @@ tiers:
   9: {name: Unable to determine, definition: 現有資訊不足，不能安全指定 0–4}
 
 thresholds:
-  max_questions: 11        # 8 → 10（D-22）→ 11（Q-15，Clinical Owner 2026-10-14）：Q-14b 後 PCI＋模糊開場之穩定型需 11 題
+  max_questions: 12        # 8 → 10（D-22）→ 11（Q-15，Clinical Owner 2026-10-14）→ 12（D-54，Clinical Owner 2026-11-02）：新增必問題 Q-FREQ-01 後 4 例放不下（S-ACUTE-05#1、S-INSUF-02#1、S-MID-04#0、S-MID-15#0；S-INSUF-01#1 只少問待追蹤檢查題）；所有問題都計入，只有再說一次、D-50 複誦、矛盾再問不計
   stt_min_confidence: 0.75
   stt_min_confidence_critical: 0.9      # D-43：紅旗題（priority=redflag）與下列題目；低於門檻即重問（Clinical Owner 2026-10-18）
   stt_critical_questions: [Q-CHARACTER-01, Q-REST-02]   # D-42：Q-CHARACTER-01 聽錯是唯一會讓 HS／T0 掉到 T1–T4 的單點；D-46：Q-REST-02 為 T0→T3 單一開關（D-45 規則）
@@ -35,7 +35,7 @@ confirm_back_severity:
 
 # 「缺血等價症狀」= symptom_character ∈ ischemic_characters
 ischemic_characters: [pressure, tightness, pain, jaw_shoulder_heaviness, epigastric]
-# 「胸部症狀存在」= symptom_character ∈ chest_symptom_characters（含未定性之 vague）
+# 「胸部症狀存在」= symptom_character ∈ chest_symptom_characters（含未定性之 vague）；symptom_character 未知而 chest_discomfort_mentioned 為真也算（D-54；SlotState.chest_symptom_present）
 chest_symptom_characters: [pressure, tightness, pain, jaw_shoulder_heaviness, epigastric, vague]
 
 # ---------------- §3 紅旗（slot 層條件；文字層關鍵詞在 data/extraction_patterns.yaml） ----------------
@@ -77,6 +77,7 @@ tier_rules:
     - {id: T0-DYSPNEA-ACUTE, ref: "§5.3", text: 今日突發且與基線明顯不同之呼吸困難}
     - {id: T0-NTG-INCREASED, ref: "§5.3 C4 A (DV-6)", text: 既有型態下 NTG 用量明顯增加}
     - {id: T0-ORTHOPNEA, ref: "§5.3 C1 B", text: 端坐呼吸／PND（非 Hard stop）}
+    - {id: T0-FREQ-INCREASED, ref: "§5.3 (D-54)", text: 既有型態下發作次數變多（比照 T0-NTG-INCREASED、DV-6；Clinical Owner 2026-11-02）}
   T1:
     - {id: T1-NEW-YESTERDAY, ref: "§5.4 (DV-1)", text: 新發胸部症狀、最後一次在昨天（<24h）、今日無發作；非缺血型豁免除外（Q-14d C）}
     - {id: T1-THRESHOLD-WEEKS, ref: "§5.4 C3 B", text: 活動閾值於數週～一個月緩慢下降}
@@ -102,7 +103,7 @@ tier_rules:
     - {id: T4-CONSULT, ref: "§5.7 (DV-7)", text: 衛教問題／藥物處理／輕微非心臟問題且否認任何胸悶、喘、暈}
   T9:
     - {id: T9-THIRD-PARTY-UNREACHABLE, ref: "§5.8", text: 第三方來電且病人不可及}
-    - {id: T9-VAGUE-CHARACTER, ref: "§5.8 (D-44)", text: 症狀未定性（vague）且不符例外（A 穩定型成立且非新發 → T3；B 新發且活動相關 → 走一般規則）；不依賴症狀性質的 T0 觸發因子與紅旗仍優先}
+    - {id: T9-VAGUE-CHARACTER, ref: "§5.8 (D-44)", text: 症狀未定性（vague，或提過胸口不適但性質未知，D-54）且不符例外（A 穩定型成立且非新發 → T3；B 新發且活動相關 → 走一般規則）；不依賴症狀性質的 T0 觸發因子與紅旗仍優先（性質未知另保留 T0-NEW-TODAY）}
     - {id: T9-NO-RULE, ref: "§5.8", text: 無任何 0–4 規則成立（無法判定新發 vs 穩定、呼吸困難未分級）}
     - {id: T9-GATE, ref: "§5.9", text: provisional 已定但 sufficiency gate 未過}
 

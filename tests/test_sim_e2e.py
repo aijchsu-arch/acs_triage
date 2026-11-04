@@ -34,7 +34,7 @@ def test_clean_no_under_triage_and_exact(clean):
     assert m.under_triage == []
     assert m.over_triage == []
     assert m.abstain_fp == [] and m.abstain_fn == []
-    assert m.exact_rate == 1.0                     # Q-15：max_questions 11
+    assert m.exact_rate == 1.0                     # Q-15、D-54：max_questions 12
 
 
 def test_clean_insufficient_group_abstains(clean):

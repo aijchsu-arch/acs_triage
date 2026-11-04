@@ -60,6 +60,7 @@ def render_md(mode: str, seed: int, results: list[RunResult], m: Metrics,
     L.append(f"| Gate effect（低信心重問次數） | {m.repeats} | 記錄 |")
     L.append(f"| Confirm-back（紅旗／關鍵題複誦確認，D-50；不算題數） | 總數 {m.confirms}；平均每通 {m.mean_confirms:.2f}；確認後改值 {m.confirm_changed}；確認值較不嚴重而保留原值 {m.confirm_downgrade_blocked} | 記錄 |")
     L.append(f"| 待追蹤檢查加問（有症狀暫判 T2–T4，rules 0.8.0；算題數） | 加問 {m.pending_test_asked} 通；已達題數上限沒問 {m.pending_test_skipped_at_cap} 通 | 記錄 |")
+    L.append(f"| 順口值矛盾再問（閉環才有，D-54；不算題數） | {m.reasks} 次；因再問而最終較不急 {m.reask_downgrades} 次（只把再問前的值放回最後狀態重算、不重跑對話，路徑分岔造成的差異記不到） | 記錄 |")
     L.append("")
     L.append("## 混淆矩陣（truth → pred）")
     L.append("")

@@ -18,7 +18,8 @@ def test_b_chest_t1_t3_needs_t0_triggers_ruled_out(engine):
     d = decide_slots(engine, s)
     assert d.provisional_tier == 1 and d.tier == 9
     assert set(d.missing) >= {"threshold_decreased", "ntg_use_increased"}
-    d2 = decide_slots(engine, {**s, "threshold_decreased": False, "ntg_use_increased": False})
+    assert "episode_frequency_increased" in d.missing                                  # D-54
+    d2 = decide_slots(engine, {**s, "threshold_decreased": False, "ntg_use_increased": False, "episode_frequency_increased": False})
     assert d2.tier == 1
 
 
@@ -109,4 +110,4 @@ def test_d_nonischemic_carveout_any_timing(engine):
 
 def test_q15_max_questions():
     from acs_triage.loaders import load_clinical_rules
-    assert load_clinical_rules()["thresholds"]["max_questions"] == 11
+    assert load_clinical_rules()["thresholds"]["max_questions"] == 12       # D-54（Clinical Owner 2026-11-02）
