@@ -108,7 +108,7 @@ def test_extra_question_only_for_symptomatic_t2_to_t4_and_counts_toward_cap():
             assert on.n_questions == max_q and "Q-PENDINGTEST-01" not in qs and on.final.tier in (2, 3, 4), c.id
         if on.final.hard_stop or on.final.tier in (0, 1, 9):
             assert not on.pending_test_asked, c.id                                  # Hard stop／T0／T1／T9 不加問
-    assert asked == 20 and skipped == 2
+    assert asked == 22 and skipped == 0              # D-55：上限 15 後 S-ACUTE-05#1、S-INSUF-02#1 也問得到（上限 12 時 20／2）
 
 
 def test_extra_question_yes_raises_to_t1():
@@ -128,14 +128,16 @@ def test_extra_question_yes_raises_to_t1():
         assert (r.final.tier, r.final.hard_stop) == (1, False) and "T1-PENDING-TEST" in r.final.evidence, c.id
         assert r.n_questions == base.n_questions                                     # 答「有」之後不再追問
         raised += 1
-    assert raised == 20
+    assert raised == 22                             # D-55：上限 15（上限 12 時 20）
 
 
 def test_cap_reached_keeps_original_result_not_t9():
     for cid in ("S-ACUTE-05#1", "S-INSUF-02#1"):
         c = next(x for x in all_cases() if x.id == cid)
-        r = run_case(c, patient=ScriptedPatient(c))
+        r = run_case(c, patient=ScriptedPatient(c), max_questions=12)      # D-55：上限 15 後不撞上限；以 12 題重現撞上限的情況
         assert r.pending_test_skipped_at_cap and r.final.tier == 3 and r.stop_reason == "gate_passed", cid
+        r15 = run_case(c, patient=ScriptedPatient(c))
+        assert r15.pending_test_asked and not r15.pending_test_skipped_at_cap and r15.final.tier == 3, cid
 
 
 def test_all_openings_with_pending_test():

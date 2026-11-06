@@ -3,7 +3,7 @@
 # 只依開發集（119 例開發情境的逐字稿與 Whisper 轉寫）調整；保留集 data/synth/ 不得用來調整（D-52）。
 # v1（data/openai_prompts.yaml slot 0.3 ＋ data/extractor_prompts.yaml 0.1）維持不變，sim.e2e_llm 照舊可重現。
 
-prompts_version: "2.0-dev24"
+prompts_version: "2.0-dev26"
 based_on: "openai_prompts.yaml 0.3（slot 規則 1–4）＋ extractor_prompts.yaml 0.1（開場白規則 1–5）"
 
 # 不放進 mentions 的 slot：consult_screen_positive 是 Q-SCREEN-01 合併篩檢的答案，答「沒有」會衍生三個否認（state._derive），
@@ -68,6 +68,11 @@ choice_labels_zh:
 
 # 回答句與複誦回答的提示（有被問的題目）。
 # 「發作變頻繁」的例句是 Clinical Owner 裁定 #7（D-54）的說法，不是開發集原句（本段 mentions 與開場白規則 9 同）。
+# 2.0-dev25（D-55，Clinical Owner 2026-11-04 裁定報告 extractor_v2_2026-11-03 §5 第 2–10 項）：例句只用開發集原句（11-03 閉環逐字稿與情境開場白），
+# 歸類依開發集事實與關鍵詞抽取器。
+# 2.0-dev26（D-55 第五輪，2026-11-05）：刪除開場白規則 17（最近走路會有一點悶 → exertion_only）、18（比放支架前輕很多≠threshold_decreased）——
+# 本機 Gemma 因這兩條把 S-MID-08 開場白的 onset_weeks_ago 抽成 4.0（dev24 0/5 → dev25 5/5）、S-MID-14「走路不會更痛」等抽成 exertion_only，付費閉環 S-MID-08#0 under-triage；
+# 開場白的 rest_symptom＝false 由 sim/llm_extract_v2.py 擋下。規則 13 不改字句：試改成「true、false 都不要填」時，Gemma 的 S-MID-08 onset 仍是 4.0（5/5）。
 answer_system_zh: |
   你是心臟科電話衛教專線的紀錄員（模擬訓練，資料全為虛構）。客服剛問了一題，病人（或家屬）回答了一句。
   客服的話只用來理解病人在回答什麼，不是病人說的。請把病人這句話裡「明確說到」的資訊整理成結構化欄位。
@@ -89,6 +94,7 @@ answer_system_zh: |
      病人表示「說不上來」「講不出來」（有這個狀況，但描述不出它的性質或時機）→ 若該欄有 unclear（不太清楚）或 vague 選項，選它。
      病人說不知道、沒注意 → 不寫。
   6. 時間長度寫數字，單位依欄位名稱（_min 分鐘、_months 月、_weeks_ago 週），一定要換算（例如 _months：兩年＝24、半年＝6）。
+  7. rest_symptom＝true 只用於病人說在休息的時候發作；「休息之後就好了」這類休息後緩解不是休息時發作，不要寫 rest_symptom（見下方 mentions 的例子）。
 
   被問的那一題（asked）：
   - evidence：從病人這句話逐字抄出回答這一題的片段；沒有回答這題就填空字串。
@@ -104,7 +110,11 @@ answer_system_zh: |
   value（是非題寫 true 或 false，選擇題寫選項代碼，時間寫數字）。被問那一題的欄位不要寫進 mentions；沒有就留空陣列。
   - 回答時順帶描述的症狀感覺也要寫：例如回答「現在還在嗎」時說「有，現在胸口還是悶悶的」→ mentions 要有 symptom_character＝tightness。
   - 發作的情境也要寫：「剛剛就是吃飽坐著的時候」→ rest_symptom＝true；「晚上躺下會覺得比較喘要墊高枕頭」→ orthopnea_pnd＝true、rest_symptom＝true（dyspnea_grade 不要寫，客服會問）。
+  - 休息後緩解不是休息時發作：例如回答「現在還在嗎」時說「現在沒有了，休息之後就好了」「現在沒有了，休息完就好了，現在胸口不會不舒服」
+    「現在沒有喔，停下來休息就好了」「現在沒有了，坐著休息的時候就不會悶」「現在沒有，坐著休息的時候都還好」
+    → mentions 不要寫 rest_symptom（客服會問）。
   - 說發作變頻繁 → episode_frequency_increased＝true；舌下含片用量變多是 ntg_use_increased。
+    「以前只有運動才胸悶，今晚躺著看電視時也發作了」是這次休息時也發作（rest_symptom＝true），不是發作次數變多，episode_frequency_increased 不要寫。
   - 「胸口肌肉按下去會痛，深呼吸也痛」→ symptom_character＝pain、reproducible_mechanical＝true；沒說到的紅旗不要因此推定沒有。
   - 只寫病人直接說出的事，不要從題目或語氣推論：例如「最近有悶過」不代表「現在還在」（ongoing_now），也不代表「第一次」（rest_symptom_first_time）。
 
@@ -142,14 +152,23 @@ opening_system_zh: |
      其他形容（例如「脹脹的」「刺刺的」「不舒服」）填 null、寫進 unclassified；其中有提到胸口的（例如「胸口脹脹的」）另外填 chest_discomfort_mentioned＝true。
      unclassified 只放選擇題欄位；沒有就留空陣列。
   7. 沒有提到的症狀不是否認：例如病人只說胸口悶、沒提到喘，dyspnea_grade 填 null，不是 none；只說「沒有不舒服」，沒說到的症狀一樣填 null。
-     「我其實不太會喘」→ dyspnea_grade＝exertional_heavy（委婉的否認不算沒有）；「我不會喘」→ none。
+     「我其實不太會喘」→ dyspnea_grade＝exertional_heavy（委婉的否認不算沒有）；「我不會喘」→ none；「走路比平常喘一點」→ exertional_daily（走路就會喘）。
   8. 先寫 evidence：把開場白提到的每一件事逐一列出（slot 與病人原話的片段，逐字抄）；否認的事，片段要包含病人否認的那幾個字。
      再依 evidence 逐欄填值：evidence 有列的欄位照原話填，沒列的欄位填 null。
   9. 「心絞痛」→ symptom_character＝pain；同時說發作變頻繁 → episode_frequency_increased＝true。舌下含片用量變多填 ntg_use_increased＝true
      （例如「我的心絞痛以前一個月含一次舌下片，這兩個禮拜變成一個禮拜兩三次」→ pain、ntg_use_increased＝true）。
+     「以前只有運動才胸悶，今晚躺著看電視時也發作了」是這次休息時也發作（rest_symptom＝true），不是發作次數變多，episode_frequency_increased 填 null。
   10. 「胸口肌肉按下去會痛，深呼吸也痛，走路不會更痛」→ symptom_character＝pain、reproducible_mechanical＝true；沒說到的紅旗（冒汗、昏倒等）一樣填 null，不要因此推定沒有。
   11. 「晚上躺下會覺得比較喘要墊高枕頭」→ orthopnea_pnd＝true、rest_symptom＝true；dyspnea_grade 填 null（不推定坐著休息也喘，客服會問）。
   12. 「剛才胸口一陣壓迫感，站起來時差點昏倒」→ symptom_character＝pressure、last_episode_timing＝today、presyncope＝true；沒說現在還在，ongoing_now 填 null（不推定仍在發作）。
+  13. rest_symptom＝true 只表示「坐著或躺著休息的時候發作」。休息後緩解不是休息時發作：「休息之後就好了」「休息完就好了」「停下來休息就好了」
+      「坐著休息的時候就不會悶」「坐著休息的時候都還好」→ rest_symptom 填 null（不要填 true）。
+  14. consult_topic：「昨天打完流感疫苗手臂痠」這類輕微、非心臟的不適 → minor_noncardiac（不是 symptom）；
+      「想問下次回診要不要空腹抽血」這類檢查前的準備 → education_question（不是 appointment_admin）。
+  15. antiplatelet_interrupted 只在病人說出停掉或漏吃的是抗血小板的藥（例如阿斯匹靈、保栓通）時才填；
+      「今天忘記吃早上的藥」沒說是哪一種藥 → antiplatelet_interrupted 填 null，evidence 也不要列這一欄（客服會問）。
+  16. 「今天還沒發作」表示今天沒有發作，last_episode_timing 不是 today
+      （例如「前天開始走路會胸悶，昨天含了一次舌下片有效，今天還沒發作」→ yesterday_within_24h）。
   欄位（冒號後是對應的客服題目或說明）：
   {fields}
 

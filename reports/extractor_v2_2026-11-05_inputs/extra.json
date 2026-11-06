@@ -1,0 +1,73 @@
+{
+ "date": "2026-11-05",
+ "costs": {
+  "合計（依 repo PRICES 估算，以帳單為準）": "Anthropic **US$22.11**；OpenAI **US$9.36**（逐項見 §1 費用表；另 D-55 前段 R6 提示自我檢查 OpenAI 約 US$0.44，見 D-55）",
+  "本輪 dev26（最終版）": "Anthropic US$1.97＝閉環 gpt arm US$0.84（第一次 106 次新呼叫；重試 0 次）＋Gemma arm US$1.13（153 次新呼叫）；OpenAI US$4.59＝閉環 US$1.95＋重試 US$0.10＋階段 A 重放 US$2.47＋重試 US$0.07",
+  "上一輪 dev25（中間版）": "Anthropic US$5.22＝閉環 gpt arm US$3.19＋Gemma arm US$2.04；OpenAI US$4.76＝閉環 US$2.16＋重放 US$2.61",
+  "開發集 Opus 病人 eval（沿用）": "Anthropic US$5.49",
+  "保留集逐字稿 eval（沿用）": "Anthropic US$9.43",
+  "OpenAI 逾時": "dev26 gpt 閉環第一次 16 次 TimeoutError（300 s），重試後 1 次；重放第一次 42 次，重試後 1 次（失敗不計費）",
+  "Gemma（本機，不計費）": "閉環 2026-11-05 19:20–19:41；重放 19:42–20:20（一次一句，1,250 次、失敗 0）"
+ },
+ "files_changed": [
+  [
+   "sim/closed_loop.py",
+   "DEV_STRUCTURED／HOLDOUT_STRUCTURED 改指 11-05 逐字稿（只改路徑；dev25 那輪改的）"
+  ],
+  [
+   "reports/extractor_v2_2026-11-05_inputs/",
+   "本報告輸入（dev26 閉環與重放、目前 hash、迭代、待確認說法、結論、費用）；dev25/ 是中間版的閉環與重放；dev26_gpt_attempt1/ 是 gpt 閉環與重放第一次（逾時）的結果"
+  ],
+  [
+   "reports/extractor_v2_2026-11-05.{md,json}、reports/extractor_v2_ambiguous_2026-11-05.{md,xlsx}",
+   "本報告與裁定表（sim.extractor_v2_report 產生；裁定表 md 開頭加更正段）"
+  ],
+  [
+   "docs/DECISIONS.md",
+   "D-55「付費評估」改為最終結果摘要"
+  ],
+  [
+   "（D-55 既有、本報告未改）data/extractor_prompts_v2.yaml、sim/llm_extract_v2.py、sim/runner.py、data/clinical_rules.yaml、data/question_bank_seed.yaml",
+   "2.0-dev26（刪規則 17、18）、rest_symptom＝false 攔截、F2、rules 0.10.0、題庫 0.6、max_questions 15"
+  ]
+ ],
+ "repro": [
+  "病人快取：PatientCache.load(<scratch>/closed1105/cache/patient_cache_dev.json)＋PatientCache.load(<scratch>/closed1105b/cache/patient_cache_dev.json) → save(<scratch>/closed1105c/cache/patient_cache_dev.json)（同 meta、內容相同）",
+  "PYTHONPATH=<本機 opencc>:src:. python -m sim.closed_loop run --set dev --arm gpt|gemma --cache-dir <scratch>/closed1105c/cache --out <scratch>/closed1105c/out（gpt --opus-budget 4.5 --gpt-budget 3.5，逾時後以同一 cache 重跑一次：--opus-budget 2.0 --gpt-budget 3.0；Gemma --opus-budget 4.0）；結構化值 arm 沿用 dev25 那輪",
+  "PYTHONPATH=<本機 opencc>:src:. python -m sim.llm_extract_v2 replay --extractors gpt --tag gpt --workers 8 --budget 3.5（逾時後同一 cache 重跑一次）；--extractors gemma --tag gemma --local-workers 1；--cache-dir <scratch>/replay1105c/cache --out <scratch>/replay1105c/out；兩檔合併成本目錄的 stage_a_replay.json",
+  "python -m sim.synth_eval --llm-json reports/eval_2026-11-05_llm_scenarios_synth_v1_opus-5-5_medium.json --out <scratch>/synth1105（保留集三層，只看彙總行；dev26 不影響）",
+  "python -m sim.extractor_v2_report --inputs reports/extractor_v2_2026-11-05_inputs --out reports",
+  "裁定表 md：上一步產生 reports/extractor_v2_ambiguous_2026-11-05.md 後，在開頭加上 reports/extractor_v2_2026-11-05_inputs/ambiguous_md_fix.md（cat fix md > tmp && mv tmp md）"
+ ],
+ "stage_b_status": {
+  "summary": "**階段 B：開發集閉環 2026-11-05 最終版（2.0-dev26、rules 0.10.0、上限 15，種子為 11-05 逐字稿）；保留集閉環未執行、未凍結。** 結構化值 arm 沿用 dev25 那輪（自我檢查 119/119；只依病人與規則，dev26 沒有改到）。",
+  "estimate_table": [
+   [
+    "保留集 gpt arm Opus 病人",
+    "≈5.5",
+    "以 dev25 那輪（新呼叫 453 次、病人快取只有種子）US$3.19 × 保留集／開發集結構化值 eval 費用比 1.72（US$9.43／US$5.49）；dev26 的 US$0.84 有重用前一輪快取，不能外推"
+   ],
+   [
+    "保留集 Gemma arm Opus 病人",
+    "≈3.5",
+    "dev25 那輪 US$2.04 × 1.72"
+   ],
+   [
+    "保留集 gpt 抽取",
+    "≈2.8",
+    "dev26 第一次 US$1.95＋重試 US$0.10 × 1.35（同 10-27 的例數與呼叫數比）"
+   ],
+   [
+    "合計（只跑一次）",
+    "≈12（估 9–15）",
+    "凍結後執行"
+   ]
+  ],
+  "notes": [
+   "Opus 病人評估（結構化值，付費，沿用）：開發集 HS 27/27、under 0、over 0、exact 100%，與 Scripted 相同（US$5.49）。保留集三層（sim.synth_eval，參考一致子集 130 例；以 11-05 逐字稿，US$9.43）：(a) HS 51/51、under 14、exact 108；(b) HS 49/51、under 26、exact 97、平均 6.29 題；(c) HS 49/51、under 25、exact 98、平均 6.22 題，重放 150/150 與逐字稿一致（11-03 `_r2`：(c) under 25、exact 98）。"
+  ]
+ },
+ "observations_41c": [
+  "dev26 的 rest_symptom＝false 在抽取器就被攔下（guard rest_denial_not_used；不在本節的 mention_conflicts 裡），runner F2 本輪 0 次。Gemma 的 Q-ONGOING-01 回答仍有 4 句抽成 rest_symptom＝true（S-STABLE-04#0 事實 true；S-MID-02、#0、S-MID-13#2 事實 false）；S-MID-02 因開場白的 false 不再採用、沒有矛盾可再問，落 T0（見 §1）。"
+ ]
+}

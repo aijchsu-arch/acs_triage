@@ -65,11 +65,12 @@ EDU = {"cad_history": True, "consult_topic": "education_question"}
 
 # ---------------------------------------------------------------- 版本與題庫
 def test_versions_and_draft_questions():
-    assert rules_version() == "0.9.0"
-    assert load_prompts()["prompts_version"] == "2.0-dev24"
-    assert load_clinical_rules()["thresholds"]["max_questions"] == 12
-    assert yaml.safe_load((DATA_DIR / "question_bank_seed.yaml").read_text(encoding="utf-8"))["bank_version"] == "0.5"
-    assert RAW_QUESTIONS["Q-FREQ-01"]["status"] == "DRAFT" and "DRAFT" in RAW_QUESTIONS["Q-FREQ-01"]["why_zh"]
+    assert rules_version() == "0.10.0"                                         # D-55
+    assert load_prompts()["prompts_version"] == "2.0-dev26"                    # D-55（第五輪 dev26）
+    assert load_clinical_rules()["thresholds"]["max_questions"] == 15         # D-55（D-54 為 12）
+    assert yaml.safe_load((DATA_DIR / "question_bank_seed.yaml").read_text(encoding="utf-8"))["bank_version"] == "0.6"
+    # D-55：Q-FREQ-01 字句 Clinical Owner 2026-11-04 同意定稿（D-54 時為 DRAFT）
+    assert "status" not in RAW_QUESTIONS["Q-FREQ-01"] and "DRAFT" not in RAW_QUESTIONS["Q-FREQ-01"]["why_zh"]
     assert QB["Q-FREQ-01"].priority == "decisive"
     assert QB["Q-FREQ-01"].script_zh == "最近發作的次數有比以前多嗎？"
 
@@ -145,11 +146,11 @@ def test_a_yes_escalates_to_t0_in_a_full_call():
 
 
 @pytest.mark.parametrize("cid", ["S-ACUTE-05#1", "S-INSUF-01#1", "S-INSUF-02#1", "S-MID-04#0", "S-MID-15#0"])
-def test_a_cap_cases_asked_within_twelve_and_keep_truth(cid):
-    """這 5 例上限 11 時放不下 Q-FREQ-01；上限 12（Clinical Owner 2026-11-02）全部問得完，分級等於 truth；答「有」→ T0。"""
+def test_a_cap_cases_asked_within_cap_and_keep_truth(cid):
+    """這 5 例上限 11 時放不下 Q-FREQ-01；上限 12（Clinical Owner 2026-11-02）全部問得完，分級等於 truth；答「有」→ T0。D-55 上限 15。"""
     c = CASES[cid]
     r = run_case(c)
-    assert "Q-FREQ-01" in _qs(r) and r.final.tier == c.truth_tier and r.n_questions == len(r.turns) <= 12
+    assert "Q-FREQ-01" in _qs(r) and r.final.tier == c.truth_tier and r.n_questions == len(r.turns) <= 15
     up = run_case(dataclasses.replace(c, slots={**c.slots, "episode_frequency_increased": True}))
     assert up.final.tier == 0 and not up.final.hard_stop
 
@@ -157,8 +158,8 @@ def test_a_cap_cases_asked_within_twelve_and_keep_truth(cid):
 def test_a_every_question_counts_and_over_cap_goes_t9():
     """所有問題都計入；只有再說一次、複誦、矛盾再問不計。超過上限照常走 T9，Q-FREQ-01 沒有例外。"""
     results, m = run_all("clean", seed=0)
-    assert all(r.n_questions == len(r.turns) <= 12 for r in results)
-    assert m.pending_test_asked == 20 and m.pending_test_skipped_at_cap == 2
+    assert all(r.n_questions == len(r.turns) <= 15 for r in results)               # D-55：上限 15
+    assert m.pending_test_asked == 22 and m.pending_test_skipped_at_cap == 0        # D-55（上限 12 時 20／2）
     c = CASES["S-INSUF-02#1"]
     capped = run_case(c, max_questions=11)
     assert capped.n_questions == 11 and capped.final.tier == 9 and capped.stop_reason == "max_questions" and capped.final.provisional_tier == 3
@@ -338,11 +339,12 @@ def test_r13_character_followup_respects_cap():
 def test_d_recheck_only_when_room_left_after_gate_questions():
     """gate 必問題優先：開場白 vague 判穩定型，題數夠才再問；不夠就不問、也不會因此變 T9。"""
     c = CASES["S-INSUF-01#1"]
-    tight = run_case(c)
+    tight = run_case(c, max_questions=12)          # D-55：上限 15 後這例不撞上限；以 12 題重現題數不夠的情況
     assert tight.n_questions == 12 and tight.final.tier == 3 and "Q-CHARACTER-01" not in _qs(tight) and tight.pending_test_asked
     roomy = run_case(c, max_questions=13)
     qs = _qs(roomy)
     assert roomy.final.tier == 3 and qs[-1] == "Q-PENDINGTEST-01" and "Q-CHARACTER-01" in qs
+    assert _qs(run_case(c)) == qs                  # D-55：預設上限 15 與 13 題相同
     p, e = Prompter(), RulesEngine()
     s = SlotState({"symptom_character": "vague"})
     assert p.vague_recheck_question(s, e.decide(s), set()) == QB["Q-CHARACTER-01"]
@@ -930,8 +932,9 @@ def test_order_d_onset_then_chest_t0_factors_when_not_new():
     for op in ({"symptom_character": "vague"}, {"chest_discomfort_mentioned": True}):
         qs = _qs(run_case(case, extractor=Echo(case, opening=op)))
         i = qs.index("Q-ONSET-01")
-        f4 = ["Q-REST-01", "Q-NTG-01", "Q-THRESHOLD-01", "Q-FREQ-01"][:12 - i - 1]      # 只提過胸口者先問性質題，第 4 題撞上限
-        assert qs.index("Q-ORTHO-01") < i and qs[i + 1:i + 5] == f4 and len(qs) <= 12, (op, qs)
+        cap = load_clinical_rules()["thresholds"]["max_questions"]       # D-55：15（上限 12 時只提過胸口者先問性質題，第 4 題撞上限）
+        f4 = ["Q-REST-01", "Q-NTG-01", "Q-THRESHOLD-01", "Q-FREQ-01"][:cap - i - 1]
+        assert qs.index("Q-ORTHO-01") < i and qs[i + 1:i + 5] == f4 and len(qs) <= cap, (op, qs)
 
 
 def test_order_d_applies_when_character_still_unknown():

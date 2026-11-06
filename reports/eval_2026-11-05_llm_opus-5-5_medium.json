@@ -1,0 +1,815 @@
+{
+  "model": "claude-opus-5-5",
+  "model_versions": [
+    "claude-opus-5-5"
+  ],
+  "effort": "medium",
+  "rules_version": "0.10.0",
+  "bank_version": "0.6",
+  "file_sha256": {
+    "data/extractor_prompts_v2.yaml": "8bb4cad7f821b7249b48d729929b1dcd5ff60a72740af1fed4b671de8b0b06c0",
+    "sim/llm_extract_v2.py": "a86fed9066a7e61a00137bbea9d919f75029bc606e4970d7ed5673a8148aca11",
+    "sim/runner.py": "4c3b46f6324e4617ecd8cd0b5077687a73117db958b25d9f01346d52e393b2a7",
+    "sim/closed_loop.py": "f40d5efd7ffde0e365e6482406263820e33289b3eb558036393dbefa61c094cb",
+    "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+    "data/clinical_rules.yaml": "1590f41bc0e7ecbf234c0faf21ec68624b6bee2384a6b77f6553b6cdfbe10b1c",
+    "data/question_bank_seed.yaml": "395c2d36a362a66294946edaa759f02daafb29edd0bf3df8b26d3f414ccbff10",
+    "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+    "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+    "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+    "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+    "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+    "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+    "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+    "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+    "sim/synth_gen.py": "79ba62b92244bb9fa615aaefa2d23f8bfbf2662a55e1c0c5888f841185181816",
+    "sim/llm_extract.py": "01c4ddf74710fc6f4ee511f318bfdc729ae7003a3205e51779038fa871770704",
+    "src/acs_triage/decision/openai_adapter.py": "546881c53a0f3f88e47758671d6c7f1d6e9c315243c6f13e3114b6f1378ecbf3",
+    "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+    "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+    "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+    "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+    "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+    "src/acs_triage/pathway/router.py": "00b95c0378267ec3f768e440176d293b3d571849e4f70008a05a37be32d33b10",
+    "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+    "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+    "src/acs_triage/prompter/prompter.py": "68e40c94aadf37fe0c4308ec015ef6fc797e82797f44c9cf79b699749444b18a",
+    "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+    "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+    "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+    "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+    "src/acs_triage/rules/sufficiency.py": "26e769a0b27afbdf044e36c6f53c20cfdeee680dcaccc91551cd34d0fec77d30",
+    "src/acs_triage/rules/tiers.py": "a9ec1e1a2fb5f2640fbc36f0f4ea20b5d283226ad0172d14d82fcb79010da460",
+    "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+    "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+    "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+  },
+  "scenario_sha256": {
+    "data/scenarios_v0.2.yaml": "2a29ad246a27b6477b3922d28dac859f30c4fd513724fb9ee82ef90e9e2f815f",
+    "data/scenarios_midband_v0.1.yaml": "38bfbd0083f1d3fedd8ff1e6daa4c2a37ea6e89cfd87d87d01c1fc4a89887c23"
+  },
+  "limit": null,
+  "case_ids_in_set": [
+    "S-ACUTE-01",
+    "S-ACUTE-01#0",
+    "S-ACUTE-01#1",
+    "S-ACUTE-01#2",
+    "S-ACUTE-02",
+    "S-ACUTE-02#0",
+    "S-ACUTE-02#1",
+    "S-ACUTE-03",
+    "S-ACUTE-03#0",
+    "S-ACUTE-03#1",
+    "S-ACUTE-03#2",
+    "S-ACUTE-04",
+    "S-ACUTE-04#0",
+    "S-ACUTE-05",
+    "S-ACUTE-05#0",
+    "S-ACUTE-05#1",
+    "S-ACUTE-06",
+    "S-ACUTE-06#0",
+    "S-STABLE-01",
+    "S-STABLE-01#0",
+    "S-STABLE-01#1",
+    "S-STABLE-01#2",
+    "S-STABLE-02",
+    "S-STABLE-02#0",
+    "S-STABLE-02#1",
+    "S-STABLE-03",
+    "S-STABLE-03#0",
+    "S-STABLE-04",
+    "S-STABLE-04#0",
+    "S-STABLE-04#1",
+    "S-INSUF-01",
+    "S-INSUF-01#0",
+    "S-INSUF-01#1",
+    "S-INSUF-02",
+    "S-INSUF-02#0",
+    "S-INSUF-02#1",
+    "S-INSUF-03",
+    "S-INSUF-03#0",
+    "S-INSUF-03#1",
+    "S-INSUF-04",
+    "S-INSUF-04#0",
+    "S-INSUF-04#1",
+    "S-INSUF-04#2",
+    "S-INSUF-05",
+    "S-INSUF-05#0",
+    "S-INSUF-05#1",
+    "S-INSUF-06",
+    "S-INSUF-06#0",
+    "S-INSUF-06#1",
+    "S-INSUF-07",
+    "S-INSUF-07#0",
+    "S-INSUF-07#1",
+    "S-INSUF-08",
+    "S-INSUF-08#0",
+    "S-INSUF-08#1",
+    "S-MID-01",
+    "S-MID-01#0",
+    "S-MID-01#1",
+    "S-MID-01#2",
+    "S-MID-02",
+    "S-MID-02#0",
+    "S-MID-02#1",
+    "S-MID-02#2",
+    "S-MID-03",
+    "S-MID-03#0",
+    "S-MID-04",
+    "S-MID-04#0",
+    "S-MID-05",
+    "S-MID-05#0",
+    "S-MID-05#1",
+    "S-MID-06",
+    "S-MID-06#0",
+    "S-MID-06#1",
+    "S-MID-06#2",
+    "S-MID-07",
+    "S-MID-07#0",
+    "S-MID-07#1",
+    "S-MID-07#2",
+    "S-MID-08",
+    "S-MID-08#0",
+    "S-MID-08#1",
+    "S-MID-08#2",
+    "S-MID-09",
+    "S-MID-09#0",
+    "S-MID-10",
+    "S-MID-10#0",
+    "S-MID-10#1",
+    "S-MID-11",
+    "S-MID-11#0",
+    "S-MID-11#1",
+    "S-MID-12",
+    "S-MID-12#0",
+    "S-MID-12#1",
+    "S-MID-13",
+    "S-MID-13#0",
+    "S-MID-13#1",
+    "S-MID-13#2",
+    "S-MID-13#3",
+    "S-MID-14",
+    "S-MID-14#0",
+    "S-MID-14#1",
+    "S-MID-15",
+    "S-MID-15#0",
+    "S-MID-16",
+    "S-MID-16#0",
+    "S-MID-16#1",
+    "S-MID-17",
+    "S-MID-17#0",
+    "S-MID-17#1",
+    "S-MID-18",
+    "S-MID-18#0",
+    "S-MID-19",
+    "S-MID-19#0",
+    "S-MID-19#1",
+    "S-MID-19#2",
+    "S-MID-19#3",
+    "S-MID-20",
+    "S-MID-20#0",
+    "S-MID-20#1"
+  ],
+  "metrics": {
+    "n_cases": 119,
+    "n_scored": 119,
+    "hard_stop": {
+      "truth": 27,
+      "hit": 27,
+      "miss": [],
+      "miss_rate": 0.0,
+      "false_alarm": [],
+      "latency_max": 0
+    },
+    "exact_rate": 1.0,
+    "under_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "over_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "abstention": {
+      "tp": 12,
+      "fp": [],
+      "fn": [],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "escalating_recall": 0.9809358752166378,
+    "escalating": {
+      "hit": 566,
+      "total": 577,
+      "missed": [
+        [
+          "S-STABLE-01#2",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-01",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-02",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-03",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-05",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-08",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-MID-17#0",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ]
+      ]
+    },
+    "escalating_recall_strict": 0.951473136915078,
+    "escalating_missed_strict": [
+      [
+        "S-STABLE-01#2",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-STABLE-03",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-STABLE-03",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-INSUF-01",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-02",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-03",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-05",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-08",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-MID-04",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-MID-04",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17#0",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-MID-18",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-18",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-18",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20#0",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ]
+    ],
+    "decisive_recall": 0.9749670619235836,
+    "questions_to_decision_mean": 6.226890756302521,
+    "gate_repeats": 0,
+    "confirm_back": {
+      "n": 168,
+      "per_call": 1.411764705882353,
+      "changed": 0,
+      "downgrade_blocked": 0
+    },
+    "pending_test_extra": {
+      "asked": 22,
+      "skipped_at_cap": 0
+    },
+    "mention_reask": {
+      "n": 0,
+      "downgrades": 0
+    },
+    "stop_reasons": {
+      "gate_passed": 77,
+      "hard_stop": 25,
+      "hard_stop_opening": 2,
+      "max_questions": 11,
+      "gate_passed_t0_asked": 3,
+      "no_more_questions": 1
+    },
+    "confusion": {
+      "0->0": 71,
+      "1->1": 7,
+      "2->2": 6,
+      "3->3": 19,
+      "4->4": 4,
+      "9->9": 12
+    },
+    "rf_mismatch": []
+  },
+  "scripted_metrics": {
+    "n_cases": 119,
+    "n_scored": 119,
+    "hard_stop": {
+      "truth": 27,
+      "hit": 27,
+      "miss": [],
+      "miss_rate": 0.0,
+      "false_alarm": [],
+      "latency_max": 0
+    },
+    "exact_rate": 1.0,
+    "under_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "over_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "abstention": {
+      "tp": 12,
+      "fp": [],
+      "fn": [],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "escalating_recall": 0.9809358752166378,
+    "escalating": {
+      "hit": 566,
+      "total": 577,
+      "missed": [
+        [
+          "S-STABLE-01#2",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-01",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-02",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-03",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-05",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-06#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-07#1",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-INSUF-08",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "S-MID-17#0",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ]
+      ]
+    },
+    "escalating_recall_strict": 0.951473136915078,
+    "escalating_missed_strict": [
+      [
+        "S-STABLE-01#2",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-STABLE-03",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-STABLE-03",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-INSUF-01",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-02",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-03",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-05",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-06#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-07#1",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-INSUF-08",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-MID-04",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-MID-04",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-15",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-17#0",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "S-MID-18",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-18",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-18",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "S-MID-20#0",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ]
+    ],
+    "decisive_recall": 0.9749670619235836,
+    "questions_to_decision_mean": 6.226890756302521,
+    "gate_repeats": 0,
+    "confirm_back": {
+      "n": 116,
+      "per_call": 0.9747899159663865,
+      "changed": 0,
+      "downgrade_blocked": 0
+    },
+    "pending_test_extra": {
+      "asked": 22,
+      "skipped_at_cap": 0
+    },
+    "mention_reask": {
+      "n": 0,
+      "downgrades": 0
+    },
+    "stop_reasons": {
+      "gate_passed": 77,
+      "hard_stop": 25,
+      "hard_stop_opening": 2,
+      "max_questions": 11,
+      "gate_passed_t0_asked": 3,
+      "no_more_questions": 1
+    },
+    "confusion": {
+      "0->0": 71,
+      "1->1": 7,
+      "2->2": 6,
+      "3->3": 19,
+      "4->4": 4,
+      "9->9": 12
+    },
+    "rf_mismatch": []
+  },
+  "deviations": [
+    {
+      "case_id": "S-INSUF-04",
+      "question_id": "Q-CONSULT-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "symptom",
+      "utterance_zh": "主要是身體不舒服啦，最近覺得比較喘，想問問看。",
+      "confirm": false
+    },
+    {
+      "case_id": "S-INSUF-06#0",
+      "question_id": "Q-REST-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "沒有，休息的時候不會，都是走路或用力的時候才會，停下來就好了。",
+      "confirm": false
+    }
+  ],
+  "errors": [],
+  "usage": {
+    "input_tokens": 3636,
+    "output_tokens": 54773,
+    "cache_creation_input_tokens": 770486,
+    "cache_read_input_tokens": 1326801,
+    "calls": 909,
+    "est_cost_usd": 5.4932
+  },
+  "wall_seconds": 276.6
+}

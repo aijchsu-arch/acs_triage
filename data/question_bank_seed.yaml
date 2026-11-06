@@ -5,8 +5,8 @@
 # priority: redflag（先問，可觸發 Hard stop）> decisive（決定 acute vs chronic）> refine
 # 不得在程式碼中寫死任何問題文字。
 
-bank_version: "0.5"
-rules_version_required: "0.9.0"
+bank_version: "0.6"
+rules_version_required: "0.10.0"
 
 slots:
   - id: ongoing_now
@@ -175,9 +175,9 @@ questions:
     slot_id: episode_frequency_increased
     priority: decisive
     answer_type: yes_no
-    status: DRAFT            # 措辭待 Clinical Owner 審（同上，DRAFT 字樣不放在句子裡）
     script_zh: "最近發作的次數有比以前多嗎？"
-    why_zh: "DRAFT。既有型態下發作變頻繁 → T0（裁定 #7，D-54；比照 Q-NTG-01、DV-6）"
+    why_zh: "既有型態下發作變頻繁 → T0（裁定 #7，D-54；比照 Q-NTG-01、DV-6）"
+    # D-55：字句 Clinical Owner 2026-11-04 同意定稿（原 DRAFT）
   - id: Q-REST-01
     slot_id: rest_symptom
     priority: decisive

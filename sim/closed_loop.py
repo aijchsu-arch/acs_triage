@@ -40,9 +40,9 @@ from .llm_patient import DEFAULT_EFFORT, DEFAULT_MODEL, KEY_ENV, LLMPatientSimul
 from .patient import PatientReply
 from .runner import RunResult, run_case
 
-DEV_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-03_llm_opus-5-5_medium_r2_transcripts.json"
+DEV_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-05_llm_opus-5-5_medium_transcripts.json"
 HOLDOUT_SCENARIOS = DATA_DIR / "synth" / "scenarios_synth_v1.yaml"
-HOLDOUT_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-03_llm_scenarios_synth_v1_opus-5-5_medium_r2_transcripts.json"
+HOLDOUT_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-05_llm_scenarios_synth_v1_opus-5-5_medium_transcripts.json"
 HOLDOUT_REFERENCE = DATA_DIR / "synth" / "reference_synth_v1.json"
 def _synth_files(folder: Path) -> list[str]:
     """保留集目錄裡的檔案（只計 hash）：只取檔案，略過 .DS_Store 等隱藏檔與子目錄。"""

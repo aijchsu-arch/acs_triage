@@ -4,7 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from acs_triage.loaders import question_by_id
+from acs_triage.loaders import load_clinical_rules, question_by_id
 from acs_triage.rules import SlotState
 from sim.cases import all_cases
 from sim.closed_loop import CachedLLMPatient, PatientCache, dev_metrics, hs_supported, reconstruct
@@ -667,7 +667,7 @@ def test_d50_injection_never_less_urgent_than_no_mention_or_accept_all(mode, mon
                 worse_none.append((case.id, slot, v))
             if ua > ub:
                 worse_accept.append((case.id, slot, v))
-            assert a.n_questions <= 12
+            assert a.n_questions <= load_clinical_rules()["thresholds"]["max_questions"]     # D-55：上限 15
     assert n > 500 and worse_none == [] and worse_accept == []
 
 
@@ -698,7 +698,7 @@ def test_mention_confirms_count_in_confirm_changed_and_no_loops():
             return {q.slot_id: None, **{s: v for s, v in low.items() if s != q.slot_id}}
         r = run_case(case, extractor=storm)
         slots = [m["slot"] for m in r.mention_confirms]
-        assert len(slots) == len(set(slots)) and r.n_questions <= 12
+        assert len(slots) == len(set(slots)) and r.n_questions <= load_clinical_rules()["thresholds"]["max_questions"]   # D-55：上限 15
     # n_confirm_changed：Q-CHARACTER-01 問過抽不出 → 順口「會痛」→ 複誦回答「不是，被壓住」→ 採 pressure（≠ 解讀值 pain）
     case = CASES["S-MID-13#0"]
     seen = []

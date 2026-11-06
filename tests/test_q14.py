@@ -110,4 +110,4 @@ def test_d_nonischemic_carveout_any_timing(engine):
 
 def test_q15_max_questions():
     from acs_triage.loaders import load_clinical_rules
-    assert load_clinical_rules()["thresholds"]["max_questions"] == 12       # D-54（Clinical Owner 2026-11-02）
+    assert load_clinical_rules()["thresholds"]["max_questions"] == 15       # D-54 12 → D-55 15（Clinical Owner 2026-11-04）

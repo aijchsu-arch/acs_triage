@@ -293,6 +293,10 @@ def parse(obj: dict[str, Any], text: str, q: Question | None, confirm_prompt: st
             continue
         if slot == "chest_discomfort_mentioned" and v is not True:      # D-54：旗標只表示「有提到」，false 不寫（否則之後的順口 true 會變成 conflict）
             continue
+        if slot == "rest_symptom" and v is False:
+            # D-55 第五輪：開場白與回答句順口提到的「休息時沒有」不採用，false 只能來自直接回答 Q-REST-01（Gemma 會把「停下來就好」抽成 false）
+            diag["guards"].append({"slot": slot, "guard": "rest_denial_not_used", "evidence": m["evidence"]})
+            continue
         if slot in unsure:                                    # 模型自己把這欄列為沒把握歸類 → 不寫，讓系統追問
             diag["guards"].append({"slot": slot, "guard": "choice_listed_unclassified", "value": v})
             continue
