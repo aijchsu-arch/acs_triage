@@ -9,6 +9,7 @@
 """
 from __future__ import annotations
 
+import functools
 import json
 import threading
 import time
@@ -106,10 +107,10 @@ def to_slots(obj: dict[str, Any], q: Question | None) -> dict[str, Any]:
     return {} if obj["dont_know"] else {q.slot_id: obj["answer"]}
 
 
-def _urllib_transport(url: str, headers: dict[str, str], body: bytes) -> tuple[int, dict[str, str], Any]:
+def _urllib_transport(url: str, headers: dict[str, str], body: bytes, timeout: float = 300) -> tuple[int, dict[str, str], Any]:
     req = urllib.request.Request(url, data=body, headers=headers, method="POST")
     try:
-        with urllib.request.urlopen(req, timeout=300) as r:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
             return r.status, dict(r.headers), json.loads(r.read())
     except urllib.error.HTTPError as e:
         return e.code, dict(e.headers or {}), None
@@ -119,10 +120,10 @@ class LMStudioStructured:
     """LM Studio 的 OpenAI 相容 /v1/chat/completions，response_format json_schema（strict）。不需金鑰。"""
 
     def __init__(self, *, model: str, base_url: str, temperature: float = 0.0, max_tokens: int = 2048,
-                 transport: Transport | None = None) -> None:
+                 transport: Transport | None = None, timeout_s: float = 300) -> None:
         self.model, self.url = model, base_url.rstrip("/") + "/chat/completions"
         self.temperature, self.max_tokens = temperature, max_tokens
-        self.transport = transport or _urllib_transport
+        self.transport = transport or functools.partial(_urllib_transport, timeout=timeout_s)   # D-56 R9：抽取器 v2 傳 600
 
     def ask(self, system: str, user: str, schema: dict[str, Any], name: str) -> tuple[dict[str, Any], dict[str, Any], str]:
         body = json.dumps({

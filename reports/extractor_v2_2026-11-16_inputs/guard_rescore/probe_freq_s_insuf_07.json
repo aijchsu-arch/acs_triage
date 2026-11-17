@@ -1,0 +1,531 @@
+{
+ "dev26/A_opening": {
+  "meta": {
+   "prompts_version": "2.0-dev26",
+   "rendered_sha256": "213f0b5a65b4e0d2e08c2b1e177360d4e98ddba88dbbc49ec303227b08edb49a",
+   "model": "gemma-4-26b-a4b-it-mlx",
+   "temperature": 0
+  },
+  "runs": [
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "third_party_call": true
+    },
+    "guards": [],
+    "asked": null,
+    "latency_s": 12.5
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {},
+    "guards": [],
+    "asked": null,
+    "latency_s": 7.2
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {},
+    "guards": [],
+    "asked": null,
+    "latency_s": 7.2
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {},
+    "guards": [],
+    "asked": null,
+    "latency_s": 7.2
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {},
+    "guards": [],
+    "asked": null,
+    "latency_s": 7.2
+   }
+  ],
+  "freq_true": 0,
+  "raw_freq_true": 0
+ },
+ "dev26/A_answer_Q-ONSET-01": {
+  "meta": {
+   "prompts_version": "2.0-dev26",
+   "rendered_sha256": "213f0b5a65b4e0d2e08c2b1e177360d4e98ddba88dbbc49ec303227b08edb49a",
+   "model": "gemma-4-26b-a4b-it-mlx",
+   "temperature": 0
+  },
+  "runs": [
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.6
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.6
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.7
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.6
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.6
+   }
+  ],
+  "freq_true": 0,
+  "raw_freq_true": 0
+ },
+ "dev26/B_answer_Q-ONSET-01": {
+  "meta": {
+   "prompts_version": "2.0-dev26",
+   "rendered_sha256": "213f0b5a65b4e0d2e08c2b1e177360d4e98ddba88dbbc49ec303227b08edb49a",
+   "model": "gemma-4-26b-a4b-it-mlx",
+   "temperature": 0
+  },
+  "runs": [
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   }
+  ],
+  "freq_true": 5,
+  "raw_freq_true": 5
+ },
+ "dev27/A_opening": {
+  "meta": {
+   "prompts_version": "2.0-dev27",
+   "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+   "model": "gemma-4-26b-a4b-it-mlx",
+   "temperature": 0
+  },
+  "runs": [
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "third_party_call": true,
+     "onset_weeks_ago": 0.29,
+     "consult_topic": "symptom",
+     "chest_discomfort_mentioned": true
+    },
+    "guards": [],
+    "asked": null,
+    "latency_s": 10.7
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "third_party_call": true,
+     "onset_weeks_ago": 0.29,
+     "consult_topic": "symptom",
+     "chest_discomfort_mentioned": true
+    },
+    "guards": [],
+    "asked": null,
+    "latency_s": 7.1
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "third_party_call": true,
+     "onset_weeks_ago": 0.29,
+     "consult_topic": "symptom",
+     "chest_discomfort_mentioned": true
+    },
+    "guards": [],
+    "asked": null,
+    "latency_s": 7.1
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "third_party_call": true,
+     "onset_weeks_ago": 0.29,
+     "consult_topic": "symptom",
+     "chest_discomfort_mentioned": true
+    },
+    "guards": [],
+    "asked": null,
+    "latency_s": 7.1
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "third_party_call": true,
+     "onset_weeks_ago": 0.29,
+     "consult_topic": "symptom",
+     "chest_discomfort_mentioned": true
+    },
+    "guards": [],
+    "asked": null,
+    "latency_s": 7.2
+   }
+  ],
+  "freq_true": 0,
+  "raw_freq_true": 0
+ },
+ "dev27/A_answer_Q-ONSET-01": {
+  "meta": {
+   "prompts_version": "2.0-dev27",
+   "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+   "model": "gemma-4-26b-a4b-it-mlx",
+   "temperature": 0
+  },
+  "runs": [
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.7
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.7
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.7
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.7
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": null,
+    "slot_freq": null,
+    "slots": {
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他這兩天才跟我說不舒服,但以前有沒有過...我不清楚",
+     "stance": "unclear"
+    },
+    "latency_s": 1.7
+   }
+  ],
+  "freq_true": 0,
+  "raw_freq_true": 0
+ },
+ "dev27/B_answer_Q-ONSET-01": {
+  "meta": {
+   "prompts_version": "2.0-dev27",
+   "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+   "model": "gemma-4-26b-a4b-it-mlx",
+   "temperature": 0
+  },
+  "runs": [
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   },
+   {
+    "ok": true,
+    "error": null,
+    "raw_freq": [
+     "true"
+    ],
+    "slot_freq": true,
+    "slots": {
+     "episode_frequency_increased": true,
+     "onset_new": null
+    },
+    "guards": [],
+    "asked": {
+     "evidence": "他只說這兩天不舒服,以前有沒有過...不知道了",
+     "stance": "unclear"
+    },
+    "latency_s": 1.9
+   }
+  ],
+  "freq_true": 5,
+  "raw_freq_true": 5
+ }
+}

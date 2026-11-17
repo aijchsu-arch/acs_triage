@@ -1,0 +1,22 @@
+gpt-6.1-sol：1235 個不同呼叫
+  gpt-6.1-sol: 79 筆，累計估算 US$0.2188
+  gpt-6.1-sol: 157 筆，累計估算 US$0.3826
+  gpt-6.1-sol: 229 筆，累計估算 US$0.5149
+  gpt-6.1-sol: 309 筆，累計估算 US$0.6706
+  gpt-6.1-sol: 376 筆，累計估算 US$0.8073
+  gpt-6.1-sol: 445 筆，累計估算 US$0.9517
+  gpt-6.1-sol: 514 筆，累計估算 US$1.0912
+  gpt-6.1-sol: 582 筆，累計估算 US$1.2331
+  gpt-6.1-sol: 664 筆，累計估算 US$1.4113
+  gpt-6.1-sol: 739 筆，累計估算 US$1.5434
+  gpt-6.1-sol: 812 筆，累計估算 US$1.6739
+  gpt-6.1-sol: 887 筆，累計估算 US$1.8275
+  gpt-6.1-sol: 954 筆，累計估算 US$1.9832
+  gpt-6.1-sol: 1022 筆，累計估算 US$2.1363
+  gpt-6.1-sol: 1094 筆，累計估算 US$2.2971
+  gpt-6.1-sol: 1171 筆，累計估算 US$2.4527
+  gpt-6.1-sol: 1235 筆，累計估算 US$2.5808
+{"gpt/ref": {"hs_miss": 1, "premature": 1, "false_hs": 0, "under": 0, "over": 0, "exact": 0.7395, "abstain_fp": 31, "rf_yes_missed": 0, "extract_failed": 0}, "gpt/phone": {"hs_miss": 3, "premature": 1, "false_hs": 0, "under": 0, "over": 0, "exact": 0.6975, "abstain_fp": 36, "rf_yes_missed": 0, "extract_failed": 0}}
+{"gpt": {"probe": "15/15", "dev": {"correct": 162, "speechless": 1, "wrong": 1}}}
+{"gpt": {"cost": 2.5995, "guards": {"mention_redflag_denial_not_used": 107, "rest_denial_not_used": 14}, "fail": 0}}
+→ <scratch>/replay1116gpt/out/v2_replay_gpt.json

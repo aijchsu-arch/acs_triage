@@ -45,7 +45,7 @@ scenarios:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}
       - override: {onset_new: false, pattern_unchanged_duration_months: 24, rest_symptom: false}
-        expect: {tier: 3, hard_stop: false}
+        expect: {tier: 2, hard_stop: false}   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
 
   - id: S-ACUTE-02
     module: acute
@@ -171,7 +171,7 @@ scenarios:
       - override: {ongoing_now: true}
         expect: {tier: 0, hard_stop: true, rf: RF-03}
       - override: {rest_symptom_first_time: false, pattern_unchanged_duration_months: 12, threshold_decreased: false, antiplatelet_interrupted: false}   # D-45：threshold_decreased（規則必問）與 antiplatelet_interrupted（ND-05 定案必問）補唯一與 truth T3 一致的值
-        expect: {tier: 3, hard_stop: false}
+        expect: {tier: 2, hard_stop: false}   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
         note: "一年來偶有相同休息時症狀且無變化 → T3（Q-05 裁定，D-45）"
 
   - id: S-ACUTE-06
@@ -208,7 +208,7 @@ scenarios:
     reviewer_tier: 3
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: 3
+    truth_tier: 2   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
     truth_hard_stop: false
     hidden_slots:
       cad_history: true
@@ -227,7 +227,7 @@ scenarios:
       ongoing_now: false
       diaphoresis: false
       antiplatelet_interrupted: false
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01, Q-PENDINGTEST-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-PATTERN-01, Q-CHARACTER-01, Q-NTG-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}
@@ -245,7 +245,7 @@ scenarios:
     reviewer_tier: 3
     reviewer_confidence: 2
     reviewer_hard_stop: false
-    truth_tier: 3
+    truth_tier: 2   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
     truth_hard_stop: false
     hidden_slots:
       pci_history: true
@@ -265,11 +265,11 @@ scenarios:
       syncope: false
       ongoing_now: false
       diaphoresis: false
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01, Q-PENDINGTEST-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-PATTERN-01, Q-CHARACTER-01, Q-NTG-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {antiplatelet_interrupted: true}
-        expect: {tier: 3, hard_stop: false}
-        note: "穩定症狀＋抗血小板中斷 → T3 + expedite（Q-05 裁定，D-45；新發＋中斷仍 T1）"
+        expect: {tier: 2, hard_stop: false}   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
+        note: "穩定症狀＋抗血小板中斷 → T2 + expedite（D-56：胸部症狀下限＋T2 附 expedite，Clinical Owner 2026-11-16；原為 Q-05 裁定 T3 + expedite，D-45；新發＋中斷仍 T1）"
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}
 
@@ -307,7 +307,7 @@ scenarios:
     reviewer_tier: 3
     reviewer_confidence: 3
     reviewer_hard_stop: false
-    truth_tier: 3
+    truth_tier: 2   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
     truth_hard_stop: false
     hidden_slots:
       onset_new: false
@@ -324,7 +324,7 @@ scenarios:
       syncope: false
       ongoing_now: false
       diaphoresis: false
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-PATTERN-01, Q-NTG-01, Q-PENDINGTEST-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-ONSET-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-PATTERN-01, Q-CHARACTER-01, Q-NTG-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {rest_symptom: true, rest_symptom_first_time: true}
         expect: {tier: 0, hard_stop: false}
@@ -390,7 +390,7 @@ scenarios:
       - override: {symptom_character: pressure, onset_new: true}
         expect: {tier: 0, hard_stop: false}
       - override: {symptom_character: tightness, onset_new: false, pattern_unchanged_duration_months: 36, rest_symptom: false, threshold_decreased: false}
-        expect: {tier: 3, hard_stop: false}
+        expect: {tier: 2, hard_stop: false}   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
 
   - id: S-INSUF-03
     module: insufficient
@@ -478,7 +478,7 @@ scenarios:
       - override: {onset_new: true}
         expect: {tier: 0, hard_stop: false}
       - override: {onset_new: false, pattern_unchanged_duration_months: 12, rest_symptom: false, threshold_decreased: false, cad_history: true}
-        expect: {tier: 3, hard_stop: false}
+        expect: {tier: 2, hard_stop: false}   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
 
   - id: S-INSUF-06
     module: insufficient
@@ -564,4 +564,4 @@ scenarios:
       - override: {threshold_decreased: true}
         expect: {tier: 0, hard_stop: false}
       - override: {threshold_decreased: false, rest_symptom: false, pattern_unchanged_duration_months: 24}
-        expect: {tier: 3, hard_stop: false}
+        expect: {tier: 2, hard_stop: false}   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3

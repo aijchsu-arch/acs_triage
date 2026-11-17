@@ -589,6 +589,9 @@ def test_asked_unknown_rest_first_time_then_denial_mention_forces_confirm():
         def character_followup_question(self, state, decision, asked):
             return None
 
+        def repro_confirm_question(self, state, decision, asked):      # D-56 裁定 #3
+            return None
+
         def vague_recheck_question(self, state, decision, asked):
             return None
 

@@ -223,7 +223,8 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
         while True:
             q = None
             if res.n_questions < max_q:
-                q = prompter.character_followup_question(state, d, asked)     # D-54（裁定 #15）
+                q = (prompter.repro_confirm_question(state, d, asked)          # D-56（2026-11-17 裁定 #3）
+                     or prompter.character_followup_question(state, d, asked))     # D-54（裁定 #15）
             if q is None and d.provisional_tier != 9 and d.gate_passed:
                 # rules 0.8.0：有症狀暫判 T2–T4 → 定案前加問待追蹤檢查一次（算題數；已達上限就不問、照原結果定案）
                 q = prompter.pending_test_question(state, d, asked)

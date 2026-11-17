@@ -187,14 +187,38 @@ def t4_rules(s: SlotState) -> list[str]:
     return []
 
 
+# ---------------------------------------------------------------- D-56 R7 胸部症狀下限
+def chest_floor_applies(s: SlotState) -> bool:
+    """D-56 R7「有胸部症狀」：性質在 chest_symptom_floor.characters 內；或性質未知而提過胸口（chest_discomfort_mentioned）。"""
+    floor = load_clinical_rules()["chest_symptom_floor"]
+    character = s.get("symptom_character")
+    if character is None:
+        return bool(floor["unknown_with_chest_mention"]) and s.is_true("chest_discomfort_mentioned")
+    return character in set(floor["characters"])
+
+
+def d44_exception_a(s: SlotState) -> bool:
+    """D-44 例外 A（Clinical Owner 2026-10-18）：性質 vague、穩定型（T3-STABLE）全部條件成立、onset_new 不為 true → T3-STABLE。
+    D-56（Clinical Owner 2026-11-16）：只有這條路徑的 T3 不受胸部症狀下限影響；性質未知而只提過胸口（D-54 #15 的比照）不算。"""
+    return s.get("symptom_character") == "vague" and s.get("onset_new") is not True and "T3-STABLE" in t3_rules(s)
+
+
 # ---------------------------------------------------------------- provisional
 def provisional_tier(s: SlotState) -> tuple[int, list[str]]:
     """回傳 (tier, rule_ids)。不含 hard stop 判斷（由 engine 先做）。
 
     Clinical Owner 2026-10-22（rules 0.8.0）：異常檢查待追蹤 → 至少 T1，不論有無症狀。無症狀者照舊由 T1-PENDING-TEST 判 T1；
     有症狀者先照一般規則判（T0 照常優先，所屬規則的 sufficiency 題目照常要問到），結果為 T2–T4 時再提高到 T1，
-    rule_ids 保留原規則並加上 T1-PENDING-TEST。T9 不改（繼續問），其護理師不可得時的備援等級由 tier9_fallback 保證至少 T1。"""
+    rule_ids 保留原規則並加上 T1-PENDING-TEST。T9 不改（繼續問），其護理師不可得時的備援等級由 tier9_fallback 保證至少 T1。
+
+    D-56 R7（Clinical Owner 2026-11-15，rules 0.11.0）：有胸部症狀 → 暫判 T3／T4 提高到 T2（chest_symptom_floor），rule_ids 保留原規則
+    並加上 T2-CHEST-FLOOR；決定分級的規則含 exempt_rules（T3-MECHANICAL）時維持原等級（與其他 T3 規則同時成立亦同）；
+    D-44 例外 A（d44_exception_a）的 T3 也維持（Clinical Owner 2026-11-16）。待追蹤檢查的 T1 下限在其後照舊。"""
     tier, rules = _provisional_tier(s)
+    floor = load_clinical_rules()["chest_symptom_floor"]
+    exempt = bool(set(rules) & set(floor["exempt_rules"])) or (tier == 3 and floor["exempt_d44_exception_a"] and d44_exception_a(s))
+    if tier != 9 and tier > floor["min_tier"] and chest_floor_applies(s) and not exempt:
+        tier, rules = floor["min_tier"], rules + [floor["rule_id"]]
     if s.is_true("pending_abnormal_test") and tier in (2, 3, 4):
         return 1, rules + ["T1-PENDING-TEST"]
     return tier, rules
@@ -232,13 +256,15 @@ def _provisional_tier(s: SlotState) -> tuple[int, list[str]]:
 
 
 def pathway_actions_for(s: SlotState, rule_ids: list[str], tier: int) -> list[str]:
-    """tier = provisional 等級。提前門診（expedite）只在 T3 附加；被待追蹤檢查下限提高到 T1 時不附（rules 0.8.0）。
-    用 provisional 而非 gate 後的 final：benchmark 比對的是 provisional（D-12），gate 未過暫判 T9 時仍保留 T3 的動作。"""
+    """tier = provisional 等級。提前門診（expedite）在 T3 與 T2 附加（D-56）；T0／T1 不附，被待追蹤檢查下限提高到 T1 時不附（rules 0.8.0）。
+    用 provisional 而非 gate 後的 final：benchmark 比對的是 provisional（D-12），gate 未過暫判 T9 時仍保留 T3／T2 的動作。"""
     acts: list[str] = []
     if tier == 3 and "T3-ANTIPLT-ASYMPTOMATIC" in rule_ids:
         acts.append("expedite")
     elif tier == 3 and s.is_true("antiplatelet_interrupted") and any(r.startswith("T3-") for r in rule_ids):
         acts.append("expedite")               # D-45：穩定症狀＋抗血小板中斷判 T3（S-STABLE-02#0）亦提前門診（設計補充，待確認）
+    elif tier == 2 and s.is_true("antiplatelet_interrupted"):
+        acts.append("expedite")               # D-56（Clinical Owner 2026-11-16）：有抗血小板藥中斷時，T2 也附 expedite（所有 T2，不限下限提高者）
     if "T9-THIRD-PARTY-UNREACHABLE" in rule_ids:
         acts.append("family_relay_safety_net")
     return acts

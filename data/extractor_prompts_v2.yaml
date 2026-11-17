@@ -3,12 +3,12 @@
 # 只依開發集（119 例開發情境的逐字稿與 Whisper 轉寫）調整；保留集 data/synth/ 不得用來調整（D-52）。
 # v1（data/openai_prompts.yaml slot 0.3 ＋ data/extractor_prompts.yaml 0.1）維持不變，sim.e2e_llm 照舊可重現。
 
-prompts_version: "2.0-dev26"
+prompts_version: "2.0-dev27"
 based_on: "openai_prompts.yaml 0.3（slot 規則 1–4）＋ extractor_prompts.yaml 0.1（開場白規則 1–5）"
 
 # 不放進 mentions 的 slot：consult_screen_positive 是 Q-SCREEN-01 合併篩檢的答案，答「沒有」會衍生三個否認（state._derive），
 # 只在被問那題時才有意義（同 v1 opening_excluded_slots）。
-mention_excluded_slots: [consult_screen_positive]
+mention_excluded_slots: [consult_screen_positive, reproducible_mechanical_mentioned]   # 旗標由 parse 設定（D-56 裁定 #3），不給模型
 
 # 極性保護（程式，非臨床規則）只用於紅旗題的 slot 與 symptom_character：開場白與 mentions 的
 # (1) 否認（false／none）沒有含否定詞的原句片段 → 丟棄；(2) 肯定（是非題 true、dyspnea_grade＝rest、last_episode_timing＝ongoing）
@@ -73,6 +73,11 @@ choice_labels_zh:
 # 2.0-dev26（D-55 第五輪，2026-11-05）：刪除開場白規則 17（最近走路會有一點悶 → exertion_only）、18（比放支架前輕很多≠threshold_decreased）——
 # 本機 Gemma 因這兩條把 S-MID-08 開場白的 onset_weeks_ago 抽成 4.0（dev24 0/5 → dev25 5/5）、S-MID-14「走路不會更痛」等抽成 exertion_only，付費閉環 S-MID-08#0 under-triage；
 # 開場白的 rest_symptom＝false 由 sim/llm_extract_v2.py 擋下。規則 13 不改字句：試改成「true、false 都不要填」時，Gemma 的 S-MID-08 onset 仍是 4.0（5/5）。
+# 2.0-dev27（D-56 R8，Clinical Owner 2026-11-15）：開場白規則 4 加「天數換算成週」（例句只用開發集說法：S-MID-19「前天開始」、S-INSUF-07「這兩天」、
+# S-MID-03／S-MID-11「這兩個禮拜」）。dev26 的 Gemma 把「前天開始」「這兩天」抽成 2.0 週（本機探針各 5/5）。只改開場白、字句用最短的寫法：
+# 試做時同一條也加進回答句規則 6 → Gemma 把 Q-ONGOING-01「停下來休息之後就好了」等 2 句改抽成 rest_symptom＝true（dev26 0/5 → 4–5/5）；
+# 開場白寫成「用天說的除以 7（≈0.29 週）」→ S-MID-08「上個月放支架」的 onset 抽成 4.0（5/5，D-55 的 under-triage 機制）；
+# 加「沒說症狀從什麼時候開始就填 null」→ S-MID-12 抽成 exertion_only。回答句以天表達的時序改由 sim/llm_extract_v2.py 的程式防護處理（D-56 R8）。
 answer_system_zh: |
   你是心臟科電話衛教專線的紀錄員（模擬訓練，資料全為虛構）。客服剛問了一題，病人（或家屬）回答了一句。
   客服的話只用來理解病人在回答什麼，不是病人說的。請把病人這句話裡「明確說到」的資訊整理成結構化欄位。
@@ -143,6 +148,7 @@ opening_system_zh: |
   3. 選擇題只能從該欄列出的選項代碼中挑一個；病人說不記得、記不清楚 → 若有 unknown（不記得）選項選 unknown。
   3b. 病人表示「說不上來」「講不出來」（有這個狀況，但描述不出它的性質或時機）→ 若該欄有 unclear（不太清楚）或 vague 選項，選它。
   4. 時間長度欄位填數字，單位依欄位名稱（_min 分鐘、_months 月、_weeks_ago 週）。
+     用「天」說的時間要換算成週：「前天開始」填 0.29、「這兩天」填 0.29（不是 2）；「這兩個禮拜」填 2。
   5. 是非題 true 表示欄位名稱所指的情況成立（例如 onset_new = true 表示最近才第一次出現）。
   6. 選擇題有把握才填：病人的用語要和選項括號裡的說法對得上才選；需要臨床判斷才能歸類的，該欄填 null，並把病人原話寫進 unclassified（客服會再追問）。
      symptom_character 看病人用的字眼：有「壓」（被壓住、壓迫）→ pressure；有「悶」（胸悶、悶悶的）→ tightness；有「痛」→ pain；

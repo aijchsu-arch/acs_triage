@@ -29,14 +29,15 @@ REC = dict(symptom_character="tightness", cad_history=True, pattern_unchanged_du
 
 
 def test_t3_stable_rest_recurrent_boundaries():
-    assert _d(**REC).provisional_tier == 3
+    d = _d(**REC)                                                                      # D-56 R7：有胸部症狀 → 至少 T2
+    assert d.provisional_tier == 2 and d.evidence[:2] == ["T3-STABLE-REST-RECURRENT", "T2-CHEST-FLOOR"]
     assert _d(**{**REC, "rest_symptom_first_time": True}).provisional_tier == 0      # 首次 → T0-REST-NEW
     assert _d(**{**REC, "rest_symptom_first_time": None}).provisional_tier == 0      # 未答視同首次
     assert _d(**{**REC, "threshold_decreased": True, "threshold_decrease_timescale": "days"}).provisional_tier == 0
     assert _d(**{**REC, "ntg_use_increased": True}).provisional_tier == 0
     assert _d(**{**REC, "ongoing_now": True}).hard_stop                                # RF-03 不變
     d = _d(**{**REC, "threshold_decreased": None})                                    # 未知可暫時成立，但 gate 要明確否認
-    assert d.provisional_tier == 3 and "threshold_decreased" in d.missing
+    assert d.provisional_tier == 2 and "T3-STABLE-REST-RECURRENT" in d.evidence and "threshold_decreased" in d.missing   # D-56 R7
 
 
 def test_gate_asks_onset_before_t1_threshold_and_weeks_before_pci():
@@ -46,7 +47,7 @@ def test_gate_asks_onset_before_t1_threshold_and_weeks_before_pci():
     d = _d(symptom_character="tightness", pci_history=True, recent_pci_months=1, symptom_vs_pre_pci="milder", exertion_relation="exertion_only",
            rest_symptom=False, threshold_decreased=False, onset_new=True, ongoing_now=False, diaphoresis=False, presyncope=False,
            ntg_use_increased=False, last_episode_timing="unknown", antiplatelet_interrupted=False)
-    assert d.provisional_tier == 3 and "onset_weeks_ago" in d.missing
+    assert d.provisional_tier == 2 and "T3-POST-PCI-MILDER" in d.evidence and "onset_weeks_ago" in d.missing   # D-56 R7：下限 T2，gate 照舊
 
 
 def test_t0_settles_once_missing_questions_asked():

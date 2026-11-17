@@ -7,7 +7,7 @@ based_on: "openai_prompts.yaml 0.3（有題目的輪原封沿用；開場白為�
 
 # 開場白欄位 = 題庫全部 slot，排除下列：consult_screen_positive 是 Q-SCREEN-01 合併篩檢的答案，
 # 答「沒有」會衍生三個否認（state._derive），只在被問那題時才有意義。
-opening_excluded_slots: [consult_screen_positive, episode_frequency_increased, chest_discomfort_mentioned]
+opening_excluded_slots: [consult_screen_positive, episode_frequency_increased, chest_discomfort_mentioned, reproducible_mechanical_mentioned]
 
 # 沒有對應題目的 slot：給模型的欄位說明（其餘欄位用題庫題目原文當說明）
 opening_field_desc_zh:

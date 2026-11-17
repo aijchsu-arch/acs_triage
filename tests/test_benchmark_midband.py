@@ -20,4 +20,4 @@ def test_distribution():
     dist = {}
     for sc in SCS:
         dist[sc["truth_tier"]] = dist.get(sc["truth_tier"], 0) + 1
-    assert dist == {0: 2, 1: 4, 2: 4, 3: 6, 4: 4}
+    assert dist == {0: 2, 1: 4, 2: 7, 3: 3, 4: 4}                 # D-56 R7：S-MID-08、S-MID-13、S-MID-16 truth 3 → 2（Clinical Owner 2026-11-16）

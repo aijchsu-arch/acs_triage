@@ -103,7 +103,8 @@ def test_opening_schema_is_strict_and_nullable():
     assert s["additionalProperties"] is False and s["required"] == list(s["properties"])
     assert "consult_screen_positive" not in s["properties"]
     # D-54 的新欄位不進 v1 開場白提示（v1 送出的提示全文不變，sim.e2e_llm 照舊可重現）
-    assert set(s["properties"]) == set(slot_defs()) - {"consult_screen_positive", "episode_frequency_increased", "chest_discomfort_mentioned"}
+    assert set(s["properties"]) == set(slot_defs()) - {"consult_screen_positive", "episode_frequency_increased", "chest_discomfort_mentioned",
+                                                       "reproducible_mechanical_mentioned"}     # D-56 裁定 #3 的旗標同樣不進 v1 提示
     assert s["properties"]["diaphoresis"]["type"] == ["boolean", "null"]
     assert s["properties"]["symptom_character"]["enum"][-1] is None
     system, user, _, name = build_request(OPENING, None)

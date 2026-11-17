@@ -43,22 +43,24 @@ def test_r1_withdrawn_d50_keeps_more_severe():
     assert resolve_confirm(DG, "exertional_heavy", "none") == ("exertional_heavy", True)
 
 
-# ---------------------------------------------------------------- R3：題數上限 15
-def test_r3_cap_is_fifteen_and_sixteenth_not_asked():
-    assert load_clinical_rules()["thresholds"]["max_questions"] == 15
+# ---------------------------------------------------------------- R3：題數上限 15（D-56：Clinical Owner 2026-11-16 授權 → 18）
+def test_r3_cap_is_eighteen_and_nineteenth_not_asked():
+    assert load_clinical_rules()["thresholds"]["max_questions"] == 18     # D-56（D-55 為 15）
     c = CASES["S-INSUF-01"]                              # 資訊不足組：每題都答不知道，問到上限
     r = run_case(c)
-    assert r.n_questions == len(r.turns) == 15 and r.stop_reason == "max_questions" and r.final.tier == 9
-    assert all(t.question_id for t in r.turns[12:15])                      # 第 13–15 題問得到
+    assert r.n_questions == len(r.turns) == 18 and r.stop_reason == "max_questions" and r.final.tier == 9
+    assert all(t.question_id for t in r.turns[12:18])                      # 第 13–18 題問得到
     at12 = run_case(c, max_questions=12)
     assert _qs(r)[:12] == _qs(at12) and at12.n_questions == 12            # 前 12 題與舊上限相同，之後才多問
-    more = run_case(c, max_questions=16)
-    assert more.n_questions == 16 and _qs(more)[:15] == _qs(r)            # 有第 16 題可問，但上限 15 不問
+    at15 = run_case(c, max_questions=15)
+    assert _qs(r)[:15] == _qs(at15) and at15.n_questions == 15            # 前 15 題與 D-55 上限相同
+    more = run_case(c, max_questions=19)
+    assert more.n_questions == 19 and _qs(more)[:18] == _qs(r)            # 有第 19 題可問，但上限 18 不問
 
 
 def test_r3_confirms_do_not_count():
     r = run_case(CASES["S-INSUF-01"])
-    assert r.n_confirms > 0 and r.n_questions == len(r.turns) == 15
+    assert r.n_confirms > 0 and r.n_questions == len(r.turns) == 18          # D-56：上限 18
 
 
 # ---------------------------------------------------------------- R4 撤回：L7 回到 HEAD 行為
@@ -110,13 +112,13 @@ def test_f2_direct_answer_and_mentioned_yes_unchanged():
 def test_r5_q_freq_01_final_and_bank_version():
     raw = yaml.safe_load((DATA_DIR / "question_bank_seed.yaml").read_text(encoding="utf-8"))
     q = next(x for x in raw["questions"] if x["id"] == "Q-FREQ-01")
-    assert raw["bank_version"] == "0.6" and "status" not in q and "DRAFT" not in q["why_zh"]
+    assert raw["bank_version"] == "0.7" and "status" not in q and "DRAFT" not in q["why_zh"]
     assert q["script_zh"] == "最近發作的次數有比以前多嗎？"
     assert not any(x.get("status") == "DRAFT" for x in raw["questions"])
 
 
 def test_r6_prompt_version_and_examples():
-    assert load_prompts()["prompts_version"] == "2.0-dev26"
+    assert load_prompts()["prompts_version"] == "2.0-dev27"                    # D-56 R8
     opening, answer = system_prompt(opening=True), system_prompt(opening=False)
     for s in ("坐著休息的時候就不會悶", "今晚躺著看電視時也發作了", "打完流感疫苗手臂痠", "走路比平常喘一點", "今天忘記吃早上的藥",
               "要不要空腹抽血", "今天還沒發作"):

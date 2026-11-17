@@ -40,7 +40,7 @@ from .llm_patient import DEFAULT_EFFORT, DEFAULT_MODEL, KEY_ENV, LLMPatientSimul
 from .patient import PatientReply
 from .runner import RunResult, run_case
 
-DEV_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-05_llm_opus-5-5_medium_transcripts.json"
+DEV_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-17_llm_opus-5-5_medium_transcripts.json"
 HOLDOUT_SCENARIOS = DATA_DIR / "synth" / "scenarios_synth_v1.yaml"
 HOLDOUT_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-05_llm_scenarios_synth_v1_opus-5-5_medium_transcripts.json"
 HOLDOUT_REFERENCE = DATA_DIR / "synth" / "reference_synth_v1.json"
@@ -360,17 +360,34 @@ def hs_supported(case: Case, state: SlotState) -> bool:
 
 
 # ---------------------------------------------------------------- 一個 arm
+class FailureTap:
+    """D-56 R9：包住抽取器，記下這一通裡重試後仍失敗的抽取呼叫（照舊當作沒抽到），計入錯誤數。"""
+
+    def __init__(self, ex: Any) -> None:
+        self.ex, self.failures = ex, []
+
+    def __call__(self, text: str, q: Any = None, confirm_prompt: str | None = None) -> dict[str, Any]:
+        out = self.ex(text, q, confirm_prompt)
+        inner = getattr(self.ex, "ex", self.ex)                     # UsedKeys → LLMExtractorV2
+        rec = inner.record(text, q, confirm_prompt) if hasattr(inner, "record") else {"ok": True}
+        if not rec["ok"]:
+            self.failures.append({"q": q.id if q else None, "confirm": confirm_prompt is not None, "error": rec["error"]})
+        return out
+
+
 def run_arm(cases: list[Case], *, arm: str, cache: PatientCache, client: Any, extractor: Any, tw: Any,
             budget: Budget | None, workers: int) -> list[dict[str, Any]]:
     def one(case: Case) -> dict[str, Any]:
         p = CachedLLMPatient(case, cache=cache, client=client, live=arm != "structured", budget=budget)
+        fx = None if extractor is None else FailureTap(extractor)
         t0 = time.monotonic()
         try:
-            r = run_case(case, patient=p, extractor=extractor, to_traditional=tw)
+            r = run_case(case, patient=p, extractor=fx, to_traditional=tw)
             err = None
         except Exception as e:  # noqa: BLE001 — 單案失敗要記錄、不中斷整批
             r, err = None, _err(e)
-        return {"case": case, "result": r, "patient": p, "error": err, "wall_s": time.monotonic() - t0}
+        return {"case": case, "result": r, "patient": p, "error": err, "wall_s": time.monotonic() - t0,
+                "extract_failures": [] if fx is None else fx.failures}
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
         return list(ex.map(one, cases))
@@ -378,7 +395,8 @@ def run_arm(cases: list[Case], *, arm: str, cache: PatientCache, client: Any, ex
 
 def case_record(o: dict[str, Any]) -> dict[str, Any]:
     case, r, p = o["case"], o["result"], o["patient"]
-    rec: dict[str, Any] = {"case_id": case.id, "error": o["error"], "wall_s": round(o["wall_s"], 2),
+    rec: dict[str, Any] = {"case_id": case.id, "error": o["error"], "extract_failures": o.get("extract_failures", []),
+                           "wall_s": round(o["wall_s"], 2),
                            "patient": {"live": p.n_live, "cached": p.n_cached, "sources": dict(p.sources), "cost": p.cost,
                                        "deviations": [d.__dict__ for d in p.deviations]}}
     if r is None:
@@ -418,7 +436,10 @@ def dev_metrics(outs: list[dict[str, Any]]) -> dict[str, Any]:
     res = [adjusted(o, o["case"].truth_hard_stop) for o in ok]
     m = compute(res)
     t9 = sum(1 for r in res if r.final.tier == 9)
-    return {"n": len(res), "errors": [(o["case"].id, o["error"]) for o in outs if o["result"] is None],
+    errors = [(o["case"].id, o["error"]) for o in outs if o["result"] is None]
+    errors += [(o["case"].id, f"extract_failed {f['q'] or 'opening'}{' confirm' if f['confirm'] else ''}: {f['error']}")
+               for o in outs for f in o.get("extract_failures", [])]             # D-56 R9：重試後仍失敗的抽取呼叫也計入
+    return {"n": len(res), "errors": errors,
             "hs_truth": m.hard_stop_truth, "hs_hit": m.hard_stop_hit, "hs_sensitivity": m.hard_stop_hit / m.hard_stop_truth if m.hard_stop_truth else None,
             "hs_miss": m.hard_stop_miss, "premature": premature, "hs_unsupported": unsupported,
             "false_hs": m.hard_stop_false_alarm, "under": m.under_triage, "over": m.over_triage, "exact": m.exact_rate,
@@ -585,6 +606,7 @@ def run_main(argv: list[str]) -> None:
     rep["mention_conflicts"] = [c for o in outs if o["result"] is not None for c in o["result"].mention_conflicts]
     rep["mention_confirms"] = [c for o in outs if o["result"] is not None for c in o["result"].mention_confirms]
     rep["reasks"] = all_reasks(outs)
+    rep["extract_failures"] = [{"case_id": o["case"].id, **f} for o in outs for f in o.get("extract_failures", [])]   # D-56 R9
     if args.arm == "structured":
         fin = {t["case_id"]: t["final"] for t in structured}
         rep["self_check"] = {"reproduced": sum(1 for o in outs if o["result"] is not None and
@@ -598,7 +620,8 @@ def run_main(argv: list[str]) -> None:
                                                 "confirms", "reasks", "reask_downgrades", "exact")}, ensure_ascii=False, default=str))
     print(json.dumps({"patient": rep["patient_usage"], "extractor_cost": (rep["extractor_usage"] or {}).get("cost_total_usd"),
                       "mention_conflicts": len(rep["mention_conflicts"]),
-                      "errors": [r["case_id"] for r in recs if r["error"]], "self_check": rep.get("self_check")}, ensure_ascii=False))
+                      "errors": [r["case_id"] for r in recs if r["error"] or r["extract_failures"]],
+                      "extract_failures": len(rep["extract_failures"]), "self_check": rep.get("self_check")}, ensure_ascii=False))
     print(f"→ {out_dir / (stem + '.json')}")
 
 

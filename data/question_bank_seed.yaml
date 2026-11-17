@@ -5,7 +5,7 @@
 # priority: redflag（先問，可觸發 Hard stop）> decisive（決定 acute vs chronic）> refine
 # 不得在程式碼中寫死任何問題文字。
 
-bank_version: "0.6"
+bank_version: "0.7"   # D-56（2026-11-17 裁定 #3）：加 reproducible_mechanical_mentioned 旗標
 rules_version_required: "0.10.0"
 
 slots:
@@ -110,6 +110,9 @@ slots:
   - id: chest_discomfort_mentioned
     type: yes_no
     note: 由 extractor 設定（提到胸口不適但性質未知，裁定 #15），無對應題目；symptom_character 未知時視為胸部症狀，已知（含 none）以已知值為準
+  - id: reproducible_mechanical_mentioned
+    type: yes_no
+    note: 由 LLM 抽取器設定（開場白或順口提到可重現的胸壁痛，D-56 2026-11-17 裁定 #3「改成提到就問一次確認」），無對應題目、不進規則；reproducible_mechanical 仍未知時 Prompter 在紅旗題後問一次 Q-REPRO-01
 
 questions:
   # ---------- redflag：先問 ----------

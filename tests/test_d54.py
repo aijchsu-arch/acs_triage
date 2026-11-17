@@ -65,10 +65,10 @@ EDU = {"cad_history": True, "consult_topic": "education_question"}
 
 # ---------------------------------------------------------------- 版本與題庫
 def test_versions_and_draft_questions():
-    assert rules_version() == "0.10.0"                                         # D-55
-    assert load_prompts()["prompts_version"] == "2.0-dev26"                    # D-55（第五輪 dev26）
-    assert load_clinical_rules()["thresholds"]["max_questions"] == 15         # D-55（D-54 為 12）
-    assert yaml.safe_load((DATA_DIR / "question_bank_seed.yaml").read_text(encoding="utf-8"))["bank_version"] == "0.6"
+    assert rules_version() == "0.11.0"                                         # D-56
+    assert load_prompts()["prompts_version"] == "2.0-dev27"                    # D-56 R8（dev26 → dev27）
+    assert load_clinical_rules()["thresholds"]["max_questions"] == 18         # D-56（D-54 為 12、D-55 為 15）
+    assert yaml.safe_load((DATA_DIR / "question_bank_seed.yaml").read_text(encoding="utf-8"))["bank_version"] == "0.7"
     # D-55：Q-FREQ-01 字句 Clinical Owner 2026-11-04 同意定稿（D-54 時為 DRAFT）
     assert "status" not in RAW_QUESTIONS["Q-FREQ-01"] and "DRAFT" not in RAW_QUESTIONS["Q-FREQ-01"]["why_zh"]
     assert QB["Q-FREQ-01"].priority == "decisive"
@@ -94,17 +94,17 @@ def test_a_frequency_is_t0_not_hard_stop(engine):
 def test_a_mirrors_ntg_everywhere(engine):
     """gate、穩定型排除、反覆休息時症狀、無症狀判斷、Prompter 相關性都和 ntg_use_increased 一樣。"""
     d = decide_slots(engine, BASE_STABLE)
-    assert d.provisional_tier == 3 and d.tier == 9 and d.missing == ["episode_frequency_increased"]
+    assert d.provisional_tier == 2 and d.tier == 9 and d.missing == ["episode_frequency_increased"]   # D-56 R7：T3-STABLE＋胸部症狀 → T2
     ok = decide_slots(engine, {**BASE_STABLE, "episode_frequency_increased": False})
-    assert ok.tier == 3 and ok.gate_passed
+    assert ok.tier == 2 and ok.gate_passed and "T3-STABLE" in ok.evidence
     assert not SlotState({"episode_frequency_increased": True}).no_symptoms()
     rec = {"symptom_character": "tightness", "pattern_unchanged_duration_months": 12, "rest_symptom": True, "rest_symptom_first_time": False,
            "onset_new": False, "threshold_decreased": False, "ntg_use_increased": False, "cad_history": True, "dyspnea_acute": False,
            "ongoing_now": False, "presyncope": False, "diaphoresis": False, "antiplatelet_interrupted": False}
     d2 = decide_slots(engine, rec)
-    assert d2.provisional_tier == 3 and "episode_frequency_increased" in d2.missing     # 明確否認才能定案（D-45）
+    assert d2.provisional_tier == 2 and "episode_frequency_increased" in d2.missing     # 明確否認才能定案（D-45）；D-56 R7 下限 T2
     assert decide_slots(engine, {**rec, "episode_frequency_increased": True}).provisional_tier == 0
-    assert decide_slots(engine, {**rec, "episode_frequency_increased": False}).tier == 3
+    assert decide_slots(engine, {**rec, "episode_frequency_increased": False}).tier == 2
     p = Prompter()
     q = QB["Q-FREQ-01"]
     assert p.next_question(SlotState({"symptom_character": "none", "dyspnea_grade": "none"}), asked=set()) != q
@@ -150,7 +150,7 @@ def test_a_cap_cases_asked_within_cap_and_keep_truth(cid):
     """這 5 例上限 11 時放不下 Q-FREQ-01；上限 12（Clinical Owner 2026-11-02）全部問得完，分級等於 truth；答「有」→ T0。D-55 上限 15。"""
     c = CASES[cid]
     r = run_case(c)
-    assert "Q-FREQ-01" in _qs(r) and r.final.tier == c.truth_tier and r.n_questions == len(r.turns) <= 15
+    assert "Q-FREQ-01" in _qs(r) and r.final.tier == c.truth_tier and r.n_questions == len(r.turns) <= 18   # D-56：上限 18
     up = run_case(dataclasses.replace(c, slots={**c.slots, "episode_frequency_increased": True}))
     assert up.final.tier == 0 and not up.final.hard_stop
 
@@ -158,11 +158,11 @@ def test_a_cap_cases_asked_within_cap_and_keep_truth(cid):
 def test_a_every_question_counts_and_over_cap_goes_t9():
     """所有問題都計入；只有再說一次、複誦、矛盾再問不計。超過上限照常走 T9，Q-FREQ-01 沒有例外。"""
     results, m = run_all("clean", seed=0)
-    assert all(r.n_questions == len(r.turns) <= 15 for r in results)               # D-55：上限 15
+    assert all(r.n_questions == len(r.turns) <= 18 for r in results)               # D-56：上限 18（D-55 為 15）
     assert m.pending_test_asked == 22 and m.pending_test_skipped_at_cap == 0        # D-55（上限 12 時 20／2）
     c = CASES["S-INSUF-02#1"]
     capped = run_case(c, max_questions=11)
-    assert capped.n_questions == 11 and capped.final.tier == 9 and capped.stop_reason == "max_questions" and capped.final.provisional_tier == 3
+    assert capped.n_questions == 11 and capped.final.tier == 9 and capped.stop_reason == "max_questions" and capped.final.provisional_tier == 2   # D-56 R7（truth 3 → 2）
     assert capped.final.missing                                 # 差必問題 → gate 沒過
 
 
@@ -849,11 +849,11 @@ def test_h3_gate_requires_dyspnea_t0_factors_when_dyspnea_present(engine):
     base = {"symptom_character": "epigastric", "postprandial_relieved": True, "ongoing_now": False, "exertion_relation": "rest_only",
             "diaphoresis": False, "presyncope": False, "rest_symptom": False, "threshold_decreased": False, "ntg_use_increased": False,
             "episode_frequency_increased": False}
-    assert decide_slots(engine, base).tier == 3
+    assert decide_slots(engine, base).tier == 2                       # D-56 R7：T3-POSTPRANDIAL＋胸部症狀 → T2
     with_dysp = {**base, "dyspnea_grade": "exertional_daily", "cant_finish_sentence": False}
     d = decide_slots(engine, with_dysp)
-    assert d.provisional_tier == 3 and d.tier == 9 and {"orthopnea_pnd", "dyspnea_acute"} <= set(d.missing)
-    assert decide_slots(engine, {**with_dysp, "orthopnea_pnd": False, "dyspnea_acute": False}).tier == 3
+    assert d.provisional_tier == 2 and d.tier == 9 and {"orthopnea_pnd", "dyspnea_acute"} <= set(d.missing)
+    assert decide_slots(engine, {**with_dysp, "orthopnea_pnd": False, "dyspnea_acute": False}).tier == 2
     assert decide_slots(engine, {**with_dysp, "dyspnea_acute": True}).tier == 0
     assert not {"orthopnea_pnd", "dyspnea_acute"} & set(decide_slots(engine, {**base, "dyspnea_grade": "none"}).missing)   # 否認喘：由 D-25 衍生
 
@@ -1310,7 +1310,7 @@ def test_c_unknown_character_after_asking_follows_vague_rule_but_keeps_new_today
     assert decide_slots(engine, {**flag, "onset_new": True, "last_episode_timing": "over_24h", "recurrence": False}).provisional_tier == 9
     assert decide_slots(engine, {**flag, "symptom_vs_pre_pci": "milder", "exertion_relation": "exertion_only"}).provisional_tier == 9
     assert decide_slots(engine, {**flag, "onset_new": True, "last_episode_timing": "today"}).provisional_tier == 0
-    assert decide_slots(engine, {**flag, "pattern_unchanged_duration_months": 24, "dyspnea_acute": False}).provisional_tier == 3   # 例外 A
+    assert decide_slots(engine, {**flag, "pattern_unchanged_duration_months": 24, "dyspnea_acute": False}).provisional_tier == 2   # 例外 A（D-56 R7 下限 T2）
     p, e = Prompter(), RulesEngine()
     s = SlotState({**flag, "onset_new": True, "last_episode_timing": "today", "dyspnea_grade": "none"})
     assert p.character_followup_question(s, e.decide(s), set()) == QB["Q-CHARACTER-01"]     # T0 只靠新發今天 → 仍問性質

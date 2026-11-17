@@ -213,7 +213,7 @@ scenarios:
     source: B8
     name: PCI 後新輕症較術前輕
     opening_zh: "上個月放支架，傷口沒問題，最近走路會有一點悶，比放支架前輕很多，但以前是完全沒有。"
-    truth_tier: 3
+    truth_tier: 2   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
     truth_hard_stop: false
     rule_ref: "§5.6 (DV-4)"
     hidden_slots:
@@ -232,7 +232,7 @@ scenarios:
       symptom_character: tightness
       ongoing_now: false
       antiplatelet_interrupted: false
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-CHARACTER-01, Q-EXERTION-01, Q-TIMING-01, Q-ONSET-WEEKS-01, Q-MILDER-01, Q-ANTIPLT-01, Q-NTG-01, Q-PENDINGTEST-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-CHARACTER-01, Q-EXERTION-01, Q-TIMING-01, Q-MILDER-01, Q-ANTIPLT-01, Q-NTG-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {symptom_vs_pre_pci: same}
         expect: {tier: 0, hard_stop: false}
@@ -345,7 +345,7 @@ scenarios:
     source: B13
     name: 餐後脹氣打嗝後完全緩解
     opening_zh: "我有冠心症，剛剛吃太飽胸口脹脹的，打嗝之後就好了，現在完全沒事，想確認要不要去急診。"
-    truth_tier: 3
+    truth_tier: 2   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
     truth_hard_stop: false
     rule_ref: "§5.6 carve-out (DV-5)"
     hidden_slots:
@@ -438,7 +438,7 @@ scenarios:
     source: B16
     name: 咳嗽相關胸痛
     opening_zh: "我有冠心症，最近感冒咳嗽，咳的時候胸口會痛，不咳就不會，走路沒有悶。"
-    truth_tier: 3
+    truth_tier: 2   # D-56 R7（Clinical Owner 2026-11-16 確認）：原 3
     truth_hard_stop: false
     rule_ref: "§5.6 B16"
     hidden_slots:
@@ -456,7 +456,7 @@ scenarios:
       ongoing_now: false
       dyspnea_grade: none
       diaphoresis: false
-    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-CHARACTER-01, Q-EXERTION-01, Q-COUGH-01, Q-ANTIPLT-01, Q-NTG-01, Q-PENDINGTEST-01]
+    decisive_questions: [Q-ONGOING-01, Q-SYNCOPE-01, Q-DYSPNEA-GRADE-01, Q-DIAPH-01, Q-THRESHOLD-01, Q-FREQ-01, Q-REST-01, Q-CHARACTER-01, Q-EXERTION-01, Q-REPRO-01, Q-COUGH-01, Q-ANTIPLT-01, Q-NTG-01, Q-PENDINGTEST-01]
     boundary_variants:
       - override: {exertion_relation: exertion_only}
         expect: {tier: 0, hard_stop: false}

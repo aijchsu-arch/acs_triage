@@ -42,13 +42,13 @@ def test_nd02_ecg_only_upgrades(engine):
                               "rest_symptom": False, "threshold_decreased": False, "dyspnea_acute": False,
                               "ongoing_now": False, "presyncope": False, "diaphoresis": False,
                               "ntg_use_increased": False, "episode_frequency_increased": False})
-    assert d.tier == 3
+    assert d.tier == 2                                       # D-56 R7：穩定胸悶 T3-STABLE → 胸部症狀下限 T2
     up = RulesEngine.apply_ecg(d, ECGResult(device_id="x", quality_ok=True, ai_findings=["ST elevation"], ecg_tier_suggestion=0))
     assert up.tier == 0 and up.provisional_tier == 0
     normal = RulesEngine.apply_ecg(d, ECGResult(device_id="x", quality_ok=True, ai_findings=[], ecg_tier_suggestion=None))
-    assert normal.tier == 3
+    assert normal.tier == 2
     bad = RulesEngine.apply_ecg(d, ECGResult(device_id="x", quality_ok=False, ai_findings=["ST elevation"], ecg_tier_suggestion=0))
-    assert bad.tier == 3, "訊號不佳必須完全忽略"
+    assert bad.tier == 2, "訊號不佳必須完全忽略"
 
 
 def test_nd02_ecg_cannot_downgrade_t0(engine):
@@ -74,7 +74,7 @@ def test_nd04_ntg_effective_and_no_literal_pain_do_not_downgrade(engine):
 
 def test_nd05_cad_pci_alone_do_not_upgrade_but_interruption_matters(engine):
     stable = decide_text(engine, "三年前放過支架，之後一直都是很用力運動才有一點胸悶，半年內完全沒有變嚴重。")
-    assert stable.provisional_tier == 3
+    assert stable.provisional_tier == 2 and stable.evidence[:2] == ["T3-STABLE", "T2-CHEST-FLOOR"]   # D-56 R7：只因胸部症狀下限提高，PCI 本身不升級
     asympt = decide_text(engine, "放支架半年，上禮拜因為拔牙停了保栓通三天，還沒有不舒服，想問要不要趕快回去吃。")
     assert asympt.provisional_tier == 3 and "expedite" in asympt.pathway_actions
     sympt = decide_slots(engine, {"symptom_character": "tightness", "onset_new": True, "antiplatelet_interrupted": True,
