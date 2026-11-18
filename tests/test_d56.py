@@ -447,7 +447,7 @@ def test_ruling_t9_fallback_t1_keeps_provisional_expedite():
 
 # ---------------------------------------------------------------- 2026-11-17 裁定 #3：「改成提到就問一次確認」（LLM 抽取器路徑）
 # 開場白與順口的 reproducible_mechanical＝true 一律不寫入，改記 reproducible_mechanical_mentioned；紅旗題後問一次 Q-REPRO-01，
-# 只有直接回答寫入。關鍵詞路徑不變（已知限制 (a)，另外修）。
+# 只有直接回答寫入。關鍵詞路徑不變（已知限制 (a)，另外修）——D-57（Clinical Owner 2026-11-18 採用 A）已修，關鍵詞路徑同樣只記旗標，見 tests/test_d57.py。
 from acs_triage.extract import extract  # noqa: E402
 from acs_triage.prompter import Prompter  # noqa: E402
 from sim.runner import _write_mentions  # noqa: E402
@@ -499,11 +499,15 @@ def _qs(r):
 
 
 def _kw(cid):
-    return {k: v for k, v in extract(CASES[cid].opening_zh).items() if v is not None}
+    """開場白關鍵詞抽取，當成「模型對開場白輸出 reproducible_mechanical＝true」：D-57 起關鍵詞命中只記旗標，這裡還原成 true。"""
+    x = {k: v for k, v in extract(CASES[cid].opening_zh).items() if v is not None}
+    if x.pop(FLAG, None):
+        x["reproducible_mechanical"] = True
+    return x
 
 
 def _true_from_start(cid):
-    """對照：一開始就是 true（今天的關鍵詞路徑／裁定前的 LLM 路徑）。"""
+    """對照：一開始就是 true（D-57 前的關鍵詞路徑／裁定前的 LLM 路徑）。"""
     c = CASES[cid]
     return run_case(c, extractor=lambda text, q, confirm_prompt=None: dict(_kw(cid)) if q is None
                     else {q.slot_id: ScriptedPatient(c).answer(q).value})
@@ -537,14 +541,6 @@ def test_repro_mention_flag_s_mid_16_asked_then_t2(said, reply):
     assert [x for x in qs if x != "Q-REPRO-01"] == _qs(run_case(c))
     assert r.final_state.get("reproducible_mechanical") is reply and r.final_state.get(FLAG) is True
     assert (r.final.tier, r.final.hard_stop) == (2, False) and "T3-MECHANICAL" not in r.final.evidence
-
-
-def test_repro_keyword_path_unchanged_limitation_a():
-    """Clinical Owner 2026-11-17：關鍵詞路徑照舊（已知限制 (a)，M4 前另外修）——仍直接寫 true、不記旗標，Scripted 不問 Q-REPRO-01。"""
-    for t in ("按下去不會痛", "胸口按下去不會痛，深呼吸也不會痛", "搬東西的時候會悶", CASES["S-MID-14"].opening_zh):
-        x = extract(t)
-        assert x["reproducible_mechanical"] is True and FLAG not in x
-    assert "Q-REPRO-01" not in _qs(run_case(CASES["S-MID-14"]))
 
 
 @pytest.mark.parametrize("text", PROBE2)

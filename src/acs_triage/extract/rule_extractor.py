@@ -245,6 +245,12 @@ class RuleExtractor:
                     out["consult_topic"] = item["value"]
                     break
 
+        # D-57（Clinical Owner 2026-11-18 採用 A）：關鍵詞命中的可重現胸壁痛不寫入 slot，只記旗標，
+        # 由 Prompter 問一次 Q-REPRO-01、只有直接回答寫入（同 D-56 裁定 #3）。放在 consult_topic 之後，「有症狀」判斷不變。
+        if out.get("reproducible_mechanical") is True:
+            del out["reproducible_mechanical"]
+            out["reproducible_mechanical_mentioned"] = True
+
         return out
 
 

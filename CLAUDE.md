@@ -32,7 +32,7 @@
 - 每條紅旗（RF-01～RF-06）至少 3 個正例、3 個含否定詞的反例（「沒有昏倒」不得命中 RF-01；「沒有冒汗」不得命中 RF-06）。
 - `tests/test_no_downgrade.py` 覆蓋 ND-01～ND-05。
 - `tests/test_benchmark_v0_2.py`：18 個情境只給開場白 → `provisional_tier` 與 `hard_stop` 必須等於 `data/scenarios_v0.2.yaml` 的 `truth_tier`／`truth_hard_stop`（D-12）。比對的是 **provisional**，不是經 sufficiency gate 的 final（見 `BLUEPRINT.md §3.7`）。
-- `tests/test_benchmark_midband.py`：`data/scenarios_midband_v0.1.yaml` 20 個情境同上（D-13、D-17）。
+- `tests/test_benchmark_midband.py`：`data/scenarios_midband_v0.1.yaml` 20 個情境同上（D-13、D-17）；S-MID-14 例外（D-57）：只給開場白 ≠ T3，開場白＋Q-REPRO-01 答「會」＝ T3。
 - `tests/test_boundary_variants.py`：兩份情境檔的每個 `boundary_variants`，以 `hidden_slots` + `override` 直接餵規則引擎 → `provisional_tier`／`hard_stop`／`rf` 等於 `expect`。`expect.tier: null` 的變體跳過並列印。
 - 規則中標 `[derived DV-n]` 的門檻（`CLINICAL_RULES.md §9.2`）照寫，但在程式碼註解標 `# DV-n pending`，Clinical Owner 確認後移除；`(DV-n)` 已確認，照一般規則處理。
 - `pytest` 不綠不交付。
@@ -45,4 +45,4 @@
 - 里程碑完成 → 更新 `docs/BLUEPRINT.md §11` 狀態與 `docs/DECISIONS.md`。
 
 ## 目前任務
-M0／M1／M2 已完成（2026-10-13）。下一步依 `docs/BLUEPRINT.md §11`：M2b 已完成（2026-10-15，D-33、D-34；重跑：`python -m sim.run_llm_eval`）、M3 已完成（shadow；Jev D-37、OpenAI D-38／D-39；重跑：`python -m sim.jev_eval`、`python -m sim.openai_eval`、`python -m sim.openai_slots`）、M4（待 Q-01）。所有 API 金鑰只從環境變數讀取（`ACS_PATIENT_LLM_KEY`、`ACS_JEV_API_KEY`、`ACS_OPENAI_API_KEY`，見 D-31），以 `api_key=` 明確傳給 SDK；不得使用 `ANTHROPIC_API_KEY`、`OPENAI_API_KEY`，不得寫入程式碼、設定檔或 commit，任何輸出不得印出金鑰。任何新工作先跑 `pytest` 確認 721 passed 的基線未破（本專案 `-q` 不印總數，以 exit code 與 `--collect-only -q` 為準）。STT（Whisper 等）的中文輸出送進抽取器或句首 yes/no 判斷前，**一定要先轉成繁體**（OpenCC `s2twp`，並先在「是」「只」之間切開，見 `sim/stt_synth_asr.py` 的 `to_tw()`；D-49、D-50）。規則修改後須執行 `python -m sim.decisive --write` 重算情境檔的決定性問題清單。
+M0／M1／M2 已完成（2026-10-13）。下一步依 `docs/BLUEPRINT.md §11`：M2b 已完成（2026-10-15，D-33、D-34；重跑：`python -m sim.run_llm_eval`）、M3 已完成（shadow；Jev D-37、OpenAI D-38／D-39；重跑：`python -m sim.jev_eval`、`python -m sim.openai_eval`、`python -m sim.openai_slots`）、M4（待 Q-01）。所有 API 金鑰只從環境變數讀取（`ACS_PATIENT_LLM_KEY`、`ACS_JEV_API_KEY`、`ACS_OPENAI_API_KEY`，見 D-31），以 `api_key=` 明確傳給 SDK；不得使用 `ANTHROPIC_API_KEY`、`OPENAI_API_KEY`，不得寫入程式碼、設定檔或 commit，任何輸出不得印出金鑰。任何新工作先跑 `pytest` 確認 807 passed 的基線未破（本專案 `-q` 不印總數，以 exit code 與 `--collect-only -q` 為準）。STT（Whisper 等）的中文輸出送進抽取器或句首 yes/no 判斷前，**一定要先轉成繁體**（OpenCC `s2twp`，並先在「是」「只」之間切開，見 `sim/stt_synth_asr.py` 的 `to_tw()`；D-49、D-50）。規則修改後須執行 `python -m sim.decisive --write` 重算情境檔的決定性問題清單。

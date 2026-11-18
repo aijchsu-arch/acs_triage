@@ -2,14 +2,25 @@
 import pytest
 
 from acs_triage import loaders
+from acs_triage.extract import extract
+from acs_triage.rules import SlotState
 from helpers import decide_text
 
 SCS = loaders.load_scenarios("midband")["scenarios"]
+# D-57（Clinical Owner 2026-11-18 採用 A）：關鍵詞命中的可重現胸壁痛只記旗標，要 Q-REPRO-01 直接答「會」才寫入。
+# S-MID-14 重新定義：只給開場白 ≠ T3；開場白＋Q-REPRO-01 答「會」→ truth（T3）。
+REPRO_CONFIRMED = {"S-MID-14"}
 
 
 @pytest.mark.parametrize("sc", SCS, ids=[s["id"] for s in SCS])
 def test_opening_only_matches_truth(engine, sc):
-    d = decide_text(engine, sc["opening_zh"])
+    if sc["id"] in REPRO_CONFIRMED:
+        slots = extract(sc["opening_zh"])
+        assert slots.get("reproducible_mechanical_mentioned") is True and "reproducible_mechanical" not in slots
+        assert engine.decide(SlotState(slots)).provisional_tier != 3, sc["opening_zh"]      # 只給開場白 ≠ T3
+        d = engine.decide(SlotState({**slots, "reproducible_mechanical": True}))         # Q-REPRO-01 答「會」
+    else:
+        d = decide_text(engine, sc["opening_zh"])
     assert d.provisional_tier == sc["truth_tier"], (sc["opening_zh"], d.evidence)
     assert d.hard_stop == sc["truth_hard_stop"], (sc["opening_zh"], d.rf_hits)
     if "expedite" in sc.get("pathway_actions", []):
