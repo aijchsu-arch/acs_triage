@@ -42,7 +42,8 @@ def test_clean_insufficient_group_abstains(clean):
     base_insuf = [r for r in results if r.module == "insufficient" and not r.is_variant]
     assert len(base_insuf) == 8
     assert all(r.final.tier == 9 for r in base_insuf)
-    assert all(r.stop_reason == "max_questions" for r in base_insuf)
+    # D-55（上限 15）：S-INSUF-04 在第 14 題問完所有相關題目（no_more_questions），其餘仍停在上限
+    assert {r.case_id: r.stop_reason for r in base_insuf if r.stop_reason != "max_questions"} == {"S-INSUF-04": "no_more_questions"}
 
 
 def test_clean_escalating_recall_floor(clean):

@@ -1,0 +1,103 @@
+{
+ "what": "D-56 2026-11-17 收緊後的 palpation_pain() 免費重算（不呼叫任何付費 API；金鑰環境變數已移除）",
+ "pytest": {
+  "exit": 0,
+  "collected": 717,
+  "test_d56": 108
+ },
+ "scripted_identical_to_pre_guard": true,
+ "scripted_modes": [
+  "clean/s0",
+  "clean/s1",
+  "clean/s2",
+  "low_stt/s0",
+  "low_stt/s1",
+  "low_stt/s2",
+  "vague/s0",
+  "vague/s1",
+  "vague/s2"
+ ],
+ "closed_loop_1117_offline": {
+  "gpt": {
+   "identical_to": "closed_dev_gpt_final.json",
+   "cases_full_diff": {},
+   "new_opus_calls": 0,
+   "new_extractor_calls": 0,
+   "hs_miss": 0,
+   "under": 0,
+   "over": 2,
+   "exact": 0.957983193277311,
+   "t9": 15
+  },
+  "gemma": {
+   "identical_to": "closed_dev_gemma_final.json",
+   "cases_full_diff": {},
+   "new_opus_calls": 0,
+   "new_extractor_calls": 0,
+   "hs_miss": 0,
+   "under": 0,
+   "over": 2,
+   "exact": 0.9495798319327731,
+   "t9": 14
+  }
+ },
+ "replay_1116_offline": {
+  "gpt": {
+   "ref": {
+    "hs_miss": 1,
+    "premature": 1,
+    "under": 0,
+    "over": 0,
+    "exact": 0.7395,
+    "n_exact": 87,
+    "t9": 43,
+    "cache_misses": 0,
+    "extract_failed": 0
+   },
+   "phone": {
+    "hs_miss": 3,
+    "premature": 1,
+    "under": 0,
+    "over": 0,
+    "exact": 0.6975,
+    "n_exact": 82,
+    "t9": 48,
+    "cache_misses": 0,
+    "extract_failed": 0
+   },
+   "repro_guards": {
+    "repro_mention_not_used": 0,
+    "repro_palpation_evidence_used": 2
+   }
+  },
+  "gemma": {
+   "ref": {
+    "hs_miss": 1,
+    "premature": 1,
+    "under": 0,
+    "over": 1,
+    "exact": 0.7479,
+    "n_exact": 88,
+    "t9": 39,
+    "cache_misses": 0,
+    "extract_failed": 0
+   },
+   "phone": {
+    "hs_miss": 1,
+    "premature": 1,
+    "under": 0,
+    "over": 0,
+    "exact": 0.7059,
+    "n_exact": 83,
+    "t9": 47,
+    "cache_misses": 0,
+    "extract_failed": 0
+   },
+   "repro_guards": {
+    "repro_mention_not_used": 4,
+    "repro_palpation_evidence_used": 2
+   }
+  }
+ },
+ "probe": "tightened_probe_palp.txt（<scratch>/val_d56_final/probe_palp.py，未修改）"
+}

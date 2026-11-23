@@ -1,0 +1,3 @@
+{"hs_sensitivity": 1.0, "hs_miss": [], "premature": [], "false_hs": [], "under": [], "t9": 14, "mean_questions": 7.126050420168068, "confirms": 208, "reasks": 1, "reask_downgrades": 0, "exact": 0.9495798319327731}
+{"patient": {"live_calls": 0, "cached_calls": 1057, "sources": {"live_reused": 568, "seed": 489}, "opus_cost_usd": 0.0}, "extractor_cost": 0.0, "mention_conflicts": 10, "errors": [], "extract_failures": 0, "self_check": null}
+→ <scratch>/closed1117/out_gemma/closed_dev_gemma.json

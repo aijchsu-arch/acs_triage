@@ -1,0 +1,4 @@
+PYTEST_OK
+ACS_PATIENT_LLM_KEY: OK
+{"n": 119, "errors": 0, "hard_stop_miss": [], "under": [], "over": [], "deviations": 2}
+→ <repo>/reports/eval_2026-11-17_llm_opus-5-5_medium.md

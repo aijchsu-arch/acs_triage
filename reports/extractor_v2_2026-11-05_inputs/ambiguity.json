@@ -1,0 +1,151 @@
+{
+ "note": "11-03 的第 1–10 項已在 2026-11-04 裁定（D-55：第 1 項由 15 題上限處理，R1 已撤回；第 2–10 項改提示，最終為 2.0-dev26），本表不再列。下列是 11-05 開發集付費閉環（dev26 最終版）裡，**v2 已經抽錯或需要再問** 的說法（不是「留未知、讓系統追問」）。只用開發集（11-05 逐字稿的閉環、10-20 逐字稿的重放），沒有看任何保留集抽取結果。「v2 處理」是 2.0-dev26 的實際輸出，不代表已採用；以下都屬臨床歸類，本輪未改規則、題庫、提示或抽取程式。",
+ "items": [
+  {
+   "phrase": "我其實不太會喘耶／我是不會喘啦，主要是走快一點胸口會悶悶的而已",
+   "slot": "dyspnea_grade",
+   "where": "閉環 Q-DYSPNEA-GRADE-01 回答（gpt S-ACUTE-05#1；Gemma S-MID-01、S-MID-07）",
+   "keyword": "（無值）",
+   "v2": "抽成 exertional_heavy（事實 none）。前者是裁定 #12；後者是 Gemma 把走快胸悶當成喘。複誦「不是喔，我是不會喘」：gpt 讀成 none、依 D-50 取較嚴重仍 heavy；Gemma 讀成不明、保留原值",
+   "question": "有呼吸症狀 → H3 兩題；病人根本不喘、答「不知道」→ H3 永遠缺 → 15 題 T9（備援 T1；truth T3、T1、T1）。重算：dyspnea 改 none（連同 D-25 推導）→ truth。上限救不了這一型（見表末「H3 兩題答不知道」）",
+   "sources": [
+    {
+     "case": "S-ACUTE-05#1",
+     "where": "閉環 Q-DYSPNEA-GRADE-01（gpt）",
+     "sentence": "我其實不太會喘耶，就是胸口悶而已。"
+    },
+    {
+     "case": "S-MID-01",
+     "where": "閉環 Q-DYSPNEA-GRADE-01（Gemma）",
+     "sentence": "我其實不太會喘耶，走路做家事都還好，休息的時候也不會。"
+    },
+    {
+     "case": "S-MID-07",
+     "where": "閉環 Q-DYSPNEA-GRADE-01（Gemma）",
+     "sentence": "我是不會喘啦，主要是走快一點胸口會悶悶的而已。"
+    }
+   ],
+   "options": "維持（偏急或同級）／H3 兩題答不知道且 dyspnea 只來自委婉否認時另行處理／重新考慮 #12",
+   "in_prompt": "是：「我其實不太會喘」→ exertional_heavy（裁定 #12）；「我不會喘」→ none"
+  },
+  {
+   "phrase": "這個我沒特別記欸，不太確定最後一次是什麼時候好的",
+   "slot": "last_episode_timing",
+   "where": "閉環 Q-TIMING-01 回答（gpt）",
+   "keyword": "（無值）",
+   "v2": "gpt 判成 dont_know → 未知（null）；結構化值與 Gemma 是 slot 選項 unknown。Q-TIMING-01 的 choices 沒有 unknown，slot 有",
+   "question": "gpt S-MID-08：順口補上 exertion_only 後走 T3-POST-PCI-MILDER，它要知道時序；null 之後不再問 → 15 題 T9（備援 T1）。重算：改 unknown → T3＝truth。題目答「不記得」要不要寫成 unknown（提示或程式）？",
+   "sources": [
+    {
+     "case": "S-MID-08",
+     "where": "閉環 Q-TIMING-01（gpt）",
+     "sentence": "這個我沒特別記欸，不太確定最後一次是什麼時候好的。"
+    }
+   ],
+   "options": "答不知道寫 unknown（程式或提示）／Q-TIMING-01 加 unknown 選項／維持",
+   "in_prompt": "否"
+  },
+  {
+   "phrase": "最近走路會有一點悶",
+   "slot": "exertion_relation",
+   "where": "S-MID-08 開場白（#0–#2 共用）；閉環回答句「就是走路的時候胸口有點悶」",
+   "keyword": "exertion_only",
+   "v2": "dev26 刪掉規則 17 後，gpt 開場白不填（同 11-03）；S-MID-08#2 的回答句也沒順口抽成 exertion_only。Gemma 仍抽成 exertion_only",
+   "question": "gpt S-MID-08#2 由 T1 變 T0（DV-4 不適用 → 新發、時序未知 → T0-NEW-TODAY，第 5 題定案，偏急）。重算：補 exertion_only 就不是 T0。是回到 11-03 第 9 項的另一個做法「T0-NEW-TODAY 遇到 DV-4 候選時先問 Q-EXERTION-01」（規則），還是維持？",
+   "sources": [
+    {
+     "case": "S-MID-08#2",
+     "where": "開場白",
+     "sentence": "上個月放支架，傷口沒問題，最近走路會有一點悶，比放支架前輕很多，但以前是完全沒有。"
+    }
+   ],
+   "options": "T0-NEW-TODAY 遇 DV-4 候選先問 Q-EXERTION-01（規則）／維持（偏急）",
+   "in_prompt": "否（dev25 的規則 17 已刪，原因見報告 §1 dev25 中間版紀錄）"
+  },
+  {
+   "phrase": "現在沒有啦，現在坐著休息，胸口都不會悶",
+   "slot": "rest_symptom",
+   "where": "閉環 Q-ONGOING-01 回答（順口；Gemma S-MID-02、#0、S-MID-13#2）",
+   "keyword": "（無值）",
+   "v2": "Gemma 抽成 rest_symptom＝true（事實 false）",
+   "question": "S-MID-02 由 T2 變 T0：dev26 不再採用開場白「休息時從來沒有」的 false，這個誤抽的 true 直接寫入（沒有已知值可矛盾、不觸發 #16）→ T0-REST-NEW。dev25 時由 #16 再問改回。要不要加例句？",
+   "sources": [
+    {
+     "case": "S-MID-02",
+     "where": "閉環 Q-ONGOING-01（Gemma）",
+     "sentence": "現在沒有啦，現在坐著休息，胸口都不會悶。"
+    }
+   ],
+   "options": "加例句／開場白明確否認放行（見下一項）／維持（偏急）",
+   "in_prompt": "部分：休息後緩解 5 句例句（R6）"
+  },
+  {
+   "phrase": "休息時從來沒有／休息時沒有／沒有休息時發作",
+   "slot": "rest_symptom",
+   "where": "S-MID-02、S-MID-03、S-MID-07、S-MID-19 開場白（gpt、Gemma）",
+   "keyword": "false",
+   "v2": "dev26 的抽取器一律不採用開場白與順口的 rest_symptom＝false（記 guard rest_denial_not_used；開場白 gpt 5 句、Gemma 7 句），包括這些正確、明確的否認",
+   "question": "代價：這些通話都要再問 Q-REST-01（問到的通話 gpt 40 → 42、Gemma 39 → 43）；之後若有誤抽的順口 true 會直接寫入（上一項）。開發集閉環沒有因此變得較不急。要不要只攔「休息後緩解」類說法、放行明確否認？",
+   "sources": [
+    {
+     "case": "S-MID-02",
+     "where": "開場白",
+     "sentence": "三個禮拜前開始，快走上坡會悶，每次都一樣，停下來就好，沒有變嚴重，休息時從來沒有。"
+    },
+    {
+     "case": "S-MID-07",
+     "where": "開場白",
+     "sentence": "我有冠心症，這一個月快走的距離比以前短一點才會悶，但沒有休息時發作，也沒有變頻繁。"
+    }
+   ],
+   "options": "維持（一律不採用）／開場白含否定詞的明確否認放行／比照紅旗做 D-50 複誦",
+   "in_prompt": "不適用（程式：sim/llm_extract_v2.py）"
+  },
+  {
+   "phrase": "前天開始走路會胸悶／這兩天",
+   "slot": "onset_weeks_ago",
+   "where": "S-MID-19、S-INSUF-07 開場白（Gemma）",
+   "keyword": "（無值）",
+   "v2": "方向：可能偏不急（under-triage），這次分級未受影響。Gemma dev26 都抽成 2.0 週（前天、兩天當成兩週）；本機探針各 5/5，dev24 時分別是 0.0 與 None，拿掉規則 16 仍是 5/5。gpt 對 S-MID-19 抽成 0.2857 週（正確），S-INSUF-07 不填",
+   "question": "方向：可能偏不急（under-triage）；這次分級未受影響（S-MID-19 系列與結構化值相同；S-INSUF-07 truth T9）。機制與 dev25 的 S-MID-08#0 under 相同：時序未知時，0.29 週走 T0-NEW-TODAY，2.0 週走 T2-NEW-STABLE-WEEKS。要不要加單位例句（兩天＝0.3 週），或開場白順帶的 onset_weeks_ago 改問 Q-ONSET-WEEKS-01？",
+   "sources": [
+    {
+     "case": "S-MID-19",
+     "where": "開場白",
+     "sentence": "我有冠心症，前天開始走路會胸悶，昨天含了一次舌下片有效，今天還沒發作，休息時沒有。"
+    },
+    {
+     "case": "S-INSUF-07",
+     "where": "開場白",
+     "sentence": "我爸爸有心臟病，這兩天說胸口不太舒服，但他現在不在我旁邊。"
+    }
+   ],
+   "options": "加單位例句／開場白的 onset_weeks_ago 改問 Q-ONSET-WEEKS-01 確認／維持",
+   "in_prompt": "否（只有一般的單位說明與月份換算例）"
+  }
+ ],
+ "gap": {
+  "phrase": "已知限制（D-55 (1)–(8)＋本報告新增 3 項）",
+  "slot": "流程",
+  "sources": [
+   {
+    "sentence": "D-55 (1)–(8)；本報告新增：抽取呼叫失敗不重試、當作沒抽到（驗收模擬 976 組：Hard stop 掉級 0、S-MID-04 T3 → T4、37 組 T9 備援比原本不急，另 8 組 S-INSUF 開場白失敗時備援 T1 → T3；gpt 重放第一次 42 次逾時造成 3 例 Hard-stop miss、4 例 T0 → T9）；抽取快取併發競態；dev26 rest_symptom＝false 攔截範圍比目標寬"
+   }
+  ],
+  "current": "逐項的現象與方向見報告 §1「已知限制」與 D-55",
+  "options": "逐項決定是否處理",
+  "in_prompt": "不適用（流程與程式）"
+ },
+ "tradeoff": {
+  "phrase": "H3 兩題答不知道",
+  "slot": "流程",
+  "sources": [
+   {
+    "sentence": "有呼吸症狀時 T1–T4 定案前 orthopnea_pnd、dyspnea_acute 必須已知（D-54 H3）。dyspnea 被誤抽成有（事實不喘）時，病人對這兩題答「不知道」，H3 永遠不過、問到 15 題上限 → T9（備援 T1）：gpt S-ACUTE-05#1、Gemma S-MID-01、S-MID-07。上限 15 只救回會答「沒有」的病人"
+   }
+  ],
+  "current": "D-54 H3、D-55 R3（上限 15）之後的結果；方向偏急或同級",
+  "options": "維持／H3 兩題答不知道時的處理另行裁定",
+  "in_prompt": "不適用（流程）"
+ }
+}

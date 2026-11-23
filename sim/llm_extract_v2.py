@@ -12,12 +12,14 @@ python -m sim.llm_extract_v2 replay [--extractors gpt,gemma] [--conditions ref,p
   （由 D-50 複誦追問）；複誦回答不套句首規則（「對」是對複誦的回答）。
 - 送進模型的文字必須是繁體（D-49）：to_traditional 由呼叫端給（OpenCC s2twp ＋ stt_synth_asr.to_tw）。
 - client 介面同 sim/llm_extract.py：ask(system, user, schema, name) -> (obj, usage, model)；輸出再以 schema 驗證，
-  不合法、逾時或 HTTP 錯誤 = 抽取失敗（什麼都不寫入）。金鑰只由呼叫端以 api_key= 傳入（ACS_OPENAI_API_KEY）。只用合成資料。
+  不合法、逾時或 HTTP 錯誤 = 抽取失敗（什麼都不寫入）；逾時、5xx、連線錯誤先重試最多 2 次（D-56 R9），最終仍失敗才算失敗，
+  並計入重放 cell 與閉環的錯誤數。金鑰只由呼叫端以 api_key= 傳入（ACS_OPENAI_API_KEY）。只用合成資料。
 """
 from __future__ import annotations
 
 import argparse
 import hashlib
+import http.client
 import json
 import os
 import re
@@ -25,6 +27,7 @@ import sys
 import threading
 import time
 import unicodedata
+import urllib.error
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
@@ -83,6 +86,8 @@ def fields_zh() -> str:
     desc = load_prompts()["field_desc_zh"]
     lines = []
     for sid, d in slot_defs().items():
+        if sid == "reproducible_mechanical_mentioned":      # 旗標由 parse 設定、不給模型（D-56 裁定 #3）；送出的提示與加旗標前逐字相同
+            continue
         text = first_q[sid].script_zh.strip() if sid in first_q else desc[sid]
         lines.append(f"- {sid}（{d['type']}）：{text}" + (choices_text(sid) if d["type"] == "choice" else ""))
     return "\n".join(lines)
@@ -263,6 +268,49 @@ def _polarity(slot: str, v: Any) -> str | None:
     return None
 
 
+_DAY_SPAN = re.compile(r"大前天|前天|昨天|今天|幾天|(\d+|[一兩二三四五六七八九十]+)天")
+_LONGER_UNIT = re.compile(r"週|周|禮拜|星期|月|年")
+_ZH_NUM = {"一": 1, "兩": 2, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9}
+
+
+def _zh_int(s: str) -> int:
+    if s.isdigit():
+        return int(s)
+    if "十" in s:                                  # 十、十二、二十、二十三
+        a, _, b = s.partition("十")
+        return (_ZH_NUM.get(a, 1) if a else 1) * 10 + (_ZH_NUM.get(b, 0) if b else 0)
+    return _ZH_NUM[s[-1]]
+
+
+def days_only_weeks(fragment: str) -> tuple[bool, float | None]:
+    """D-56 R8：片段裡的時間只用「天」說（前天、昨天、這兩天、N 天；沒有週、周、禮拜、星期、月、年）→ (True, 最長天數÷7)；
+    說不出天數（這幾天）→ (True, None)；其他（含「每天」這類頻率、沒有時間字眼）→ (False, None)。"""
+    if _LONGER_UNIT.search(fragment):
+        return False, None
+    days: list[int | None] = []
+    for m in _DAY_SPAN.finditer(fragment):
+        tok = m.group(0)
+        days.append({"大前天": 3, "前天": 2, "昨天": 1, "今天": 0, "幾天": None}.get(tok, 0)
+                    if m.group(1) is None else _zh_int(m.group(1)))
+    if not days:
+        return False, None
+    return True, (None if None in days else round(max(days) / 7, 2))
+
+
+def _guard_day_onset(slots: dict[str, Any], evidence: str, diag: dict[str, Any]) -> None:
+    """D-56 R8（程式防護，窄）：onset_weeks_ago ≥ 1 週、但 evidence 只有日數用語 → 改成天數÷7（說不出天數 → 未知）。
+    只會讓時序變近；規則上 onset_weeks_ago 只用於 DV-2（≥2 週 → T2-NEW-STABLE-WEEKS），變近不會比原本不急
+    （DV-2 不成立後最不急的落點 T3-POST-PCI-MILDER 有胸部症狀，由 D-56 R7 的下限提高到 T2）。"""
+    v = slots.get("onset_weeks_ago")
+    if not isinstance(v, (int, float)) or isinstance(v, bool) or v < 1:
+        return
+    only_days, weeks = days_only_weeks(evidence)
+    if only_days:
+        slots["onset_weeks_ago"] = weeks
+        diag["guards"].append({"slot": "onset_weeks_ago", "guard": "onset_days_as_weeks", "value": v, "now": weeks,
+                               "evidence": evidence})
+
+
 def parse(obj: dict[str, Any], text: str, q: Question | None, confirm_prompt: str | None = None) -> tuple[dict[str, Any], dict[str, Any]]:
     """模型輸出 → (slots, diag)。被問那題的 slot 一定在 slots 裡（未知 = None），其餘只放有值者。"""
     diag: dict[str, Any] = {"guards": [], "dropped": [], "unclassified": list(obj.get("unclassified", []))}
@@ -293,6 +341,16 @@ def parse(obj: dict[str, Any], text: str, q: Question | None, confirm_prompt: st
             continue
         if slot == "chest_discomfort_mentioned" and v is not True:      # D-54：旗標只表示「有提到」，false 不寫（否則之後的順口 true 會變成 conflict）
             continue
+        if slot == "rest_symptom" and v is False:
+            # D-55 第五輪：開場白與回答句順口提到的「休息時沒有」不採用，false 只能來自直接回答 Q-REST-01（Gemma 會把「停下來就好」抽成 false）
+            diag["guards"].append({"slot": slot, "guard": "rest_denial_not_used", "evidence": m["evidence"]})
+            continue
+        if slot == "reproducible_mechanical" and v is True:
+            # D-56（Clinical Owner 2026-11-17 裁定 #3「改成提到就問一次確認」）：開場白與回答句順口的 true 一律不寫入，改記旗標，
+            # 由 Prompter 在紅旗題後問一次 Q-REPRO-01；true 只能來自直接回答。false 照收（T3-MECHANICAL 不受 R7 下限影響）
+            slots["reproducible_mechanical_mentioned"] = True
+            diag["guards"].append({"slot": slot, "guard": "repro_mention_not_used", "evidence": m["evidence"]})
+            continue
         if slot in unsure:                                    # 模型自己把這欄列為沒把握歸類 → 不寫，讓系統追問
             diag["guards"].append({"slot": slot, "guard": "choice_listed_unclassified", "value": v})
             continue
@@ -315,6 +373,8 @@ def parse(obj: dict[str, Any], text: str, q: Question | None, confirm_prompt: st
         if slot in slots and slots[slot] != v:
             conflict.add(slot)
         slots[slot] = v
+        if slot == "onset_weeks_ago":
+            _guard_day_onset(slots, m["evidence"] or text, diag)       # D-56 R8；開場白沒列 evidence 時看整句
     for slot in conflict:                                     # 同一句對同一欄給了兩種值 → 不寫
         diag["dropped"].append({"slot": slot, "why": "conflicting_mentions"})
         del slots[slot]
@@ -365,12 +425,32 @@ def parse(obj: dict[str, Any], text: str, q: Question | None, confirm_prompt: st
                 diag["guards"].append({"slot": q.slot_id, "guard": "asked_value_from_mentions", "value": v})
         slots[q.slot_id] = v
         diag["asked_evidence"] = a["evidence"]
+        if q.slot_id == "onset_weeks_ago":
+            _guard_day_onset(slots, a["evidence"] or text, diag)        # D-56 R8
     return slots, diag
 
 
 # ---------------------------------------------------------------- 抽取器
 def _err(e: Exception) -> str:
     return f"{type(e).__name__}: {e}" if isinstance(e, (RuntimeError, ValueError)) else type(e).__name__
+
+
+# D-56 R9：抽取呼叫逾時 300 → 600 秒；逾時、5xx、連線錯誤最多重試 2 次（退避 5、10 秒）。這只是模擬上的緩解：
+# 即時通話不可能等好幾分鐘，正式系統抽取失敗怎麼處理仍待 M4 前決定（D-55 待確認第 6 項）。最終仍失敗 → 照舊當作沒抽到，並計入錯誤數。
+EXTRACT_TIMEOUT_S = 600
+EXTRACT_MAX_RETRIES = 2
+EXTRACT_BACKOFF_S = 5.0
+_HTTP_5XX = re.compile(r"\bHTTP 5\d\d\b")
+
+
+def retryable(e: Exception) -> bool:
+    """可重試：逾時、連線錯誤、HTTP 5xx（client 以 RuntimeError「… HTTP 5xx …」回報）。4xx、schema 不合法、
+    LM Studio finish_reason=length、預算用完都不重試。"""
+    if isinstance(e, urllib.error.HTTPError):
+        return e.code >= 500
+    if isinstance(e, (TimeoutError, ConnectionError, urllib.error.URLError, http.client.HTTPException)):
+        return True
+    return isinstance(e, RuntimeError) and bool(_HTTP_5XX.search(str(e)))
 
 
 Key = tuple[str | None, str | None, str]
@@ -385,10 +465,12 @@ class LLMExtractorV2:
 
     def __init__(self, client: Any, *, name: str, price: tuple[float, float, float] | None = None,
                  budget_usd: float | None = None, to_traditional: Callable[[str], str] | None = None,
-                 clock: Callable[[], float] = time.perf_counter) -> None:
+                 clock: Callable[[], float] = time.perf_counter, max_retries: int = EXTRACT_MAX_RETRIES,
+                 backoff_s: float = EXTRACT_BACKOFF_S, sleep: Callable[[float], None] = time.sleep) -> None:
         self.client, self.name, self.price, self.budget = client, name, price, budget_usd
         self.tw = to_traditional or (lambda s: s)
         self.clock = clock
+        self.max_retries, self.backoff_s, self.sleep = max_retries, backoff_s, sleep     # D-56 R9
         self.cache: dict[Key, dict[str, Any]] = {}
         self.spent = 0.0
         self.n_tw_changed = 0
@@ -412,20 +494,34 @@ class LLMExtractorV2:
             return rec
         system, user, schema, name = build_request(sent, q, confirm_prompt)
         t0 = self.clock()
+        retry_errors: list[str] = []
         try:
-            obj, usage, model = self.client.ask(system, user, schema, name)
+            obj, usage, model = self._ask(system, user, schema, name, retry_errors)
             rec["usage"], rec["model"] = usage, model
             validate(obj, schema)
             slots, diag = parse(obj, sent, q, confirm_prompt)
             rec.update(ok=True, slots=slots, diag=diag, raw=obj)
         except Exception as e:  # noqa: BLE001
             rec["error"] = _err(e)
+        if retry_errors:
+            rec["retry_errors"] = retry_errors       # D-56 R9：重試前失敗的嘗試（只在有重試時才有這欄）
         rec["latency_s"] = self.clock() - t0
         if self.price and rec["usage"]:
             rec["cost"] = usage_cost(rec["usage"], *self.price)
         with self._lock:
             self.spent += rec["cost"]
         return rec
+
+    def _ask(self, system: str, user: str, schema: dict[str, Any], name: str, retry_errors: list[str]) -> Any:
+        """D-56 R9：逾時、5xx、連線錯誤重試（最多 max_retries 次、指數退避）；其他錯誤或重試用完 → 照原例外拋出。"""
+        for attempt in range(self.max_retries + 1):
+            try:
+                return self.client.ask(system, user, schema, name)
+            except Exception as e:  # noqa: BLE001
+                if attempt >= self.max_retries or not retryable(e):
+                    raise
+                retry_errors.append(_err(e))
+                self.sleep(self.backoff_s * 2 ** attempt)
 
     def record(self, text: str, q: Question | None, confirm_prompt: str | None = None) -> dict[str, Any]:
         k = self.key(text, q, confirm_prompt)
@@ -514,11 +610,11 @@ def make_extractor(name: str, *, budget: float | None = None, to_traditional: Ca
         if not os.environ.get(KEY_ENV):
             print(f"{KEY_ENV}: MISSING")
             sys.exit(2)
-        client = OpenAIStructured(model=GPT_MODEL, effort=GPT_EFFORT, api_key=os.environ[KEY_ENV])
+        client = OpenAIStructured(model=GPT_MODEL, effort=GPT_EFFORT, api_key=os.environ[KEY_ENV], timeout_s=EXTRACT_TIMEOUT_S)
         return LLMExtractorV2(client, name=GPT_MODEL, price=PRICES[GPT_MODEL], budget_usd=budget, to_traditional=to_traditional)
     from .llm_extract import LMStudioStructured
     client = LMStudioStructured(model=cfg["local_model"], base_url=cfg["local_base_url"],
-                                temperature=cfg["local_temperature"], max_tokens=cfg["local_max_tokens"])
+                                temperature=cfg["local_temperature"], max_tokens=cfg["local_max_tokens"], timeout_s=EXTRACT_TIMEOUT_S)
     return LLMExtractorV2(client, name=cfg["local_model"], to_traditional=to_traditional)
 
 
@@ -591,6 +687,19 @@ def _cell_summary(c: dict[str, Any]) -> dict[str, Any]:
             "hs_miss_cases": m.hard_stop_miss, "false_hs_cases": m.hard_stop_false_alarm, "premature_cases": c["premature"]}
 
 
+def failed_calls(ex: LLMExtractorV2, transcripts: list[dict], texts: dict[tuple[str, int], str]) -> list[tuple[str, str | None]]:
+    """D-56 R9：重放一個 cell 用到、重試後仍失敗的抽取呼叫（當作沒抽到）→ [(case_id, 題目 id；開場白為 None)]，計入錯誤數。"""
+    from .e2e_llm import utterances
+    qb = question_by_id()
+    out = []
+    for t in transcripts:
+        for i, s, qid in utterances(t):
+            rec = ex.cache.get(ex.key(texts.get((t["case_id"], i), s), qb[qid] if qid else None))
+            if rec is not None and not rec["ok"]:
+                out.append((t["case_id"], qid))
+    return out
+
+
 def replay_main(argv: list[str]) -> None:
     from .e2e_llm import DEFAULT_STT, DEFAULT_TRANSCRIPTS, latency_stats, phone_texts, run_cell, utterances
     from .metrics import compute  # noqa: F401  (run_cell 內用)
@@ -645,7 +754,10 @@ def replay_main(argv: list[str]) -> None:
             print(f"  {ex.name}: {len(ex.cache)} 筆，累計估算 US${ex.spent:.4f}", flush=True)
         for c in args.conditions.split(","):
             cell = run_cell(transcripts, ex, texts[c], writer=protect_asked_writer)
-            rep["cells"][f"{e}/{c}"] = {**_cell_summary(cell), "rows": cell["rows"], "opening": cell["opening"],
+            failed = failed_calls(ex, transcripts, texts[c])
+            rep["cells"][f"{e}/{c}"] = {**_cell_summary(cell), "extract_failed": len(failed),
+                                        "extract_failed_cases": sorted({cid for cid, _ in failed}),
+                                        "rows": cell["rows"], "opening": cell["opening"],
                                         "hs_trigger": cell["hs_trigger"], "abstain_diag": cell["abstain_diag"]}
         if not args.no_confirm:
             cr, pr = confirm_rows(confirm_tr, ex), probe_rows(ex)
@@ -661,7 +773,8 @@ def replay_main(argv: list[str]) -> None:
     rep["meta"]["finished_at"] = datetime.now().isoformat(timespec="seconds")
     stem = f"v2_replay{'_' + args.tag if args.tag else ''}"
     (out / f"{stem}.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
-    print(json.dumps({k: {kk: v[kk] for kk in ("hs_miss", "premature", "false_hs", "under", "over", "exact", "abstain_fp", "rf_yes_missed")}
+    print(json.dumps({k: {kk: v[kk] for kk in ("hs_miss", "premature", "false_hs", "under", "over", "exact", "abstain_fp", "rf_yes_missed",
+                                                "extract_failed")}
                       for k, v in rep["cells"].items()}, ensure_ascii=False))
     print(json.dumps({e: {"probe": f"{v['probe_ok']}/{v['probe_n']}", "dev": v["dev_grades"]} for e, v in rep["confirm"].items()},
                      ensure_ascii=False))

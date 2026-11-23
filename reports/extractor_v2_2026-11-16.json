@@ -1,0 +1,4816 @@
+{
+ "date": "2026-11-16",
+ "written": "2026-11-17",
+ "rules_version": "0.11.0",
+ "bank_version": "0.7",
+ "prompts_version": "2.0-dev27",
+ "pytest_passed": 721,
+ "note": "本 JSON 由 report1117/build_json.py 組成（非 sim.extractor_v2_report）；.md 為人工撰寫，數字皆來自下列來源檔。",
+ "status": {
+  "prompts_version": "2.0-dev27",
+  "files_at_final_run": {
+   "data/extractor_prompts_v2.yaml": "8421ab9d82e7d3043d3c2c74a161dfb6fe64f6ad23853abf844731fc4c9bee52",
+   "sim/llm_extract_v2.py": "57b3950d883714e2a2845cc764692a566fe6a786ee7acbd5d67735e3da678261",
+   "sim/runner.py": "d8bf8fb7ffd31da179da4369c8c45cb49dbb3833c600b5d51c432b088b74e90f",
+   "sim/closed_loop.py": "de1ef21fa219f412e4e422ec149c43e40dd315f0464395f44d38c3466a00bb57",
+   "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+   "data/clinical_rules.yaml": "cec498ca1dc14cd796af9a924f5ad77ed4cfdffd9e900b2d2a2674f7e04896e1",
+   "data/question_bank_seed.yaml": "673740ed81ebe1b9efcb827cec7b13fe6bb55a471c0018ad707e4693e6460ee3",
+   "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+   "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+   "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+   "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+   "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+   "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+   "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+   "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+   "sim/synth_gen.py": "fb4e198e04d8ea21a1d1edf640b579aa94e92b34f5bc77dc80259c1f4175e5a8",
+   "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+   "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+   "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+   "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+   "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+   "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+   "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+   "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+   "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+   "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+   "src/acs_triage/prompter/prompter.py": "8f652424ce2b1566bf01bb8cd9e5a5905d1fe63f51fd30d29c06c52c8a05a82a",
+   "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+   "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+   "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+   "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+   "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+   "src/acs_triage/rules/tiers.py": "7ca15a46f714a18159201526aceb381f42350213932b4d5248e0c73deb54404d",
+   "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+   "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+   "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+  },
+  "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92"
+ },
+ "closed": {
+  "dev_structured_1116": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/closed_dev_structured.json",
+   "meta": {
+    "set": "dev",
+    "arm": "structured",
+    "started_at": "2026-11-16T23:14:03",
+    "finished_at": "2026-11-16T23:14:03",
+    "rules_version": "0.11.0",
+    "prompts_version": "2.0-dev27",
+    "extractor": {},
+    "file_sha256": {
+     "data/extractor_prompts_v2.yaml": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+     "sim/llm_extract_v2.py": "5845a1fd4d9eeb484f9c4e8bff246cb8014ed3d9e55952cd28d278a645e6f9a6",
+     "sim/runner.py": "4c3b46f6324e4617ecd8cd0b5077687a73117db958b25d9f01346d52e393b2a7",
+     "sim/closed_loop.py": "9d4708da77bd58bffa3a8b1981c0fa11115e0aad6b3a419c1a940a72771f3873",
+     "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+     "data/clinical_rules.yaml": "cec498ca1dc14cd796af9a924f5ad77ed4cfdffd9e900b2d2a2674f7e04896e1",
+     "data/question_bank_seed.yaml": "395c2d36a362a66294946edaa759f02daafb29edd0bf3df8b26d3f414ccbff10",
+     "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+     "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+     "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+     "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+     "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+     "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+     "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+     "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+     "sim/synth_gen.py": "79ba62b92244bb9fa615aaefa2d23f8bfbf2662a55e1c0c5888f841185181816",
+     "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+     "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+     "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+     "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+     "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+     "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+     "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+     "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+     "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+     "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+     "src/acs_triage/prompter/prompter.py": "68e40c94aadf37fe0c4308ec015ef6fc797e82797f44c9cf79b699749444b18a",
+     "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+     "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+     "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+     "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+     "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+     "src/acs_triage/rules/tiers.py": "7ca15a46f714a18159201526aceb381f42350213932b4d5248e0c73deb54404d",
+     "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+     "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+     "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+    }
+   },
+   "metrics": {
+    "n": 119,
+    "errors": [],
+    "hs_truth": 27,
+    "hs_hit": 27,
+    "hs_sensitivity": 1.0,
+    "hs_miss": [],
+    "premature": [],
+    "hs_unsupported": [],
+    "false_hs": [],
+    "under": [],
+    "over": [],
+    "exact": 1.0,
+    "abstain_fp": [],
+    "abstain_fn": [],
+    "t9": 12,
+    "mean_questions": 6.504201680672269,
+    "confirms": 170,
+    "confirms_per_call": 1.4285714285714286,
+    "confirm_changed": 0,
+    "reasks": 0,
+    "reask_downgrades": 0,
+    "escalating_recall": 0.9965397923875432,
+    "stop_reasons": {
+     "gate_passed": 77,
+     "hard_stop": 25,
+     "hard_stop_opening": 2,
+     "max_questions": 11,
+     "gate_passed_t0_asked": 3,
+     "no_more_questions": 1
+    },
+    "finals": {
+     "S-ACUTE-01": "T0",
+     "S-ACUTE-01#0": "HS",
+     "S-ACUTE-01#1": "T0",
+     "S-ACUTE-01#2": "T2",
+     "S-ACUTE-02": "T0",
+     "S-ACUTE-02#0": "HS",
+     "S-ACUTE-02#1": "HS",
+     "S-ACUTE-03": "T0",
+     "S-ACUTE-03#0": "HS",
+     "S-ACUTE-03#1": "HS",
+     "S-ACUTE-03#2": "T2",
+     "S-ACUTE-04": "T0",
+     "S-ACUTE-04#0": "HS",
+     "S-ACUTE-05": "T0",
+     "S-ACUTE-05#0": "HS",
+     "S-ACUTE-05#1": "T2",
+     "S-ACUTE-06": "HS",
+     "S-ACUTE-06#0": "HS",
+     "S-STABLE-01": "T2",
+     "S-STABLE-01#0": "T0",
+     "S-STABLE-01#1": "T0",
+     "S-STABLE-01#2": "T9",
+     "S-STABLE-02": "T2",
+     "S-STABLE-02#0": "T2",
+     "S-STABLE-02#1": "T0",
+     "S-STABLE-03": "T3",
+     "S-STABLE-03#0": "T0",
+     "S-STABLE-04": "T2",
+     "S-STABLE-04#0": "T0",
+     "S-STABLE-04#1": "T0",
+     "S-INSUF-01": "T9",
+     "S-INSUF-01#0": "T0",
+     "S-INSUF-01#1": "T3",
+     "S-INSUF-02": "T9",
+     "S-INSUF-02#0": "T0",
+     "S-INSUF-02#1": "T2",
+     "S-INSUF-03": "T9",
+     "S-INSUF-03#0": "T0",
+     "S-INSUF-03#1": "T0",
+     "S-INSUF-04": "T9",
+     "S-INSUF-04#0": "HS",
+     "S-INSUF-04#1": "T0",
+     "S-INSUF-04#2": "T3",
+     "S-INSUF-05": "T9",
+     "S-INSUF-05#0": "T0",
+     "S-INSUF-05#1": "T2",
+     "S-INSUF-06": "T9",
+     "S-INSUF-06#0": "T0",
+     "S-INSUF-06#1": "T9",
+     "S-INSUF-07": "T9",
+     "S-INSUF-07#0": "HS",
+     "S-INSUF-07#1": "T9",
+     "S-INSUF-08": "T9",
+     "S-INSUF-08#0": "T0",
+     "S-INSUF-08#1": "T2",
+     "S-MID-01": "T1",
+     "S-MID-01#0": "T0",
+     "S-MID-01#1": "T2",
+     "S-MID-01#2": "HS",
+     "S-MID-02": "T2",
+     "S-MID-02#0": "T0",
+     "S-MID-02#1": "T0",
+     "S-MID-02#2": "T0",
+     "S-MID-03": "T0",
+     "S-MID-03#0": "HS",
+     "S-MID-04": "T3",
+     "S-MID-04#0": "T1",
+     "S-MID-05": "T3",
+     "S-MID-05#0": "HS",
+     "S-MID-05#1": "T0",
+     "S-MID-06": "T2",
+     "S-MID-06#0": "HS",
+     "S-MID-06#1": "T0",
+     "S-MID-06#2": "T0",
+     "S-MID-07": "T1",
+     "S-MID-07#0": "T0",
+     "S-MID-07#1": "T0",
+     "S-MID-07#2": "T0",
+     "S-MID-08": "T2",
+     "S-MID-08#0": "T0",
+     "S-MID-08#1": "T0",
+     "S-MID-08#2": "T1",
+     "S-MID-09": "T1",
+     "S-MID-09#0": "T0",
+     "S-MID-10": "T2",
+     "S-MID-10#0": "HS",
+     "S-MID-10#1": "HS",
+     "S-MID-11": "T0",
+     "S-MID-11#0": "HS",
+     "S-MID-11#1": "HS",
+     "S-MID-12": "T2",
+     "S-MID-12#0": "T0",
+     "S-MID-12#1": "HS",
+     "S-MID-13": "T2",
+     "S-MID-13#0": "HS",
+     "S-MID-13#1": "HS",
+     "S-MID-13#2": "T0",
+     "S-MID-13#3": "T0",
+     "S-MID-14": "T3",
+     "S-MID-14#0": "T0",
+     "S-MID-14#1": "HS",
+     "S-MID-15": "T4",
+     "S-MID-15#0": "T1",
+     "S-MID-16": "T2",
+     "S-MID-16#0": "T0",
+     "S-MID-16#1": "HS",
+     "S-MID-17": "T4",
+     "S-MID-17#0": "T9",
+     "S-MID-17#1": "HS",
+     "S-MID-18": "T4",
+     "S-MID-18#0": "T0",
+     "S-MID-19": "T1",
+     "S-MID-19#0": "T0",
+     "S-MID-19#1": "T0",
+     "S-MID-19#2": "HS",
+     "S-MID-19#3": "HS",
+     "S-MID-20": "T4",
+     "S-MID-20#0": "T3",
+     "S-MID-20#1": "T0"
+    }
+   },
+   "patient_usage": {
+    "live_calls": 0,
+    "cached_calls": 944,
+    "sources": {
+     "seed": 944
+    },
+    "opus_cost_usd": 0.0
+   },
+   "extractor_usage": null,
+   "extraction": null,
+   "mention_conflicts": [],
+   "reasks": [],
+   "extract_failures": [],
+   "self_check": {
+    "reproduced": 119,
+    "n": 119
+   }
+  },
+  "dev_gpt_1116_superseded": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/closed_dev_gpt.json",
+   "meta": {
+    "set": "dev",
+    "arm": "gpt",
+    "started_at": "2026-11-16T23:14:15",
+    "finished_at": "2026-11-16T23:26:00",
+    "rules_version": "0.11.0",
+    "prompts_version": "2.0-dev27",
+    "extractor": {
+     "extractor": "gpt-6.1-sol",
+     "effort": "medium",
+     "prompts_version": "2.0-dev27",
+     "prompt_file_sha256": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+     "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+     "code_sha256": "5845a1fd4d9eeb484f9c4e8bff246cb8014ed3d9e55952cd28d278a645e6f9a6"
+    },
+    "file_sha256": {
+     "data/extractor_prompts_v2.yaml": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+     "sim/llm_extract_v2.py": "5845a1fd4d9eeb484f9c4e8bff246cb8014ed3d9e55952cd28d278a645e6f9a6",
+     "sim/runner.py": "4c3b46f6324e4617ecd8cd0b5077687a73117db958b25d9f01346d52e393b2a7",
+     "sim/closed_loop.py": "9d4708da77bd58bffa3a8b1981c0fa11115e0aad6b3a419c1a940a72771f3873",
+     "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+     "data/clinical_rules.yaml": "cec498ca1dc14cd796af9a924f5ad77ed4cfdffd9e900b2d2a2674f7e04896e1",
+     "data/question_bank_seed.yaml": "395c2d36a362a66294946edaa759f02daafb29edd0bf3df8b26d3f414ccbff10",
+     "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+     "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+     "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+     "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+     "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+     "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+     "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+     "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+     "sim/synth_gen.py": "79ba62b92244bb9fa615aaefa2d23f8bfbf2662a55e1c0c5888f841185181816",
+     "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+     "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+     "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+     "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+     "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+     "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+     "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+     "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+     "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+     "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+     "src/acs_triage/prompter/prompter.py": "68e40c94aadf37fe0c4308ec015ef6fc797e82797f44c9cf79b699749444b18a",
+     "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+     "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+     "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+     "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+     "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+     "src/acs_triage/rules/tiers.py": "7ca15a46f714a18159201526aceb381f42350213932b4d5248e0c73deb54404d",
+     "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+     "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+     "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+    }
+   },
+   "metrics": {
+    "n": 119,
+    "errors": [],
+    "hs_truth": 27,
+    "hs_hit": 27,
+    "hs_sensitivity": 1.0,
+    "hs_miss": [],
+    "premature": [],
+    "hs_unsupported": [],
+    "false_hs": [],
+    "under": [],
+    "over": [
+     [
+      "S-MID-08#2",
+      1,
+      0
+     ],
+     [
+      "S-MID-13",
+      2,
+      0
+     ]
+    ],
+    "exact": 0.957983193277311,
+    "abstain_fp": [
+     [
+      "S-ACUTE-05#1",
+      2
+     ],
+     [
+      "S-MID-01",
+      1
+     ],
+     [
+      "S-MID-08",
+      2
+     ]
+    ],
+    "abstain_fn": [],
+    "t9": 15,
+    "mean_questions": 7.201680672268908,
+    "confirms": 200,
+    "confirms_per_call": 1.680672268907563,
+    "confirm_changed": 0,
+    "reasks": 0,
+    "reask_downgrades": 0,
+    "escalating_recall": 0.972318339100346,
+    "stop_reasons": {
+     "gate_passed": 64,
+     "hard_stop": 25,
+     "max_questions": 15,
+     "hard_stop_opening": 2,
+     "gate_passed_t0_asked": 13
+    },
+    "finals": {
+     "S-ACUTE-01": "T0",
+     "S-ACUTE-01#0": "HS",
+     "S-ACUTE-01#1": "T0",
+     "S-ACUTE-01#2": "T2",
+     "S-ACUTE-02": "T0",
+     "S-ACUTE-02#0": "HS",
+     "S-ACUTE-02#1": "HS",
+     "S-ACUTE-03": "T0",
+     "S-ACUTE-03#0": "HS",
+     "S-ACUTE-03#1": "HS",
+     "S-ACUTE-03#2": "T2",
+     "S-ACUTE-04": "T0",
+     "S-ACUTE-04#0": "HS",
+     "S-ACUTE-05": "T0",
+     "S-ACUTE-05#0": "HS",
+     "S-ACUTE-05#1": "T9",
+     "S-ACUTE-06": "HS",
+     "S-ACUTE-06#0": "HS",
+     "S-STABLE-01": "T2",
+     "S-STABLE-01#0": "T0",
+     "S-STABLE-01#1": "T0",
+     "S-STABLE-01#2": "T9",
+     "S-STABLE-02": "T2",
+     "S-STABLE-02#0": "T2",
+     "S-STABLE-02#1": "T0",
+     "S-STABLE-03": "T3",
+     "S-STABLE-03#0": "T0",
+     "S-STABLE-04": "T2",
+     "S-STABLE-04#0": "T0",
+     "S-STABLE-04#1": "T0",
+     "S-INSUF-01": "T9",
+     "S-INSUF-01#0": "T0",
+     "S-INSUF-01#1": "T3",
+     "S-INSUF-02": "T9",
+     "S-INSUF-02#0": "T0",
+     "S-INSUF-02#1": "T2",
+     "S-INSUF-03": "T9",
+     "S-INSUF-03#0": "T0",
+     "S-INSUF-03#1": "T0",
+     "S-INSUF-04": "T9",
+     "S-INSUF-04#0": "HS",
+     "S-INSUF-04#1": "T0",
+     "S-INSUF-04#2": "T3",
+     "S-INSUF-05": "T9",
+     "S-INSUF-05#0": "T0",
+     "S-INSUF-05#1": "T2",
+     "S-INSUF-06": "T9",
+     "S-INSUF-06#0": "T0",
+     "S-INSUF-06#1": "T9",
+     "S-INSUF-07": "T9",
+     "S-INSUF-07#0": "HS",
+     "S-INSUF-07#1": "T9",
+     "S-INSUF-08": "T9",
+     "S-INSUF-08#0": "T0",
+     "S-INSUF-08#1": "T2",
+     "S-MID-01": "T9",
+     "S-MID-01#0": "T0",
+     "S-MID-01#1": "T2",
+     "S-MID-01#2": "HS",
+     "S-MID-02": "T2",
+     "S-MID-02#0": "T0",
+     "S-MID-02#1": "T0",
+     "S-MID-02#2": "T0",
+     "S-MID-03": "T0",
+     "S-MID-03#0": "HS",
+     "S-MID-04": "T3",
+     "S-MID-04#0": "T1",
+     "S-MID-05": "T3",
+     "S-MID-05#0": "HS",
+     "S-MID-05#1": "T0",
+     "S-MID-06": "T2",
+     "S-MID-06#0": "HS",
+     "S-MID-06#1": "T0",
+     "S-MID-06#2": "T0",
+     "S-MID-07": "T1",
+     "S-MID-07#0": "T0",
+     "S-MID-07#1": "T0",
+     "S-MID-07#2": "T0",
+     "S-MID-08": "T9",
+     "S-MID-08#0": "T0",
+     "S-MID-08#1": "T0",
+     "S-MID-08#2": "T0",
+     "S-MID-09": "T1",
+     "S-MID-09#0": "T0",
+     "S-MID-10": "T2",
+     "S-MID-10#0": "HS",
+     "S-MID-10#1": "HS",
+     "S-MID-11": "T0",
+     "S-MID-11#0": "HS",
+     "S-MID-11#1": "HS",
+     "S-MID-12": "T2",
+     "S-MID-12#0": "T0",
+     "S-MID-12#1": "HS",
+     "S-MID-13": "T0",
+     "S-MID-13#0": "HS",
+     "S-MID-13#1": "HS",
+     "S-MID-13#2": "T0",
+     "S-MID-13#3": "T0",
+     "S-MID-14": "T3",
+     "S-MID-14#0": "T0",
+     "S-MID-14#1": "HS",
+     "S-MID-15": "T4",
+     "S-MID-15#0": "T1",
+     "S-MID-16": "T2",
+     "S-MID-16#0": "T0",
+     "S-MID-16#1": "HS",
+     "S-MID-17": "T4",
+     "S-MID-17#0": "T9",
+     "S-MID-17#1": "HS",
+     "S-MID-18": "T4",
+     "S-MID-18#0": "T0",
+     "S-MID-19": "T1",
+     "S-MID-19#0": "T0",
+     "S-MID-19#1": "T0",
+     "S-MID-19#2": "HS",
+     "S-MID-19#3": "HS",
+     "S-MID-20": "T4",
+     "S-MID-20#0": "T3",
+     "S-MID-20#1": "T0"
+    }
+   },
+   "patient_usage": {
+    "live_calls": 545,
+    "cached_calls": 512,
+    "sources": {
+     "live": 545,
+     "seed": 512
+    },
+    "opus_cost_usd": 3.676
+   },
+   "extractor_usage": {
+    "calls_used": 868,
+    "new_calls": 868,
+    "reused_seed": 0,
+    "reused_earlier_run": 0,
+    "cost_this_run_usd": 2.1969,
+    "cost_total_usd": 2.1969,
+    "failed": 0,
+    "tw_changed": 0,
+    "latency_new_calls": {
+     "n": 868,
+     "median_s": 3.059,
+     "p95_s": 8.968,
+     "mean_s": 4.061
+    },
+    "guards": {
+     "mention_redflag_denial_not_used": 98,
+     "rest_denial_not_used": 14
+    }
+   },
+   "extraction": {
+    "asked": {
+     "correct": 811,
+     "wrong": 21,
+     "unknown_equiv": 16,
+     "speechless": 7,
+     "missed": 1,
+     "invented": 1
+    },
+    "confirm_reply": {
+     "correct": 192,
+     "speechless": 4,
+     "wrong": 4
+    },
+    "rf_yes_missed": []
+   },
+   "mention_conflicts": [
+    {
+     "case_id": "S-ACUTE-01#0",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "pressure",
+     "mention": "vague",
+     "utterance_zh": "嗯，現在胸口還是有那種不舒服的感覺，還在。"
+    },
+    {
+     "case_id": "S-INSUF-08",
+     "turn": 17,
+     "question_id": "Q-COUGH-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "tightness",
+     "mention": "pain",
+     "utterance_zh": "這個我不太清楚耶，沒注意是不是只有咳嗽的時候才會痛。"
+    },
+    {
+     "case_id": "S-MID-06#1",
+     "turn": 3,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "vague",
+     "utterance_zh": "嗯…這個我不太確定耶，我主要是覺得會喘，胸口的部分我說不太上來。"
+    }
+   ],
+   "reasks": [],
+   "extract_failures": [],
+   "self_check": null
+  },
+  "dev_gemma_1116_superseded": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/closed_dev_gemma_1116_superseded.json",
+   "meta": {
+    "set": "dev",
+    "arm": "gemma",
+    "started_at": "2026-11-17T08:09:46",
+    "finished_at": "2026-11-17T08:14:32",
+    "rules_version": "0.11.0",
+    "prompts_version": "2.0-dev27",
+    "extractor": {
+     "extractor": "gemma-4-26b-a4b-it-mlx",
+     "temperature": 0,
+     "prompts_version": "2.0-dev27",
+     "prompt_file_sha256": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+     "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+     "code_sha256": "5845a1fd4d9eeb484f9c4e8bff246cb8014ed3d9e55952cd28d278a645e6f9a6"
+    },
+    "file_sha256": {
+     "data/extractor_prompts_v2.yaml": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+     "sim/llm_extract_v2.py": "5845a1fd4d9eeb484f9c4e8bff246cb8014ed3d9e55952cd28d278a645e6f9a6",
+     "sim/runner.py": "4c3b46f6324e4617ecd8cd0b5077687a73117db958b25d9f01346d52e393b2a7",
+     "sim/closed_loop.py": "9d4708da77bd58bffa3a8b1981c0fa11115e0aad6b3a419c1a940a72771f3873",
+     "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+     "data/clinical_rules.yaml": "cec498ca1dc14cd796af9a924f5ad77ed4cfdffd9e900b2d2a2674f7e04896e1",
+     "data/question_bank_seed.yaml": "395c2d36a362a66294946edaa759f02daafb29edd0bf3df8b26d3f414ccbff10",
+     "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+     "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+     "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+     "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+     "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+     "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+     "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+     "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+     "sim/synth_gen.py": "79ba62b92244bb9fa615aaefa2d23f8bfbf2662a55e1c0c5888f841185181816",
+     "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+     "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+     "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+     "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+     "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+     "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+     "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+     "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+     "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+     "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+     "src/acs_triage/prompter/prompter.py": "68e40c94aadf37fe0c4308ec015ef6fc797e82797f44c9cf79b699749444b18a",
+     "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+     "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+     "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+     "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+     "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+     "src/acs_triage/rules/tiers.py": "7ca15a46f714a18159201526aceb381f42350213932b4d5248e0c73deb54404d",
+     "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+     "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+     "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+    }
+   },
+   "metrics": {
+    "n": 119,
+    "errors": [],
+    "hs_truth": 27,
+    "hs_hit": 27,
+    "hs_sensitivity": 1.0,
+    "hs_miss": [],
+    "premature": [],
+    "hs_unsupported": [],
+    "false_hs": [],
+    "under": [
+     [
+      "S-MID-16",
+      2,
+      3
+     ]
+    ],
+    "over": [
+     [
+      "S-MID-08#2",
+      1,
+      0
+     ],
+     [
+      "S-MID-13",
+      2,
+      0
+     ]
+    ],
+    "exact": 0.9411764705882353,
+    "abstain_fp": [
+     [
+      "S-MID-01",
+      1
+     ],
+     [
+      "S-MID-02",
+      2
+     ],
+     [
+      "S-MID-08",
+      2
+     ]
+    ],
+    "abstain_fn": [
+     [
+      "S-INSUF-07",
+      0
+     ]
+    ],
+    "t9": 14,
+    "mean_questions": 7.126050420168068,
+    "confirms": 208,
+    "confirms_per_call": 1.7478991596638656,
+    "confirm_changed": 0,
+    "reasks": 1,
+    "reask_downgrades": 0,
+    "escalating_recall": 0.9636678200692042,
+    "stop_reasons": {
+     "gate_passed": 72,
+     "hard_stop": 25,
+     "hard_stop_opening": 2,
+     "max_questions": 14,
+     "gate_passed_t0_asked": 6
+    },
+    "finals": {
+     "S-ACUTE-01": "T0",
+     "S-ACUTE-01#0": "HS",
+     "S-ACUTE-01#1": "T0",
+     "S-ACUTE-01#2": "T2",
+     "S-ACUTE-02": "T0",
+     "S-ACUTE-02#0": "HS",
+     "S-ACUTE-02#1": "HS",
+     "S-ACUTE-03": "T0",
+     "S-ACUTE-03#0": "HS",
+     "S-ACUTE-03#1": "HS",
+     "S-ACUTE-03#2": "T2",
+     "S-ACUTE-04": "T0",
+     "S-ACUTE-04#0": "HS",
+     "S-ACUTE-05": "T0",
+     "S-ACUTE-05#0": "HS",
+     "S-ACUTE-05#1": "T2",
+     "S-ACUTE-06": "HS",
+     "S-ACUTE-06#0": "HS",
+     "S-STABLE-01": "T2",
+     "S-STABLE-01#0": "T0",
+     "S-STABLE-01#1": "T0",
+     "S-STABLE-01#2": "T9",
+     "S-STABLE-02": "T2",
+     "S-STABLE-02#0": "T2",
+     "S-STABLE-02#1": "T0",
+     "S-STABLE-03": "T3",
+     "S-STABLE-03#0": "T0",
+     "S-STABLE-04": "T2",
+     "S-STABLE-04#0": "T0",
+     "S-STABLE-04#1": "T0",
+     "S-INSUF-01": "T9",
+     "S-INSUF-01#0": "T0",
+     "S-INSUF-01#1": "T3",
+     "S-INSUF-02": "T9",
+     "S-INSUF-02#0": "T0",
+     "S-INSUF-02#1": "T2",
+     "S-INSUF-03": "T9",
+     "S-INSUF-03#0": "T0",
+     "S-INSUF-03#1": "T0",
+     "S-INSUF-04": "T9",
+     "S-INSUF-04#0": "HS",
+     "S-INSUF-04#1": "T0",
+     "S-INSUF-04#2": "T3",
+     "S-INSUF-05": "T9",
+     "S-INSUF-05#0": "T0",
+     "S-INSUF-05#1": "T2",
+     "S-INSUF-06": "T9",
+     "S-INSUF-06#0": "T0",
+     "S-INSUF-06#1": "T9",
+     "S-INSUF-07": "T0",
+     "S-INSUF-07#0": "HS",
+     "S-INSUF-07#1": "T9",
+     "S-INSUF-08": "T9",
+     "S-INSUF-08#0": "T0",
+     "S-INSUF-08#1": "T2",
+     "S-MID-01": "T9",
+     "S-MID-01#0": "T0",
+     "S-MID-01#1": "T2",
+     "S-MID-01#2": "HS",
+     "S-MID-02": "T9",
+     "S-MID-02#0": "T0",
+     "S-MID-02#1": "T0",
+     "S-MID-02#2": "T0",
+     "S-MID-03": "T0",
+     "S-MID-03#0": "HS",
+     "S-MID-04": "T3",
+     "S-MID-04#0": "T1",
+     "S-MID-05": "T3",
+     "S-MID-05#0": "HS",
+     "S-MID-05#1": "T0",
+     "S-MID-06": "T2",
+     "S-MID-06#0": "HS",
+     "S-MID-06#1": "T0",
+     "S-MID-06#2": "T0",
+     "S-MID-07": "T1",
+     "S-MID-07#0": "T0",
+     "S-MID-07#1": "T0",
+     "S-MID-07#2": "T0",
+     "S-MID-08": "T9",
+     "S-MID-08#0": "T0",
+     "S-MID-08#1": "T0",
+     "S-MID-08#2": "T0",
+     "S-MID-09": "T1",
+     "S-MID-09#0": "T0",
+     "S-MID-10": "T2",
+     "S-MID-10#0": "HS",
+     "S-MID-10#1": "HS",
+     "S-MID-11": "T0",
+     "S-MID-11#0": "HS",
+     "S-MID-11#1": "HS",
+     "S-MID-12": "T2",
+     "S-MID-12#0": "T0",
+     "S-MID-12#1": "HS",
+     "S-MID-13": "T0",
+     "S-MID-13#0": "HS",
+     "S-MID-13#1": "HS",
+     "S-MID-13#2": "T0",
+     "S-MID-13#3": "T0",
+     "S-MID-14": "T3",
+     "S-MID-14#0": "T0",
+     "S-MID-14#1": "HS",
+     "S-MID-15": "T4",
+     "S-MID-15#0": "T1",
+     "S-MID-16": "T3",
+     "S-MID-16#0": "T0",
+     "S-MID-16#1": "HS",
+     "S-MID-17": "T4",
+     "S-MID-17#0": "T9",
+     "S-MID-17#1": "HS",
+     "S-MID-18": "T4",
+     "S-MID-18#0": "T0",
+     "S-MID-19": "T1",
+     "S-MID-19#0": "T0",
+     "S-MID-19#1": "T0",
+     "S-MID-19#2": "HS",
+     "S-MID-19#3": "HS",
+     "S-MID-20": "T4",
+     "S-MID-20#0": "T3",
+     "S-MID-20#1": "T0"
+    }
+   },
+   "patient_usage": {
+    "live_calls": 260,
+    "cached_calls": 797,
+    "sources": {
+     "live_reused": 308,
+     "seed": 489,
+     "live": 260
+    },
+    "opus_cost_usd": 1.8371
+   },
+   "extractor_usage": {
+    "calls_used": 867,
+    "new_calls": 192,
+    "reused_seed": 0,
+    "reused_earlier_run": 675,
+    "cost_this_run_usd": 0.0,
+    "cost_total_usd": 0.0,
+    "failed": 0,
+    "tw_changed": 0,
+    "latency_new_calls": {
+     "n": 192,
+     "median_s": 2.811,
+     "p95_s": 5.36,
+     "mean_s": 2.998
+    },
+    "guards": {
+     "affirm_with_negated_evidence": 20,
+     "asked_value_from_mentions": 32,
+     "mention_redflag_denial_not_used": 25,
+     "choice_listed_unclassified": 3,
+     "rest_denial_not_used": 22,
+     "asked_stance_vs_leading_word": 1,
+     "ongoing_mention_without_present_marker": 1,
+     "denial_without_negated_evidence": 4
+    }
+   },
+   "extraction": {
+    "asked": {
+     "correct": 802,
+     "wrong": 20,
+     "speechless": 12,
+     "unknown_equiv": 7,
+     "invented": 6,
+     "missed": 1
+    },
+    "confirm_reply": {
+     "correct": 190,
+     "missed": 12,
+     "wrong": 1,
+     "speechless": 4,
+     "invented": 1
+    },
+    "rf_yes_missed": []
+   },
+   "mention_conflicts": [
+    {
+     "case_id": "S-STABLE-03#0",
+     "turn": 4,
+     "question_id": "Q-ONGOING-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "pressure",
+     "mention": "vague",
+     "utterance_zh": "這個我不太確定耶，不知道怎麼講。"
+    },
+    {
+     "case_id": "S-STABLE-04",
+     "turn": 6,
+     "question_id": "Q-DYSPNEA-ACUTE-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": true,
+     "mention": false,
+     "utterance_zh": "不是今天忽然變的啦，我本來就沒什麼在喘。"
+    },
+    {
+     "case_id": "S-INSUF-03#1",
+     "turn": 6,
+     "question_id": "Q-DYSPNEA-ACUTE-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": false,
+     "mention": true,
+     "utterance_zh": "不是今天忽然變的啦，我其實本來就沒什麼在喘。"
+    },
+    {
+     "case_id": "S-MID-08#2",
+     "turn": 7,
+     "question_id": "Q-ORTHO-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": false,
+     "mention": true,
+     "utterance_zh": "這個我不太確定耶，我沒有特別注意躺平或半夜的狀況，平常是沒有覺得在喘啦。"
+    },
+    {
+     "case_id": "S-MID-14",
+     "turn": 5,
+     "question_id": "Q-EXERTION-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "pain",
+     "mention": "vague",
+     "reasked": true,
+     "utterance_zh": "這個我也說不太上來耶，好像跟走路用力沒什麼特別關係，我不太清楚。"
+    },
+    {
+     "case_id": "S-MID-16",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "對，現在沒有在痛。",
+     "from_reply": true
+    },
+    {
+     "case_id": "S-MID-16#0",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "現在沒有在痛，不咳的時候就還好。"
+    },
+    {
+     "case_id": "S-MID-16#1",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "現在沒有在痛，不咳的時候就還好。"
+    },
+    {
+     "case_id": "S-MID-16#1",
+     "turn": 3,
+     "question_id": "Q-DIAPH-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "沒有耶，痛的時候不會冒冷汗。"
+    },
+    {
+     "case_id": "S-MID-18",
+     "turn": 1,
+     "question_id": "Q-DYSPNEA-GRADE-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": true,
+     "mention": false,
+     "utterance_zh": "對，沒有喘，都不會喘。",
+     "from_reply": true
+    }
+   ],
+   "reasks": [
+    {
+     "case_id": "S-MID-14",
+     "turn": 5,
+     "during_question_id": "Q-EXERTION-01",
+     "question_id": "Q-CHARACTER-01",
+     "slot": "symptom_character",
+     "known": "pain",
+     "mention": "vague",
+     "utterance_zh": "這個我也說不太上來耶，好像跟走路用力沒什麼特別關係，我不太清楚。",
+     "prompt_zh": "我再跟您確認一次，您說的不舒服，比較像被壓住、悶悶的、刺痛，還是說不上來？位置在哪裡？",
+     "reply_zh": "就是會痛，胸口肌肉那邊按下去會痛，不是悶悶被壓住的那種。",
+     "reply_value": "pain",
+     "value": "pain"
+    }
+   ],
+   "extract_failures": [],
+   "self_check": null
+  },
+  "dev_gpt_1117_guard_superseded": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/closed_dev_gpt_final.json",
+   "meta": {
+    "set": "dev",
+    "arm": "gpt",
+    "started_at": "2026-11-17T09:16:34",
+    "finished_at": "2026-11-17T09:16:44",
+    "rules_version": "0.11.0",
+    "prompts_version": "2.0-dev27",
+    "extractor": {
+     "extractor": "gpt-6.1-sol",
+     "effort": "medium",
+     "prompts_version": "2.0-dev27",
+     "prompt_file_sha256": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+     "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+     "code_sha256": "19f23b57244e23a32a8a260f7e38f024789dcd8da19b17fec7051f3e39054158"
+    },
+    "file_sha256": {
+     "data/extractor_prompts_v2.yaml": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+     "sim/llm_extract_v2.py": "19f23b57244e23a32a8a260f7e38f024789dcd8da19b17fec7051f3e39054158",
+     "sim/runner.py": "4c3b46f6324e4617ecd8cd0b5077687a73117db958b25d9f01346d52e393b2a7",
+     "sim/closed_loop.py": "9d4708da77bd58bffa3a8b1981c0fa11115e0aad6b3a419c1a940a72771f3873",
+     "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+     "data/clinical_rules.yaml": "cec498ca1dc14cd796af9a924f5ad77ed4cfdffd9e900b2d2a2674f7e04896e1",
+     "data/question_bank_seed.yaml": "395c2d36a362a66294946edaa759f02daafb29edd0bf3df8b26d3f414ccbff10",
+     "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+     "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+     "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+     "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+     "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+     "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+     "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+     "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+     "sim/synth_gen.py": "79ba62b92244bb9fa615aaefa2d23f8bfbf2662a55e1c0c5888f841185181816",
+     "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+     "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+     "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+     "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+     "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+     "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+     "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+     "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+     "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+     "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+     "src/acs_triage/prompter/prompter.py": "68e40c94aadf37fe0c4308ec015ef6fc797e82797f44c9cf79b699749444b18a",
+     "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+     "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+     "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+     "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+     "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+     "src/acs_triage/rules/tiers.py": "7ca15a46f714a18159201526aceb381f42350213932b4d5248e0c73deb54404d",
+     "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+     "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+     "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+    }
+   },
+   "metrics": {
+    "n": 119,
+    "errors": [],
+    "hs_truth": 27,
+    "hs_hit": 27,
+    "hs_sensitivity": 1.0,
+    "hs_miss": [],
+    "premature": [],
+    "hs_unsupported": [],
+    "false_hs": [],
+    "under": [],
+    "over": [
+     [
+      "S-MID-08#2",
+      1,
+      0
+     ],
+     [
+      "S-MID-13",
+      2,
+      0
+     ]
+    ],
+    "exact": 0.957983193277311,
+    "abstain_fp": [
+     [
+      "S-ACUTE-05#1",
+      2
+     ],
+     [
+      "S-MID-01",
+      1
+     ],
+     [
+      "S-MID-08",
+      2
+     ]
+    ],
+    "abstain_fn": [],
+    "t9": 15,
+    "mean_questions": 7.19327731092437,
+    "confirms": 200,
+    "confirms_per_call": 1.680672268907563,
+    "confirm_changed": 0,
+    "reasks": 0,
+    "reask_downgrades": 0,
+    "escalating_recall": 0.972318339100346,
+    "stop_reasons": {
+     "gate_passed": 64,
+     "hard_stop": 25,
+     "max_questions": 15,
+     "hard_stop_opening": 2,
+     "gate_passed_t0_asked": 13
+    },
+    "finals": {
+     "S-ACUTE-01": "T0",
+     "S-ACUTE-01#0": "HS",
+     "S-ACUTE-01#1": "T0",
+     "S-ACUTE-01#2": "T2",
+     "S-ACUTE-02": "T0",
+     "S-ACUTE-02#0": "HS",
+     "S-ACUTE-02#1": "HS",
+     "S-ACUTE-03": "T0",
+     "S-ACUTE-03#0": "HS",
+     "S-ACUTE-03#1": "HS",
+     "S-ACUTE-03#2": "T2",
+     "S-ACUTE-04": "T0",
+     "S-ACUTE-04#0": "HS",
+     "S-ACUTE-05": "T0",
+     "S-ACUTE-05#0": "HS",
+     "S-ACUTE-05#1": "T9",
+     "S-ACUTE-06": "HS",
+     "S-ACUTE-06#0": "HS",
+     "S-STABLE-01": "T2",
+     "S-STABLE-01#0": "T0",
+     "S-STABLE-01#1": "T0",
+     "S-STABLE-01#2": "T9",
+     "S-STABLE-02": "T2",
+     "S-STABLE-02#0": "T2",
+     "S-STABLE-02#1": "T0",
+     "S-STABLE-03": "T3",
+     "S-STABLE-03#0": "T0",
+     "S-STABLE-04": "T2",
+     "S-STABLE-04#0": "T0",
+     "S-STABLE-04#1": "T0",
+     "S-INSUF-01": "T9",
+     "S-INSUF-01#0": "T0",
+     "S-INSUF-01#1": "T3",
+     "S-INSUF-02": "T9",
+     "S-INSUF-02#0": "T0",
+     "S-INSUF-02#1": "T2",
+     "S-INSUF-03": "T9",
+     "S-INSUF-03#0": "T0",
+     "S-INSUF-03#1": "T0",
+     "S-INSUF-04": "T9",
+     "S-INSUF-04#0": "HS",
+     "S-INSUF-04#1": "T0",
+     "S-INSUF-04#2": "T3",
+     "S-INSUF-05": "T9",
+     "S-INSUF-05#0": "T0",
+     "S-INSUF-05#1": "T2",
+     "S-INSUF-06": "T9",
+     "S-INSUF-06#0": "T0",
+     "S-INSUF-06#1": "T9",
+     "S-INSUF-07": "T9",
+     "S-INSUF-07#0": "HS",
+     "S-INSUF-07#1": "T9",
+     "S-INSUF-08": "T9",
+     "S-INSUF-08#0": "T0",
+     "S-INSUF-08#1": "T2",
+     "S-MID-01": "T9",
+     "S-MID-01#0": "T0",
+     "S-MID-01#1": "T2",
+     "S-MID-01#2": "HS",
+     "S-MID-02": "T2",
+     "S-MID-02#0": "T0",
+     "S-MID-02#1": "T0",
+     "S-MID-02#2": "T0",
+     "S-MID-03": "T0",
+     "S-MID-03#0": "HS",
+     "S-MID-04": "T3",
+     "S-MID-04#0": "T1",
+     "S-MID-05": "T3",
+     "S-MID-05#0": "HS",
+     "S-MID-05#1": "T0",
+     "S-MID-06": "T2",
+     "S-MID-06#0": "HS",
+     "S-MID-06#1": "T0",
+     "S-MID-06#2": "T0",
+     "S-MID-07": "T1",
+     "S-MID-07#0": "T0",
+     "S-MID-07#1": "T0",
+     "S-MID-07#2": "T0",
+     "S-MID-08": "T9",
+     "S-MID-08#0": "T0",
+     "S-MID-08#1": "T0",
+     "S-MID-08#2": "T0",
+     "S-MID-09": "T1",
+     "S-MID-09#0": "T0",
+     "S-MID-10": "T2",
+     "S-MID-10#0": "HS",
+     "S-MID-10#1": "HS",
+     "S-MID-11": "T0",
+     "S-MID-11#0": "HS",
+     "S-MID-11#1": "HS",
+     "S-MID-12": "T2",
+     "S-MID-12#0": "T0",
+     "S-MID-12#1": "HS",
+     "S-MID-13": "T0",
+     "S-MID-13#0": "HS",
+     "S-MID-13#1": "HS",
+     "S-MID-13#2": "T0",
+     "S-MID-13#3": "T0",
+     "S-MID-14": "T3",
+     "S-MID-14#0": "T0",
+     "S-MID-14#1": "HS",
+     "S-MID-15": "T4",
+     "S-MID-15#0": "T1",
+     "S-MID-16": "T2",
+     "S-MID-16#0": "T0",
+     "S-MID-16#1": "HS",
+     "S-MID-17": "T4",
+     "S-MID-17#0": "T9",
+     "S-MID-17#1": "HS",
+     "S-MID-18": "T4",
+     "S-MID-18#0": "T0",
+     "S-MID-19": "T1",
+     "S-MID-19#0": "T0",
+     "S-MID-19#1": "T0",
+     "S-MID-19#2": "HS",
+     "S-MID-19#3": "HS",
+     "S-MID-20": "T4",
+     "S-MID-20#0": "T3",
+     "S-MID-20#1": "T0"
+    }
+   },
+   "patient_usage": {
+    "live_calls": 2,
+    "cached_calls": 1054,
+    "sources": {
+     "live_reused": 542,
+     "seed": 512,
+     "live": 2
+    },
+    "opus_cost_usd": 0.0164
+   },
+   "extractor_usage": {
+    "calls_used": 867,
+    "new_calls": 2,
+    "reused_seed": 0,
+    "reused_earlier_run": 865,
+    "cost_this_run_usd": 0.0103,
+    "cost_total_usd": 1.7375,
+    "failed": 0,
+    "tw_changed": 0,
+    "latency_new_calls": {
+     "n": 2,
+     "median_s": 2.885,
+     "p95_s": 3.667,
+     "mean_s": 2.885
+    },
+    "guards": {
+     "mention_redflag_denial_not_used": 98,
+     "rest_denial_not_used": 14,
+     "repro_palpation_evidence_used": 1
+    }
+   },
+   "extraction": {
+    "asked": {
+     "correct": 810,
+     "wrong": 21,
+     "unknown_equiv": 16,
+     "speechless": 7,
+     "missed": 1,
+     "invented": 1
+    },
+    "confirm_reply": {
+     "correct": 192,
+     "speechless": 4,
+     "wrong": 4
+    },
+    "rf_yes_missed": []
+   },
+   "mention_conflicts": [
+    {
+     "case_id": "S-ACUTE-01#0",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "pressure",
+     "mention": "vague",
+     "utterance_zh": "嗯，現在胸口還是有那種不舒服的感覺，還在。"
+    },
+    {
+     "case_id": "S-INSUF-08",
+     "turn": 17,
+     "question_id": "Q-COUGH-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "tightness",
+     "mention": "pain",
+     "utterance_zh": "這個我不太清楚耶，沒注意是不是只有咳嗽的時候才會痛。"
+    },
+    {
+     "case_id": "S-MID-06#1",
+     "turn": 3,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "vague",
+     "utterance_zh": "嗯…這個我不太確定耶，我主要是覺得會喘，胸口的部分我說不太上來。"
+    }
+   ],
+   "reasks": [],
+   "extract_failures": [],
+   "self_check": null
+  },
+  "dev_gemma_1117_guard_superseded": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/closed_dev_gemma_final.json",
+   "meta": {
+    "set": "dev",
+    "arm": "gemma",
+    "started_at": "2026-11-17T09:16:31",
+    "finished_at": "2026-11-17T09:16:31",
+    "rules_version": "0.11.0",
+    "prompts_version": "2.0-dev27",
+    "extractor": {
+     "extractor": "gemma-4-26b-a4b-it-mlx",
+     "temperature": 0,
+     "prompts_version": "2.0-dev27",
+     "prompt_file_sha256": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+     "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+     "code_sha256": "19f23b57244e23a32a8a260f7e38f024789dcd8da19b17fec7051f3e39054158"
+    },
+    "file_sha256": {
+     "data/extractor_prompts_v2.yaml": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+     "sim/llm_extract_v2.py": "19f23b57244e23a32a8a260f7e38f024789dcd8da19b17fec7051f3e39054158",
+     "sim/runner.py": "4c3b46f6324e4617ecd8cd0b5077687a73117db958b25d9f01346d52e393b2a7",
+     "sim/closed_loop.py": "9d4708da77bd58bffa3a8b1981c0fa11115e0aad6b3a419c1a940a72771f3873",
+     "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+     "data/clinical_rules.yaml": "cec498ca1dc14cd796af9a924f5ad77ed4cfdffd9e900b2d2a2674f7e04896e1",
+     "data/question_bank_seed.yaml": "395c2d36a362a66294946edaa759f02daafb29edd0bf3df8b26d3f414ccbff10",
+     "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+     "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+     "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+     "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+     "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+     "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+     "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+     "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+     "sim/synth_gen.py": "79ba62b92244bb9fa615aaefa2d23f8bfbf2662a55e1c0c5888f841185181816",
+     "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+     "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+     "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+     "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+     "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+     "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+     "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+     "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+     "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+     "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+     "src/acs_triage/prompter/prompter.py": "68e40c94aadf37fe0c4308ec015ef6fc797e82797f44c9cf79b699749444b18a",
+     "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+     "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+     "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+     "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+     "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+     "src/acs_triage/rules/tiers.py": "7ca15a46f714a18159201526aceb381f42350213932b4d5248e0c73deb54404d",
+     "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+     "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+     "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+    }
+   },
+   "metrics": {
+    "n": 119,
+    "errors": [],
+    "hs_truth": 27,
+    "hs_hit": 27,
+    "hs_sensitivity": 1.0,
+    "hs_miss": [],
+    "premature": [],
+    "hs_unsupported": [],
+    "false_hs": [],
+    "under": [],
+    "over": [
+     [
+      "S-MID-08#2",
+      1,
+      0
+     ],
+     [
+      "S-MID-13",
+      2,
+      0
+     ]
+    ],
+    "exact": 0.9495798319327731,
+    "abstain_fp": [
+     [
+      "S-MID-01",
+      1
+     ],
+     [
+      "S-MID-02",
+      2
+     ],
+     [
+      "S-MID-08",
+      2
+     ]
+    ],
+    "abstain_fn": [
+     [
+      "S-INSUF-07",
+      0
+     ]
+    ],
+    "t9": 14,
+    "mean_questions": 7.126050420168068,
+    "confirms": 208,
+    "confirms_per_call": 1.7478991596638656,
+    "confirm_changed": 0,
+    "reasks": 1,
+    "reask_downgrades": 0,
+    "escalating_recall": 0.9636678200692042,
+    "stop_reasons": {
+     "gate_passed": 72,
+     "hard_stop": 25,
+     "hard_stop_opening": 2,
+     "max_questions": 14,
+     "gate_passed_t0_asked": 6
+    },
+    "finals": {
+     "S-ACUTE-01": "T0",
+     "S-ACUTE-01#0": "HS",
+     "S-ACUTE-01#1": "T0",
+     "S-ACUTE-01#2": "T2",
+     "S-ACUTE-02": "T0",
+     "S-ACUTE-02#0": "HS",
+     "S-ACUTE-02#1": "HS",
+     "S-ACUTE-03": "T0",
+     "S-ACUTE-03#0": "HS",
+     "S-ACUTE-03#1": "HS",
+     "S-ACUTE-03#2": "T2",
+     "S-ACUTE-04": "T0",
+     "S-ACUTE-04#0": "HS",
+     "S-ACUTE-05": "T0",
+     "S-ACUTE-05#0": "HS",
+     "S-ACUTE-05#1": "T2",
+     "S-ACUTE-06": "HS",
+     "S-ACUTE-06#0": "HS",
+     "S-STABLE-01": "T2",
+     "S-STABLE-01#0": "T0",
+     "S-STABLE-01#1": "T0",
+     "S-STABLE-01#2": "T9",
+     "S-STABLE-02": "T2",
+     "S-STABLE-02#0": "T2",
+     "S-STABLE-02#1": "T0",
+     "S-STABLE-03": "T3",
+     "S-STABLE-03#0": "T0",
+     "S-STABLE-04": "T2",
+     "S-STABLE-04#0": "T0",
+     "S-STABLE-04#1": "T0",
+     "S-INSUF-01": "T9",
+     "S-INSUF-01#0": "T0",
+     "S-INSUF-01#1": "T3",
+     "S-INSUF-02": "T9",
+     "S-INSUF-02#0": "T0",
+     "S-INSUF-02#1": "T2",
+     "S-INSUF-03": "T9",
+     "S-INSUF-03#0": "T0",
+     "S-INSUF-03#1": "T0",
+     "S-INSUF-04": "T9",
+     "S-INSUF-04#0": "HS",
+     "S-INSUF-04#1": "T0",
+     "S-INSUF-04#2": "T3",
+     "S-INSUF-05": "T9",
+     "S-INSUF-05#0": "T0",
+     "S-INSUF-05#1": "T2",
+     "S-INSUF-06": "T9",
+     "S-INSUF-06#0": "T0",
+     "S-INSUF-06#1": "T9",
+     "S-INSUF-07": "T0",
+     "S-INSUF-07#0": "HS",
+     "S-INSUF-07#1": "T9",
+     "S-INSUF-08": "T9",
+     "S-INSUF-08#0": "T0",
+     "S-INSUF-08#1": "T2",
+     "S-MID-01": "T9",
+     "S-MID-01#0": "T0",
+     "S-MID-01#1": "T2",
+     "S-MID-01#2": "HS",
+     "S-MID-02": "T9",
+     "S-MID-02#0": "T0",
+     "S-MID-02#1": "T0",
+     "S-MID-02#2": "T0",
+     "S-MID-03": "T0",
+     "S-MID-03#0": "HS",
+     "S-MID-04": "T3",
+     "S-MID-04#0": "T1",
+     "S-MID-05": "T3",
+     "S-MID-05#0": "HS",
+     "S-MID-05#1": "T0",
+     "S-MID-06": "T2",
+     "S-MID-06#0": "HS",
+     "S-MID-06#1": "T0",
+     "S-MID-06#2": "T0",
+     "S-MID-07": "T1",
+     "S-MID-07#0": "T0",
+     "S-MID-07#1": "T0",
+     "S-MID-07#2": "T0",
+     "S-MID-08": "T9",
+     "S-MID-08#0": "T0",
+     "S-MID-08#1": "T0",
+     "S-MID-08#2": "T0",
+     "S-MID-09": "T1",
+     "S-MID-09#0": "T0",
+     "S-MID-10": "T2",
+     "S-MID-10#0": "HS",
+     "S-MID-10#1": "HS",
+     "S-MID-11": "T0",
+     "S-MID-11#0": "HS",
+     "S-MID-11#1": "HS",
+     "S-MID-12": "T2",
+     "S-MID-12#0": "T0",
+     "S-MID-12#1": "HS",
+     "S-MID-13": "T0",
+     "S-MID-13#0": "HS",
+     "S-MID-13#1": "HS",
+     "S-MID-13#2": "T0",
+     "S-MID-13#3": "T0",
+     "S-MID-14": "T3",
+     "S-MID-14#0": "T0",
+     "S-MID-14#1": "HS",
+     "S-MID-15": "T4",
+     "S-MID-15#0": "T1",
+     "S-MID-16": "T2",
+     "S-MID-16#0": "T0",
+     "S-MID-16#1": "HS",
+     "S-MID-17": "T4",
+     "S-MID-17#0": "T9",
+     "S-MID-17#1": "HS",
+     "S-MID-18": "T4",
+     "S-MID-18#0": "T0",
+     "S-MID-19": "T1",
+     "S-MID-19#0": "T0",
+     "S-MID-19#1": "T0",
+     "S-MID-19#2": "HS",
+     "S-MID-19#3": "HS",
+     "S-MID-20": "T4",
+     "S-MID-20#0": "T3",
+     "S-MID-20#1": "T0"
+    }
+   },
+   "patient_usage": {
+    "live_calls": 0,
+    "cached_calls": 1057,
+    "sources": {
+     "live_reused": 568,
+     "seed": 489
+    },
+    "opus_cost_usd": 0.0
+   },
+   "extractor_usage": {
+    "calls_used": 867,
+    "new_calls": 0,
+    "reused_seed": 0,
+    "reused_earlier_run": 867,
+    "cost_this_run_usd": 0.0,
+    "cost_total_usd": 0.0,
+    "failed": 0,
+    "tw_changed": 0,
+    "latency_new_calls": {
+     "n": 0
+    },
+    "guards": {
+     "rest_denial_not_used": 22,
+     "repro_mention_not_used": 6,
+     "asked_value_from_mentions": 32,
+     "mention_redflag_denial_not_used": 25,
+     "affirm_with_negated_evidence": 20,
+     "choice_listed_unclassified": 3,
+     "denial_without_negated_evidence": 4,
+     "asked_stance_vs_leading_word": 1,
+     "ongoing_mention_without_present_marker": 1,
+     "repro_palpation_evidence_used": 2
+    }
+   },
+   "extraction": {
+    "asked": {
+     "correct": 802,
+     "wrong": 20,
+     "speechless": 12,
+     "unknown_equiv": 7,
+     "invented": 6,
+     "missed": 1
+    },
+    "confirm_reply": {
+     "correct": 190,
+     "missed": 12,
+     "wrong": 1,
+     "speechless": 4,
+     "invented": 1
+    },
+    "rf_yes_missed": []
+   },
+   "mention_conflicts": [
+    {
+     "case_id": "S-STABLE-03#0",
+     "turn": 4,
+     "question_id": "Q-ONGOING-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "pressure",
+     "mention": "vague",
+     "utterance_zh": "這個我不太確定耶，不知道怎麼講。"
+    },
+    {
+     "case_id": "S-STABLE-04",
+     "turn": 6,
+     "question_id": "Q-DYSPNEA-ACUTE-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": true,
+     "mention": false,
+     "utterance_zh": "不是今天忽然變的啦，我本來就沒什麼在喘。"
+    },
+    {
+     "case_id": "S-INSUF-03#1",
+     "turn": 6,
+     "question_id": "Q-DYSPNEA-ACUTE-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": false,
+     "mention": true,
+     "utterance_zh": "不是今天忽然變的啦，我其實本來就沒什麼在喘。"
+    },
+    {
+     "case_id": "S-MID-08#2",
+     "turn": 7,
+     "question_id": "Q-ORTHO-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": false,
+     "mention": true,
+     "utterance_zh": "這個我不太確定耶，我沒有特別注意躺平或半夜的狀況，平常是沒有覺得在喘啦。"
+    },
+    {
+     "case_id": "S-MID-14",
+     "turn": 5,
+     "question_id": "Q-EXERTION-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "pain",
+     "mention": "vague",
+     "reasked": true,
+     "utterance_zh": "這個我也說不太上來耶，好像跟走路用力沒什麼特別關係，我不太清楚。"
+    },
+    {
+     "case_id": "S-MID-16",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "對，現在沒有在痛。",
+     "from_reply": true
+    },
+    {
+     "case_id": "S-MID-16#0",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "現在沒有在痛，不咳的時候就還好。"
+    },
+    {
+     "case_id": "S-MID-16#1",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "現在沒有在痛，不咳的時候就還好。"
+    },
+    {
+     "case_id": "S-MID-16#1",
+     "turn": 3,
+     "question_id": "Q-DIAPH-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "沒有耶，痛的時候不會冒冷汗。"
+    },
+    {
+     "case_id": "S-MID-18",
+     "turn": 1,
+     "question_id": "Q-DYSPNEA-GRADE-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": true,
+     "mention": false,
+     "utterance_zh": "對，沒有喘，都不會喘。",
+     "from_reply": true
+    }
+   ],
+   "reasks": [
+    {
+     "case_id": "S-MID-14",
+     "turn": 5,
+     "during_question_id": "Q-EXERTION-01",
+     "question_id": "Q-CHARACTER-01",
+     "slot": "symptom_character",
+     "known": "pain",
+     "mention": "vague",
+     "utterance_zh": "這個我也說不太上來耶，好像跟走路用力沒什麼特別關係，我不太清楚。",
+     "prompt_zh": "我再跟您確認一次，您說的不舒服，比較像被壓住、悶悶的、刺痛，還是說不上來？位置在哪裡？",
+     "reply_zh": "就是會痛，胸口肌肉那邊按下去會痛，不是悶悶被壓住的那種。",
+     "reply_value": "pain",
+     "value": "pain"
+    }
+   ],
+   "extract_failures": [],
+   "self_check": null
+  },
+  "dev_structured_final_flag": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/closed_dev_structured_final_flag.json",
+   "meta": {
+    "set": "dev",
+    "arm": "structured",
+    "started_at": "2026-11-17T21:58:59",
+    "finished_at": "2026-11-17T21:58:59",
+    "rules_version": "0.11.0",
+    "prompts_version": "2.0-dev27",
+    "extractor": {},
+    "file_sha256": {
+     "data/extractor_prompts_v2.yaml": "8421ab9d82e7d3043d3c2c74a161dfb6fe64f6ad23853abf844731fc4c9bee52",
+     "sim/llm_extract_v2.py": "57b3950d883714e2a2845cc764692a566fe6a786ee7acbd5d67735e3da678261",
+     "sim/runner.py": "d8bf8fb7ffd31da179da4369c8c45cb49dbb3833c600b5d51c432b088b74e90f",
+     "sim/closed_loop.py": "de1ef21fa219f412e4e422ec149c43e40dd315f0464395f44d38c3466a00bb57",
+     "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+     "data/clinical_rules.yaml": "cec498ca1dc14cd796af9a924f5ad77ed4cfdffd9e900b2d2a2674f7e04896e1",
+     "data/question_bank_seed.yaml": "673740ed81ebe1b9efcb827cec7b13fe6bb55a471c0018ad707e4693e6460ee3",
+     "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+     "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+     "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+     "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+     "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+     "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+     "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+     "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+     "sim/synth_gen.py": "fb4e198e04d8ea21a1d1edf640b579aa94e92b34f5bc77dc80259c1f4175e5a8",
+     "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+     "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+     "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+     "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+     "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+     "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+     "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+     "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+     "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+     "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+     "src/acs_triage/prompter/prompter.py": "8f652424ce2b1566bf01bb8cd9e5a5905d1fe63f51fd30d29c06c52c8a05a82a",
+     "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+     "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+     "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+     "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+     "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+     "src/acs_triage/rules/tiers.py": "7ca15a46f714a18159201526aceb381f42350213932b4d5248e0c73deb54404d",
+     "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+     "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+     "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+    }
+   },
+   "metrics": {
+    "n": 119,
+    "errors": [],
+    "hs_truth": 27,
+    "hs_hit": 27,
+    "hs_sensitivity": 1.0,
+    "hs_miss": [],
+    "premature": [],
+    "hs_unsupported": [],
+    "false_hs": [],
+    "under": [],
+    "over": [],
+    "exact": 1.0,
+    "abstain_fp": [],
+    "abstain_fn": [],
+    "t9": 12,
+    "mean_questions": 6.504201680672269,
+    "confirms": 170,
+    "confirms_per_call": 1.4285714285714286,
+    "confirm_changed": 0,
+    "reasks": 0,
+    "reask_downgrades": 0,
+    "escalating_recall": 0.9965397923875432,
+    "stop_reasons": {
+     "gate_passed": 77,
+     "hard_stop": 25,
+     "hard_stop_opening": 2,
+     "max_questions": 11,
+     "gate_passed_t0_asked": 3,
+     "no_more_questions": 1
+    },
+    "finals": {
+     "S-ACUTE-01": "T0",
+     "S-ACUTE-01#0": "HS",
+     "S-ACUTE-01#1": "T0",
+     "S-ACUTE-01#2": "T2",
+     "S-ACUTE-02": "T0",
+     "S-ACUTE-02#0": "HS",
+     "S-ACUTE-02#1": "HS",
+     "S-ACUTE-03": "T0",
+     "S-ACUTE-03#0": "HS",
+     "S-ACUTE-03#1": "HS",
+     "S-ACUTE-03#2": "T2",
+     "S-ACUTE-04": "T0",
+     "S-ACUTE-04#0": "HS",
+     "S-ACUTE-05": "T0",
+     "S-ACUTE-05#0": "HS",
+     "S-ACUTE-05#1": "T2",
+     "S-ACUTE-06": "HS",
+     "S-ACUTE-06#0": "HS",
+     "S-STABLE-01": "T2",
+     "S-STABLE-01#0": "T0",
+     "S-STABLE-01#1": "T0",
+     "S-STABLE-01#2": "T9",
+     "S-STABLE-02": "T2",
+     "S-STABLE-02#0": "T2",
+     "S-STABLE-02#1": "T0",
+     "S-STABLE-03": "T3",
+     "S-STABLE-03#0": "T0",
+     "S-STABLE-04": "T2",
+     "S-STABLE-04#0": "T0",
+     "S-STABLE-04#1": "T0",
+     "S-INSUF-01": "T9",
+     "S-INSUF-01#0": "T0",
+     "S-INSUF-01#1": "T3",
+     "S-INSUF-02": "T9",
+     "S-INSUF-02#0": "T0",
+     "S-INSUF-02#1": "T2",
+     "S-INSUF-03": "T9",
+     "S-INSUF-03#0": "T0",
+     "S-INSUF-03#1": "T0",
+     "S-INSUF-04": "T9",
+     "S-INSUF-04#0": "HS",
+     "S-INSUF-04#1": "T0",
+     "S-INSUF-04#2": "T3",
+     "S-INSUF-05": "T9",
+     "S-INSUF-05#0": "T0",
+     "S-INSUF-05#1": "T2",
+     "S-INSUF-06": "T9",
+     "S-INSUF-06#0": "T0",
+     "S-INSUF-06#1": "T9",
+     "S-INSUF-07": "T9",
+     "S-INSUF-07#0": "HS",
+     "S-INSUF-07#1": "T9",
+     "S-INSUF-08": "T9",
+     "S-INSUF-08#0": "T0",
+     "S-INSUF-08#1": "T2",
+     "S-MID-01": "T1",
+     "S-MID-01#0": "T0",
+     "S-MID-01#1": "T2",
+     "S-MID-01#2": "HS",
+     "S-MID-02": "T2",
+     "S-MID-02#0": "T0",
+     "S-MID-02#1": "T0",
+     "S-MID-02#2": "T0",
+     "S-MID-03": "T0",
+     "S-MID-03#0": "HS",
+     "S-MID-04": "T3",
+     "S-MID-04#0": "T1",
+     "S-MID-05": "T3",
+     "S-MID-05#0": "HS",
+     "S-MID-05#1": "T0",
+     "S-MID-06": "T2",
+     "S-MID-06#0": "HS",
+     "S-MID-06#1": "T0",
+     "S-MID-06#2": "T0",
+     "S-MID-07": "T1",
+     "S-MID-07#0": "T0",
+     "S-MID-07#1": "T0",
+     "S-MID-07#2": "T0",
+     "S-MID-08": "T2",
+     "S-MID-08#0": "T0",
+     "S-MID-08#1": "T0",
+     "S-MID-08#2": "T1",
+     "S-MID-09": "T1",
+     "S-MID-09#0": "T0",
+     "S-MID-10": "T2",
+     "S-MID-10#0": "HS",
+     "S-MID-10#1": "HS",
+     "S-MID-11": "T0",
+     "S-MID-11#0": "HS",
+     "S-MID-11#1": "HS",
+     "S-MID-12": "T2",
+     "S-MID-12#0": "T0",
+     "S-MID-12#1": "HS",
+     "S-MID-13": "T2",
+     "S-MID-13#0": "HS",
+     "S-MID-13#1": "HS",
+     "S-MID-13#2": "T0",
+     "S-MID-13#3": "T0",
+     "S-MID-14": "T3",
+     "S-MID-14#0": "T0",
+     "S-MID-14#1": "HS",
+     "S-MID-15": "T4",
+     "S-MID-15#0": "T1",
+     "S-MID-16": "T2",
+     "S-MID-16#0": "T0",
+     "S-MID-16#1": "HS",
+     "S-MID-17": "T4",
+     "S-MID-17#0": "T9",
+     "S-MID-17#1": "HS",
+     "S-MID-18": "T4",
+     "S-MID-18#0": "T0",
+     "S-MID-19": "T1",
+     "S-MID-19#0": "T0",
+     "S-MID-19#1": "T0",
+     "S-MID-19#2": "HS",
+     "S-MID-19#3": "HS",
+     "S-MID-20": "T4",
+     "S-MID-20#0": "T3",
+     "S-MID-20#1": "T0"
+    }
+   },
+   "patient_usage": {
+    "live_calls": 0,
+    "cached_calls": 944,
+    "sources": {
+     "seed": 944
+    },
+    "opus_cost_usd": 0.0
+   },
+   "extractor_usage": null,
+   "extraction": null,
+   "mention_conflicts": [],
+   "reasks": [],
+   "extract_failures": [],
+   "self_check": {
+    "reproduced": 119,
+    "n": 119
+   }
+  },
+  "dev_gpt_final_flag": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/closed_dev_gpt_final_flag.json",
+   "meta": {
+    "set": "dev",
+    "arm": "gpt",
+    "started_at": "2026-11-17T22:00:03",
+    "finished_at": "2026-11-17T22:00:23",
+    "rules_version": "0.11.0",
+    "prompts_version": "2.0-dev27",
+    "extractor": {
+     "extractor": "gpt-6.1-sol",
+     "effort": "medium",
+     "prompts_version": "2.0-dev27",
+     "prompt_file_sha256": "8421ab9d82e7d3043d3c2c74a161dfb6fe64f6ad23853abf844731fc4c9bee52",
+     "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+     "code_sha256": "57b3950d883714e2a2845cc764692a566fe6a786ee7acbd5d67735e3da678261"
+    },
+    "file_sha256": {
+     "data/extractor_prompts_v2.yaml": "8421ab9d82e7d3043d3c2c74a161dfb6fe64f6ad23853abf844731fc4c9bee52",
+     "sim/llm_extract_v2.py": "57b3950d883714e2a2845cc764692a566fe6a786ee7acbd5d67735e3da678261",
+     "sim/runner.py": "d8bf8fb7ffd31da179da4369c8c45cb49dbb3833c600b5d51c432b088b74e90f",
+     "sim/closed_loop.py": "de1ef21fa219f412e4e422ec149c43e40dd315f0464395f44d38c3466a00bb57",
+     "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+     "data/clinical_rules.yaml": "cec498ca1dc14cd796af9a924f5ad77ed4cfdffd9e900b2d2a2674f7e04896e1",
+     "data/question_bank_seed.yaml": "673740ed81ebe1b9efcb827cec7b13fe6bb55a471c0018ad707e4693e6460ee3",
+     "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+     "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+     "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+     "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+     "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+     "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+     "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+     "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+     "sim/synth_gen.py": "fb4e198e04d8ea21a1d1edf640b579aa94e92b34f5bc77dc80259c1f4175e5a8",
+     "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+     "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+     "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+     "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+     "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+     "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+     "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+     "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+     "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+     "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+     "src/acs_triage/prompter/prompter.py": "8f652424ce2b1566bf01bb8cd9e5a5905d1fe63f51fd30d29c06c52c8a05a82a",
+     "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+     "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+     "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+     "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+     "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+     "src/acs_triage/rules/tiers.py": "7ca15a46f714a18159201526aceb381f42350213932b4d5248e0c73deb54404d",
+     "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+     "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+     "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+    }
+   },
+   "metrics": {
+    "n": 119,
+    "errors": [],
+    "hs_truth": 27,
+    "hs_hit": 27,
+    "hs_sensitivity": 1.0,
+    "hs_miss": [],
+    "premature": [],
+    "hs_unsupported": [],
+    "false_hs": [],
+    "under": [],
+    "over": [
+     [
+      "S-MID-08#2",
+      1,
+      0
+     ],
+     [
+      "S-MID-13",
+      2,
+      0
+     ]
+    ],
+    "exact": 0.957983193277311,
+    "abstain_fp": [
+     [
+      "S-ACUTE-05#1",
+      2
+     ],
+     [
+      "S-MID-01",
+      1
+     ],
+     [
+      "S-MID-08",
+      2
+     ]
+    ],
+    "abstain_fn": [],
+    "t9": 15,
+    "mean_questions": 7.2100840336134455,
+    "confirms": 200,
+    "confirms_per_call": 1.680672268907563,
+    "confirm_changed": 0,
+    "reasks": 0,
+    "reask_downgrades": 0,
+    "escalating_recall": 0.972318339100346,
+    "stop_reasons": {
+     "gate_passed": 64,
+     "hard_stop": 25,
+     "max_questions": 15,
+     "hard_stop_opening": 2,
+     "gate_passed_t0_asked": 13
+    },
+    "finals": {
+     "S-ACUTE-01": "T0",
+     "S-ACUTE-01#0": "HS",
+     "S-ACUTE-01#1": "T0",
+     "S-ACUTE-01#2": "T2",
+     "S-ACUTE-02": "T0",
+     "S-ACUTE-02#0": "HS",
+     "S-ACUTE-02#1": "HS",
+     "S-ACUTE-03": "T0",
+     "S-ACUTE-03#0": "HS",
+     "S-ACUTE-03#1": "HS",
+     "S-ACUTE-03#2": "T2",
+     "S-ACUTE-04": "T0",
+     "S-ACUTE-04#0": "HS",
+     "S-ACUTE-05": "T0",
+     "S-ACUTE-05#0": "HS",
+     "S-ACUTE-05#1": "T9",
+     "S-ACUTE-06": "HS",
+     "S-ACUTE-06#0": "HS",
+     "S-STABLE-01": "T2",
+     "S-STABLE-01#0": "T0",
+     "S-STABLE-01#1": "T0",
+     "S-STABLE-01#2": "T9",
+     "S-STABLE-02": "T2",
+     "S-STABLE-02#0": "T2",
+     "S-STABLE-02#1": "T0",
+     "S-STABLE-03": "T3",
+     "S-STABLE-03#0": "T0",
+     "S-STABLE-04": "T2",
+     "S-STABLE-04#0": "T0",
+     "S-STABLE-04#1": "T0",
+     "S-INSUF-01": "T9",
+     "S-INSUF-01#0": "T0",
+     "S-INSUF-01#1": "T3",
+     "S-INSUF-02": "T9",
+     "S-INSUF-02#0": "T0",
+     "S-INSUF-02#1": "T2",
+     "S-INSUF-03": "T9",
+     "S-INSUF-03#0": "T0",
+     "S-INSUF-03#1": "T0",
+     "S-INSUF-04": "T9",
+     "S-INSUF-04#0": "HS",
+     "S-INSUF-04#1": "T0",
+     "S-INSUF-04#2": "T3",
+     "S-INSUF-05": "T9",
+     "S-INSUF-05#0": "T0",
+     "S-INSUF-05#1": "T2",
+     "S-INSUF-06": "T9",
+     "S-INSUF-06#0": "T0",
+     "S-INSUF-06#1": "T9",
+     "S-INSUF-07": "T9",
+     "S-INSUF-07#0": "HS",
+     "S-INSUF-07#1": "T9",
+     "S-INSUF-08": "T9",
+     "S-INSUF-08#0": "T0",
+     "S-INSUF-08#1": "T2",
+     "S-MID-01": "T9",
+     "S-MID-01#0": "T0",
+     "S-MID-01#1": "T2",
+     "S-MID-01#2": "HS",
+     "S-MID-02": "T2",
+     "S-MID-02#0": "T0",
+     "S-MID-02#1": "T0",
+     "S-MID-02#2": "T0",
+     "S-MID-03": "T0",
+     "S-MID-03#0": "HS",
+     "S-MID-04": "T3",
+     "S-MID-04#0": "T1",
+     "S-MID-05": "T3",
+     "S-MID-05#0": "HS",
+     "S-MID-05#1": "T0",
+     "S-MID-06": "T2",
+     "S-MID-06#0": "HS",
+     "S-MID-06#1": "T0",
+     "S-MID-06#2": "T0",
+     "S-MID-07": "T1",
+     "S-MID-07#0": "T0",
+     "S-MID-07#1": "T0",
+     "S-MID-07#2": "T0",
+     "S-MID-08": "T9",
+     "S-MID-08#0": "T0",
+     "S-MID-08#1": "T0",
+     "S-MID-08#2": "T0",
+     "S-MID-09": "T1",
+     "S-MID-09#0": "T0",
+     "S-MID-10": "T2",
+     "S-MID-10#0": "HS",
+     "S-MID-10#1": "HS",
+     "S-MID-11": "T0",
+     "S-MID-11#0": "HS",
+     "S-MID-11#1": "HS",
+     "S-MID-12": "T2",
+     "S-MID-12#0": "T0",
+     "S-MID-12#1": "HS",
+     "S-MID-13": "T0",
+     "S-MID-13#0": "HS",
+     "S-MID-13#1": "HS",
+     "S-MID-13#2": "T0",
+     "S-MID-13#3": "T0",
+     "S-MID-14": "T3",
+     "S-MID-14#0": "T0",
+     "S-MID-14#1": "HS",
+     "S-MID-15": "T4",
+     "S-MID-15#0": "T1",
+     "S-MID-16": "T2",
+     "S-MID-16#0": "T0",
+     "S-MID-16#1": "HS",
+     "S-MID-17": "T4",
+     "S-MID-17#0": "T9",
+     "S-MID-17#1": "HS",
+     "S-MID-18": "T4",
+     "S-MID-18#0": "T0",
+     "S-MID-19": "T1",
+     "S-MID-19#0": "T0",
+     "S-MID-19#1": "T0",
+     "S-MID-19#2": "HS",
+     "S-MID-19#3": "HS",
+     "S-MID-20": "T4",
+     "S-MID-20#0": "T3",
+     "S-MID-20#1": "T0"
+    }
+   },
+   "patient_usage": {
+    "live_calls": 0,
+    "cached_calls": 1058,
+    "sources": {
+     "live_reused": 548,
+     "seed": 510
+    },
+    "opus_cost_usd": 0.0
+   },
+   "extractor_usage": {
+    "calls_used": 871,
+    "new_calls": 7,
+    "reused_seed": 0,
+    "reused_earlier_run": 864,
+    "cost_this_run_usd": 0.026,
+    "cost_total_usd": 1.7635,
+    "failed": 0,
+    "tw_changed": 0,
+    "latency_new_calls": {
+     "n": 7,
+     "median_s": 4.484,
+     "p95_s": 7.688,
+     "mean_s": 4.632
+    },
+    "guards": {
+     "rest_denial_not_used": 13,
+     "mention_redflag_denial_not_used": 98,
+     "repro_mention_not_used": 1
+    }
+   },
+   "extraction": {
+    "asked": {
+     "correct": 812,
+     "wrong": 21,
+     "unknown_equiv": 16,
+     "speechless": 7,
+     "missed": 1,
+     "invented": 1
+    },
+    "confirm_reply": {
+     "correct": 192,
+     "speechless": 4,
+     "wrong": 4
+    },
+    "rf_yes_missed": []
+   },
+   "mention_conflicts": [
+    {
+     "case_id": "S-ACUTE-01#0",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "pressure",
+     "mention": "vague",
+     "utterance_zh": "嗯，現在胸口還是有那種不舒服的感覺，還在。"
+    },
+    {
+     "case_id": "S-INSUF-08",
+     "turn": 17,
+     "question_id": "Q-COUGH-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "tightness",
+     "mention": "pain",
+     "utterance_zh": "這個我不太清楚耶，沒注意是不是只有咳嗽的時候才會痛。"
+    },
+    {
+     "case_id": "S-MID-06#1",
+     "turn": 3,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "vague",
+     "utterance_zh": "嗯…這個我不太確定耶，我主要是覺得會喘，胸口的部分我說不太上來。"
+    }
+   ],
+   "reasks": [],
+   "extract_failures": [],
+   "self_check": null
+  },
+  "dev_gemma_final_flag": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/closed_dev_gemma_final_flag.json",
+   "meta": {
+    "set": "dev",
+    "arm": "gemma",
+    "started_at": "2026-11-17T21:59:01",
+    "finished_at": "2026-11-17T22:00:00",
+    "rules_version": "0.11.0",
+    "prompts_version": "2.0-dev27",
+    "extractor": {
+     "extractor": "gemma-4-26b-a4b-it-mlx",
+     "temperature": 0,
+     "prompts_version": "2.0-dev27",
+     "prompt_file_sha256": "8421ab9d82e7d3043d3c2c74a161dfb6fe64f6ad23853abf844731fc4c9bee52",
+     "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+     "code_sha256": "57b3950d883714e2a2845cc764692a566fe6a786ee7acbd5d67735e3da678261"
+    },
+    "file_sha256": {
+     "data/extractor_prompts_v2.yaml": "8421ab9d82e7d3043d3c2c74a161dfb6fe64f6ad23853abf844731fc4c9bee52",
+     "sim/llm_extract_v2.py": "57b3950d883714e2a2845cc764692a566fe6a786ee7acbd5d67735e3da678261",
+     "sim/runner.py": "d8bf8fb7ffd31da179da4369c8c45cb49dbb3833c600b5d51c432b088b74e90f",
+     "sim/closed_loop.py": "de1ef21fa219f412e4e422ec149c43e40dd315f0464395f44d38c3466a00bb57",
+     "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+     "data/clinical_rules.yaml": "cec498ca1dc14cd796af9a924f5ad77ed4cfdffd9e900b2d2a2674f7e04896e1",
+     "data/question_bank_seed.yaml": "673740ed81ebe1b9efcb827cec7b13fe6bb55a471c0018ad707e4693e6460ee3",
+     "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+     "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+     "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+     "sim/cases.py": "1a30cec0ddc079c7e065e1ead9ee3bd61cd7e0217e47f4e94233c04df22fb34f",
+     "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+     "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+     "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+     "sim/synth_eval.py": "f6727fc42a0ea0d1f13d0db6bc502f1de8fe3fcc90f4c181afada78eeda9162b",
+     "sim/synth_gen.py": "fb4e198e04d8ea21a1d1edf640b579aa94e92b34f5bc77dc80259c1f4175e5a8",
+     "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+     "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+     "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+     "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+     "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+     "src/acs_triage/extract/rule_extractor.py": "a9ce66b960a1acaeef1b115c57c121f8ad9a394f989947f6237ea2413f600a8c",
+     "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+     "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+     "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+     "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+     "src/acs_triage/prompter/prompter.py": "8f652424ce2b1566bf01bb8cd9e5a5905d1fe63f51fd30d29c06c52c8a05a82a",
+     "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+     "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+     "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+     "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+     "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+     "src/acs_triage/rules/tiers.py": "7ca15a46f714a18159201526aceb381f42350213932b4d5248e0c73deb54404d",
+     "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+     "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+     "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb"
+    }
+   },
+   "metrics": {
+    "n": 119,
+    "errors": [],
+    "hs_truth": 27,
+    "hs_hit": 27,
+    "hs_sensitivity": 1.0,
+    "hs_miss": [],
+    "premature": [],
+    "hs_unsupported": [],
+    "false_hs": [],
+    "under": [],
+    "over": [
+     [
+      "S-MID-08#2",
+      1,
+      0
+     ],
+     [
+      "S-MID-13",
+      2,
+      0
+     ]
+    ],
+    "exact": 0.9495798319327731,
+    "abstain_fp": [
+     [
+      "S-MID-01",
+      1
+     ],
+     [
+      "S-MID-02",
+      2
+     ],
+     [
+      "S-MID-08",
+      2
+     ]
+    ],
+    "abstain_fn": [
+     [
+      "S-INSUF-07",
+      0
+     ]
+    ],
+    "t9": 14,
+    "mean_questions": 7.159663865546219,
+    "confirms": 208,
+    "confirms_per_call": 1.7478991596638656,
+    "confirm_changed": 0,
+    "reasks": 0,
+    "reask_downgrades": 0,
+    "escalating_recall": 0.9636678200692042,
+    "stop_reasons": {
+     "gate_passed": 72,
+     "hard_stop": 25,
+     "hard_stop_opening": 2,
+     "max_questions": 14,
+     "gate_passed_t0_asked": 6
+    },
+    "finals": {
+     "S-ACUTE-01": "T0",
+     "S-ACUTE-01#0": "HS",
+     "S-ACUTE-01#1": "T0",
+     "S-ACUTE-01#2": "T2",
+     "S-ACUTE-02": "T0",
+     "S-ACUTE-02#0": "HS",
+     "S-ACUTE-02#1": "HS",
+     "S-ACUTE-03": "T0",
+     "S-ACUTE-03#0": "HS",
+     "S-ACUTE-03#1": "HS",
+     "S-ACUTE-03#2": "T2",
+     "S-ACUTE-04": "T0",
+     "S-ACUTE-04#0": "HS",
+     "S-ACUTE-05": "T0",
+     "S-ACUTE-05#0": "HS",
+     "S-ACUTE-05#1": "T2",
+     "S-ACUTE-06": "HS",
+     "S-ACUTE-06#0": "HS",
+     "S-STABLE-01": "T2",
+     "S-STABLE-01#0": "T0",
+     "S-STABLE-01#1": "T0",
+     "S-STABLE-01#2": "T9",
+     "S-STABLE-02": "T2",
+     "S-STABLE-02#0": "T2",
+     "S-STABLE-02#1": "T0",
+     "S-STABLE-03": "T3",
+     "S-STABLE-03#0": "T0",
+     "S-STABLE-04": "T2",
+     "S-STABLE-04#0": "T0",
+     "S-STABLE-04#1": "T0",
+     "S-INSUF-01": "T9",
+     "S-INSUF-01#0": "T0",
+     "S-INSUF-01#1": "T3",
+     "S-INSUF-02": "T9",
+     "S-INSUF-02#0": "T0",
+     "S-INSUF-02#1": "T2",
+     "S-INSUF-03": "T9",
+     "S-INSUF-03#0": "T0",
+     "S-INSUF-03#1": "T0",
+     "S-INSUF-04": "T9",
+     "S-INSUF-04#0": "HS",
+     "S-INSUF-04#1": "T0",
+     "S-INSUF-04#2": "T3",
+     "S-INSUF-05": "T9",
+     "S-INSUF-05#0": "T0",
+     "S-INSUF-05#1": "T2",
+     "S-INSUF-06": "T9",
+     "S-INSUF-06#0": "T0",
+     "S-INSUF-06#1": "T9",
+     "S-INSUF-07": "T0",
+     "S-INSUF-07#0": "HS",
+     "S-INSUF-07#1": "T9",
+     "S-INSUF-08": "T9",
+     "S-INSUF-08#0": "T0",
+     "S-INSUF-08#1": "T2",
+     "S-MID-01": "T9",
+     "S-MID-01#0": "T0",
+     "S-MID-01#1": "T2",
+     "S-MID-01#2": "HS",
+     "S-MID-02": "T9",
+     "S-MID-02#0": "T0",
+     "S-MID-02#1": "T0",
+     "S-MID-02#2": "T0",
+     "S-MID-03": "T0",
+     "S-MID-03#0": "HS",
+     "S-MID-04": "T3",
+     "S-MID-04#0": "T1",
+     "S-MID-05": "T3",
+     "S-MID-05#0": "HS",
+     "S-MID-05#1": "T0",
+     "S-MID-06": "T2",
+     "S-MID-06#0": "HS",
+     "S-MID-06#1": "T0",
+     "S-MID-06#2": "T0",
+     "S-MID-07": "T1",
+     "S-MID-07#0": "T0",
+     "S-MID-07#1": "T0",
+     "S-MID-07#2": "T0",
+     "S-MID-08": "T9",
+     "S-MID-08#0": "T0",
+     "S-MID-08#1": "T0",
+     "S-MID-08#2": "T0",
+     "S-MID-09": "T1",
+     "S-MID-09#0": "T0",
+     "S-MID-10": "T2",
+     "S-MID-10#0": "HS",
+     "S-MID-10#1": "HS",
+     "S-MID-11": "T0",
+     "S-MID-11#0": "HS",
+     "S-MID-11#1": "HS",
+     "S-MID-12": "T2",
+     "S-MID-12#0": "T0",
+     "S-MID-12#1": "HS",
+     "S-MID-13": "T0",
+     "S-MID-13#0": "HS",
+     "S-MID-13#1": "HS",
+     "S-MID-13#2": "T0",
+     "S-MID-13#3": "T0",
+     "S-MID-14": "T3",
+     "S-MID-14#0": "T0",
+     "S-MID-14#1": "HS",
+     "S-MID-15": "T4",
+     "S-MID-15#0": "T1",
+     "S-MID-16": "T2",
+     "S-MID-16#0": "T0",
+     "S-MID-16#1": "HS",
+     "S-MID-17": "T4",
+     "S-MID-17#0": "T9",
+     "S-MID-17#1": "HS",
+     "S-MID-18": "T4",
+     "S-MID-18#0": "T0",
+     "S-MID-19": "T1",
+     "S-MID-19#0": "T0",
+     "S-MID-19#1": "T0",
+     "S-MID-19#2": "HS",
+     "S-MID-19#3": "HS",
+     "S-MID-20": "T4",
+     "S-MID-20#0": "T3",
+     "S-MID-20#1": "T0"
+    }
+   },
+   "patient_usage": {
+    "live_calls": 25,
+    "cached_calls": 1035,
+    "sources": {
+     "live_reused": 548,
+     "seed": 487,
+     "live": 25
+    },
+    "opus_cost_usd": 0.1663
+   },
+   "extractor_usage": {
+    "calls_used": 872,
+    "new_calls": 19,
+    "reused_seed": 0,
+    "reused_earlier_run": 853,
+    "cost_this_run_usd": 0.0,
+    "cost_total_usd": 0.0,
+    "failed": 0,
+    "tw_changed": 0,
+    "latency_new_calls": {
+     "n": 19,
+     "median_s": 2.764,
+     "p95_s": 21.433,
+     "mean_s": 6.376
+    },
+    "guards": {
+     "mention_redflag_denial_not_used": 25,
+     "asked_value_from_mentions": 33,
+     "ongoing_mention_without_present_marker": 1,
+     "rest_denial_not_used": 20,
+     "affirm_with_negated_evidence": 20,
+     "denial_without_negated_evidence": 4,
+     "choice_listed_unclassified": 3,
+     "repro_mention_not_used": 6,
+     "asked_stance_vs_leading_word": 1
+    }
+   },
+   "extraction": {
+    "asked": {
+     "correct": 805,
+     "wrong": 20,
+     "speechless": 12,
+     "unknown_equiv": 7,
+     "invented": 7,
+     "missed": 1
+    },
+    "confirm_reply": {
+     "correct": 190,
+     "missed": 12,
+     "wrong": 1,
+     "speechless": 4,
+     "invented": 1
+    },
+    "rf_yes_missed": []
+   },
+   "mention_conflicts": [
+    {
+     "case_id": "S-STABLE-03#0",
+     "turn": 4,
+     "question_id": "Q-ONGOING-01",
+     "kind": "conflict",
+     "slot": "symptom_character",
+     "known": "pressure",
+     "mention": "vague",
+     "utterance_zh": "這個我不太確定耶，不知道怎麼講。"
+    },
+    {
+     "case_id": "S-STABLE-04",
+     "turn": 6,
+     "question_id": "Q-DYSPNEA-ACUTE-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": true,
+     "mention": false,
+     "utterance_zh": "不是今天忽然變的啦，我本來就沒什麼在喘。"
+    },
+    {
+     "case_id": "S-INSUF-03#1",
+     "turn": 6,
+     "question_id": "Q-DYSPNEA-ACUTE-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": false,
+     "mention": true,
+     "utterance_zh": "不是今天忽然變的啦，我其實本來就沒什麼在喘。"
+    },
+    {
+     "case_id": "S-MID-08#2",
+     "turn": 7,
+     "question_id": "Q-ORTHO-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": false,
+     "mention": true,
+     "utterance_zh": "這個我不太確定耶，我沒有特別注意躺平或半夜的狀況，平常是沒有覺得在喘啦。"
+    },
+    {
+     "case_id": "S-MID-16",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "對，現在沒有在痛。",
+     "from_reply": true
+    },
+    {
+     "case_id": "S-MID-16#0",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "現在沒有在痛，不咳的時候就還好。"
+    },
+    {
+     "case_id": "S-MID-16#1",
+     "turn": 1,
+     "question_id": "Q-ONGOING-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "現在沒有在痛，不咳的時候就還好。"
+    },
+    {
+     "case_id": "S-MID-16#1",
+     "turn": 3,
+     "question_id": "Q-DIAPH-01",
+     "kind": "d50_not_most_severe",
+     "slot": "symptom_character",
+     "known": null,
+     "mention": "pain",
+     "utterance_zh": "沒有耶，痛的時候不會冒冷汗。"
+    },
+    {
+     "case_id": "S-MID-18",
+     "turn": 1,
+     "question_id": "Q-DYSPNEA-GRADE-01",
+     "kind": "conflict",
+     "slot": "dyspnea_complaint",
+     "known": true,
+     "mention": false,
+     "utterance_zh": "對，沒有喘，都不會喘。",
+     "from_reply": true
+    }
+   ],
+   "reasks": [],
+   "extract_failures": [],
+   "self_check": null
+  }
+ },
+ "closed_1105": {
+  "dev_structured_1105": {
+   "source": "reports/extractor_v2_2026-11-05_inputs/closed_dev_structured.json",
+   "hs_hit": 27,
+   "hs_truth": 27,
+   "hs_miss": [],
+   "premature": [],
+   "false_hs": [],
+   "under": [],
+   "over": [],
+   "exact": 1.0,
+   "t9": 12,
+   "mean_questions": 6.226890756302521,
+   "confirms": 168,
+   "confirms_per_call": 1.411764705882353,
+   "reasks": 0,
+   "reask_downgrades": 0,
+   "errors": []
+  },
+  "dev_gpt_1105": {
+   "source": "reports/extractor_v2_2026-11-05_inputs/closed_dev_gpt.json",
+   "hs_hit": 27,
+   "hs_truth": 27,
+   "hs_miss": [],
+   "premature": [],
+   "false_hs": [],
+   "under": [],
+   "over": [
+    [
+     "S-MID-08#2",
+     1,
+     0
+    ],
+    [
+     "S-MID-13",
+     3,
+     0
+    ]
+   ],
+   "exact": 0.9663865546218487,
+   "t9": 14,
+   "mean_questions": 6.647058823529412,
+   "confirms": 198,
+   "confirms_per_call": 1.6638655462184875,
+   "reasks": 0,
+   "reask_downgrades": 0,
+   "errors": []
+  },
+  "dev_gemma_1105": {
+   "source": "reports/extractor_v2_2026-11-05_inputs/closed_dev_gemma.json",
+   "hs_hit": 27,
+   "hs_truth": 27,
+   "hs_miss": [],
+   "premature": [],
+   "false_hs": [],
+   "under": [],
+   "over": [
+    [
+     "S-MID-02",
+     2,
+     0
+    ],
+    [
+     "S-MID-13",
+     3,
+     0
+    ]
+   ],
+   "exact": 0.9663865546218487,
+   "t9": 14,
+   "mean_questions": 6.92436974789916,
+   "confirms": 212,
+   "confirms_per_call": 1.781512605042017,
+   "reasks": 1,
+   "reask_downgrades": 0,
+   "errors": []
+  }
+ },
+ "stage_a": {
+  "gpt_1116": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/v2_replay_gpt.json",
+   "meta": {
+    "date": "2026-11-17",
+    "started_at": "2026-11-17T08:09:44",
+    "tag": "gpt",
+    "limit": null,
+    "prompts_version": "2.0-dev27",
+    "prompt_file_sha256": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+    "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+    "code_sha256": "5845a1fd4d9eeb484f9c4e8bff246cb8014ed3d9e55952cd28d278a645e6f9a6",
+    "transcripts": "eval_2026-10-20_llm_opus-5-5_medium_transcripts.json",
+    "phone_unmatched": 0,
+    "texts_not_traditional": [],
+    "finished_at": "2026-11-17T08:20:38"
+   },
+   "cells": {
+    "gpt/ref": {
+     "hs_miss": 1,
+     "hs_truth": 27,
+     "premature": 1,
+     "false_hs": 0,
+     "under": 0,
+     "over": 0,
+     "exact": 0.7395,
+     "abstain_fp": 31,
+     "rf_yes_missed": 0,
+     "slot_all": {
+      "correct": 615,
+      "n": 646,
+      "wrong": 16,
+      "unknown_equiv": 13,
+      "speechless": 2
+     },
+     "slot_redflag": {
+      "correct": 330,
+      "n": 346,
+      "wrong": 16
+     },
+     "hs_miss_cases": [
+      "S-MID-10#0"
+     ],
+     "false_hs_cases": [],
+     "premature_cases": [
+      "S-MID-10#0"
+     ],
+     "extract_failed": 0,
+     "extract_failed_cases": [],
+     "hs_trigger": [
+      {
+       "case_id": "S-MID-10#0",
+       "kind": "premature",
+       "truth_tier": 0,
+       "turn": 3,
+       "rf": [
+        "RF-01"
+       ],
+       "text": "比較像胸口被壓住的感覺，悶悶的壓在那邊。",
+       "q": "Q-CHARACTER-01",
+       "wrote": {
+        "symptom_character": "pressure"
+       },
+       "truth": {
+        "symptom_character": "pressure"
+       }
+      }
+     ]
+    },
+    "gpt/phone": {
+     "hs_miss": 3,
+     "hs_truth": 27,
+     "premature": 1,
+     "false_hs": 0,
+     "under": 0,
+     "over": 0,
+     "exact": 0.6975,
+     "abstain_fp": 36,
+     "rf_yes_missed": 0,
+     "slot_all": {
+      "correct": 602,
+      "n": 646,
+      "wrong": 15,
+      "unknown_equiv": 13,
+      "missed": 13,
+      "speechless": 3
+     },
+     "slot_redflag": {
+      "correct": 320,
+      "n": 346,
+      "wrong": 15,
+      "missed": 11
+     },
+     "hs_miss_cases": [
+      "S-INSUF-04#0",
+      "S-MID-06#0",
+      "S-MID-10#0"
+     ],
+     "false_hs_cases": [],
+     "premature_cases": [
+      "S-MID-10#0"
+     ],
+     "extract_failed": 0,
+     "extract_failed_cases": [],
+     "hs_trigger": [
+      {
+       "case_id": "S-MID-10#0",
+       "kind": "premature",
+       "truth_tier": 0,
+       "turn": 3,
+       "rf": [
+        "RF-01"
+       ],
+       "text": "比較像胸口被壓住的感覺悶悶的壓在哪邊",
+       "q": "Q-CHARACTER-01",
+       "wrote": {
+        "symptom_character": "pressure"
+       },
+       "truth": {
+        "symptom_character": "pressure"
+       }
+      }
+     ]
+    }
+   },
+   "confirm": {
+    "gpt": {
+     "dev_grades": {
+      "correct": 162,
+      "speechless": 1,
+      "wrong": 1
+     },
+     "probe_ok": 15,
+     "probe_n": 15
+    }
+   },
+   "llm": {
+    "gpt": {
+     "n_calls": 1250,
+     "n_failed": 0,
+     "errors": {},
+     "latency": {
+      "all": {
+       "n": 1250,
+       "median_s": 2.4983944375126157,
+       "p95_s": 8.808190500014462,
+       "max_s": 22.088770833972376
+      },
+      "opening": {
+       "n": 80,
+       "median_s": 10.595218854490668,
+       "p95_s": 14.986953624989837,
+       "max_s": 22.088770833972376
+      },
+      "turn": {
+       "n": 1170,
+       "median_s": 2.4298701040097512,
+       "p95_s": 5.910164459026419,
+       "max_s": 10.939196999999695
+      }
+     },
+     "cost_total": 2.5994818999999993,
+     "workers": 8,
+     "guards": {
+      "mention_redflag_denial_not_used": 107,
+      "rest_denial_not_used": 14
+     }
+    }
+   }
+  },
+  "gemma_1116": {
+   "source": "reports/extractor_v2_2026-11-16_inputs/v2_replay_gemma.json",
+   "meta": {
+    "date": "2026-11-16",
+    "started_at": "2026-11-16T23:09:57",
+    "tag": "gemma",
+    "limit": null,
+    "prompts_version": "2.0-dev27",
+    "prompt_file_sha256": "8d1ac3b43bf465c2014c83e8f91823e758a87f97df2ad645c6f76703b69c4052",
+    "rendered_sha256": "608bdf5cbbfb26c359d19a04ddbcb8e7275e03514a21edfdf27db59cdd75af92",
+    "code_sha256": "5845a1fd4d9eeb484f9c4e8bff246cb8014ed3d9e55952cd28d278a645e6f9a6",
+    "transcripts": "eval_2026-10-20_llm_opus-5-5_medium_transcripts.json",
+    "phone_unmatched": 0,
+    "texts_not_traditional": [],
+    "finished_at": "2026-11-16T23:54:25"
+   },
+   "cells": {
+    "gemma/ref": {
+     "hs_miss": 1,
+     "hs_truth": 27,
+     "premature": 1,
+     "false_hs": 0,
+     "under": 0,
+     "over": 1,
+     "exact": 0.7479,
+     "abstain_fp": 28,
+     "rf_yes_missed": 0,
+     "slot_all": {
+      "correct": 616,
+      "n": 646,
+      "unknown_equiv": 8,
+      "wrong": 15,
+      "speechless": 7
+     },
+     "slot_redflag": {
+      "correct": 332,
+      "n": 346,
+      "wrong": 14
+     },
+     "hs_miss_cases": [
+      "S-MID-10#0"
+     ],
+     "false_hs_cases": [],
+     "premature_cases": [
+      "S-MID-10#0"
+     ],
+     "extract_failed": 0,
+     "extract_failed_cases": [],
+     "hs_trigger": [
+      {
+       "case_id": "S-MID-10#0",
+       "kind": "premature",
+       "truth_tier": 0,
+       "turn": 3,
+       "rf": [
+        "RF-01"
+       ],
+       "text": "比較像胸口被壓住的感覺，悶悶的壓在那邊。",
+       "q": "Q-CHARACTER-01",
+       "wrote": {
+        "chest_discomfort_mentioned": true,
+        "symptom_character": "pressure"
+       },
+       "truth": {
+        "symptom_character": "pressure"
+       }
+      }
+     ]
+    },
+    "gemma/phone": {
+     "hs_miss": 1,
+     "hs_truth": 27,
+     "premature": 1,
+     "false_hs": 0,
+     "under": 0,
+     "over": 0,
+     "exact": 0.7059,
+     "abstain_fp": 35,
+     "rf_yes_missed": 0,
+     "slot_all": {
+      "correct": 607,
+      "n": 646,
+      "wrong": 20,
+      "unknown_equiv": 8,
+      "speechless": 7,
+      "invented": 1,
+      "missed": 3
+     },
+     "slot_redflag": {
+      "correct": 324,
+      "n": 346,
+      "wrong": 19,
+      "invented": 1,
+      "missed": 2
+     },
+     "hs_miss_cases": [
+      "S-MID-10#0"
+     ],
+     "false_hs_cases": [],
+     "premature_cases": [
+      "S-MID-10#0"
+     ],
+     "extract_failed": 0,
+     "extract_failed_cases": [],
+     "hs_trigger": [
+      {
+       "case_id": "S-MID-10#0",
+       "kind": "premature",
+       "truth_tier": 0,
+       "turn": 3,
+       "rf": [
+        "RF-01"
+       ],
+       "text": "比較像胸口被壓住的感覺悶悶的壓在哪邊",
+       "q": "Q-CHARACTER-01",
+       "wrote": {
+        "chest_discomfort_mentioned": true,
+        "symptom_character": "pressure"
+       },
+       "truth": {
+        "symptom_character": "pressure"
+       }
+      }
+     ]
+    }
+   },
+   "confirm": {
+    "gemma": {
+     "dev_grades": {
+      "correct": 159,
+      "wrong": 3,
+      "speechless": 1,
+      "invented": 1
+     },
+     "probe_ok": 14,
+     "probe_n": 15
+    }
+   },
+   "llm": {
+    "gemma": {
+     "n_calls": 1250,
+     "n_failed": 0,
+     "errors": {},
+     "latency": {
+      "all": {
+       "n": 1250,
+       "median_s": 1.6604416874761228,
+       "p95_s": 8.38664079096634,
+       "max_s": 20.35608920897357
+      },
+      "opening": {
+       "n": 80,
+       "median_s": 8.912875500012888,
+       "p95_s": 9.896056875004433,
+       "max_s": 20.35608920897357
+      },
+      "turn": {
+       "n": 1170,
+       "median_s": 1.603269374492811,
+       "p95_s": 2.756655999983195,
+       "max_s": 3.5842902089934796
+      }
+     },
+     "cost_total": 0.0,
+     "workers": 1,
+     "guards": {
+      "rest_denial_not_used": 27,
+      "denial_without_negated_evidence": 4,
+      "mention_redflag_denial_not_used": 43,
+      "asked_value_from_mentions": 57,
+      "affirm_with_negated_evidence": 25,
+      "choice_listed_unclassified": 3,
+      "ongoing_mention_without_present_marker": 1,
+      "asked_stance_vs_leading_word": 1
+     }
+    }
+   }
+  },
+  "both_1105": {
+   "source": "reports/extractor_v2_2026-11-05_inputs/stage_a_replay.json",
+   "meta": {
+    "date": "2026-11-05",
+    "started_at": "2026-11-05T20:41:11",
+    "tag": "gpt+gemma",
+    "limit": null,
+    "prompts_version": "2.0-dev26",
+    "prompt_file_sha256": "3b1697ca85c80335d8066ffa3180d80152d1cce8de4039f906ad91c6bc26665c",
+    "rendered_sha256": "213f0b5a65b4e0d2e08c2b1e177360d4e98ddba88dbbc49ec303227b08edb49a",
+    "code_sha256": "4d903ce387861dea58cdba438238d27652d4d27458bffd32dd108053c1d0840f",
+    "transcripts": "eval_2026-10-20_llm_opus-5-5_medium_transcripts.json",
+    "phone_unmatched": 0,
+    "texts_not_traditional": [],
+    "finished_at": "2026-11-05T20:47:25",
+    "parts": {
+     "gpt": {
+      "date": "2026-11-05",
+      "started_at": "2026-11-05T20:41:11",
+      "tag": "gpt",
+      "limit": null,
+      "prompts_version": "2.0-dev26",
+      "prompt_file_sha256": "3b1697ca85c80335d8066ffa3180d80152d1cce8de4039f906ad91c6bc26665c",
+      "rendered_sha256": "213f0b5a65b4e0d2e08c2b1e177360d4e98ddba88dbbc49ec303227b08edb49a",
+      "code_sha256": "4d903ce387861dea58cdba438238d27652d4d27458bffd32dd108053c1d0840f",
+      "transcripts": "eval_2026-10-20_llm_opus-5-5_medium_transcripts.json",
+      "phone_unmatched": 0,
+      "texts_not_traditional": [],
+      "finished_at": "2026-11-05T20:47:25"
+     },
+     "gemma": {
+      "date": "2026-11-05",
+      "started_at": "2026-11-05T19:41:56",
+      "tag": "gemma",
+      "limit": null,
+      "prompts_version": "2.0-dev26",
+      "prompt_file_sha256": "3b1697ca85c80335d8066ffa3180d80152d1cce8de4039f906ad91c6bc26665c",
+      "rendered_sha256": "213f0b5a65b4e0d2e08c2b1e177360d4e98ddba88dbbc49ec303227b08edb49a",
+      "code_sha256": "4d903ce387861dea58cdba438238d27652d4d27458bffd32dd108053c1d0840f",
+      "transcripts": "eval_2026-10-20_llm_opus-5-5_medium_transcripts.json",
+      "phone_unmatched": 0,
+      "texts_not_traditional": [],
+      "finished_at": "2026-11-05T20:20:20"
+     }
+    },
+    "note": "由 v2_replay_gpt.json（2026-11-05，第一次 1,250 呼叫中 42 次 OpenAI TimeoutError 後，以同一快取重試一次，只重新呼叫失敗的；重試後仍失敗 1 次）與 v2_replay_gemma.json（2026-11-05）合併；各自的 meta 在 parts。gpt 第一次執行 2026-11-05T19:20:12–2026-11-05T20:40:38（費用 US$2.4703），重試 2026-11-05T20:41:11–2026-11-05T20:47:25（累計 US$2.5427）"
+   },
+   "cells": {
+    "gpt/ref": {
+     "hs_miss": 0,
+     "hs_truth": 27,
+     "premature": 0,
+     "false_hs": 0,
+     "under": 0,
+     "over": 0,
+     "exact": 0.7227,
+     "abstain_fp": 33,
+     "rf_yes_missed": 0,
+     "slot_all": {
+      "correct": 613,
+      "n": 646,
+      "wrong": 16,
+      "unknown_equiv": 13,
+      "speechless": 3,
+      "missed": 1
+     },
+     "slot_redflag": {
+      "correct": 329,
+      "n": 346,
+      "wrong": 16,
+      "missed": 1
+     },
+     "hs_miss_cases": [],
+     "false_hs_cases": [],
+     "premature_cases": [],
+     "hs_trigger": []
+    },
+    "gpt/phone": {
+     "hs_miss": 3,
+     "hs_truth": 27,
+     "premature": 1,
+     "false_hs": 0,
+     "under": 0,
+     "over": 0,
+     "exact": 0.6975,
+     "abstain_fp": 36,
+     "rf_yes_missed": 0,
+     "slot_all": {
+      "correct": 603,
+      "n": 646,
+      "wrong": 16,
+      "unknown_equiv": 14,
+      "missed": 11,
+      "speechless": 2
+     },
+     "slot_redflag": {
+      "correct": 321,
+      "n": 346,
+      "wrong": 15,
+      "missed": 10
+     },
+     "hs_miss_cases": [
+      "S-INSUF-04#0",
+      "S-MID-06#0",
+      "S-MID-10#0"
+     ],
+     "false_hs_cases": [],
+     "premature_cases": [
+      "S-MID-10#0"
+     ],
+     "hs_trigger": [
+      {
+       "case_id": "S-MID-10#0",
+       "kind": "premature",
+       "truth_tier": 0,
+       "turn": 3,
+       "rf": [
+        "RF-01"
+       ],
+       "text": "比較像胸口被壓住的感覺悶悶的壓在哪邊",
+       "q": "Q-CHARACTER-01",
+       "wrote": {
+        "symptom_character": "pressure"
+       },
+       "truth": {
+        "symptom_character": "pressure"
+       }
+      }
+     ]
+    },
+    "gemma/ref": {
+     "hs_miss": 1,
+     "hs_truth": 27,
+     "premature": 1,
+     "false_hs": 0,
+     "under": 0,
+     "over": 1,
+     "exact": 0.7395,
+     "abstain_fp": 29,
+     "rf_yes_missed": 0,
+     "slot_all": {
+      "correct": 614,
+      "n": 646,
+      "wrong": 18,
+      "speechless": 6,
+      "unknown_equiv": 7,
+      "missed": 1
+     },
+     "slot_redflag": {
+      "correct": 329,
+      "n": 346,
+      "wrong": 17
+     },
+     "hs_miss_cases": [
+      "S-MID-10#0"
+     ],
+     "false_hs_cases": [],
+     "premature_cases": [
+      "S-MID-10#0"
+     ],
+     "hs_trigger": [
+      {
+       "case_id": "S-MID-10#0",
+       "kind": "premature",
+       "truth_tier": 0,
+       "turn": 3,
+       "rf": [
+        "RF-01"
+       ],
+       "text": "比較像胸口被壓住的感覺，悶悶的壓在那邊。",
+       "q": "Q-CHARACTER-01",
+       "wrote": {
+        "chest_discomfort_mentioned": true,
+        "symptom_character": "pressure"
+       },
+       "truth": {
+        "symptom_character": "pressure"
+       }
+      }
+     ]
+    },
+    "gemma/phone": {
+     "hs_miss": 1,
+     "hs_truth": 27,
+     "premature": 1,
+     "false_hs": 0,
+     "under": 0,
+     "over": 1,
+     "exact": 0.7227,
+     "abstain_fp": 32,
+     "rf_yes_missed": 0,
+     "slot_all": {
+      "correct": 609,
+      "n": 646,
+      "wrong": 21,
+      "speechless": 7,
+      "unknown_equiv": 6,
+      "missed": 3
+     },
+     "slot_redflag": {
+      "correct": 324,
+      "n": 346,
+      "wrong": 20,
+      "missed": 2
+     },
+     "hs_miss_cases": [
+      "S-MID-10#0"
+     ],
+     "false_hs_cases": [],
+     "premature_cases": [
+      "S-MID-10#0"
+     ],
+     "hs_trigger": [
+      {
+       "case_id": "S-MID-10#0",
+       "kind": "premature",
+       "truth_tier": 0,
+       "turn": 3,
+       "rf": [
+        "RF-01"
+       ],
+       "text": "比較像胸口被壓住的感覺悶悶的壓在哪邊",
+       "q": "Q-CHARACTER-01",
+       "wrote": {
+        "chest_discomfort_mentioned": true,
+        "symptom_character": "pressure"
+       },
+       "truth": {
+        "symptom_character": "pressure"
+       }
+      }
+     ]
+    }
+   },
+   "confirm": {
+    "gpt": {
+     "dev_grades": {
+      "correct": 162,
+      "speechless": 1,
+      "wrong": 1
+     },
+     "probe_ok": 15,
+     "probe_n": 15
+    },
+    "gemma": {
+     "dev_grades": {
+      "correct": 161,
+      "speechless": 1,
+      "invented": 1,
+      "wrong": 1
+     },
+     "probe_ok": 15,
+     "probe_n": 15
+    }
+   },
+   "llm": {
+    "gpt": {
+     "n_calls": 1250,
+     "n_failed": 1,
+     "errors": {
+      "TimeoutError": 1
+     },
+     "latency": {
+      "all": {
+       "n": 1249,
+       "median_s": 2.9461145831737667,
+       "p95_s": 9.74046566709876,
+       "max_s": 131.90773337497376
+      },
+      "opening": {
+       "n": 80,
+       "median_s": 11.82890658301767,
+       "p95_s": 17.53138199984096,
+       "max_s": 21.738451208919287
+      },
+      "turn": {
+       "n": 1169,
+       "median_s": 2.8794284579344094,
+       "p95_s": 6.333359041949734,
+       "max_s": 131.90773337497376
+      }
+     },
+     "cost_total": 2.5426839,
+     "workers": 8,
+     "guards": {
+      "mention_redflag_denial_not_used": 110,
+      "rest_denial_not_used": 16
+     }
+    },
+    "gemma": {
+     "n_calls": 1250,
+     "n_failed": 0,
+     "errors": {},
+     "latency": {
+      "all": {
+       "n": 1250,
+       "median_s": 1.4677626460324973,
+       "p95_s": 7.177438250044361,
+       "max_s": 8.518509749788791
+      },
+      "opening": {
+       "n": 80,
+       "median_s": 7.531079250387847,
+       "p95_s": 8.296319208107889,
+       "max_s": 8.518509749788791
+      },
+      "turn": {
+       "n": 1170,
+       "median_s": 1.412267875042744,
+       "p95_s": 2.322086000116542,
+       "max_s": 3.108994208043441
+      }
+     },
+     "cost_total": 0.0,
+     "workers": 1,
+     "guards": {
+      "rest_denial_not_used": 28,
+      "denial_without_negated_evidence": 6,
+      "mention_redflag_denial_not_used": 48,
+      "asked_value_from_mentions": 61,
+      "affirm_with_negated_evidence": 23,
+      "ongoing_mention_without_present_marker": 3,
+      "choice_listed_unclassified": 2,
+      "asked_stance_vs_leading_word": 2
+     }
+    }
+   }
+  }
+ },
+ "guard_rescore": {
+  "closed_gpt": {
+   "hs_miss": [],
+   "premature": [],
+   "false_hs": [],
+   "under": [],
+   "over": [
+    [
+     "S-MID-08#2",
+     1,
+     0
+    ],
+    [
+     "S-MID-13",
+     2,
+     0
+    ]
+   ],
+   "exact": 0.957983193277311,
+   "t9": 15,
+   "mean_questions": 7.19327731092437,
+   "patient_misses": 2,
+   "extract_misses": 2,
+   "cases_differ_from_orig": [
+    "S-MID-07"
+   ],
+   "repro_guard_hits": {
+    "S-MID-14": [
+     {
+      "q": null,
+      "confirm": false,
+      "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+      "guard": "repro_palpation_evidence_used"
+     }
+    ],
+    "S-MID-14#0": [
+     {
+      "q": null,
+      "confirm": false,
+      "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+      "guard": "repro_palpation_evidence_used"
+     }
+    ],
+    "S-MID-14#1": [
+     {
+      "q": null,
+      "confirm": false,
+      "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+      "guard": "repro_palpation_evidence_used"
+     }
+    ]
+   },
+   "repro_conflicts": {}
+  },
+  "closed_gemma": {
+   "hs_miss": [],
+   "premature": [],
+   "false_hs": [],
+   "under": [],
+   "over": [
+    [
+     "S-MID-08#2",
+     1,
+     0
+    ],
+    [
+     "S-MID-13",
+     2,
+     0
+    ]
+   ],
+   "exact": 0.9495798319327731,
+   "t9": 14,
+   "mean_questions": 7.126050420168068,
+   "patient_misses": 0,
+   "extract_misses": 0,
+   "cases_differ_from_orig": [
+    "S-MID-16"
+   ],
+   "repro_guard_hits": {
+    "S-MID-14": [
+     {
+      "q": null,
+      "confirm": false,
+      "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+      "guard": "repro_palpation_evidence_used"
+     },
+     {
+      "q": "Q-CHARACTER-01",
+      "confirm": true,
+      "text": "就是會痛,胸口肌肉那邊按下去會痛,不是悶悶被壓住的那種。",
+      "guard": "repro_palpation_evidence_used"
+     }
+    ],
+    "S-MID-14#0": [
+     {
+      "q": null,
+      "confirm": false,
+      "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+      "guard": "repro_palpation_evidence_used"
+     },
+     {
+      "q": "Q-ONGOING-01",
+      "confirm": false,
+      "text": "現在這個當下沒有在不舒服,沒有特別去按的話還好。",
+      "guard": "repro_mention_not_used"
+     }
+    ],
+    "S-MID-14#1": [
+     {
+      "q": null,
+      "confirm": false,
+      "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+      "guard": "repro_palpation_evidence_used"
+     }
+    ],
+    "S-MID-16": [
+     {
+      "q": "Q-ONGOING-01",
+      "confirm": false,
+      "text": "現在沒有,現在沒在咳就不會痛。",
+      "guard": "repro_mention_not_used"
+     },
+     {
+      "q": "Q-CHARACTER-01",
+      "confirm": false,
+      "text": "比較像是會痛,就咳嗽的時候胸口會痛。",
+      "guard": "repro_mention_not_used"
+     },
+     {
+      "q": "Q-CHARACTER-01",
+      "confirm": true,
+      "text": "對,就是會痛,咳的時候胸口痛。",
+      "guard": "repro_mention_not_used"
+     },
+     {
+      "q": "Q-EXERTION-01",
+      "confirm": false,
+      "text": "這個我不太清楚耶,我只知道是咳嗽的時候會痛,走路的時候好像沒特別注意。",
+      "guard": "repro_mention_not_used"
+     }
+    ],
+    "S-MID-16#0": [
+     {
+      "q": "Q-CHARACTER-01",
+      "confirm": true,
+      "text": "對,就是會痛,咳嗽的時候胸口那邊痛。",
+      "guard": "repro_mention_not_used"
+     }
+    ]
+   },
+   "repro_conflicts": {}
+  },
+  "replay_gpt": {
+   "ref": {
+    "hs_miss": [
+     "S-MID-10#0"
+    ],
+    "premature": [
+     "S-MID-10#0"
+    ],
+    "false_hs": [],
+    "under": [],
+    "over": [],
+    "exact": 0.7395,
+    "n_exact": 87,
+    "n": 119,
+    "t9": 43,
+    "cache_misses": 0,
+    "extract_failed": 0
+   },
+   "phone": {
+    "hs_miss": [
+     "S-INSUF-04#0",
+     "S-MID-06#0",
+     "S-MID-10#0"
+    ],
+    "premature": [
+     "S-MID-10#0"
+    ],
+    "false_hs": [],
+    "under": [],
+    "over": [],
+    "exact": 0.6975,
+    "n_exact": 82,
+    "n": 119,
+    "t9": 48,
+    "cache_misses": 0,
+    "extract_failed": 0
+   }
+  },
+  "replay_gemma": {
+   "ref": {
+    "hs_miss": [
+     "S-MID-10#0"
+    ],
+    "premature": [
+     "S-MID-10#0"
+    ],
+    "false_hs": [],
+    "under": [],
+    "over": [
+     [
+      "S-MID-07",
+      1,
+      0
+     ]
+    ],
+    "exact": 0.7479,
+    "n_exact": 88,
+    "n": 119,
+    "t9": 39,
+    "cache_misses": 0,
+    "extract_failed": 0
+   },
+   "phone": {
+    "hs_miss": [
+     "S-MID-10#0"
+    ],
+    "premature": [
+     "S-MID-10#0"
+    ],
+    "false_hs": [],
+    "under": [],
+    "over": [],
+    "exact": 0.7059,
+    "n_exact": 83,
+    "n": 119,
+    "t9": 47,
+    "cache_misses": 0,
+    "extract_failed": 0
+   }
+  },
+  "flag_replay_gpt": {
+   "ref": {
+    "hs_miss": [
+     "S-MID-10#0"
+    ],
+    "premature": [
+     "S-MID-10#0"
+    ],
+    "false_hs": [],
+    "under": [],
+    "over": [],
+    "exact": 0.7395,
+    "n_exact": 87,
+    "n": 119,
+    "t9": 43,
+    "cache_misses": 0,
+    "extract_failed": 0
+   },
+   "phone": {
+    "hs_miss": [
+     "S-INSUF-04#0",
+     "S-MID-06#0",
+     "S-MID-10#0"
+    ],
+    "premature": [
+     "S-MID-10#0"
+    ],
+    "false_hs": [],
+    "under": [],
+    "over": [],
+    "exact": 0.6975,
+    "n_exact": 82,
+    "n": 119,
+    "t9": 48,
+    "cache_misses": 0,
+    "extract_failed": 0
+   }
+  },
+  "flag_replay_gemma": {
+   "ref": {
+    "hs_miss": [
+     "S-MID-10#0"
+    ],
+    "premature": [
+     "S-MID-10#0"
+    ],
+    "false_hs": [],
+    "under": [],
+    "over": [
+     [
+      "S-MID-07",
+      1,
+      0
+     ]
+    ],
+    "exact": 0.7479,
+    "n_exact": 88,
+    "n": 119,
+    "t9": 39,
+    "cache_misses": 0,
+    "extract_failed": 0
+   },
+   "phone": {
+    "hs_miss": [
+     "S-MID-10#0"
+    ],
+    "premature": [
+     "S-MID-10#0"
+    ],
+    "false_hs": [],
+    "under": [],
+    "over": [],
+    "exact": 0.7059,
+    "n_exact": 83,
+    "n": 119,
+    "t9": 47,
+    "cache_misses": 0,
+    "extract_failed": 0
+   }
+  }
+ },
+ "holdout": {
+  "source": "<scratch>/synth1116/synth_eval_2026-11-16.json（只取彙總）",
+  "rules_version": "0.11.0",
+  "llm_json": "reports/eval_2026-11-05_llm_scenarios_synth_v1_opus-5-5_medium.json",
+  "final": {
+   "ref_agree": {
+    "a": {
+     "n": 130,
+     "hs_sensitivity": 51,
+     "under": 14,
+     "under_via_t9": 9,
+     "over": 21,
+     "exact": 95,
+     "t9": 16,
+     "ed_burden": 4,
+     "mean_questions": null
+    },
+    "b": {
+     "n": 130,
+     "hs_sensitivity": 49,
+     "under": 24,
+     "under_via_t9": 14,
+     "over": 20,
+     "exact": 86,
+     "t9": 20,
+     "ed_burden": 2,
+     "mean_questions": 6.65
+    }
+   },
+   "ref_cons": {
+    "a": {
+     "n": 150,
+     "hs_sensitivity": 51,
+     "under": 26,
+     "under_via_t9": 18,
+     "over": 25,
+     "exact": 98,
+     "t9": 25,
+     "ed_burden": 6,
+     "mean_questions": null
+    },
+    "b": {
+     "n": 150,
+     "hs_sensitivity": 49,
+     "under": 37,
+     "under_via_t9": 24,
+     "over": 23,
+     "exact": 89,
+     "t9": 30,
+     "ed_burden": 3,
+     "mean_questions": 7.09
+    }
+   }
+  },
+  "head_057f8d1": {
+   "ref_agree_a": {
+    "under": 14,
+    "over": 8,
+    "exact": 108,
+    "t9": 16
+   },
+   "ref_agree_b": {
+    "under": 26,
+    "over": 7,
+    "exact": 97,
+    "t9": 22
+   },
+   "ref_cons_a": {
+    "under": 26,
+    "over": 12,
+    "exact": 111,
+    "t9": 25
+   },
+   "ref_cons_b": {
+    "under": 39,
+    "over": 10,
+    "exact": 100,
+    "t9": 32
+   }
+  },
+  "c_layer": "未重跑（病人聽到的措辭未改；上限改動由 (b) 涵蓋）；以 11-05 逐字稿重放有 14 例「重放結果≠逐字稿」，不作為本輪結果"
+ },
+ "opus_eval_1116": {
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "rules_version": "0.11.0",
+  "bank_version": "0.6",
+  "metrics": {
+   "n_cases": 119,
+   "n_scored": 119,
+   "hard_stop": {
+    "truth": 27,
+    "hit": 27,
+    "miss": [],
+    "miss_rate": 0.0,
+    "false_alarm": [],
+    "latency_max": 0
+   },
+   "exact_rate": 1.0,
+   "under_triage": {
+    "rate": 0.0,
+    "cases": []
+   },
+   "over_triage": {
+    "rate": 0.0,
+    "cases": []
+   },
+   "abstention": {
+    "tp": 12,
+    "fp": [],
+    "fn": [],
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "escalating_recall": 0.9965397923875432,
+   "escalating": {
+    "hit": 576,
+    "total": 578,
+    "missed": [
+     [
+      "S-INSUF-02",
+      "Q-NTG-01",
+      9,
+      "max_questions"
+     ],
+     [
+      "S-INSUF-07#1",
+      "Q-NTG-01",
+      9,
+      "max_questions"
+     ]
+    ]
+   },
+   "escalating_recall_strict": 0.967128027681661,
+   "escalating_missed_strict": [
+    [
+     "S-STABLE-03",
+     "Q-POSTURAL-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-STABLE-03",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-INSUF-02",
+     "Q-NTG-01",
+     9,
+     "max_questions"
+    ],
+    [
+     "S-INSUF-07#1",
+     "Q-NTG-01",
+     9,
+     "max_questions"
+    ],
+    [
+     "S-MID-04",
+     "Q-POSTURAL-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-MID-04",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20#0",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ]
+   ],
+   "decisive_recall": 0.9856957087126138,
+   "questions_to_decision_mean": 6.504201680672269,
+   "gate_repeats": 0,
+   "confirm_back": {
+    "n": 170,
+    "per_call": 1.4285714285714286,
+    "changed": 0,
+    "downgrade_blocked": 0
+   },
+   "pending_test_extra": {
+    "asked": 22,
+    "skipped_at_cap": 0
+   },
+   "mention_reask": {
+    "n": 0,
+    "downgrades": 0
+   },
+   "stop_reasons": {
+    "gate_passed": 77,
+    "hard_stop": 25,
+    "hard_stop_opening": 2,
+    "max_questions": 11,
+    "gate_passed_t0_asked": 3,
+    "no_more_questions": 1
+   },
+   "confusion": {
+    "0->0": 71,
+    "1->1": 7,
+    "2->2": 18,
+    "3->3": 7,
+    "4->4": 4,
+    "9->9": 12
+   },
+   "rf_mismatch": []
+  },
+  "scripted_metrics": {
+   "n_cases": 119,
+   "n_scored": 119,
+   "hard_stop": {
+    "truth": 27,
+    "hit": 27,
+    "miss": [],
+    "miss_rate": 0.0,
+    "false_alarm": [],
+    "latency_max": 0
+   },
+   "exact_rate": 1.0,
+   "under_triage": {
+    "rate": 0.0,
+    "cases": []
+   },
+   "over_triage": {
+    "rate": 0.0,
+    "cases": []
+   },
+   "abstention": {
+    "tp": 12,
+    "fp": [],
+    "fn": [],
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "escalating_recall": 0.9965397923875432,
+   "escalating": {
+    "hit": 576,
+    "total": 578,
+    "missed": [
+     [
+      "S-INSUF-02",
+      "Q-NTG-01",
+      9,
+      "max_questions"
+     ],
+     [
+      "S-INSUF-07#1",
+      "Q-NTG-01",
+      9,
+      "max_questions"
+     ]
+    ]
+   },
+   "escalating_recall_strict": 0.967128027681661,
+   "escalating_missed_strict": [
+    [
+     "S-STABLE-03",
+     "Q-POSTURAL-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-STABLE-03",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-INSUF-02",
+     "Q-NTG-01",
+     9,
+     "max_questions"
+    ],
+    [
+     "S-INSUF-07#1",
+     "Q-NTG-01",
+     9,
+     "max_questions"
+    ],
+    [
+     "S-MID-04",
+     "Q-POSTURAL-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-MID-04",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20#0",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ]
+   ],
+   "decisive_recall": 0.9856957087126138,
+   "questions_to_decision_mean": 6.504201680672269,
+   "gate_repeats": 0,
+   "confirm_back": {
+    "n": 116,
+    "per_call": 0.9747899159663865,
+    "changed": 0,
+    "downgrade_blocked": 0
+   },
+   "pending_test_extra": {
+    "asked": 22,
+    "skipped_at_cap": 0
+   },
+   "mention_reask": {
+    "n": 0,
+    "downgrades": 0
+   },
+   "stop_reasons": {
+    "gate_passed": 77,
+    "hard_stop": 25,
+    "hard_stop_opening": 2,
+    "max_questions": 11,
+    "gate_passed_t0_asked": 3,
+    "no_more_questions": 1
+   },
+   "confusion": {
+    "0->0": 71,
+    "1->1": 7,
+    "2->2": 18,
+    "3->3": 7,
+    "4->4": 4,
+    "9->9": 12
+   },
+   "rf_mismatch": []
+  },
+  "deviations": [
+   {
+    "case_id": "S-INSUF-04",
+    "question_id": "Q-CONSULT-01",
+    "kind": "fabricated",
+    "expected": null,
+    "got": "symptom",
+    "utterance_zh": "主要是身體不舒服啦，最近覺得比較喘，想問問看。",
+    "confirm": false
+   },
+   {
+    "case_id": "S-INSUF-06#0",
+    "question_id": "Q-REST-01",
+    "kind": "fabricated",
+    "expected": null,
+    "got": false,
+    "utterance_zh": "沒有，休息的時候不會，都是走路或用力的時候才會不舒服，停下來就好了。",
+    "confirm": false
+   }
+  ],
+  "errors": [],
+  "usage": {
+   "input_tokens": 3776,
+   "output_tokens": 58322,
+   "cache_creation_input_tokens": 780595,
+   "cache_read_input_tokens": 1447859,
+   "calls": 944,
+   "est_cost_usd": 5.6637
+  }
+ },
+ "opus_eval_1117_d34_of_record": {
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "rules_version": "0.11.0",
+  "bank_version": "0.7",
+  "metrics": {
+   "n_cases": 119,
+   "n_scored": 119,
+   "hard_stop": {
+    "truth": 27,
+    "hit": 27,
+    "miss": [],
+    "miss_rate": 0.0,
+    "false_alarm": [],
+    "latency_max": 0
+   },
+   "exact_rate": 1.0,
+   "under_triage": {
+    "rate": 0.0,
+    "cases": []
+   },
+   "over_triage": {
+    "rate": 0.0,
+    "cases": []
+   },
+   "abstention": {
+    "tp": 12,
+    "fp": [],
+    "fn": [],
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "escalating_recall": 0.9965397923875432,
+   "escalating": {
+    "hit": 576,
+    "total": 578,
+    "missed": [
+     [
+      "S-INSUF-02",
+      "Q-NTG-01",
+      9,
+      "max_questions"
+     ],
+     [
+      "S-INSUF-07#1",
+      "Q-NTG-01",
+      9,
+      "max_questions"
+     ]
+    ]
+   },
+   "escalating_recall_strict": 0.967128027681661,
+   "escalating_missed_strict": [
+    [
+     "S-STABLE-03",
+     "Q-POSTURAL-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-STABLE-03",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-INSUF-02",
+     "Q-NTG-01",
+     9,
+     "max_questions"
+    ],
+    [
+     "S-INSUF-07#1",
+     "Q-NTG-01",
+     9,
+     "max_questions"
+    ],
+    [
+     "S-MID-04",
+     "Q-POSTURAL-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-MID-04",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20#0",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ]
+   ],
+   "decisive_recall": 0.9856957087126138,
+   "questions_to_decision_mean": 6.504201680672269,
+   "gate_repeats": 0,
+   "confirm_back": {
+    "n": 170,
+    "per_call": 1.4285714285714286,
+    "changed": 0,
+    "downgrade_blocked": 0
+   },
+   "pending_test_extra": {
+    "asked": 22,
+    "skipped_at_cap": 0
+   },
+   "mention_reask": {
+    "n": 0,
+    "downgrades": 0
+   },
+   "stop_reasons": {
+    "gate_passed": 77,
+    "hard_stop": 25,
+    "hard_stop_opening": 2,
+    "max_questions": 11,
+    "gate_passed_t0_asked": 3,
+    "no_more_questions": 1
+   },
+   "confusion": {
+    "0->0": 71,
+    "1->1": 7,
+    "2->2": 18,
+    "3->3": 7,
+    "4->4": 4,
+    "9->9": 12
+   },
+   "rf_mismatch": []
+  },
+  "scripted_metrics": {
+   "n_cases": 119,
+   "n_scored": 119,
+   "hard_stop": {
+    "truth": 27,
+    "hit": 27,
+    "miss": [],
+    "miss_rate": 0.0,
+    "false_alarm": [],
+    "latency_max": 0
+   },
+   "exact_rate": 1.0,
+   "under_triage": {
+    "rate": 0.0,
+    "cases": []
+   },
+   "over_triage": {
+    "rate": 0.0,
+    "cases": []
+   },
+   "abstention": {
+    "tp": 12,
+    "fp": [],
+    "fn": [],
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "escalating_recall": 0.9965397923875432,
+   "escalating": {
+    "hit": 576,
+    "total": 578,
+    "missed": [
+     [
+      "S-INSUF-02",
+      "Q-NTG-01",
+      9,
+      "max_questions"
+     ],
+     [
+      "S-INSUF-07#1",
+      "Q-NTG-01",
+      9,
+      "max_questions"
+     ]
+    ]
+   },
+   "escalating_recall_strict": 0.967128027681661,
+   "escalating_missed_strict": [
+    [
+     "S-STABLE-03",
+     "Q-POSTURAL-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-STABLE-03",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-INSUF-02",
+     "Q-NTG-01",
+     9,
+     "max_questions"
+    ],
+    [
+     "S-INSUF-07#1",
+     "Q-NTG-01",
+     9,
+     "max_questions"
+    ],
+    [
+     "S-MID-04",
+     "Q-POSTURAL-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-MID-04",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-15",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-17",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-18",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-PALP-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-POSTURAL-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20",
+     "Q-PENDINGTEST-01",
+     4,
+     "gate_passed"
+    ],
+    [
+     "S-MID-20#0",
+     "Q-PENDINGTEST-01",
+     3,
+     "gate_passed"
+    ]
+   ],
+   "decisive_recall": 0.9856957087126138,
+   "questions_to_decision_mean": 6.504201680672269,
+   "gate_repeats": 0,
+   "confirm_back": {
+    "n": 116,
+    "per_call": 0.9747899159663865,
+    "changed": 0,
+    "downgrade_blocked": 0
+   },
+   "pending_test_extra": {
+    "asked": 22,
+    "skipped_at_cap": 0
+   },
+   "mention_reask": {
+    "n": 0,
+    "downgrades": 0
+   },
+   "stop_reasons": {
+    "gate_passed": 77,
+    "hard_stop": 25,
+    "hard_stop_opening": 2,
+    "max_questions": 11,
+    "gate_passed_t0_asked": 3,
+    "no_more_questions": 1
+   },
+   "confusion": {
+    "0->0": 71,
+    "1->1": 7,
+    "2->2": 18,
+    "3->3": 7,
+    "4->4": 4,
+    "9->9": 12
+   },
+   "rf_mismatch": []
+  },
+  "deviations": [
+   {
+    "case_id": "S-INSUF-04",
+    "question_id": "Q-CONSULT-01",
+    "kind": "fabricated",
+    "expected": null,
+    "got": "symptom",
+    "utterance_zh": "主要是身體不舒服啦，最近覺得比較喘，想問問看。",
+    "confirm": false
+   },
+   {
+    "case_id": "S-INSUF-06#0",
+    "question_id": "Q-REST-01",
+    "kind": "fabricated",
+    "expected": null,
+    "got": false,
+    "utterance_zh": "沒有，休息的時候不會，都是走路或用力的時候才會不舒服，停下來就好了。",
+    "confirm": false
+   }
+  ],
+  "errors": [],
+  "usage": {
+   "input_tokens": 3776,
+   "output_tokens": 58252,
+   "cache_creation_input_tokens": 779964,
+   "cache_read_input_tokens": 1447578,
+   "calls": 944,
+   "est_cost_usd": 5.659
+  }
+ },
+ "robustness_1116": {
+  "total_flips": 1483,
+  "under": 170,
+  "transitions": {
+   "T0→T9": 98,
+   "HS→T9": 29,
+   "HS→T0": 14,
+   "T9→T9": 9,
+   "T0→T4": 4,
+   "T2→T3": 3,
+   "T3→T4": 3,
+   "T0→T3": 2,
+   "T1→T3": 2,
+   "T0→T1": 2,
+   "T1→T4": 2,
+   "T2→T9": 1,
+   "T1→T2": 1
+  },
+  "severe": [
+   {
+    "case_id": "S-STABLE-03#0",
+    "question_id": "Q-CHARACTER-01",
+    "answer": "pressure",
+    "flipped_to": "other",
+    "transition": "T0→T3"
+   },
+   {
+    "case_id": "S-STABLE-03#0",
+    "question_id": "Q-CHARACTER-01",
+    "answer": "pressure",
+    "flipped_to": "none",
+    "transition": "T0→T3"
+   },
+   {
+    "case_id": "S-MID-09#0",
+    "question_id": "Q-CHARACTER-01",
+    "answer": "pressure",
+    "flipped_to": "other",
+    "transition": "T0→T1"
+   },
+   {
+    "case_id": "S-MID-09#0",
+    "question_id": "Q-CHARACTER-01",
+    "answer": "pressure",
+    "flipped_to": "none",
+    "transition": "T0→T1"
+   },
+   {
+    "case_id": "S-MID-18#0",
+    "question_id": "Q-CHARACTER-01",
+    "answer": "jaw_shoulder_heaviness",
+    "flipped_to": "other",
+    "transition": "T0→T4"
+   },
+   {
+    "case_id": "S-MID-18#0",
+    "question_id": "Q-CHARACTER-01",
+    "answer": "jaw_shoulder_heaviness",
+    "flipped_to": "none",
+    "transition": "T0→T4"
+   },
+   {
+    "case_id": "S-MID-20#1",
+    "question_id": "Q-CHARACTER-01",
+    "answer": "pressure",
+    "flipped_to": "other",
+    "transition": "T0→T4"
+   },
+   {
+    "case_id": "S-MID-20#1",
+    "question_id": "Q-CHARACTER-01",
+    "answer": "pressure",
+    "flipped_to": "none",
+    "transition": "T0→T4"
+   }
+  ]
+ },
+ "costs": {
+  "anthropic_opus_patient": {
+   "dev_opus_eval_1116": [
+    5.6637,
+    "reports/eval_2026-11-16_llm_opus-5-5_medium.json usage.est_cost_usd"
+   ],
+   "closed_gpt_1116": [
+    3.676,
+    "inputs/closed_dev_gpt.json patient_usage.opus_cost_usd（新呼叫 545）"
+   ],
+   "closed_gemma_1116": [
+    1.8371,
+    "inputs/closed_dev_gemma_1116_superseded.json patient_usage.opus_cost_usd（新呼叫 260）"
+   ],
+   "closed_gpt_1117": [
+    0.0164,
+    "inputs/closed_dev_gpt_final.json patient_usage.opus_cost_usd（新呼叫 2）"
+   ],
+   "closed_gemma_1117": [
+    0.0,
+    "inputs/closed_dev_gemma_final.json patient_usage.opus_cost_usd（新呼叫 0）"
+   ],
+   "dev_opus_eval_1117": [
+    5.659,
+    "reports/eval_2026-11-17_llm_opus-5-5_medium.json usage.est_cost_usd"
+   ],
+   "closed_structured_final_flag": [
+    0.0,
+    "inputs/closed_dev_structured_final_flag.json（新呼叫 0）"
+   ],
+   "closed_gemma_final_flag": [
+    0.1663,
+    "inputs/closed_dev_gemma_final_flag.json patient_usage.opus_cost_usd（新呼叫 25）"
+   ],
+   "closed_gpt_final_flag": [
+    0.0,
+    "inputs/closed_dev_gpt_final_flag.json patient_usage.opus_cost_usd（新呼叫 0）"
+   ]
+  },
+  "openai_gpt_extractor": {
+   "d56_probes_1115": [
+    0.472,
+    "logs/d56_probe_gpt_answers.log 0.0561＋d56_probe_gpt_dev26_rep1.log 0.1223＋d56_probe_gpt_dev27_openings.log 0.2936"
+   ],
+   "closed_gpt_1116": [
+    2.1969,
+    "inputs/closed_dev_gpt.json extractor_usage.cost_this_run_usd（新呼叫 868）"
+   ],
+   "replay_gpt_1116": [
+    2.5995,
+    "logs/v2_replay_gpt.log cost（JSON llm.gpt.cost_total 2.5994819；1,235 個不同呼叫、失敗 0）"
+   ],
+   "closed_gpt_1117": [
+    0.0103,
+    "inputs/closed_dev_gpt_final.json extractor_usage.cost_this_run_usd（新呼叫 2）"
+   ],
+   "closed_gpt_final_flag": [
+    0.026,
+    "inputs/closed_dev_gpt_final_flag.json extractor_usage.cost_this_run_usd（新呼叫 7）＝cost_total 1.7635 − 1.7375"
+   ]
+  },
+  "gemma_local": 0.0,
+  "anthropic_opus_patient_total": 17.0185,
+  "openai_gpt_extractor_total": 5.3047,
+  "all_total": 22.3232,
+  "note": "依 repo PRICES 估算，以帳單為準；Gemma 本機不計費"
+ }
+}

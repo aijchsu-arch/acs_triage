@@ -1,0 +1,5260 @@
+{
+ "summary": {
+  "hs_miss": [],
+  "premature": [],
+  "false_hs": [],
+  "under": [],
+  "over": [
+   [
+    "S-MID-08#2",
+    1,
+    0
+   ],
+   [
+    "S-MID-13",
+    2,
+    0
+   ]
+  ],
+  "exact": 0.957983193277311,
+  "t9": 15,
+  "mean_questions": 7.19327731092437,
+  "patient_misses": 2,
+  "extract_misses": 2,
+  "cases_differ_from_orig": [
+   "S-MID-07"
+  ],
+  "repro_guard_hits": {
+   "S-MID-14": [
+    {
+     "q": null,
+     "confirm": false,
+     "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+     "guard": "repro_palpation_evidence_used"
+    }
+   ],
+   "S-MID-14#0": [
+    {
+     "q": null,
+     "confirm": false,
+     "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+     "guard": "repro_palpation_evidence_used"
+    }
+   ],
+   "S-MID-14#1": [
+    {
+     "q": null,
+     "confirm": false,
+     "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+     "guard": "repro_palpation_evidence_used"
+    }
+   ]
+  },
+  "repro_conflicts": {}
+ },
+ "rows": {
+  "S-ACUTE-01": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-01#0": {
+   "qs": [
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-01#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-01#2": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 11,
+   "orig_n_q": 11,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-02": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-02#0": {
+   "qs": [
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-02#1": {
+   "qs": [
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-03": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 2,
+   "orig_n_q": 2,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-03#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-03#1": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-04"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-04"
+    ],
+    "missing": []
+   },
+   "n_q": 2,
+   "orig_n_q": 2,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-03#2": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-PATTERN-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-PATTERN-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 6,
+   "orig_n_q": 6,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-04": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-04#0": {
+   "qs": [
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-05": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-05#0": {
+   "qs": [
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-05#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-02",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-CAD-01",
+    "Q-ANTIPLT-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-02",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-CAD-01",
+    "Q-ANTIPLT-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "dyspnea_acute"
+    ]
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "dyspnea_acute"
+    ]
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn17",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-06": {
+   "qs": [],
+   "orig_qs": [],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "n_q": 0,
+   "orig_n_q": 0,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-ACUTE-06#0": {
+   "qs": [],
+   "orig_qs": [],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "n_q": 0,
+   "orig_n_q": 0,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-01": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 10,
+   "orig_n_q": 10,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-01#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 6,
+   "orig_n_q": 6,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-01#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "n_q": 7,
+   "orig_n_q": 7,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-01#2": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn15",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-02": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 10,
+   "orig_n_q": 10,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-02#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 10,
+   "orig_n_q": 10,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-02#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 9,
+   "orig_n_q": 9,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-03": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-03#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "ongoing_now",
+     "diaphoresis"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "ongoing_now",
+     "diaphoresis"
+    ]
+   },
+   "n_q": 8,
+   "orig_n_q": 8,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-04": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 11,
+   "orig_n_q": 11,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-04#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 9,
+   "orig_n_q": 9,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-STABLE-04#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "n_q": 10,
+   "orig_n_q": 10,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-01": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-CHARACTER-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-CHARACTER-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn15",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-01#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 9,
+   "orig_n_q": 9,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-01#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-ANTIPLT-01",
+    "Q-CHARACTER-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-ANTIPLT-01",
+    "Q-CHARACTER-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 13,
+   "orig_n_q": 13,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-02": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-CHARACTER-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-CHARACTER-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn18",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-02#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 7,
+   "orig_n_q": 7,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-02#1": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 13,
+   "orig_n_q": 13,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-03": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn17",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-03#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "n_q": 9,
+   "orig_n_q": 9,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-03#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 9,
+   "orig_n_q": 9,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-04": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-PATTERN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-PATTERN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn18",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-04#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-04#1": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DYSPNEA-ACUTE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DYSPNEA-ACUTE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "dyspnea_grade"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "dyspnea_grade"
+    ]
+   },
+   "n_q": 3,
+   "orig_n_q": 3,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-04#2": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-CHARACTER-01",
+    "Q-PATTERN-01",
+    "Q-SYNCOPE-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-CHARACTER-01",
+    "Q-PATTERN-01",
+    "Q-SYNCOPE-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 8,
+   "orig_n_q": 8,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-05": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn17",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-05#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 6,
+   "orig_n_q": 6,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-05#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 14,
+   "orig_n_q": 14,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-06": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-CHARACTER-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-CHARACTER-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn18",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-06#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 9,
+   "orig_n_q": 9,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-06#1": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn15",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-07": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-CHARACTER-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-CHARACTER-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn15",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-07#0": {
+   "qs": [
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-07#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-CHARACTER-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-CHARACTER-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn15",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-08": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn16",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-08#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-THRESHOLD-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-THRESHOLD-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "threshold_decrease_timescale"
+    ]
+   },
+   "n_q": 6,
+   "orig_n_q": 6,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-INSUF-08#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-NTG-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 10,
+   "orig_n_q": 10,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-01": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ONSET-01",
+    "Q-EXERTION-01",
+    "Q-ONSET-WEEKS-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ONSET-01",
+    "Q-EXERTION-01",
+    "Q-ONSET-WEEKS-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "orthopnea_pnd",
+     "dyspnea_acute"
+    ]
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "orthopnea_pnd",
+     "dyspnea_acute"
+    ]
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn16",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-01#0": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-01#1": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 10,
+   "orig_n_q": 10,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-01#2": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "n_q": 3,
+   "orig_n_q": 3,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-02": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-TIMING-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-TIMING-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 10,
+   "orig_n_q": 10,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-02#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-TIMING-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-TIMING-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 8,
+   "orig_n_q": 8,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-02#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-TIMING-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-TIMING-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 7,
+   "orig_n_q": 7,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-02#2": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-03": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-03#0": {
+   "qs": [
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-04": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-04#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01"
+   ],
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 11,
+   "orig_n_q": 11,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-05": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SYNCOPE-01",
+    "Q-SYNCOPE-02",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SYNCOPE-01",
+    "Q-SYNCOPE-02",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-05#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-05#1": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 7,
+   "orig_n_q": 7,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-06": {
+   "qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-CHARACTER-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-CHARACTER-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-06#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-06#1": {
+   "qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-TIMING-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-TIMING-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "ongoing_now",
+     "diaphoresis",
+     "last_episode_timing",
+     "rest_symptom_first_time"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "ongoing_now",
+     "diaphoresis",
+     "last_episode_timing",
+     "rest_symptom_first_time"
+    ]
+   },
+   "n_q": 8,
+   "orig_n_q": 8,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-06#2": {
+   "qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 3,
+   "orig_n_q": 3,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-07": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-NTG-01",
+    "Q-ANTIPLT-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-ONSET-01",
+    "Q-NTG-01",
+    "Q-ANTIPLT-01"
+   ],
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 7,
+   "orig_n_q": 8,
+   "patient_misses": [
+    {
+     "q": "Q-NTG-01",
+     "confirm": false
+    },
+    {
+     "q": "Q-ANTIPLT-01",
+     "confirm": false
+    }
+   ],
+   "extract_misses": [
+    {
+     "q": "Q-NTG-01",
+     "confirm": false,
+     "text": "MISS1169"
+    },
+    {
+     "q": "Q-ANTIPLT-01",
+     "confirm": false,
+     "text": "MISS1170"
+    }
+   ],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": false
+  },
+  "S-MID-07#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-07#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-THRESH-TIME-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-07#2": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 9,
+   "orig_n_q": 9,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-08": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-TIMING-01",
+    "Q-ONSET-WEEKS-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-TIMING-01",
+    "Q-ONSET-WEEKS-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "orthopnea_pnd"
+    ]
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "orthopnea_pnd"
+    ]
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn17",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-08#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-08#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "last_episode_timing"
+    ]
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-08#2": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 8,
+   "orig_n_q": 8,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-09": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 3,
+   "orig_n_q": 3,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-09#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 6,
+   "orig_n_q": 6,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-10": {
+   "qs": [
+    "Q-SYNCOPE-02",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SYNCOPE-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-02",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SYNCOPE-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-10#0": {
+   "qs": [
+    "Q-SYNCOPE-02",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-02",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-01"
+    ],
+    "missing": []
+   },
+   "n_q": 3,
+   "orig_n_q": 3,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-10#1": {
+   "qs": [
+    "Q-SYNCOPE-02"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-05"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-05"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-11": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "diaphoresis",
+     "rest_symptom_first_time"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "diaphoresis",
+     "rest_symptom_first_time"
+    ]
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-11#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-11#1": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-04"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-04"
+    ],
+    "missing": []
+   },
+   "n_q": 2,
+   "orig_n_q": 2,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-12": {
+   "qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-12#0": {
+   "qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-ORTHO-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "diaphoresis",
+     "rest_symptom_first_time"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "diaphoresis",
+     "rest_symptom_first_time"
+    ]
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-12#1": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-13": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-EXERTION-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-EXERTION-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "rest_symptom_first_time"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "rest_symptom_first_time"
+    ]
+   },
+   "n_q": 6,
+   "orig_n_q": 6,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-13#0": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "n_q": 2,
+   "orig_n_q": 2,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-13#1": {
+   "qs": [
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-13#2": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-EXERTION-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-EXERTION-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 7,
+   "orig_n_q": 7,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-13#3": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DYSPNEA-SENTENCE-01",
+    "Q-DIAPH-01",
+    "Q-DYSPNEA-ACUTE-01",
+    "Q-ORTHO-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "rest_symptom_first_time"
+    ]
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": [
+     "rest_symptom_first_time"
+    ]
+   },
+   "n_q": 11,
+   "orig_n_q": 11,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-14": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-EXERTION-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-EXERTION-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 11,
+   "orig_n_q": 11,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [
+    {
+     "q": null,
+     "confirm": false,
+     "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+     "guard": "repro_palpation_evidence_used"
+    }
+   ],
+   "repro_final": true,
+   "repro_source": [
+    "initial",
+    null
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-14#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-EXERTION-01",
+    "Q-ONSET-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-EXERTION-01",
+    "Q-ONSET-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 6,
+   "orig_n_q": 6,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [
+    {
+     "q": null,
+     "confirm": false,
+     "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+     "guard": "repro_palpation_evidence_used"
+    }
+   ],
+   "repro_final": true,
+   "repro_source": [
+    "initial",
+    null
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-14#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [
+    {
+     "q": null,
+     "confirm": false,
+     "text": "我有冠心症,昨天搬重物後今天胸口肌肉按下去會痛,深呼吸也痛,走路不會更痛。",
+     "guard": "repro_palpation_evidence_used"
+    }
+   ],
+   "repro_final": true,
+   "repro_source": [
+    "initial",
+    null
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-15": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-15#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01"
+   ],
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 13,
+   "orig_n_q": 13,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-16": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-EXERTION-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-EXERTION-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01",
+    "Q-PENDINGTEST-01"
+   ],
+   "final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 2,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 11,
+   "orig_n_q": 11,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-16#0": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-EXERTION-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-EXERTION-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 7,
+   "orig_n_q": 7,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-16#1": {
+   "qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-02"
+    ],
+    "missing": []
+   },
+   "n_q": 3,
+   "orig_n_q": 3,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-17": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-REACHABLE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-REACHABLE-01"
+   ],
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-17#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-REACHABLE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01",
+    "Q-DRUGTIME-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-REACHABLE-01",
+    "Q-ONSET-01",
+    "Q-THRESHOLD-01",
+    "Q-FREQ-01",
+    "Q-REST-01",
+    "Q-PATTERN-01",
+    "Q-EXERTION-01",
+    "Q-TIMING-01",
+    "Q-REPRO-01",
+    "Q-COUGH-01",
+    "Q-POSTPRANDIAL-01",
+    "Q-NTG-01",
+    "Q-DRUGTIME-01"
+   ],
+   "final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 9,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 18,
+   "orig_n_q": 18,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": [
+    "turn14",
+    "Q-REPRO-01"
+   ],
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-17#1": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-18": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-18#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-ONGOING-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 8,
+   "orig_n_q": 8,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-19": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-THRESHOLD-01",
+    "Q-NTG-01",
+    "Q-FREQ-01",
+    "Q-ANTIPLT-01"
+   ],
+   "final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 1,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 8,
+   "orig_n_q": 8,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-19#0": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-19#1": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01",
+    "Q-REST-01",
+    "Q-REST-02"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 5,
+   "orig_n_q": 5,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-19#2": {
+   "qs": [
+    "Q-ONGOING-01"
+   ],
+   "orig_qs": [
+    "Q-ONGOING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-03"
+    ],
+    "missing": []
+   },
+   "n_q": 1,
+   "orig_n_q": 1,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-19#3": {
+   "qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "orig_qs": [
+    "Q-SYNCOPE-01",
+    "Q-DYSPNEA-GRADE-01",
+    "Q-DIAPH-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": true,
+    "rf": [
+     "RF-06"
+    ],
+    "missing": []
+   },
+   "n_q": 3,
+   "orig_n_q": 3,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-20": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01"
+   ],
+   "final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 4,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 4,
+   "orig_n_q": 4,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-20#0": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-SCREEN-01",
+    "Q-CONSULT-01",
+    "Q-SYNCOPE-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-CHARACTER-01",
+    "Q-PALP-01",
+    "Q-POSTURAL-01",
+    "Q-SCREEN-01",
+    "Q-CONSULT-01",
+    "Q-SYNCOPE-01"
+   ],
+   "final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 3,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 7,
+   "orig_n_q": 7,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  },
+  "S-MID-20#1": {
+   "qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "orig_qs": [
+    "Q-DYSPNEA-GRADE-01",
+    "Q-SCREEN-01",
+    "Q-CHARACTER-01",
+    "Q-SYNCOPE-01",
+    "Q-DIAPH-01",
+    "Q-ONSET-01",
+    "Q-TIMING-01"
+   ],
+   "final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "orig_final": {
+    "tier": 0,
+    "hs": false,
+    "rf": [],
+    "missing": []
+   },
+   "n_q": 7,
+   "orig_n_q": 7,
+   "patient_misses": [],
+   "extract_misses": [],
+   "repro_guard": [],
+   "repro_final": null,
+   "repro_source": null,
+   "repro_conflicts": [],
+   "same_as_orig": true
+  }
+ }
+}

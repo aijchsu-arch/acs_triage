@@ -131,7 +131,7 @@ def _urgency(state: SlotState) -> int:
 
 def _write_mentions(state: SlotState, found: dict[str, Any], asked_slot: str, source: str) -> list[dict[str, Any]]:
     """閉環：病人順口提到的其他 slot（BLUEPRINT §3.4）。
-    - 未知的 slot（含問過但答不知道的）補上。D-50 範圍（紅旗題＋stt_critical_questions）的 slot：寫入後由非 Hard stop
+    - 未知的 slot（含問過但答不知道的）補上；rest_symptom＝false 例外，不採用（D-55 F2）。D-50 範圍（紅旗題＋stt_critical_questions）的 slot：寫入後由非 Hard stop
       變成 Hard stop、或是最嚴重一級 → 補上；其他較不嚴重的值不直接寫入：該題還沒問過 → kind＝d50_not_most_severe
       （由 run_case 暫存；之後直接問到而答案仍未知時，以暫存值當解讀值複誦一次）；該題問過而目前未知 → kind＝d50_confirm
       （由 run_case 立刻對該題複誦一次）。
@@ -144,6 +144,10 @@ def _write_mentions(state: SlotState, found: dict[str, Any], asked_slot: str, so
             continue
         old = state.get(k)
         if old is None:
+            if k == "rest_symptom" and v is False:
+                # D-55 F2（Clinical Owner 2026-11-05）：順口提到的「休息時沒有發作」不採用（比照紅旗順口否認），false 只能來自直接回答
+                notes.append({"kind": "rest_denial_not_used", "slot": k, "known": None, "mention": v})
+                continue
             if k in top and v not in top[k] and not _hard_stop_after(state, k, v):
                 sv = state._values.get(k)
                 asked_q = sv.asked_by_question_id if sv is not None else None
@@ -219,7 +223,8 @@ def run_case(case: Case, *, patient: PatientSimulator | None = None, engine: Rul
         while True:
             q = None
             if res.n_questions < max_q:
-                q = prompter.character_followup_question(state, d, asked)     # D-54（裁定 #15）
+                q = (prompter.repro_confirm_question(state, d, asked)          # D-56（2026-11-17 裁定 #3）
+                     or prompter.character_followup_question(state, d, asked))     # D-54（裁定 #15）
             if q is None and d.provisional_tier != 9 and d.gate_passed:
                 # rules 0.8.0：有症狀暫判 T2–T4 → 定案前加問待追蹤檢查一次（算題數；已達上限就不問、照原結果定案）
                 q = prompter.pending_test_question(state, d, asked)

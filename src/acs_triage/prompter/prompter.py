@@ -137,6 +137,20 @@ class Prompter:
             return None
         return q
 
+    def repro_confirm_question(self, state: SlotState, decision: TierDecision, asked: set[str]) -> Question | None:
+        """D-56（Clinical Owner 2026-11-17 裁定 #3「改成提到就問一次確認」）：LLM 抽取器記了 reproducible_mechanical_mentioned、該欄仍未知 →
+        紅旗題問完後第一個機會問一次 Q-REPRO-01（之後流程同「一開始就是 true」＋1 題）。Hard stop 不問；T0 只在只靠 T0-NEW-TODAY
+        （可重現胸壁痛的豁免唯一能改的 T0）時問。題數上限由呼叫端判斷。"""
+        q = question_by_id()["Q-REPRO-01"]
+        if (not state.is_true("reproducible_mechanical_mentioned") or state.known(q.slot_id) or q.id in asked
+                or decision.hard_stop):
+            return None
+        if decision.provisional_tier == 0 and not set(decision.evidence) <= {"T0-NEW-TODAY", "T9-GATE"}:
+            return None
+        if any(c.id not in asked and not state.known(c.slot_id) and _relevant(c, state) for c in self._by_priority["redflag"]):
+            return None
+        return q
+
     def vague_recheck_question(self, state: SlotState, decision: TierDecision, asked: set[str]) -> Question | None:
         """D-54（裁定 #4、#5）：gate 已通過，性質只來自開場白或順口的 vague → 還有題數就問一次性質題。Hard stop／T0 不加問；題數由呼叫端判斷。"""
         q = question_by_id()["Q-CHARACTER-01"]

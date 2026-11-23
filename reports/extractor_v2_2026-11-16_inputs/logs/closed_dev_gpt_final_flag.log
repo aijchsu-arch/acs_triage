@@ -1,0 +1,3 @@
+{"hs_sensitivity": 1.0, "hs_miss": [], "premature": [], "false_hs": [], "under": [], "t9": 15, "mean_questions": 7.2100840336134455, "confirms": 200, "reasks": 0, "reask_downgrades": 0, "exact": 0.957983193277311}
+{"patient": {"live_calls": 0, "cached_calls": 1058, "sources": {"live_reused": 548, "seed": 510}, "opus_cost_usd": 0.0}, "extractor_cost": 1.7635, "mention_conflicts": 3, "errors": [], "extract_failures": 0, "self_check": null}
+→ <scratch>/closed1117b/out_gpt/closed_dev_gpt.json

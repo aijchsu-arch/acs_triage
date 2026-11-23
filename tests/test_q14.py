@@ -39,10 +39,12 @@ def test_e_carveouts_do_not_apply_to_jaw_or_pressure(engine):
 
 def test_e_carveouts_still_apply_to_pain_and_epigastric(engine):
     pain = {**JAW_TODAY, "symptom_character": "pain", "exertion_relation": "unclear"}
-    assert decide_slots(engine, {**pain, "reproducible_mechanical": True}).provisional_tier == 3
-    assert decide_slots(engine, {**pain, "cough_related": True}).provisional_tier == 3
+    assert decide_slots(engine, {**pain, "reproducible_mechanical": True}).provisional_tier == 3      # D-56 R7：T3-MECHANICAL 例外，維持 T3
+    d = decide_slots(engine, {**pain, "cough_related": True})                                         # D-56 R7：其他 carve-out 照樣成立，再提高到 T2
+    assert d.provisional_tier == 2 and d.evidence[:2] == ["T3-COUGH", "T2-CHEST-FLOOR"]
     epi = {**JAW_TODAY, "symptom_character": "epigastric", "postprandial_relieved": True, "exertion_relation": "rest_only"}
-    assert decide_slots(engine, epi).provisional_tier == 3
+    d = decide_slots(engine, epi)
+    assert d.provisional_tier == 2 and d.evidence[:2] == ["T3-POSTPRANDIAL", "T2-CHEST-FLOOR"]
 
 
 def test_f_consult_screen_question_and_gate():
@@ -110,4 +112,4 @@ def test_d_nonischemic_carveout_any_timing(engine):
 
 def test_q15_max_questions():
     from acs_triage.loaders import load_clinical_rules
-    assert load_clinical_rules()["thresholds"]["max_questions"] == 12       # D-54（Clinical Owner 2026-11-02）
+    assert load_clinical_rules()["thresholds"]["max_questions"] == 18       # D-54 12 → D-55 15 → D-56 18（Clinical Owner 2026-11-16 授權）

@@ -108,7 +108,7 @@ def test_extra_question_only_for_symptomatic_t2_to_t4_and_counts_toward_cap():
             assert on.n_questions == max_q and "Q-PENDINGTEST-01" not in qs and on.final.tier in (2, 3, 4), c.id
         if on.final.hard_stop or on.final.tier in (0, 1, 9):
             assert not on.pending_test_asked, c.id                                  # Hard stop／T0／T1／T9 不加問
-    assert asked == 20 and skipped == 2
+    assert asked == 22 and skipped == 0              # D-55：上限 15 後 S-ACUTE-05#1、S-INSUF-02#1 也問得到（上限 12 時 20／2）
 
 
 def test_extra_question_yes_raises_to_t1():
@@ -128,14 +128,16 @@ def test_extra_question_yes_raises_to_t1():
         assert (r.final.tier, r.final.hard_stop) == (1, False) and "T1-PENDING-TEST" in r.final.evidence, c.id
         assert r.n_questions == base.n_questions                                     # 答「有」之後不再追問
         raised += 1
-    assert raised == 20
+    assert raised == 22                             # D-55：上限 15（上限 12 時 20）
 
 
 def test_cap_reached_keeps_original_result_not_t9():
     for cid in ("S-ACUTE-05#1", "S-INSUF-02#1"):
         c = next(x for x in all_cases() if x.id == cid)
-        r = run_case(c, patient=ScriptedPatient(c))
-        assert r.pending_test_skipped_at_cap and r.final.tier == 3 and r.stop_reason == "gate_passed", cid
+        r = run_case(c, patient=ScriptedPatient(c), max_questions=12)      # D-55：上限 15 後不撞上限；以 12 題重現撞上限的情況
+        assert r.pending_test_skipped_at_cap and r.final.tier == 2 and r.stop_reason == "gate_passed", cid   # D-56 R7（truth 3 → 2）
+        r15 = run_case(c, patient=ScriptedPatient(c))
+        assert r15.pending_test_asked and not r15.pending_test_skipped_at_cap and r15.final.tier == 2, cid
 
 
 def test_all_openings_with_pending_test():
@@ -148,13 +150,19 @@ def test_all_openings_with_pending_test():
         assert lab(b) == expect, (c.id, lab(a), lab(b))
 
 
-def test_expedite_only_when_t3():
-    """抗血小板中斷的提前門診只在 T3 附加；被待追蹤檢查下限提高到 T1 時不附（獨立驗收例：S-STABLE-02#0）。"""
+def test_expedite_t3_and_t2_but_not_t1_pending_floor():
+    """抗血小板中斷的提前門診：T3 附加（D-45）；D-56（Clinical Owner 2026-11-16）起 T2 也附加；被待追蹤檢查下限提高到 T1 時不附。
+    S-STABLE-02#0（穩定症狀＋抗血小板中斷）由胸部症狀下限提高到 T2、仍附 expedite；S-MID-04（無症狀、T3-ANTIPLT-ASYMPTOMATIC）測 T3。"""
     from acs_triage.pathway import route
     c = next(x for x in all_cases() if x.id == "S-STABLE-02#0")
     a = run_case(c, patient=ScriptedPatient(c))
-    assert a.final.tier == 3 and "expedite" in a.final.pathway_actions and route(a.final, a.final_state).script_id == "S-T3-EXPEDITE"
-    c2 = _with_pending_opening(c)
-    b = run_case(c2, patient=ScriptedPatient(c2))
-    assert b.final.tier == 1 and "expedite" not in b.final.pathway_actions
-    assert "expedite" not in route(b.final, b.final_state).actions
+    pw = route(a.final, a.final_state)
+    assert a.final.tier == 2 and "expedite" in a.final.pathway_actions and "expedite" in pw.actions and pw.script_id == "S-T2"
+    t3 = next(x for x in all_cases() if x.id == "S-MID-04")
+    r3 = run_case(t3, patient=ScriptedPatient(t3))
+    assert r3.final.tier == 3 and "expedite" in r3.final.pathway_actions and route(r3.final, r3.final_state).script_id == "S-T3-EXPEDITE"
+    for base in (c, t3):
+        c2 = _with_pending_opening(base)
+        b = run_case(c2, patient=ScriptedPatient(c2))
+        assert b.final.tier == 1 and "expedite" not in b.final.pathway_actions, base.id
+        assert "expedite" not in route(b.final, b.final_state).actions, base.id

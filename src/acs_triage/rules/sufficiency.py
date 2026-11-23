@@ -62,6 +62,10 @@ def missing_for(state: SlotState, provisional: int, rule_ids: list[str]) -> list
         for slot in RULE_REQUIREMENTS.get(rid, []):
             if slot not in required:
                 required.append(slot)
+    # D-56（Clinical Owner 2026-11-16「判 T3 前一律問性質」）：任一 T3 規則定案前 symptom_character 必須已知（含被下限提高到 T2、
+    # 或被待追蹤檢查提高到 T1 者——仍以 T3 規則為依據）。T3-MECHANICAL／COUGH／POSTPRANDIAL 本身要求性質已知，這條對它們不起作用。
+    if any(r.startswith("T3-") for r in rule_ids) and "symptom_character" not in required:
+        required.append("symptom_character")
     if "T3-STABLE" in rule_ids:
         if state.chest_symptom_present():
             required += [s for s in CHEST_CONTEXT + ["threshold_decreased", "dyspnea_acute"] if s not in required]

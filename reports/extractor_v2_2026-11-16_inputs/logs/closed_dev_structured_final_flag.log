@@ -1,0 +1,3 @@
+{"hs_sensitivity": 1.0, "hs_miss": [], "premature": [], "false_hs": [], "under": [], "t9": 12, "mean_questions": 6.504201680672269, "confirms": 170, "reasks": 0, "reask_downgrades": 0, "exact": 1.0}
+{"patient": {"live_calls": 0, "cached_calls": 944, "sources": {"seed": 944}, "opus_cost_usd": 0.0}, "extractor_cost": null, "mention_conflicts": 0, "errors": [], "extract_failures": 0, "self_check": {"reproduced": 119, "n": 119}}
+→ <scratch>/closed1117b/out_structured/closed_dev_structured.json

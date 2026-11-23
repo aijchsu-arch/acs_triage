@@ -60,6 +60,8 @@ def _decisive_fields(slots: dict[str, Any]) -> dict[str, list[str]]:
 
 def _base_slots(sc: dict[str, Any], opening: str) -> dict[str, Any]:
     base = extract(opening)
+    if base.pop("reproducible_mechanical_mentioned", None):     # D-57：開場白說的胸壁痛仍是病人知道的事實（truth 不變），通話中靠 Q-REPRO-01 問出
+        base["reproducible_mechanical"] = True
     for k, v in sc.get("hidden_slots", {}).items():
         if v is not None:
             base[k] = v

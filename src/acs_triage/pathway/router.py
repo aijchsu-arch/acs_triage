@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from ..loaders import load_clinical_rules, load_scripts
 from ..rules.state import SlotState
+from ..rules.tiers import chest_floor_applies
 from ..schemas import Pathway, TierDecision
 
 
@@ -24,6 +25,8 @@ def tier9_fallback(state: SlotState) -> tuple[int, list[str]]:
     cat = _complaint_category(state)
     entry = table[cat]
     tier, actions = (int(entry["tier"]), [entry["extra_action"]]) if isinstance(entry, dict) else (int(entry), [])
+    if chest_floor_applies(state):                 # D-56 R7（rules 0.11.0）：有胸部症狀 → 備援至少 T2（目前表中胸部症狀已是 T1）
+        tier = min(tier, int(load_clinical_rules()["chest_symptom_floor"]["min_tier"]))
     if state.is_true("pending_abnormal_test"):     # Clinical Owner 2026-10-22（rules 0.8.0）：異常檢查待追蹤 → 至少 T1（含 T9 備援）
         tier = min(tier, 1)
     return tier, actions

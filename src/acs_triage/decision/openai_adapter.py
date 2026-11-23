@@ -6,6 +6,7 @@
 """
 from __future__ import annotations
 
+import functools
 import json
 import os
 import time
@@ -20,10 +21,10 @@ _RETRY_STATUS = {429, 500, 502, 503}
 Transport = Callable[[str, dict[str, str], bytes], tuple[int, dict[str, str], Any]]
 
 
-def _urllib_transport(url: str, headers: dict[str, str], body: bytes) -> tuple[int, dict[str, str], Any]:
+def _urllib_transport(url: str, headers: dict[str, str], body: bytes, timeout: float = 300) -> tuple[int, dict[str, str], Any]:
     req = urllib.request.Request(url, data=body, headers=headers, method="POST")
     try:
-        with urllib.request.urlopen(req, timeout=300) as r:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
             return r.status, dict(r.headers), json.loads(r.read())
     except urllib.error.HTTPError as e:
         try:
@@ -35,11 +36,11 @@ def _urllib_transport(url: str, headers: dict[str, str], body: bytes) -> tuple[i
 
 class OpenAIStructured:
     def __init__(self, *, model: str, effort: str, api_key: str | None = None, transport: Transport | None = None,
-                 max_retries: int = 3) -> None:
+                 max_retries: int = 3, timeout_s: float = 300) -> None:
         self.model = model
         self.effort = effort
         self.api_key = api_key if api_key is not None else os.environ[KEY_ENV]
-        self.transport = transport or _urllib_transport
+        self.transport = transport or functools.partial(_urllib_transport, timeout=timeout_s)   # D-56 R9：抽取器傳 600
         self.max_retries = max_retries
 
     def ask(self, system: str, user: str, schema: dict[str, Any], name: str) -> tuple[dict[str, Any], dict[str, Any], str]:

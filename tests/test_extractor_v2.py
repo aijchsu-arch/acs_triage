@@ -229,9 +229,10 @@ def test_extractor_cache_confirm_key_traditional_and_cost():
 
 
 def test_extractor_failure_and_budget():
-    ex = LLMExtractorV2(FakeClient(exc=RuntimeError("OpenAI HTTP 500 code=None type=None")), name="fake")
+    fc = FakeClient(exc=RuntimeError("OpenAI HTTP 500 code=None type=None"))
+    ex = LLMExtractorV2(fc, name="fake", sleep=lambda s: None)                       # D-56 R9：5xx 會重試，測試不真的等
     assert ex("有。", QB["Q-DIAPH-01"]) == {"diaphoresis": None} and ex("胸口悶。", None) == {}
-    assert not ex.record("有。", QB["Q-DIAPH-01"])["ok"]
+    assert not ex.record("有。", QB["Q-DIAPH-01"])["ok"] and len(fc.calls) == 2 * 3     # 每句 1＋2 次重試後仍失敗
     bad = LLMExtractorV2(FakeClient({"asked": {"stance": "yes"}}), name="fake")
     assert bad("有。", QB["Q-DIAPH-01"]) == {"diaphoresis": None}                     # schema 不合法 = 失敗
     c = FakeClient(answer_obj({"evidence": "有", "stance": "yes"}))
