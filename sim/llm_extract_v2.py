@@ -475,6 +475,7 @@ class LLMExtractorV2:
         self.spent = 0.0
         self.n_tw_changed = 0
         self._lock = threading.Lock()
+        self._key_locks: dict[Key, threading.Lock] = {}      # D-58：同一鍵的併發呼叫只送一次（single-flight）
 
     @staticmethod
     def key(text: str, q: Question | None, confirm_prompt: str | None = None) -> Key:
@@ -524,11 +525,15 @@ class LLMExtractorV2:
                 self.sleep(self.backoff_s * 2 ** attempt)
 
     def record(self, text: str, q: Question | None, confirm_prompt: str | None = None) -> dict[str, Any]:
+        """D-55 已知限制 (10)（D-58 修）：每個鍵一把鎖，同一句併發時只有第一個呼叫模型，其他等它寫進快取後沿用同一筆。"""
         k = self.key(text, q, confirm_prompt)
-        if k not in self.cache:
-            rec = self.call(text, q, confirm_prompt)
-            with self._lock:
-                self.cache[k] = rec
+        with self._lock:
+            key_lock = self._key_locks.setdefault(k, threading.Lock())
+        with key_lock:
+            if k not in self.cache:
+                rec = self.call(text, q, confirm_prompt)
+                with self._lock:
+                    self.cache[k] = rec
         return self.cache[k]
 
     def __call__(self, text: str, q: Question | None = None, confirm_prompt: str | None = None) -> dict[str, Any]:

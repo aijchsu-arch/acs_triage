@@ -3,7 +3,7 @@
 # 等級判斷的條件邏輯（§5.3–§5.8）在 src/acs_triage/rules/tiers.py 以程式碼表達，
 # 每個條件以 rule_id 對應回本檔 tier_rules 清單，便於稽核。
 
-rules_version: "0.11.0"   # 0.11.0（Clinical Owner 2026-11-15／16，D-56）：有胸部症狀一律至少 T2（T2-CHEST-FLOOR，§5.15；T3-MECHANICAL、D-44 例外 A 例外）；抗血小板中斷時 T2 也附 expedite；判 T3 前性質必須已知；題數上限 18；0.10.0（Clinical Owner 2026-11-04／05，D-55）：題數上限 15（§5.14）、順口的「休息時沒有發作」不採用（F2，§5.13-5）；R1、R4 試做後撤回；0.9.0（Clinical Owner 2026-11-02，D-54）：T0-FREQ-INCREASED（發作變頻繁）、提到胸口不適但性質未知視為胸部症狀、順口值矛盾再問、題數上限 12；0.8.0 含兩項 Clinical Owner 2026-10-22 裁定：D-50 紅旗題與關鍵題有條件複誦確認（嚴重度順序取值）；異常檢查待追蹤 → 至少 T1，不論有無症狀（D-46：Q-REST-02 列入 STT 關鍵題（D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9）））
+rules_version: "0.12.0"   # 0.12.0（D-58，AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱）：D-44 例外 A 縮小——同時符合 T2-DYSPNEA-DAILY 或 T2-POSTURAL-NEWMED 除「無胸部症狀」外全部條件者不再豁免胸部症狀下限（T3 → T2；§5.15-3(b)）；0.11.0（Clinical Owner 2026-11-15／16，D-56）：有胸部症狀一律至少 T2（T2-CHEST-FLOOR，§5.15；T3-MECHANICAL、D-44 例外 A 例外）；抗血小板中斷時 T2 也附 expedite；判 T3 前性質必須已知；題數上限 18；0.10.0（Clinical Owner 2026-11-04／05，D-55）：題數上限 15（§5.14）、順口的「休息時沒有發作」不採用（F2，§5.13-5）；R1、R4 試做後撤回；0.9.0（Clinical Owner 2026-11-02，D-54）：T0-FREQ-INCREASED（發作變頻繁）、提到胸口不適但性質未知視為胸部症狀、順口值矛盾再問、題數上限 12；0.8.0 含兩項 Clinical Owner 2026-10-22 裁定：D-50 紅旗題與關鍵題有條件複誦確認（嚴重度順序取值）；異常檢查待追蹤 → 至少 T1，不論有無症狀（D-46：Q-REST-02 列入 STT 關鍵題（D-45：Q-05 三變體裁定（T2-DYSPNEA-HEAVY、T3-STABLE-REST-RECURRENT）、T1-THRESHOLD-WEEKS／T3-POST-PCI-MILDER 定案前必問（D-44：DV-5 不接受 unclear；vague → T9）））
 source_doc: docs/CLINICAL_RULES.md
 
 tiers:
@@ -43,6 +43,7 @@ chest_symptom_characters: [pressure, tightness, pain, jaw_shoulder_heaviness, ep
 # none、other、未知且沒有旗標都不算。暫判 T3／T4 → 提高到 min_tier，rule_ids 保留原規則並加 rule_id；Hard stop／T0／T1／T2 不動；
 # 決定分級的規則含 exempt_rules（T3-MECHANICAL）時維持原等級；與其他 T3 規則（T3-COUGH、T3-STABLE 等）同時成立亦維持（Clinical Owner 2026-11-16 未反對）。
 # D-44 例外 A 的 T3 也維持（exempt_d44_exception_a）；T3-COUGH 不是例外（Clinical Owner 2026-11-16）。
+# D-58 #5（AI 代理裁定，2026-11-25）：例外 A 不涵蓋同時符合 T2-DYSPNEA-DAILY／T2-POSTURAL-NEWMED 除「無胸部症狀」外全部條件者（否則多一個說不上來的胸部症狀反而由 T2 變 T3）。
 # T9 不改（繼續問），護理師不可得時的預設等級至少 min_tier。異常檢查待追蹤的 T1 下限（rules 0.8.0）在本下限之後照舊套用。
 chest_symptom_floor:
   rule_id: T2-CHEST-FLOOR
@@ -50,7 +51,7 @@ chest_symptom_floor:
   characters: [pressure, tightness, jaw_shoulder_heaviness, pain, vague, epigastric]
   unknown_with_chest_mention: true
   exempt_rules: [T3-MECHANICAL]
-  exempt_d44_exception_a: true   # Clinical Owner 2026-11-16：D-44 例外 A（性質 vague＋T3-STABLE 全部條件成立＋onset_new 不為 true）維持 T3；只提過胸口、性質未知者不算（tiers.d44_exception_a）
+  exempt_d44_exception_a: true   # Clinical Owner 2026-11-16：D-44 例外 A（性質 vague＋T3-STABLE 全部條件成立＋onset_new 不為 true）維持 T3；只提過胸口、性質未知者不算（tiers.d44_exception_a）；D-58 #5（AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱）：同時符合 T2-DYSPNEA-DAILY 或 T2-POSTURAL-NEWMED 除「無胸部症狀」外的全部條件者不適用（tiers.t2_conditions_except_chest），由下限提高到 T2
 
 # ---------------- §3 紅旗（slot 層條件；文字層關鍵詞在 data/extraction_patterns.yaml） ----------------
 red_flags:
@@ -103,7 +104,7 @@ tier_rules:
     - {id: T2-DYSPNEA-DAILY, ref: "§5.5", text: 日常勞動性呼吸困難、非今日突發、無端坐呼吸、無胸部症狀（含合併水腫）}
     - {id: T2-POSTURAL-NEWMED, ref: "§5.5", text: 新藥後姿勢性頭暈、無胸部症狀、無瀕厥}
     - {id: T2-DYSPNEA-HEAVY, ref: "§5.5 (Q-05, D-45)", text: 主訴呼吸困難、僅激烈運動才喘、非今日突發、無端坐呼吸、無胸部症狀}
-    - {id: T2-CHEST-FLOOR, ref: "§5.15 (D-56)", text: 有胸部症狀（chest_symptom_floor）且暫判 T3／T4 → 提高到 T2（rule_ids 保留原規則）；決定分級的規則含 T3-MECHANICAL 時維持 T3（與其他 T3 規則同時成立亦同）；D-44 例外 A（vague 穩定型、非新發）維持 T3；T9 備援至少 T2}
+    - {id: T2-CHEST-FLOOR, ref: "§5.15 (D-56)", text: 有胸部症狀（chest_symptom_floor）且暫判 T3／T4 → 提高到 T2（rule_ids 保留原規則）；決定分級的規則含 T3-MECHANICAL 時維持 T3（與其他 T3 規則同時成立亦同）；D-44 例外 A（vague 穩定型、非新發）維持 T3，但同時符合 T2-DYSPNEA-DAILY 或 T2-POSTURAL-NEWMED 除「無胸部症狀」外全部條件者不維持（D-58 第 5 項）；T9 備援至少 T2}
   T3:
     - {id: T3-STABLE, ref: "§5.6", text: 已知穩定型態 ≥6 個月且無任何升級因子}
     - {id: T3-STABLE-REST-RECURRENT, ref: "§5.6 (Q-05, D-45)", text: 型態 ≥6 個月不變、休息時症狀非首次且已緩解、明確否認閾值下降與 NTG 增加、無其他升級因子（CAD 病史定案前須問到）}

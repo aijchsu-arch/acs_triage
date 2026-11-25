@@ -65,7 +65,7 @@ EDU = {"cad_history": True, "consult_topic": "education_question"}
 
 # ---------------------------------------------------------------- 版本與題庫
 def test_versions_and_draft_questions():
-    assert rules_version() == "0.11.0"                                         # D-56
+    assert rules_version() == "0.12.0"                                         # D-58（D-56 為 0.11.0）
     assert load_prompts()["prompts_version"] == "2.0-dev27"                    # D-56 R8（dev26 → dev27）
     assert load_clinical_rules()["thresholds"]["max_questions"] == 18         # D-56（D-54 為 12、D-55 為 15）
     assert yaml.safe_load((DATA_DIR / "question_bank_seed.yaml").read_text(encoding="utf-8"))["bank_version"] == "0.7"

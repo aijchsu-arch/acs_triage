@@ -1,0 +1,346 @@
+{
+  "_meta": {
+    "marker": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱",
+    "source_sheet": "reports/synth_adjudication_2026-10-26.xlsx",
+    "date": "2026-11-25",
+    "adjudicator": "Fable 5.2 (claude-fable-5-2)",
+    "n_cases": 48,
+    "note": "hold-out 參考標註之 AI 代理裁定；未執行規則引擎；不得用於調整規則、題庫、Prompter 或抽取器（D-52）。"
+  },
+  "SYN-093": {
+    "tier": 0,
+    "hard_stop": true,
+    "confidence": "medium",
+    "rationale": "81 歲、坐著進食時有人目擊的真正意識喪失（叫不應）、無前驅症狀，屬 RF-05（§3）→ T0 Hard stop。事件已過 2–3 天且現已恢復，Hard stop 係依 RF-05 字面與 D-01；分級 T0 本身把握高。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-105": {
+    "tier": 0,
+    "hard_stop": true,
+    "confidence": "medium",
+    "rationale": "36 歲運動中無預兆倒地、約 40 秒無反應，為運動性暈厥（真正意識喪失）→ RF-05（§3）T0 Hard stop。事件在前天且未再發，Hard stop 依 RF-05 字面；分級 T0 把握高。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-096": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "今日坐著時首次突發瀕厥，合併冒冷汗與心悸，數分鐘緩解；無胸部症狀，故不符 RF-01／RF-06，非 Hard stop。休息時新發的不穩定表現（§2-1、§5.3 新發休息時症狀）→ T0，今日急診評估。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-100": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "low",
+    "rationale": "78 歲、CAD／PCI，今日站立做家事時瀕厥合併冒汗，且非第一次；無胸部症狀、未真正昏倒，不符任何 RF。規則無對應條文（心悸／頭暈類），在 T0 與 T1 之間拿不準，依授權原則取較急者 T0。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-112": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "晚餐後坐著時胸骨後灼熱併酸味，連續打嗝後完全緩解，近 3 週第 3 次；與活動無關、無冒汗。比照 B13 餐後打嗝緩解的非缺血型豁免（§5.6 DV-5、D-35 不算休息時症狀），再依 D-56 胸部症狀下限 → T2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-116": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "今日大量進食後胸口灼熱約 7 分鐘，打嗝後完全緩解，首次發生，無冒汗、無喘。比照 B13（§5.6 DV-5、D-35），依 D-56 胸部症狀至少 T2 → T2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-081": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "3 週內由可外出到在家走動即喘，合併水腫；無端坐呼吸、無靜止喘、非今日突發。比 B12（T2）多了明確的數週活動閾值下降（C3 B：數週～一月 → T1，§5.4）→ T1。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-086": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "79 歲，數週內由可繞公園緩慢退步到室內短距離即喘，合併水腫；無靜止喘、無端坐呼吸、無胸部症狀。數週漸進的活動閾值下降（C3 B，§5.4）→ T1。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-129": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "79 歲、CAD，3 天內由可繞公園變成室內短距離即喘（缺血等價症狀可能）；活動閾值下降時間尺度為數天 → T0（C3 B，§5.3）。無靜止喘，非 Hard stop。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-006": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "low",
+    "rationale": "今日一陣胸前不適（悶或痛說不清）合併左臂內側異樣，已緩解，新發與否、與活動關係皆不明。依 D-44 性質 vague 可判 T9，但「悶或痛」兩者皆屬缺血等價且有左臂放射、發生在今天（§2-1、DV-1）；在 T0 與 T9 之間拿不準，取較急者 T0。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-028": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "CAD，勞累性胸緊 4 週內逐漸惡化到晾衣服即發作並喘，無休息時症狀、無 NTG 增加。活動閾值下降、時間尺度數週～一月 → T1（C3 B、B7，§5.4）。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-030": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "81 歲 CAD／PCI，舌下含片由久久一次增為每週 4–5 次，仍為勞累性、今晨已緩解。NTG 用量明顯增加 → T0（C4 A、B3，§5.3）；未持續中，非 Hard stop。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-033": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "76 歲 CAD／PCI，一個多月內胸緊的誘發活動量由推整車菜降到端盤子，並會喘，最後一次在昨天，無休息時症狀。活動閾值數週～一月下降 → T1（C3 B、B7，§5.4）。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-035": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "CAD／PCI，本週兩次需含到第二顆舌下片（以前一顆即可），同一段路發作變頻繁，昨日一次 18 分鐘合併噁心。NTG 用量增加與發作變頻繁 → T0（C4 A、D-54 #7，§5.3）；今日無發作，非 Hard stop。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-036": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "CAD，5 天內發作由偶發變為每趟都有、持續時間由 3 分鐘延長到 12–15 分鐘，今日上午已 3 次、半小時前緩解。既有型態明顯惡化（§2-1、D-54 #7 發作變頻繁，§5.3）→ T0；目前未持續，非 Hard stop。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-040": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "CAD／PCI，舌下含片由兩個月一次增為本週 5 次，皆勞累誘發，今日一次休息 11 分鐘才緩解。NTG 用量明顯增加 → T0（C4 A、B3，§5.3）；已緩解，非 Hard stop。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-041": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "CAD，胸口悶近幾天發作變頻繁（一天好幾次）且持續時間變長，今日仍有發作、目前已退。既有型態惡化（§2-1；D-54 #7 發作變頻繁 → T0，§5.3）；未持續中，非 Hard stop。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-043": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "CAD，6 週內胸前束緊感的誘發活動量逐步下降到拉空推車即發作，昨日兩次，無休息時症狀。漸進性活動閾值下降、時間尺度數週 → T1（C3 B、B7，§5.4）。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-044": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "79 歲 CAD／PCI，以往僅勞累時發作，近日首次在坐著休息時出現胸口壓迫感（昨日與前幾天），合併噁心。新發休息時症狀 → T0（A5，§5.3）；目前未發作，非 Hard stop。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-063": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "PCI 後 2 個月，近 2 週輕度活動即上腹堵塞感併喘、噁心，比術前更嚴重、閾值更低，今日一次休息 25 分鐘才緩解。支架後早期明顯惡化且今日長時間發作（§2-1、§2-5）→ T0；已緩解，非 Hard stop。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-067": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "PCI 後 9 個月，今晨躺在床上突發下顎連肩沉重 8 分鐘（缺血等價症狀），休息時發作、今日發生。雖比術前輕，依 §2-5／ND-04 不得因症狀輕而降級；無 ≥6 個月穩定型態證據，不適用 D-45 反覆休息症狀 T3 → T0。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-068": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "73 歲、PCI 6 年，近 2 週輕度活動（提水壺）即胸緊，之前無症狀，最後一次在昨天傍晚、今日無發作，無休息時症狀。視同新發缺血等價症狀、昨日 <24h 已緩解 → T1（DV-1，§5.4）；時序明確，不適用 DV-2 的 T2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-071": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "PCI 後 5 個月，無症狀一段時間後近 2 週爬三樓再度出現胸前壓迫感，今日又發作一次。支架後復發的勞累性壓迫感視同新發，且今日發作 → T0（DV-1、A1，§5.3；Q-14d C：明確說今天時不適用 DV-2 豁免）。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-072": {
+    "tier": 0,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "79 歲、PCI 8 年，近幾週夜間睡眠中胸悶醒、坐起一陣才緩解，術後多年未有、近期才再出現。休息時症狀重新出現屬型態改變（§2-1「開始在休息時出現」、A5 精神）→ T0；最後一次時間不明、目前未發作，非 Hard stop。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-121": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "low",
+    "rationale": "84 歲，近 2 週擦桌收碗等極輕度活動即喘、乏力，今日又發作，坐著可緩解；無胸部症狀、無水腫、無端坐呼吸。與 B6（T2）相近，但活動閾值數週內下降到極輕度活動（C3 B → T1，§5.4）；T1 與 T2 之間拿不準，取較急者。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-131": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "64 歲，昨日步行中首次出現下顎痠、背痛、雙肩沉重併噁心，休息約 12 分鐘緩解，今日無再發。新發缺血等價症狀、昨日 <24h 已緩解 → T1（DV-1、B1，§5.4）；§2-5 不因無胸痛而降級。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-134": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "58 歲、糖尿病，近 2 週騎車時上腹脹悶併噁心，停下約 8 分鐘緩解，與進食無關，最後一次昨日傍晚。新發勞累性缺血等價症狀（上腹）、昨日 <24h → T1（DV-1、B19，§5.4）；時序明確，不適用 DV-2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-147": {
+    "tier": 9,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "家屬來電，76 歲母親今晨留言心跳亂、眼前一黑，之後電話未接，病人目前不可及、狀況無法確認。第三方來電且病人不可及 → T9 轉護理師（§5.8；備援 T1 並請家屬設法聯繫同行者、轉達 S-SN-A）；無胸部症狀描述，不構成 RF-01。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-066": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "low",
+    "rationale": "PCI 後 3 個月，因流鼻血自行停阿斯匹靈 4 天，無任何症狀。既有裁定 C7 C 為無症狀中斷 → T3＋expedite（B4），但支架僅 3 個月、仍在雙抗血小板期，臨床上應當日由醫護回覆用藥；T1 與 T3＋expedite 之間拿不準，取較急者，請 Clinical Owner 複核是否維持 C7 C。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-074": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "low",
+    "rationale": "PCI 後 6 週，為小手術自行停保栓通 2 天，無症狀，後天手術。既有裁定 C7 C 為 T3＋expedite，但支架 6 週內中斷 P2Y12 抑制劑的支架血栓風險高、且需當日決定用藥與手術安排；T1 與 T3＋expedite 之間拿不準，取較急者，請 Clinical Owner 複核。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-078": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "CAD／PCI，10 天內雙踝凹陷性水腫、體重增加 3 公斤；無喘、無端坐呼吸、無胸部症狀。疑體液滯留但無呼吸症狀，比照 B12（水腫＋勞動性喘 = T2，§5.5）不高於 T2 → 24–72 小時內評估。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-088": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "無心臟病史，一週內雙足水腫、體重增加 3 公斤；無喘、無端坐呼吸、無胸部症狀。新發且快速的體液增加需 24–72 小時內評估，比照 B12（§5.5）不高於 T2 → T2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-092": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "昨晚坐著洗澡時首次突發瀕厥，合併冒冷汗、噁心，約 3 分鐘緩解，未真正昏倒、今日無再發。無胸部症狀與意識喪失，不符 RF；新發瀕厥 <24h 已緩解，比照 DV-1 時序精神 → T1 當日評估。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-083": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "low",
+    "rationale": "下肢壓痕性水腫、體重持續上升、褲頭變緊，起始時間與其他細節說不清；否認喘、無胸部症狀。資訊有限可判 T9，但水腫合併體重上升本身即需 24–72 小時內評估（比照 B12，§5.5）；T2 與 T9 之間拿不準，取較急者 T2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-091": {
+    "tier": 3,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "46 歲，近 2 週陣發性心悸（快且漏拍），今日一次約 12 分鐘自行停止；無胸部症狀、無瀕厥／暈厥、無喘。新發心悸無缺血等價症狀 → T3（B5、C8 B，§5.6）。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-095": {
+    "tier": 3,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "34 歲，休息時短暫心跳加快（約 112／分、2 分鐘）兩次，已恢復；無胸部症狀、無瀕厥、無喘。心悸無缺血等價症狀、無瀕厥 → T3（B5，§5.6）；焦慮不作為升降級依據。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-108": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "吃麻辣鍋後胸口至喉嚨灼熱約 15 分鐘，打嗝後完全緩解，近 2 個月偶有相同情形，與活動無關、無冒汗。比照 B13 餐後打嗝緩解（§5.6 DV-5、D-35），依 D-56 胸部症狀至少 T2 → T2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-110": {
+    "tier": 3,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "CAD／PCI，前天舉重行李後左胸近腋下拉痛，僅在伸手或按壓該處時疼痛，其餘時間無症狀。刺／拉痛、按壓與動作可重現的胸壁痛 → T3（B14，§5.6；D-56 例外 (a) 維持 T3）。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-120": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "64 歲、有支架，近 2 個月偶於吃太飽後坐著時胸骨後灼熱，打嗝後完全緩解，散步不會誘發，最後一次昨日。比照 B13（§5.6 DV-5、D-35），依 D-56 胸部症狀至少 T2 → T2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-136": {
+    "tier": 3,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "CAD／PCI，來電僅為改門診時間，明確表示無不適、藥量足夠。行政性來電且否認症狀 → T3（A9、DV-7，§5.6）。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-145": {
+    "tier": 4,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "家屬代問：輕度瓣膜狹窄、每年追蹤心臟超音波，病人無任何症狀，詢問無症狀是否仍需檢查。屬衛教性問題且否認症狀 → T4（DV-7，§5.7），衛教建議維持追蹤並附 S-SN-A。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-114": {
+    "tier": 3,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "76 歲，搬重花盆後右胸痠痛，扭轉與手指按壓可重現，靜止不動不痛，無其他症狀。按壓／動作可重現的胸壁痛 → T3（B14，§5.6；D-56 例外 (a)）。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-115": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "46 歲、CAD 病史，近兩晚僅在咳嗽時胸骨下針刺樣痛，不咳時完全無症狀。咳嗽時才痛（B16，§5.6 T3-COUGH）非 D-56 例外，胸部症狀至少 T2 → T2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-139": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "被通知心臟檢查報告有異常需回診，但尚未回診；目前無任何不適。異常檢查待追蹤、不論有無症狀至少 T1（B9、D-51，§5.4）→ T1。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-107": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "78 歲，近幾日咳嗽時胸口才痛一下，不咳即無症狀。咳嗽時才痛（B16，§5.6）依 D-56 胸部症狀至少 T2 → T2。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-111": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "medium",
+    "rationale": "胸前某處僅在咳嗽時抽痛，咳完即消失，起始時間說不清。性質為咳嗽相關的痛（B16，§5.6），依 D-56 胸部症狀至少 T2 → T2；起始時間不明不影響此分級。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-098": {
+    "tier": 2,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "62 歲，4 天前新增睡前排尿藥，近 3 天半夜起身站立時頭暈約 20 秒，躺著沒有；無胸部症狀、無瀕厥。姿勢性頭暈＋近期新藥 → T2（B10，§5.5）。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  },
+  "SYN-144": {
+    "tier": 1,
+    "hard_stop": false,
+    "confidence": "high",
+    "rationale": "Holter 顯示睡眠中數段心跳過慢，已被通知回診但尚未回診；目前無胸悶、喘、暈、心悸。異常檢查待追蹤、不論有無症狀至少 T1（B9、D-51，§5.4）→ T1。",
+    "adjudicator": "AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱"
+  }
+}

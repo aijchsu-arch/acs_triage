@@ -35,7 +35,7 @@ def _d(*base, **slots):
 
 # ---------------------------------------------------------------- R7：資料
 def test_r7_floor_config_is_data():
-    assert load_clinical_rules()["rules_version"] == "0.11.0"
+    assert load_clinical_rules()["rules_version"] == "0.12.0"                  # D-58（D-56 為 0.11.0）
     assert FLOOR["rule_id"] == "T2-CHEST-FLOOR" and FLOOR["min_tier"] == 2 and FLOOR["exempt_rules"] == ["T3-MECHANICAL"]
     assert set(FLOOR["characters"]) == {"pressure", "tightness", "jaw_shoulder_heaviness", "pain", "vague", "epigastric"}
     assert FLOOR["unknown_with_chest_mention"] is True and FLOOR["exempt_d44_exception_a"] is True

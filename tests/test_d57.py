@@ -99,17 +99,19 @@ def test_scripted_s_mid_14_asks_repro_once_after_redflags_then_t3():
 
 
 @pytest.mark.parametrize("fact", [False, None])
-@pytest.mark.parametrize("text,old_evidence", [
-    ("按下去不會痛", ["T3-MECHANICAL"]),
-    ("胸口按下去不會痛，深呼吸也不會痛", ["T3-MECHANICAL"]),
-    ("搬東西的時候會悶", ["T0-NEW-TODAY"]),          # 性質是 tightness，D-57 前在這組事實下也沒走 T3-MECHANICAL
+@pytest.mark.parametrize("text,old_evidence,asked", [
+    ("按下去不會痛", ["T3-MECHANICAL"], 1),
+    ("胸口按下去不會痛，深呼吸也不會痛", ["T3-MECHANICAL"], 1),
+    ("搬東西的時候會悶", ["T0-NEW-TODAY"], 0),       # 性質是 tightness，D-57 前在這組事實下也沒走 T3-MECHANICAL；D-58 #7 起不問 Q-REPRO-01
 ])
-def test_examples_no_longer_under_triage(text, old_evidence, fact):
+def test_examples_no_longer_under_triage(text, old_evidence, asked, fact):
     """S-MID-14 的其他事實（今天新發刺痛）＋例句開場白，病人其實沒有可重現胸壁痛（答「不會」或不知道）：
-    D-57 前關鍵詞直接寫 true → 前兩句走 T3-MECHANICAL 定案 T3（全資訊 T0，under-triage）；D-57 起問一次 Q-REPRO-01 → T0。"""
+    D-57 前關鍵詞直接寫 true → 前兩句走 T3-MECHANICAL 定案 T3（全資訊 T0，under-triage）；D-57 起問一次 Q-REPRO-01 → T0。
+    D-58 #7：Q-REPRO-01 只在性質為 pain 時問——前兩句性質問到 pain 後問一次；第三句開場白性質已是 tightness，不問（答案不影響分級）。"""
     base = CASES["S-MID-14"]
     c = dataclasses.replace(base, id="D57-X", opening_zh=text, slots={**base.slots, "reproducible_mechanical": fact})
     r, old = run_case(c), run_case(c, extractor=_old_keyword_path(c))
     assert old.final.evidence == old_evidence
-    assert _qs(r).count("Q-REPRO-01") == 1 and r.final_state.get("reproducible_mechanical") is fact
+    assert r.final_state.get("symptom_character") == ("pain" if asked else "tightness")
+    assert _qs(r).count("Q-REPRO-01") == asked and r.final_state.get("reproducible_mechanical") is (fact if asked else None)
     assert (r.final.tier, r.final.hard_stop) == (0, False) and "T3-MECHANICAL" not in r.final.evidence

@@ -2,6 +2,7 @@
 
 python -m sim.synth_eval --llm-json reports/eval_<date>_llm_scenarios_synth_v1_opus-5-5_medium.json
                          [--scenarios data/synth/scenarios_synth_v1.yaml] [--reference data/synth/reference_synth_v1.json]
+                         [--truth reports/synth_adjudication_2026-10-26_final.json]
                          [--pilot-cost-usd X] [--date YYYY-MM-DD] [--out reports/]
 
 (a) 全資訊規則：病人知道的全部事實一次寫入 SlotState → RulesEngine（測規則本身的效度）
@@ -11,6 +12,7 @@ python -m sim.synth_eval --llm-json reports/eval_<date>_llm_scenarios_synth_v1_o
 比較基準（皆為 LLM 參考標註，不是 truth）：
 - 參考一致子集（主分析）：兩位標註者 tier 與 hard_stop 都一致。
 - 全部（另列）：取兩位標註者中較急者（保守參考）。
+- truth（D-52，另列）：有最終裁定（--truth）用裁定；否則兩位標註者 tier 與 hard_stop 都一致時用一致標註；都沒有 → 無 truth、不計。
 急迫度：Hard stop = -1、T0–T4 = 0–4；T9 依 tier9_fallback（護理師不可得時的預設等級）換算——系統用自己結束時的 slot 狀態，
 參考標註用全部事實。under = 系統比參考不急；over = 系統比參考急；exact = tier 與 hard_stop 都相同。
 
@@ -46,6 +48,7 @@ from .synth_gen import DEFAULT_OUT as DEFAULT_SCENARIOS, load_synth, synth_case
 
 LAYERS = {"a": "(a) 全資訊規則", "b": "(b) Scripted 病人", "c": "(c) Opus LLM 病人"}
 ANN = {"opus": "Opus 5.5", "gpt": "gpt-6.1-sol"}
+DEFAULT_TRUTH = REPO_ROOT / "reports" / "synth_adjudication_2026-10-26_final.json"
 _ENGINE = RulesEngine()
 
 
@@ -139,6 +142,25 @@ def conservative(a: dict[str, Any] | None, b: dict[str, Any] | None) -> dict[str
     return min(cands, key=lambda x: (x["urg"], x["tier"] == 9)) if cands else None
 
 
+def load_adjudication(path: Path) -> dict[str, dict[str, Any]]:
+    """最終裁定檔（{_meta, case_id: label}，label 同 LABEL_SCHEMA）→ {case_id: label}。"""
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    return {k: v for k, v in data.items() if k != "_meta"}
+
+
+def truth_of(case: Case, adjudicated: dict[str, Any] | None,
+             agree: dict[str, Any] | None) -> tuple[dict[str, Any] | None, str | None]:
+    """D-52 保留集 truth：有最終裁定用裁定；否則用一致標註（兩位標註者 tier 與 hard_stop 都一致）；都沒有 → 無 truth。"""
+    if adjudicated is not None:
+        return ref_outcome(adjudicated, case), "adjudicated"
+    return (agree, "consensus") if agree is not None else (None, None)
+
+
+def truth_coverage(rows: list[dict[str, Any]]) -> dict[str, int]:
+    c = Counter(r["truth_source"] for r in rows)
+    return {"adjudicated": c["adjudicated"], "consensus": c["consensus"], "none": c[None]}
+
+
 _NOT_CHEST = ("none", "other")   # 明確沒有胸部症狀，或性質「其他」（不算胸部症狀）
 
 
@@ -158,7 +180,8 @@ def slot_semantics(scenarios: list[dict[str, Any]]) -> dict[str, list[str]]:
             "a_t0_only_by_rest_new_no_chest": rest_only_t0}
 
 
-def build_rows(scenarios: list[dict[str, Any]], reference: dict[str, Any], transcripts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def build_rows(scenarios: list[dict[str, Any]], reference: dict[str, Any], transcripts: list[dict[str, Any]],
+               adjudication: dict[str, dict[str, Any]] | None = None) -> list[dict[str, Any]]:
     refs = {r["case_id"]: r for r in reference["cases"]}
     trs = {t["case_id"]: t for t in transcripts}
     rows = []
@@ -175,6 +198,7 @@ def build_rows(scenarios: list[dict[str, Any]], reference: dict[str, Any], trans
         ro, rg = row["ref_opus"], row["ref_gpt"]
         row["ref_agree"] = ro if (ro and rg and (ro["tier"], ro["hs"]) == (rg["tier"], rg["hs"])) else None
         row["ref_cons"] = conservative(ro, rg)
+        row["truth"], row["truth_source"] = truth_of(case, (adjudication or {}).get(case.id), row["ref_agree"])
         for layer, fn in (("a", layer_a), ("b", layer_b)):
             try:
                 row[layer] = fn(case)
@@ -407,12 +431,17 @@ def render_report(rows, m: dict, meta: dict, adj: list, costs: dict, llm_info: d
           ""]
     hdr = ["層", "n", "HS 敏感度", "Under-triage", "其中系統為 T9（依備援換算才較不急）", "Over-triage", "Exact", "T9 比例",
            "急診負擔（參考 T1–T4 卻 HS／T0）", "平均題數"]
-    for refkey, title in (("ref_agree", "參考一致子集（主分析）"), ("ref_cons", "全部 150 例（保守參考＝兩位標註者中較急者）")):
+    cov = m["truth_coverage"]
+    for refkey, title in (("ref_agree", "參考一致子集（主分析）"), ("ref_cons", "全部 150 例（保守參考＝兩位標註者中較急者）"),
+                          ("vs_truth", f"對 truth（D-52：最終裁定 {cov['adjudicated']} 例＋其餘一致標註 {cov['consensus']} 例；"
+                                       f"無 truth {cov['none']} 例不計）")):
         L.append(f"### {title}")
         L.append("")
         _table(L, hdr, [[LAYERS[l], m[refkey][l]["n"], fmt_prop(m[refkey][l]["hs_sensitivity"]), fmt_prop(m[refkey][l]["under"]),
                          _xn(m[refkey][l]["under_via_t9"]), fmt_prop(m[refkey][l]["over"]), fmt_prop(m[refkey][l]["exact"]), fmt_prop(m[refkey][l]["t9"]),
                          fmt_prop(m[refkey][l]["ed_burden"]), m[refkey][l]["mean_questions"] or "—"] for l in LAYERS])
+    if meta.get("truth"):
+        L += [f"- truth 的最終裁定：`{meta['truth']}`（{meta.get('truth_marker') or '—'}）。", ""]
     L += [f"- 待 Clinical Owner 裁定：{len(adj)} 例（標註者不一致 {sum(r['ref_agree'] is None for r in adj)} 例；"
           f"系統任一層比任一位標註者不急 {sum(any(s.startswith('系統') for s in r['reasons']) for r in adj)} 例）。", ""]
 
@@ -522,6 +551,8 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
     both = [r for r in rows if r["ref_opus"] and r["ref_gpt"]]
     m: dict[str, Any] = {k: {l: metrics(rows, l, k) for l in LAYERS} for k in ("ref_agree", "ref_cons")}
     m["vs_annotator"] = {n: {l: metrics(rows, l, f"ref_{n}") for l in LAYERS} for n in ANN}
+    m["vs_truth"] = {l: metrics(rows, l, "truth") for l in LAYERS}
+    m["truth_coverage"] = truth_coverage(rows)
     m["agree"] = {"n": len(rows), "both_labelled": len(both),
                   "tier_and_hs": prop(sum(r["ref_agree"] is not None for r in rows), len(rows)),
                   "tier_only": prop(sum(r["ref_opus"]["tier"] == r["ref_gpt"]["tier"] for r in both), len(both)),
@@ -541,6 +572,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--scenarios", default=str(DEFAULT_SCENARIOS))
     ap.add_argument("--reference", default=str(DEFAULT_REFERENCE))
+    ap.add_argument("--truth", default=str(DEFAULT_TRUTH), help="最終裁定（D-52：裁定後升為 truth；沒裁定的 case 用一致標註）")
     ap.add_argument("--llm-json", required=True, help="sim.run_llm_eval --scenarios 產出的 .json（同名 _transcripts.json 會一起讀）")
     ap.add_argument("--pilot-cost-usd", type=float, default=0.0,
                     help="試跑（估算用）已花費用＝試跑三個輸出檔（生成 YAML、標註 JSON、run_llm_eval JSON）的 est_cost_usd 加總")
@@ -551,7 +583,8 @@ def main() -> None:
     reference = json.loads(Path(args.reference).read_text(encoding="utf-8"))
     llm = json.loads(Path(args.llm_json).read_text(encoding="utf-8"))
     transcripts = json.loads(Path(args.llm_json.removesuffix(".json") + "_transcripts.json").read_text(encoding="utf-8"))
-    rows = build_rows(gen["scenarios"], reference, transcripts)
+    truth_meta = json.loads(Path(args.truth).read_text(encoding="utf-8")).get("_meta", {})
+    rows = build_rows(gen["scenarios"], reference, transcripts, load_adjudication(Path(args.truth)))
     m = summarize(rows)
     adj = adjudication_rows(rows)
     adj.sort(key=lambda r: (not any(x.startswith("系統") for x in r["reasons"]), severity_key(r), r["id"]))   # 系統低估在前、最急的在前
@@ -567,7 +600,8 @@ def main() -> None:
                 "n_deviation_original": sum(not d.get("confirm") for d in llm["deviations"]),
                 "n_deviation_confirm": sum(bool(d.get("confirm")) for d in llm["deviations"]),
                 "deviation_kinds": dict(Counter(d["kind"] for d in llm["deviations"])), "errors": llm["errors"]}
-    meta = {"scenarios": _rel(args.scenarios), "reference": _rel(args.reference), "llm_json": _rel(args.llm_json), "gen": gen}
+    meta = {"scenarios": _rel(args.scenarios), "reference": _rel(args.reference), "llm_json": _rel(args.llm_json), "gen": gen,
+            "truth": _rel(args.truth), "truth_marker": truth_meta.get("marker")}
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     stem = f"synth_eval_{args.date}"
@@ -575,7 +609,7 @@ def main() -> None:
     (out / f"{stem}.md").write_text(render_report(rows, m, meta, adj, costs, llm_info, args.date, sem), encoding="utf-8")
     slim = [{k: v for k, v in r.items() if k != "sheet"} for r in rows]
     (out / f"{stem}.json").write_text(json.dumps(
-        {"date": args.date, "rules_version": rules_version(), "inputs": {k: meta[k] for k in ("scenarios", "reference", "llm_json")},
+        {"date": args.date, "rules_version": rules_version(), "inputs": {k: meta[k] for k in ("scenarios", "reference", "llm_json", "truth")},
          "limitations": LIMITS + semantics_limit(sem), "slot_semantics": sem, "metrics": m, "costs_usd": costs, "llm_patient": llm_info,
          "adjudication_case_ids": [r["id"] for r in adj], "cases": slim}, ensure_ascii=False, indent=2), encoding="utf-8")
     adj_stem = f"synth_adjudication_{args.date}"
@@ -590,7 +624,10 @@ def main() -> None:
     write_xlsx(out / f"{adj_stem}.xlsx", [("裁定表", adjudication_table(adj), ADJ_WIDTHS), ("說明", notes, [16, 80])])
     print(json.dumps({"n": len(rows), "agree": m["agree"]["tier_and_hs"], "adjudication": len(adj), "costs": costs,
                       **{f"{k}_{l}": {x: m[k][l][x]["x"] for x in ("under", "over", "exact", "t9")} | {"hs_miss": m[k][l]["hs_miss"]}
-                         for k in ("ref_agree", "ref_cons") for l in LAYERS}}, ensure_ascii=False))
+                         for k in ("ref_agree", "ref_cons") for l in LAYERS},
+                      "truth_coverage": m["truth_coverage"],
+                      **{f"truth_{l}": {x: m["vs_truth"][l][x]["x"] for x in ("under", "over", "exact", "t9")} | {"hs_miss": m["vs_truth"][l]["hs_miss"]}
+                         for l in LAYERS}}, ensure_ascii=False))
     for p in (f"{stem}.md", f"{stem}.json", f"{adj_stem}.md", f"{adj_stem}.xlsx"):
         print(f"→ {out / p}")
 

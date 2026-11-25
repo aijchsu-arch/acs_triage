@@ -1,0 +1,3 @@
+ACS_PATIENT_LLM_KEY: OK
+{"n": 150, "errors": 0, "hard_stop_miss": [], "under": [], "over": [], "deviations": 22}
+→ <repo>/reports/eval_2026-11-25_llm_scenarios_synth_v1_opus-5-5_medium.md

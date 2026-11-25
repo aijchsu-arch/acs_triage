@@ -1,0 +1,6 @@
+PYTEST_OK
+ACS_PATIENT_LLM_KEY: OK
+{"n": 119, "errors": 0, "hard_stop_miss": [], "under": [], "over": [], "deviations": 2}
+→ <repo>/reports/eval_2026-11-25_llm_opus-5-5_medium.md
+{"total_flips": 1485, "under": 170, "severe": 8, "severe_questions": ["Q-CHARACTER-01"]}
+→ <repo>/reports/robustness_2026-11-25.md
