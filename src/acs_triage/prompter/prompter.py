@@ -140,10 +140,12 @@ class Prompter:
     def repro_confirm_question(self, state: SlotState, decision: TierDecision, asked: set[str]) -> Question | None:
         """D-56（Clinical Owner 2026-11-17 裁定 #3「改成提到就問一次確認」）：LLM 抽取器記了 reproducible_mechanical_mentioned、該欄仍未知 →
         紅旗題問完後第一個機會問一次 Q-REPRO-01（之後流程同「一開始就是 true」＋1 題）。Hard stop 不問；T0 只在只靠 T0-NEW-TODAY
-        （可重現胸壁痛的豁免唯一能改的 T0）時問。題數上限由呼叫端判斷。"""
+        （可重現胸壁痛的豁免唯一能改的 T0）時問。題數上限由呼叫端判斷。
+        D-58 #7（AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱）：只在 symptom_character == pain
+        時問（mechanical() 要求 pain，其他性質答案不影響分級）；性質還沒問到時等問到 pain 再問。"""
         q = question_by_id()["Q-REPRO-01"]
-        if (not state.is_true("reproducible_mechanical_mentioned") or state.known(q.slot_id) or q.id in asked
-                or decision.hard_stop):
+        if (not state.is_true("reproducible_mechanical_mentioned") or state.get("symptom_character") != "pain"
+                or state.known(q.slot_id) or q.id in asked or decision.hard_stop):
             return None
         if decision.provisional_tier == 0 and not set(decision.evidence) <= {"T0-NEW-TODAY", "T9-GATE"}:
             return None

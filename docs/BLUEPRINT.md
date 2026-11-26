@@ -129,7 +129,7 @@
   3. 最後才是修飾題（`priority: refine`）。
   4. 已有高信心 slot 值的題跳過。
 - 每次只推**一題**到畫面，附「為什麼問這題」一行（給客服，不給病人）。
-- 上限：`MAX_QUESTIONS`（預設 12，見 D-22、D-29、D-54）。到上限仍不足 → Tier 9。
+- 上限：`MAX_QUESTIONS`（預設 18，見 D-22、D-29、D-54、D-55、D-56）。到上限仍不足 → Tier 9。
 - 紅旗題與關鍵題的回答可疑時複誦確認一次（不算題數、不得降級），規則見 `CLINICAL_RULES.md §5.10`（D-50）。
 
 ### 3.6 Sufficiency Gate
@@ -399,6 +399,14 @@ acs_triage/
 | M3 | ✅ 2026-10-15（shadow）：M3a Jev 不適合做分級決策（D-37）；M3b `gpt-6.1-sol` 逐句紅旗敏感度 100%、slot 抽取 97.7%、分級一致 80/119（D-38、D-39）；`model_downgrade_blocked` 有測試；報告 `reports/m3a_jev_*`、`reports/m3b_*` | `LLMStructuredAdapter`、`JevAdapter`；模型 vs 規則比較報告；downgrade 阻擋測試 | 比較報告；`model_downgrade_blocked` 有測試 |
 | M4 | ⏳ 待 Q-01 | STT adapter + Confidence Gate；shadow-mode logger；最小客服 UI | 以錄製的合成音檔端到端跑通；UI 顯示紅旗全螢幕 |
 | 後續 | ⏳ | ECG adapter、電話系統整合、Phase 1 準備 | 依 `DECISIONS.md` 解決 Q-01/02/03/06 後排程 |
+
+
+**M4 需求（D-58 #10–#13、#15；AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱；模擬不改）**：
+1. **抽取呼叫失敗（#10）**：失敗一律不得記成「問過但不知道」。(a) 在即時預算內重試一次；(b) 每句原文照常跑規則引擎的逐句紅旗判斷（不依賴抽取結果）；(c) 仍失敗 → 客服請病人再說一次（比照 D-43 再說一次，不計題數）；(d) 再失敗 → 該 slot 維持未知、不得定案 T2–T4，轉護理師為 T9（備援至少 T1），UI 標示「抽取失敗」，紅旗題的回答由客服手動鍵入；(e) 開場白抽取失敗 → 重新請病人說一次主訴；(f) 複誦確認的回答抽取失敗 → 依 D-50（`CLINICAL_RULES.md §5.10-6` 確認回答不明的處理）。模擬維持 D-56 R9（重試、仍失敗當作沒抽到並計入錯誤數）。
+2. **概括否認（#11）**：關鍵詞路徑的「沒有不舒服」維持 null（不寫成 `symptom_character`＝none，同 §5.11 與 LLM 開場白規則）；模擬的關鍵詞路徑維持現狀（D-54 已知限制 (2)）。
+3. **第三方來電（#12）**：「來電者不是病人本人」由客服在 UI 勾選（寫入 `third_party_call`），不建立封閉的親屬稱謂詞表（D-54 已知限制 (3)）。
+4. **Hard stop 優先（#13）**：Hard stop 一成立即中止複誦確認（D-50）與之後所有問題，只留 S-HS 流程（D-54 已知限制 (6)）。
+5. **Q-REPRO-01 直接回答（#15）**：M4 若以關鍵詞抽取器處理回答文字，需加 Q-REPRO-01 直接回答的是／否／不知道解析，才能寫入 `reproducible_mechanical`（D-57 驗收觀察）。
 
 每個 M 完成時更新本文件的狀態列與 `DECISIONS.md`。
 

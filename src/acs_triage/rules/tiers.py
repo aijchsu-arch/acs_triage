@@ -197,10 +197,19 @@ def chest_floor_applies(s: SlotState) -> bool:
     return character in set(floor["characters"])
 
 
+def t2_conditions_except_chest(s: SlotState) -> bool:
+    """D-58 #5：T2-DYSPNEA-DAILY 或 T2-POSTURAL-NEWMED 除「無胸部症狀」外的全部條件成立（條件與 t2_rules 相同）。"""
+    return ((s.get("dyspnea_grade") == "exertional_daily" and s.not_true("dyspnea_acute") and s.not_true("orthopnea_pnd"))
+            or (s.is_true("postural_dizziness") and s.is_true("new_medication_recent") and s.not_true("presyncope")))
+
+
 def d44_exception_a(s: SlotState) -> bool:
     """D-44 例外 A（Clinical Owner 2026-10-18）：性質 vague、穩定型（T3-STABLE）全部條件成立、onset_new 不為 true → T3-STABLE。
-    D-56（Clinical Owner 2026-11-16）：只有這條路徑的 T3 不受胸部症狀下限影響；性質未知而只提過胸口（D-54 #15 的比照）不算。"""
-    return s.get("symptom_character") == "vague" and s.get("onset_new") is not True and "T3-STABLE" in t3_rules(s)
+    D-56（Clinical Owner 2026-11-16）：只有這條路徑的 T3 不受胸部症狀下限影響；性質未知而只提過胸口（D-54 #15 的比照）不算。
+    D-58 #5（AI 代理裁定（Fable 5.2，2026-11-25，Clinical Owner 授權），未經 Clinical Owner 逐例審閱）：同時符合
+    T2-DYSPNEA-DAILY 或 T2-POSTURAL-NEWMED 除「無胸部症狀」外的全部條件 → 不再豁免（由下限提高到 T2）；多一個胸部症狀不得讓等級變不急。"""
+    return (s.get("symptom_character") == "vague" and s.get("onset_new") is not True and "T3-STABLE" in t3_rules(s)
+            and not t2_conditions_except_chest(s))
 
 
 # ---------------------------------------------------------------- provisional

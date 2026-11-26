@@ -40,10 +40,11 @@ from .llm_patient import DEFAULT_EFFORT, DEFAULT_MODEL, KEY_ENV, LLMPatientSimul
 from .patient import PatientReply
 from .runner import RunResult, run_case
 
-DEV_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-17_llm_opus-5-5_medium_transcripts.json"
+DEV_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-25_llm_opus-5-5_medium_transcripts.json"
 HOLDOUT_SCENARIOS = DATA_DIR / "synth" / "scenarios_synth_v1.yaml"
-HOLDOUT_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-05_llm_scenarios_synth_v1_opus-5-5_medium_transcripts.json"
+HOLDOUT_STRUCTURED = REPO_ROOT / "reports" / "eval_2026-11-25_llm_scenarios_synth_v1_opus-5-5_medium_transcripts.json"
 HOLDOUT_REFERENCE = DATA_DIR / "synth" / "reference_synth_v1.json"
+HOLDOUT_TRUTH = REPO_ROOT / "reports" / "synth_adjudication_2026-10-26_final.json"   # D-52：48 例最終裁定；其餘用一致標註
 def _synth_files(folder: Path) -> list[str]:
     """保留集目錄裡的檔案（只計 hash）：只取檔案，略過 .DS_Store 等隱藏檔與子目錄。"""
     return sorted(p.relative_to(REPO_ROOT).as_posix() for p in folder.iterdir() if p.is_file() and not p.name.startswith("."))
@@ -58,10 +59,11 @@ FROZEN_FILES = ["data/extractor_prompts_v2.yaml", "sim/llm_extract_v2.py", "sim/
                 "src/acs_triage/loaders.py", "src/acs_triage/schemas.py",
                 *sorted(p.relative_to(REPO_ROOT).as_posix() for d in ("rules", "prompter", "extract", "pathway")
                         for p in (REPO_ROOT / "src" / "acs_triage" / d).glob("*.py")),
-                *_synth_files(DATA_DIR / "synth")]
+                *_synth_files(DATA_DIR / "synth"), HOLDOUT_TRUTH.relative_to(REPO_ROOT).as_posix()]
 # 逐字稿版本檢查不比的檔：只影響抽取器或報表，不影響問句序列與病人回答；sim/closed_loop.py 本身也要排除（付費評估後要改 DEV_STRUCTURED 指向新稿）
 NOT_IN_TRANSCRIPT_CHECK = {"data/extractor_prompts_v2.yaml", "sim/llm_extract_v2.py", "sim/closed_loop.py", "sim/stt_synth_asr.py", "sim/metrics.py", "sim/synth_eval.py",
-                           "sim/llm_extract.py", "src/acs_triage/decision/openai_adapter.py"}
+                           "sim/llm_extract.py", "src/acs_triage/decision/openai_adapter.py",
+                           HOLDOUT_TRUTH.relative_to(REPO_ROOT).as_posix()}               # truth 只影響計分
 DEV_SCENARIO_FILES = [DATA_DIR / "scenarios_v0.2.yaml", DATA_DIR / "scenarios_midband_v0.1.yaml"]
 # 固定位置（不隨 --out 改變）：凍結紀錄只能寫一次；保留集每個 arm 開跑前先登記，已登記就拒跑。
 FREEZE_PATH = REPO_ROOT / "reports" / "extractor_v2_freeze.json"
@@ -466,9 +468,11 @@ def holdout_rows(outs: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
 
 def holdout_metrics(rows: dict[str, dict[str, Any]], cases: list[Case]) -> dict[str, Any]:
-    """與 sim.synth_eval 同一套（參考一致子集為主；全部＝較急者）。premature：參考為 Hard stop、系統 Hard stop 只靠抽錯的值 → 計 miss。"""
-    from .synth_eval import conservative, metrics, ref_outcome, urgency
+    """與 sim.synth_eval 同一套（參考一致子集為主；全部＝較急者；truth＝D-52 最終裁定＋其餘一致標註）。
+    premature：參考為 Hard stop、系統 Hard stop 只靠抽錯的值 → 計 miss。"""
+    from .synth_eval import conservative, load_adjudication, metrics, ref_outcome, truth_coverage, truth_of, urgency
     ref = {r["case_id"]: r for r in json.loads(HOLDOUT_REFERENCE.read_text(encoding="utf-8"))["cases"]}
+    adjudicated = load_adjudication(HOLDOUT_TRUTH)
     by_id = {c.id: c for c in cases}
     table = []
     for cid, out in rows.items():
@@ -477,9 +481,11 @@ def holdout_metrics(rows: dict[str, dict[str, Any]], cases: list[Case]) -> dict[
         ro = ref_outcome(labels["opus"], case) if "opus" in labels else None
         rg = ref_outcome(labels["gpt"], case) if "gpt" in labels else None
         agree = ro if (ro and rg and (ro["tier"], ro["hs"]) == (rg["tier"], rg["hs"])) else None
-        table.append({"id": cid, "ref_agree": agree, "ref_cons": conservative(ro, rg), "sys": dict(out)})
+        truth, source = truth_of(case, adjudicated.get(cid), agree)
+        table.append({"id": cid, "ref_agree": agree, "ref_cons": conservative(ro, rg), "truth": truth, "truth_source": source,
+                      "sys": dict(out)})
     res = {}
-    for rk in ("ref_agree", "ref_cons"):
+    for rk in ("ref_agree", "ref_cons", "truth"):
         tb = []
         for row in table:
             sys_out = dict(row["sys"])
@@ -495,6 +501,7 @@ def holdout_metrics(rows: dict[str, dict[str, Any]], cases: list[Case]) -> dict[
         m["reasks"] = sum(r["sys"]["reasks"] for r in tb if r[rk] is not None)
         m["reask_downgrades"] = sum(r["sys"]["reask_downgrades"] for r in tb if r[rk] is not None)
         res[rk] = m
+    res["truth"]["coverage"] = truth_coverage(table)
     return res
 
 
@@ -539,7 +546,7 @@ def run_main(argv: list[str]) -> None:
     if args.set == "holdout":
         freeze = check_holdout_allowed(args.arm, args.limit, out_dir)
     # ---- 前置檢查（全部在登記保留集 arm 之前；任何一項失敗都不留下登記，可修好後重試）
-    inputs = [DEV_STRUCTURED] if args.set == "dev" else [HOLDOUT_SCENARIOS, HOLDOUT_STRUCTURED, HOLDOUT_REFERENCE]
+    inputs = [DEV_STRUCTURED] if args.set == "dev" else [HOLDOUT_SCENARIOS, HOLDOUT_STRUCTURED, HOLDOUT_REFERENCE, HOLDOUT_TRUTH]
     missing = [str(f) for f in [*inputs, *map(Path, args.seed_extract)] if not Path(f).exists()]
     if missing:
         raise SystemExit(f"輸入檔不存在：{missing}")
@@ -618,6 +625,10 @@ def run_main(argv: list[str]) -> None:
     summ = rep["metrics"] if args.set == "dev" else rep["metrics"]["ref_agree"]
     print(json.dumps({k: summ.get(k) for k in ("hs_sensitivity", "hs_miss", "premature", "false_hs", "under", "t9", "mean_questions",
                                                 "confirms", "reasks", "reask_downgrades", "exact")}, ensure_ascii=False, default=str))
+    if args.set == "holdout":
+        t = rep["metrics"]["truth"]
+        print(json.dumps({"truth_coverage": t["coverage"], **{k: t.get(k) for k in ("hs_sensitivity", "hs_miss", "premature", "under", "over", "exact", "t9")}},
+                         ensure_ascii=False, default=str))
     print(json.dumps({"patient": rep["patient_usage"], "extractor_cost": (rep["extractor_usage"] or {}).get("cost_total_usd"),
                       "mention_conflicts": len(rep["mention_conflicts"]),
                       "errors": [r["case_id"] for r in recs if r["error"] or r["extract_failures"]],

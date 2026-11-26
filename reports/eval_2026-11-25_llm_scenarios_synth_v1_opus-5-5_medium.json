@@ -1,0 +1,1384 @@
+{
+  "model": "claude-opus-5-5",
+  "model_versions": [
+    "claude-opus-5-5"
+  ],
+  "effort": "medium",
+  "rules_version": "0.12.0",
+  "bank_version": "0.7",
+  "file_sha256": {
+    "data/extractor_prompts_v2.yaml": "8421ab9d82e7d3043d3c2c74a161dfb6fe64f6ad23853abf844731fc4c9bee52",
+    "sim/llm_extract_v2.py": "9275db3100559cd76651f558d4f07759f11c90a914561e64d600ca69847680cb",
+    "sim/runner.py": "d8bf8fb7ffd31da179da4369c8c45cb49dbb3833c600b5d51c432b088b74e90f",
+    "sim/closed_loop.py": "3493cb0f65e613615715ac57063ae944f26c0f5545aab61e5f5c88dc9cb6786a",
+    "sim/stt_synth_asr.py": "322699400c306c4d81cf23838186bcdcfefe749f30a1875d1e6c731ec76603c3",
+    "data/clinical_rules.yaml": "8e93341523d197567feda105f7b1ca403c6b7874e363961de05f81fcb1a56b3e",
+    "data/question_bank_seed.yaml": "673740ed81ebe1b9efcb827cec7b13fe6bb55a471c0018ad707e4693e6460ee3",
+    "data/extraction_patterns.yaml": "814767506e5daa1763d18acebe4ee9216912b7375506dcb009d01b063dd05d47",
+    "data/scripts_zh.yaml": "8e174e1d94e29ed4b7f2e98d921747ab15e19a6382e727199510f74ac40911c0",
+    "data/llm_patient.yaml": "b8cf49b27b11c4b3a6f0c892361f4c4db6f03f4ad4eabbf37d357bc81f4f80c4",
+    "sim/cases.py": "d25527e4356a051cda0c6c0dc1d1953c26dc7eebc5a61079c186987ac7c8c2d7",
+    "sim/patient.py": "02fbf781c886cabf8267d72276fadbfad3c4c0135524961fe25f7ccc37f19fdd",
+    "sim/llm_patient.py": "553c398bf30bfab8984e686e3e78b75614bf4ecf886827157392fc55ada33856",
+    "sim/metrics.py": "f96f2aab64bd8d18fe64d524b84e5176a434674fde07064523e76f533d52f0b1",
+    "sim/synth_eval.py": "946b9464b8f8481757231a96379c796e6c3968b9ce56db5e91015fe4cf3d409b",
+    "sim/synth_gen.py": "fb4e198e04d8ea21a1d1edf640b579aa94e92b34f5bc77dc80259c1f4175e5a8",
+    "sim/llm_extract.py": "2e68bf91202a135be1b2a988cacefcccc0c459b299425349a6a8d47071491dcf",
+    "src/acs_triage/decision/openai_adapter.py": "3806ef55b5c1b7b11a5b37b9fb34a0310669fa8603cb9d2178bd1aaa4015f869",
+    "src/acs_triage/loaders.py": "140b58b580ee4c4f8fcc0acb4a10a43dbe2bcf15c65090aed5caa87e8963fcb8",
+    "src/acs_triage/schemas.py": "35c215b94c526e533a6ea3313ad8bdc345752fb2f2da10a11508f6cd9bc29b3b",
+    "src/acs_triage/extract/__init__.py": "9dc74f58d081e08effd65ca3cb75fd11cc9d1c15da7e8c772dd37114c111e68e",
+    "src/acs_triage/extract/rule_extractor.py": "0cea37c79e3108d3fdd82f324649ef40cb5a19b6df34b2d373c038e37e01ab02",
+    "src/acs_triage/pathway/__init__.py": "c96c56bb0ebb9f9a41631d03e58431e588e727d258a323561de5befa77aea81f",
+    "src/acs_triage/pathway/router.py": "104fe6f64d5c1f8f7e43f734915401d11beff28b6dfc5a0af9e355473a9c49bb",
+    "src/acs_triage/prompter/__init__.py": "d1ade26107520064f9883c9f78c00c0eed16a7e2b50d461561d9943492957a03",
+    "src/acs_triage/prompter/confirm.py": "9e03622387f9dd475a7a37d2e7454fcba75ce9eb779051f0c5586fe1fc6b06d4",
+    "src/acs_triage/prompter/prompter.py": "7fe8d0abb98580b78fe67ae2338283b4ea1fc59affeace4d6388dec36317bd51",
+    "src/acs_triage/rules/__init__.py": "0f8ec6e704c6b34540863b771b52f68c0ca0bd3d90a7e1daa1182370b9c2aae6",
+    "src/acs_triage/rules/engine.py": "5f9f329c2ca5abff2dccec27ff72bded1449c3a45a838353c54b44a72c8ddcc2",
+    "src/acs_triage/rules/redflags.py": "42b0b878db4914a3ba3da77d7f1931c554c8ea34df9b7cb9ac8e6a722aeabac6",
+    "src/acs_triage/rules/state.py": "daa27eaa3f2f6549262d2903c5fe03dcb25c100dac3546eed54f9d022624bdcc",
+    "src/acs_triage/rules/sufficiency.py": "74dd1cf4ff7b9f21f8d3805bc0cb86aa563a0ea495e0d6b55f29471e865c29be",
+    "src/acs_triage/rules/tiers.py": "377ec20d3e985182fa37cc952f1af6cf1b39762527956c5b2e5e394c89e4866e",
+    "data/synth/reference_synth_v1.json": "0228d3d4980f65e5d805908d17a5dca84008fc113863fbc5285454943470e4b9",
+    "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20",
+    "data/synth/synth_prompts.yaml": "841eeeacced8a4a644150495f11f934c1002cbb538165b688ab9b7d508c9cebb",
+    "reports/synth_adjudication_2026-10-26_final.json": "6303fe1236ca83bcc040e49f7d2eab0688a7e78b3e922091ead95663f59a52a9"
+  },
+  "scenario_sha256": {
+    "data/synth/scenarios_synth_v1.yaml": "f949037d048d562e7a202a2c95e0e9783e29393c67147a95b25c291f9a1dde20"
+  },
+  "limit": null,
+  "case_ids_in_set": [
+    "SYN-001",
+    "SYN-002",
+    "SYN-003",
+    "SYN-004",
+    "SYN-005",
+    "SYN-006",
+    "SYN-007",
+    "SYN-008",
+    "SYN-009",
+    "SYN-010",
+    "SYN-011",
+    "SYN-012",
+    "SYN-013",
+    "SYN-014",
+    "SYN-015",
+    "SYN-016",
+    "SYN-017",
+    "SYN-018",
+    "SYN-019",
+    "SYN-020",
+    "SYN-021",
+    "SYN-022",
+    "SYN-023",
+    "SYN-024",
+    "SYN-025",
+    "SYN-026",
+    "SYN-027",
+    "SYN-028",
+    "SYN-029",
+    "SYN-030",
+    "SYN-031",
+    "SYN-032",
+    "SYN-033",
+    "SYN-034",
+    "SYN-035",
+    "SYN-036",
+    "SYN-037",
+    "SYN-038",
+    "SYN-039",
+    "SYN-040",
+    "SYN-041",
+    "SYN-042",
+    "SYN-043",
+    "SYN-044",
+    "SYN-045",
+    "SYN-046",
+    "SYN-047",
+    "SYN-048",
+    "SYN-049",
+    "SYN-050",
+    "SYN-051",
+    "SYN-052",
+    "SYN-053",
+    "SYN-054",
+    "SYN-055",
+    "SYN-056",
+    "SYN-057",
+    "SYN-058",
+    "SYN-059",
+    "SYN-060",
+    "SYN-061",
+    "SYN-062",
+    "SYN-063",
+    "SYN-064",
+    "SYN-065",
+    "SYN-066",
+    "SYN-067",
+    "SYN-068",
+    "SYN-069",
+    "SYN-070",
+    "SYN-071",
+    "SYN-072",
+    "SYN-073",
+    "SYN-074",
+    "SYN-075",
+    "SYN-076",
+    "SYN-077",
+    "SYN-078",
+    "SYN-079",
+    "SYN-080",
+    "SYN-081",
+    "SYN-082",
+    "SYN-083",
+    "SYN-084",
+    "SYN-085",
+    "SYN-086",
+    "SYN-087",
+    "SYN-088",
+    "SYN-089",
+    "SYN-090",
+    "SYN-091",
+    "SYN-092",
+    "SYN-093",
+    "SYN-094",
+    "SYN-095",
+    "SYN-096",
+    "SYN-097",
+    "SYN-098",
+    "SYN-099",
+    "SYN-100",
+    "SYN-101",
+    "SYN-102",
+    "SYN-103",
+    "SYN-104",
+    "SYN-105",
+    "SYN-106",
+    "SYN-107",
+    "SYN-108",
+    "SYN-109",
+    "SYN-110",
+    "SYN-111",
+    "SYN-112",
+    "SYN-113",
+    "SYN-114",
+    "SYN-115",
+    "SYN-116",
+    "SYN-117",
+    "SYN-118",
+    "SYN-119",
+    "SYN-120",
+    "SYN-121",
+    "SYN-122",
+    "SYN-123",
+    "SYN-124",
+    "SYN-125",
+    "SYN-126",
+    "SYN-127",
+    "SYN-128",
+    "SYN-129",
+    "SYN-130",
+    "SYN-131",
+    "SYN-132",
+    "SYN-133",
+    "SYN-134",
+    "SYN-135",
+    "SYN-136",
+    "SYN-137",
+    "SYN-138",
+    "SYN-139",
+    "SYN-140",
+    "SYN-141",
+    "SYN-142",
+    "SYN-143",
+    "SYN-144",
+    "SYN-145",
+    "SYN-146",
+    "SYN-147",
+    "SYN-148",
+    "SYN-149",
+    "SYN-150"
+  ],
+  "metrics": {
+    "n_cases": 150,
+    "n_scored": 0,
+    "hard_stop": {
+      "truth": 0,
+      "hit": 0,
+      "miss": [],
+      "miss_rate": 0.0,
+      "false_alarm": [],
+      "latency_max": 0
+    },
+    "exact_rate": 0.0,
+    "under_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "over_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "abstention": {
+      "tp": 0,
+      "fp": [],
+      "fn": [],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "escalating_recall": 0.9596638655462185,
+    "escalating": {
+      "hit": 571,
+      "total": 595,
+      "missed": [
+        [
+          "SYN-014",
+          "Q-SYNCOPE-01",
+          0,
+          "hard_stop"
+        ],
+        [
+          "SYN-014",
+          "Q-DIAPH-01",
+          0,
+          "hard_stop"
+        ],
+        [
+          "SYN-053",
+          "Q-ONSET-01",
+          2,
+          "gate_passed"
+        ],
+        [
+          "SYN-057",
+          "Q-ONSET-01",
+          1,
+          "gate_passed"
+        ],
+        [
+          "SYN-057",
+          "Q-PENDINGTEST-01",
+          1,
+          "gate_passed"
+        ],
+        [
+          "SYN-062",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "SYN-071",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "SYN-100",
+          "Q-SYNCOPE-02",
+          9,
+          "no_more_questions"
+        ],
+        [
+          "SYN-106",
+          "Q-THRESHOLD-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-FREQ-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-REST-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-EXERTION-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-REPRO-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-NTG-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-PENDINGTEST-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-110",
+          "Q-ANTIPLT-01",
+          3,
+          "gate_passed"
+        ],
+        [
+          "SYN-118",
+          "Q-PENDINGTEST-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "SYN-121",
+          "Q-CHARACTER-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-121",
+          "Q-ORTHO-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-131",
+          "Q-THRESHOLD-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-131",
+          "Q-FREQ-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-131",
+          "Q-REST-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-131",
+          "Q-NTG-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-145",
+          "Q-REACHABLE-01",
+          4,
+          "gate_passed"
+        ]
+      ]
+    },
+    "escalating_recall_strict": 0.9243697478991597,
+    "escalating_missed_strict": [
+      [
+        "SYN-014",
+        "Q-SYNCOPE-01",
+        0,
+        "hard_stop"
+      ],
+      [
+        "SYN-014",
+        "Q-DIAPH-01",
+        0,
+        "hard_stop"
+      ],
+      [
+        "SYN-053",
+        "Q-ONSET-01",
+        2,
+        "gate_passed"
+      ],
+      [
+        "SYN-057",
+        "Q-ONSET-01",
+        1,
+        "gate_passed"
+      ],
+      [
+        "SYN-057",
+        "Q-PENDINGTEST-01",
+        1,
+        "gate_passed"
+      ],
+      [
+        "SYN-062",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "SYN-066",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-066",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-071",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "SYN-074",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-074",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-088",
+        "Q-PENDINGTEST-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "SYN-100",
+        "Q-SYNCOPE-02",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "SYN-106",
+        "Q-THRESHOLD-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-FREQ-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-REST-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-EXERTION-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-REPRO-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-NTG-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-PENDINGTEST-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-108",
+        "Q-PENDINGTEST-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "SYN-110",
+        "Q-ANTIPLT-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-118",
+        "Q-PENDINGTEST-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "SYN-120",
+        "Q-PENDINGTEST-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "SYN-121",
+        "Q-CHARACTER-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-121",
+        "Q-ORTHO-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-131",
+        "Q-THRESHOLD-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-131",
+        "Q-FREQ-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-131",
+        "Q-REST-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-131",
+        "Q-NTG-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-136",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-136",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-137",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-138",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-138",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-138",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-140",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-140",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-140",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-141",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-142",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-143",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-145",
+        "Q-REACHABLE-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-145",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-149",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ]
+    ],
+    "decisive_recall": 0.9505851755526658,
+    "questions_to_decision_mean": 6.98,
+    "gate_repeats": 0,
+    "confirm_back": {
+      "n": 252,
+      "per_call": 1.68,
+      "changed": 0,
+      "downgrade_blocked": 0
+    },
+    "pending_test_extra": {
+      "asked": 26,
+      "skipped_at_cap": 0
+    },
+    "mention_reask": {
+      "n": 0,
+      "downgrades": 0
+    },
+    "stop_reasons": {
+      "hard_stop": 46,
+      "gate_passed": 67,
+      "max_questions": 14,
+      "gate_passed_t0_asked": 5,
+      "hard_stop_opening": 5,
+      "no_more_questions": 13
+    },
+    "confusion": {},
+    "rf_mismatch": []
+  },
+  "scripted_metrics": {
+    "n_cases": 150,
+    "n_scored": 0,
+    "hard_stop": {
+      "truth": 0,
+      "hit": 0,
+      "miss": [],
+      "miss_rate": 0.0,
+      "false_alarm": [],
+      "latency_max": 0
+    },
+    "exact_rate": 0.0,
+    "under_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "over_triage": {
+      "rate": 0.0,
+      "cases": []
+    },
+    "abstention": {
+      "tp": 0,
+      "fp": [],
+      "fn": [],
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "escalating_recall": 0.957983193277311,
+    "escalating": {
+      "hit": 570,
+      "total": 595,
+      "missed": [
+        [
+          "SYN-014",
+          "Q-SYNCOPE-01",
+          0,
+          "hard_stop"
+        ],
+        [
+          "SYN-014",
+          "Q-DIAPH-01",
+          0,
+          "hard_stop"
+        ],
+        [
+          "SYN-053",
+          "Q-ONSET-01",
+          2,
+          "gate_passed"
+        ],
+        [
+          "SYN-057",
+          "Q-ONSET-01",
+          1,
+          "gate_passed"
+        ],
+        [
+          "SYN-057",
+          "Q-PENDINGTEST-01",
+          1,
+          "gate_passed"
+        ],
+        [
+          "SYN-062",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "SYN-067",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "SYN-071",
+          "Q-NTG-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "SYN-100",
+          "Q-SYNCOPE-02",
+          9,
+          "no_more_questions"
+        ],
+        [
+          "SYN-106",
+          "Q-THRESHOLD-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-FREQ-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-REST-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-EXERTION-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-REPRO-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-NTG-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-106",
+          "Q-PENDINGTEST-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-110",
+          "Q-ANTIPLT-01",
+          3,
+          "gate_passed"
+        ],
+        [
+          "SYN-118",
+          "Q-PENDINGTEST-01",
+          9,
+          "max_questions"
+        ],
+        [
+          "SYN-121",
+          "Q-CHARACTER-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-121",
+          "Q-ORTHO-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-131",
+          "Q-THRESHOLD-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-131",
+          "Q-FREQ-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-131",
+          "Q-REST-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-131",
+          "Q-NTG-01",
+          0,
+          "gate_passed"
+        ],
+        [
+          "SYN-145",
+          "Q-REACHABLE-01",
+          4,
+          "gate_passed"
+        ]
+      ]
+    },
+    "escalating_recall_strict": 0.9226890756302522,
+    "escalating_missed_strict": [
+      [
+        "SYN-014",
+        "Q-SYNCOPE-01",
+        0,
+        "hard_stop"
+      ],
+      [
+        "SYN-014",
+        "Q-DIAPH-01",
+        0,
+        "hard_stop"
+      ],
+      [
+        "SYN-053",
+        "Q-ONSET-01",
+        2,
+        "gate_passed"
+      ],
+      [
+        "SYN-057",
+        "Q-ONSET-01",
+        1,
+        "gate_passed"
+      ],
+      [
+        "SYN-057",
+        "Q-PENDINGTEST-01",
+        1,
+        "gate_passed"
+      ],
+      [
+        "SYN-062",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "SYN-066",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-066",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-067",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "SYN-071",
+        "Q-NTG-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "SYN-074",
+        "Q-POSTURAL-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-074",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-088",
+        "Q-PENDINGTEST-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "SYN-100",
+        "Q-SYNCOPE-02",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "SYN-106",
+        "Q-THRESHOLD-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-FREQ-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-REST-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-EXERTION-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-REPRO-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-NTG-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-106",
+        "Q-PENDINGTEST-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-108",
+        "Q-PENDINGTEST-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "SYN-110",
+        "Q-ANTIPLT-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-118",
+        "Q-PENDINGTEST-01",
+        9,
+        "max_questions"
+      ],
+      [
+        "SYN-120",
+        "Q-PENDINGTEST-01",
+        9,
+        "no_more_questions"
+      ],
+      [
+        "SYN-121",
+        "Q-CHARACTER-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-121",
+        "Q-ORTHO-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-131",
+        "Q-THRESHOLD-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-131",
+        "Q-FREQ-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-131",
+        "Q-REST-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-131",
+        "Q-NTG-01",
+        0,
+        "gate_passed"
+      ],
+      [
+        "SYN-136",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-136",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-137",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-138",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-138",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-138",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-140",
+        "Q-PALP-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-140",
+        "Q-POSTURAL-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-140",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-141",
+        "Q-PENDINGTEST-01",
+        3,
+        "gate_passed"
+      ],
+      [
+        "SYN-142",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-143",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-145",
+        "Q-REACHABLE-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-145",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ],
+      [
+        "SYN-149",
+        "Q-PENDINGTEST-01",
+        4,
+        "gate_passed"
+      ]
+    ],
+    "decisive_recall": 0.9479843953185956,
+    "questions_to_decision_mean": 7.093333333333334,
+    "gate_repeats": 0,
+    "confirm_back": {
+      "n": 170,
+      "per_call": 1.1333333333333333,
+      "changed": 0,
+      "downgrade_blocked": 0
+    },
+    "pending_test_extra": {
+      "asked": 24,
+      "skipped_at_cap": 0
+    },
+    "mention_reask": {
+      "n": 0,
+      "downgrades": 0
+    },
+    "stop_reasons": {
+      "hard_stop": 46,
+      "gate_passed": 64,
+      "max_questions": 17,
+      "gate_passed_t0_asked": 5,
+      "hard_stop_opening": 5,
+      "no_more_questions": 13
+    },
+    "confusion": {},
+    "rf_mismatch": []
+  },
+  "deviations": [
+    {
+      "case_id": "SYN-020",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "我其實沒有在喘啦，就只是那時候胸口悶悶的而已，不會喘。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-020",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "對，我沒有喘，就只是胸口悶悶的那一下而已。",
+      "confirm": true
+    },
+    {
+      "case_id": "SYN-027",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "我是不會喘啦，就是胸口怪怪的而已，走路、坐著都沒有在喘。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-027",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "對，我沒有在喘，就只是胸口怪怪的。",
+      "confirm": true
+    },
+    {
+      "case_id": "SYN-034",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "我其實沒有在喘啦，就是胸口怪怪的而已，喘倒是沒有。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-034",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "對，我沒有在喘，就只是胸口不太對勁而已。",
+      "confirm": true
+    },
+    {
+      "case_id": "SYN-036",
+      "question_id": "Q-PATTERN-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": 40,
+      "utterance_zh": "大概四十個禮拜左右了，差不多都是這樣。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-040",
+      "question_id": "Q-PATTERN-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": 260,
+      "utterance_zh": "她說這樣子大概五年了，差不多都是這個樣子。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-041",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "我沒有在喘耶，主要是胸口悶悶的，呼吸倒是還好。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-041",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "對，我沒有在喘，就是胸口悶悶的而已。",
+      "confirm": true
+    },
+    {
+      "case_id": "SYN-062",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "我沒有在喘啦，不管走路、做家事還是坐著都不會喘。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-062",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "對，我沒有喘，做什麼都不會喘。",
+      "confirm": true
+    },
+    {
+      "case_id": "SYN-067",
+      "question_id": "Q-PATTERN-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": 44,
+      "utterance_zh": "這種情況大概四十四個禮拜了，差不多十個月左右，一直都差不多這樣。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-069",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "我其實沒有在喘啦，走路做家事都還好，坐著也不會喘。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-069",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "對，我沒有在喘，不管走路還是坐著都不會。",
+      "confirm": true
+    },
+    {
+      "case_id": "SYN-083",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "喘喔？我沒有在喘耶，走路、做家事、坐著都還好，就是腳腫、體重一直上來而已。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-083",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "對，我沒有在喘，不管走路做事還是坐著都不會喘。",
+      "confirm": true
+    },
+    {
+      "case_id": "SYN-100",
+      "question_id": "Q-SCREEN-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": false,
+      "utterance_zh": "站起來頭暈是沒有啦，檢查也沒有被說異常、叫我回診還沒去的；心跳有沒有亂跳，我是沒注意到。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-147",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "喘的話她倒是沒講，語音裡只有說心跳亂亂的、眼前黑一下，沒有提到會喘。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-147",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "對，她沒有說會喘，就只有講心跳亂跟眼前黑一下而已。",
+      "confirm": true
+    },
+    {
+      "case_id": "SYN-150",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "她沒有在喘耶，她都只有說胃口上面悶住，沒講過會喘。",
+      "confirm": false
+    },
+    {
+      "case_id": "SYN-150",
+      "question_id": "Q-DYSPNEA-GRADE-01",
+      "kind": "fabricated",
+      "expected": null,
+      "got": "none",
+      "utterance_zh": "對，她沒有喘，只有胃口上面悶悶的那種不舒服。",
+      "confirm": true
+    }
+  ],
+  "errors": [],
+  "usage": {
+    "input_tokens": 5196,
+    "output_tokens": 82878,
+    "cache_creation_input_tokens": 1398590,
+    "cache_read_input_tokens": 2793217,
+    "calls": 1299,
+    "est_cost_usd": 9.7886
+  },
+  "wall_seconds": 252.6
+}
